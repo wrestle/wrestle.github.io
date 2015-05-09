@@ -3,17 +3,35 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2015 | WuShXin&#39;s fox</title>
+  <title>Python-lib安装 | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="编程带来的不是回报而是心满意足">
-<meta property="og:type" content="website">
-<meta property="og:title" content="WuShXin's fox">
-<meta property="og:url" content="http://www.wushxin.top/archives/2015/index.html">
+  <meta name="description" content="Python安装第三方库(Linux::Ubuntu 14.04 LTS)   关于一个gui的库 SimpleGUICS2Pygame    所有的命令均在 root 权限下执行 
+安装前提:
+使用easy_install 工具 apt-get install easy_install
+安装pip easy_install pip
+
+开始安装
+在 https://pypi.python.org/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python-lib安装">
+<meta property="og:url" content="http://www.wushxin.top/2015/05/10/Python-lib安装/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="编程带来的不是回报而是心满意足">
+<meta property="og:description" content="Python安装第三方库(Linux::Ubuntu 14.04 LTS)   关于一个gui的库 SimpleGUICS2Pygame    所有的命令均在 root 权限下执行 
+安装前提:
+使用easy_install 工具 apt-get install easy_install
+安装pip easy_install pip
+
+开始安装
+在 https://pypi.python.org/">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="WuShXin's fox">
-<meta name="twitter:description" content="编程带来的不是回报而是心满意足">
+<meta name="twitter:title" content="Python-lib安装">
+<meta name="twitter:description" content="Python安装第三方库(Linux::Ubuntu 14.04 LTS)   关于一个gui的库 SimpleGUICS2Pygame    所有的命令均在 root 权限下执行 
+安装前提:
+使用easy_install 工具 apt-get install easy_install
+安装pip easy_install pip
+
+开始安装
+在 https://pypi.python.org/">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -63,153 +81,78 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/10/Linux下Qt5配置/" class="archive-article-date">
-  <time datetime="2015-05-09T23:48:55.000Z" itemprop="datePublished">May 10</time>
+        <section id="main"><article id="post-Python-lib安装" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/10/Python-lib安装/" class="article-date">
+  <time datetime="2015-05-09T23:48:28.000Z" itemprop="datePublished">2015-05-10</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/10/Linux下Qt5配置/">Linux下Qt5配置</a>
+    <h1 class="article-title" itemprop="name">
+      Python-lib安装
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/10/Python-lib安装/" class="archive-article-date">
-  <time datetime="2015-05-09T23:48:28.000Z" itemprop="datePublished">May 10</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/10/Python-lib安装/">Python-lib安装</a>
-    </h1>
-  
+        <h1 id="Python">Python</h1><h2 id="安装第三方库(Linux::Ubuntu_14-04_LTS)">安装第三方库(Linux::Ubuntu 14.04 LTS)</h2><p>   关于一个gui的库 SimpleGUICS2Pygame <br><br>   所有的命令均在 root 权限下执行 <br></p>
+<h3 id="安装前提:">安装前提:</h3><ol>
+<li>使用easy_install 工具 <code>apt-get install easy_install</code></li>
+<li>安装pip <code>easy_install pip</code></li>
+</ol>
+<h3 id="开始安装">开始安装</h3><ol>
+<li>在 <a href="https://pypi.python.org/pypi/SimpleGUICS2Pygame" target="_blank" rel="external">https://pypi.python.org/pypi/SimpleGUICS2Pygame</a> 下载.egg格式的安装包 <br></li>
+<li>使用命令 <code>easy_install name.egg #name.egg 为下载的第三方库的egg包名称</code></li>
+<li>我们这里可以使用 <code>easy_install *.egg #代表安装所有的egg包,方便快捷,不用输入完整的名字</code></li>
+<li>我们可以通过 <code>pip freeze</code> 查看所安装的包</li>
+</ol>
+<h3 id="使用错误">使用错误</h3><ol>
+<li>当我们 <code>import simplegui</code>时,却出现 <code>...importError: No module named simplegui</code> <br><br>此时,我们应该使用这个语句块替换: <br><br><pre><code><br>try:<br> import simplegui<br>except:<br> import SimpleGUICS2Pygame.simpleGUICS2Pygame as simplegui<br></code><pre></pre></pre></li>
+<li>作者给出的解释是由于内部冲突所以会导致这种现象的产生</li>
+</ol>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/10/Python学习笔记/" class="archive-article-date">
-  <time datetime="2015-05-09T23:48:13.000Z" itemprop="datePublished">May 10</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/10/Python学习笔记/">Python学习笔记</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/10/C-流操作-续/" class="archive-article-date">
-  <time datetime="2015-05-09T23:47:59.000Z" itemprop="datePublished">May 10</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.wushxin.top/2015/05/10/Python-lib安装/" data-id="ci9hovbgw0007m0ltku7fq3ll" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/10/C-流操作-续/">C++流操作(续)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/10/C-流操作/" class="archive-article-date">
-  <time datetime="2015-05-09T23:47:37.000Z" itemprop="datePublished">May 10</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/10/C-流操作/">C++流操作</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/09/Hexo网站布置错误解决/" class="archive-article-date">
-  <time datetime="2015-05-09T12:10:30.000Z" itemprop="datePublished">May 9</time>
-</a>
-      
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/09/Hexo网站布置错误解决/">Hexo网站布置错误解决</a>
-    </h1>
+    <a href="/2015/05/10/Linux下Qt5配置/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Linux下Qt5配置
+        
+      </div>
+    </a>
   
+  
+    <a href="/2015/05/10/Python学习笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Python学习笔记</div>
+    </a>
+  
+</nav>
 
-    </header>
-  </div>
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/09/Why-I-learn-C/" class="archive-article-date">
-  <time datetime="2015-05-09T11:16:23.000Z" itemprop="datePublished">May 9</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/09/Why-I-learn-C/">Why I learn C</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 </section>
         
           <aside id="sidebar">

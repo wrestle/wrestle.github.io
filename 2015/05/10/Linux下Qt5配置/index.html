@@ -3,17 +3,26 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2015 | WuShXin&#39;s fox</title>
+  <title>Linux下Qt5配置 | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="编程带来的不是回报而是心满意足">
-<meta property="og:type" content="website">
-<meta property="og:title" content="WuShXin's fox">
-<meta property="og:url" content="http://www.wushxin.top/archives/2015/index.html">
+  <meta name="description" content="Linux of Qt5在Ubuntu编译Qt5工程时出现了can not find -lGL
+这是为什么?在Qt4时代并没有这种情况
+经过查找,发现Qt5在这个版本自动加入了openGL的支持,而有的平台并没有默认拥有(Windows默认有openGL,Linux却没有完全)
+那么我们可以通过安装 libglut-dev 来进行修复sudo apt-get install libglut-dev">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux下Qt5配置">
+<meta property="og:url" content="http://www.wushxin.top/2015/05/10/Linux下Qt5配置/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="编程带来的不是回报而是心满意足">
+<meta property="og:description" content="Linux of Qt5在Ubuntu编译Qt5工程时出现了can not find -lGL
+这是为什么?在Qt4时代并没有这种情况
+经过查找,发现Qt5在这个版本自动加入了openGL的支持,而有的平台并没有默认拥有(Windows默认有openGL,Linux却没有完全)
+那么我们可以通过安装 libglut-dev 来进行修复sudo apt-get install libglut-dev">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="WuShXin's fox">
-<meta name="twitter:description" content="编程带来的不是回报而是心满意足">
+<meta name="twitter:title" content="Linux下Qt5配置">
+<meta name="twitter:description" content="Linux of Qt5在Ubuntu编译Qt5工程时出现了can not find -lGL
+这是为什么?在Qt4时代并没有这种情况
+经过查找,发现Qt5在这个版本自动加入了openGL的支持,而有的平台并没有默认拥有(Windows默认有openGL,Linux却没有完全)
+那么我们可以通过安装 libglut-dev 来进行修复sudo apt-get install libglut-dev">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -63,153 +72,59 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/10/Linux下Qt5配置/" class="archive-article-date">
-  <time datetime="2015-05-09T23:48:55.000Z" itemprop="datePublished">May 10</time>
+        <section id="main"><article id="post-Linux下Qt5配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/10/Linux下Qt5配置/" class="article-date">
+  <time datetime="2015-05-09T23:48:55.000Z" itemprop="datePublished">2015-05-10</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/10/Linux下Qt5配置/">Linux下Qt5配置</a>
+    <h1 class="article-title" itemprop="name">
+      Linux下Qt5配置
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/10/Python-lib安装/" class="archive-article-date">
-  <time datetime="2015-05-09T23:48:28.000Z" itemprop="datePublished">May 10</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/10/Python-lib安装/">Python-lib安装</a>
-    </h1>
-  
+        <h2 id="Linux_of_Qt5">Linux of Qt5</h2><p></p><p>在Ubuntu编译Qt5工程时出现了<br><br><code>can not find -lGL</code><br></p>
+<p></p><p>这是为什么?在Qt4时代并没有这种情况<br></p>
+<p></p><p>经过查找,发现Qt5在这个版本自动加入了openGL的支持,而有的平台并没有默认拥有<br><br><strong>(Windows默认有openGL,Linux却没有完全)<strong></strong></strong></p>
+<p></p><p>那么我们可以通过安装 <code>libglut-dev</code> 来进行修复<br><br><code>sudo apt-get install libglut-dev</code><br><br></p>
+<p></p><p>稍微解读一下也能知道-lGL==&gt;-linkopenGL的意思</p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/10/Python学习笔记/" class="archive-article-date">
-  <time datetime="2015-05-09T23:48:13.000Z" itemprop="datePublished">May 10</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/10/Python学习笔记/">Python学习笔记</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/10/C-流操作-续/" class="archive-article-date">
-  <time datetime="2015-05-09T23:47:59.000Z" itemprop="datePublished">May 10</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.wushxin.top/2015/05/10/Linux下Qt5配置/" data-id="ci9hovbgw0009m0lt6ameacfb" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/10/C-流操作-续/">C++流操作(续)</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/10/C-流操作/" class="archive-article-date">
-  <time datetime="2015-05-09T23:47:37.000Z" itemprop="datePublished">May 10</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/10/C-流操作/">C++流操作</a>
-    </h1>
-  
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Liunx/">Liunx</a></li></ul>
 
-    </header>
+    </footer>
   </div>
-</article>
   
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/09/Hexo网站布置错误解决/" class="archive-article-date">
-  <time datetime="2015-05-09T12:10:30.000Z" itemprop="datePublished">May 9</time>
-</a>
-      
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/09/Hexo网站布置错误解决/">Hexo网站布置错误解决</a>
-    </h1>
   
+    <a href="/2015/05/10/Python-lib安装/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Python-lib安装</div>
+    </a>
+  
+</nav>
 
-    </header>
-  </div>
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/09/Why-I-learn-C/" class="archive-article-date">
-  <time datetime="2015-05-09T11:16:23.000Z" itemprop="datePublished">May 9</time>
-</a>
-      
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/09/Why-I-learn-C/">Why I learn C</a>
-    </h1>
-  
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 </section>
         
           <aside id="sidebar">
