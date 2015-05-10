@@ -10,7 +10,7 @@
 本人布置建设并布置该网站在2015.5.9日，Hexo的版本已经到3了，并且在这个版本出现了一个和以前不同的配置，所以导致许多后来者按照前人的脚步跳进了深坑，当然你降至版本2也是可以使用前人的设置的。首先是在你配置好本">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Hexo网站布置错误解决">
-<meta property="og:url" content="http://www.wushxin.top/2015/05/09/Hexo网站布置错误解决/index.html">
+<meta property="og:url" content="http://wushxin.top/2015/05/09/Hexo网站布置错误解决/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
 <meta property="og:description" content="布置Hexo博客发布于Github pages时的错误总结在布置一个个人博客的时候，我们总会遇到各种各样的错误，这里来总结一下，不记录那些常规步骤，因为网上特别多，搜集常见错误。
 
@@ -35,7 +35,6 @@
   <div id="container">
     <div id="wrap">
       <header id="header">
-  <script src="//http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
   <div id="banner"></div>
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
@@ -64,7 +63,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="q" value="site:http://www.wushxin.top"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="q" value="site:http://wushxin.top"></form>
       </div>
     </div>
   </div>
@@ -94,15 +93,12 @@
       
         <h2 id="布置Hexo博客">布置Hexo博客</h2><h4 id="发布于Github_pages时的错误总结">发布于Github pages时的错误总结</h4><p>在布置一个个人博客的时候，我们总会遇到各种各样的错误，这里来总结一下，不记录那些常规步骤，因为网上特别多，搜集常见错误。</p>
 <ul>
-<li><p>本人布置建设并布置该网站在2015.5.9日，Hexo的版本已经到3了，并且在这个版本出现了一个和以前不同的配置，所以导致许多后来者按照前人的脚步跳进了深坑，当然你降至版本2也是可以使用前人的设置的。<br>首先是在你配置好本地之后，验证可行了，那么你就可以选择发布到Github Pages上了，这个时候，在<strong>_config.yml</strong>文件中修改末尾项为:</p>
-<pre><code><span class="attribute">deploy</span>:
+<li>本人布置建设并布置该网站在2015.5.9日，Hexo的版本已经到3了，并且在这个版本出现了一个和以前不同的配置，所以导致许多后来者按照前人的脚步跳进了深坑，当然你降至版本2也是可以使用前人的设置的。<br>首先是在你配置好本地之后，验证可行了，那么你就可以选择发布到Github Pages上了，这个时候，在<strong>_config.yml</strong>文件中修改末尾项为:<pre><code><span class="attribute">deploy</span>:
     <span class="attribute">type</span>: git #此处在版本<span class="number">2</span>时为github
     <span class="attribute">repository</span>: <span class="attribute">https</span>:<span class="comment">//github.com/......</span>
     ...
-</code></pre><p>在这个地方容易出错的是<strong>type:</strong>后方容易被误导，版本2请填写github，版本3除了填写git以外，还需要在外头<strong>Git bash</strong>里使用命令:</p>
-<pre><code>npm <span class="operator"><span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></span>
-</code></pre><p>有了这个命令就能分分钟解决你的问题。</p>
-</li>
+</code></pre>在这个地方容易出错的是<strong>type:</strong>后方容易被误导，版本2请填写github，版本3除了填写git以外，还需要在外头<strong>Git bash</strong>里使用命令:<pre><code>npm <span class="operator"><span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></span>
+</code></pre>有了这个命令就能分分钟解决你的问题。<a id="more"></a></li>
 <li><p>还有一个问题，在我们使用命令:</p>
 <pre><code><span class="title">hexo</span> init <span class="string">"Blog_name"</span>
 </code></pre><p>初始化建立一个博客之后，我们需要使用命令:</p>
@@ -121,7 +117,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.wushxin.top/2015/05/09/Hexo网站布置错误解决/" data-id="ci9i5wy4q000ewsltr77rg88l" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/09/Hexo网站布置错误解决/" data-id="ci9ilmsmt000ekwltff7c4c3j" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网站/">网站</a></li></ul>
@@ -223,13 +219,10 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 WuShengXin<br>
-      Powered by Wrestle.Wu<br>
-	    <script src="//dn-lbstatics.qbox.me/lbservice/busuanzi/2.0/busuanzi.mini.js"/></script>
-  <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+      &copy; 2015 WuShengXin
     </div>
   </div>
-<script src="//dn-lbstatics.qbox.me/lbservice/busuanzi/2.0/busuanzi.mini.js"></script>
+
 </footer>
     </div>
     <nav id="mobile-nav">

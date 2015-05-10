@@ -9,7 +9,7 @@
 重定向   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源       ~$ program ‘&amp;lt;’input.filetype &amp;gt;output.filetype #去掉多余的’’       在Linux和Unix下,’&amp;gt;’ ‘&amp;lt;’">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++流操作">
-<meta property="og:url" content="http://www.wushxin.top/2015/05/10/C-流操作/index.html">
+<meta property="og:url" content="http://wushxin.top/2015/05/10/C-流操作/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
 <meta property="og:description" content="C++流的使用每次使用完流,记得要关闭,虽然有时候并不是必须的.streamname.close();
 重定向   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源       ~$ program ‘&amp;lt;’input.filetype &amp;gt;output.filetype #去掉多余的’’       在Linux和Unix下,’&amp;gt;’ ‘&amp;lt;’">
@@ -32,7 +32,6 @@
   <div id="container">
     <div id="wrap">
       <header id="header">
-  <script src="//http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
   <div id="banner"></div>
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
@@ -61,7 +60,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="q" value="site:http://www.wushxin.top"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="q" value="site:http://wushxin.top"></form>
       </div>
     </div>
   </div>
@@ -97,16 +96,8 @@
 </code></pre><p>   <br>2. 刷新输出缓冲区可以有两种方法,原理都是重载 ‘&lt;&lt;’ <br><br>   <br>   前者与后者的差别就在与后者刷新缓冲区后多了一个换行操作 <br></p>
 <pre><code><span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; flush; <span class="comment">//相当于flush(cout);</span>
 <span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; endl;  
-</code></pre><p>   <br>3. 可以通过流操作修改现实的进制, 默认十进制,十六进制,八进制 <br></p>
-<pre><code><span class="keyword">int</span> n = <span class="number">100</span>;
-<span class="built_in">cout</span> &lt;&lt; n &lt;&lt; endl;
-<span class="comment">//八进制</span>
-<span class="built_in">cout</span> &lt;&lt; oct &lt;&lt; n &lt;&lt; endl;
-<span class="comment">//十六进制</span>
-<span class="built_in">cout</span> &lt;&lt; hex &lt;&lt; n &lt;&lt; endl;
-<span class="comment">//这种作用是持久的,在不用的时候记得转换回来</span>
-dec(<span class="built_in">cout</span>); <span class="comment">//代表转换为十进制 cout &lt;&lt; dec;同样适用  </span>
-</code></pre><p>   <br>4. 我们可以调整字段宽度来达到美观,但Ｃ++有一种数据完整大于美观的理念,所以即使你设置了字段宽度,一旦超过还是会<br>        打乱阵型,以保证数据的完整性.<br>   <br></p>
+</code></pre><p>   <br>3. 可以通过流操作修改现实的进制, 默认十进制,十六进制,八进制 <br><br><a id="more"></a><br>      int n = 100;<br>      cout &lt;&lt; n &lt;&lt; endl;<br>      //八进制<br>      cout &lt;&lt; oct &lt;&lt; n &lt;&lt; endl;<br>      //十六进制<br>      cout &lt;&lt; hex &lt;&lt; n &lt;&lt; endl;<br>      //这种作用是持久的,在不用的时候记得转换回来<br>      dec(cout); //代表转换为十进制 cout &lt;&lt; dec;同样适用  </p>
+<p>   <br>4. 我们可以调整字段宽度来达到美观,但Ｃ++有一种数据完整大于美观的理念,所以即使你设置了字段宽度,一旦超过还是会<br>        打乱阵型,以保证数据的完整性.<br>   <br></p>
 <pre><code><span class="built_in">cout</span>.fill(<span class="string">'*'</span>);<span class="comment">//使用'*'填充空白,注意此为持久的.</span>
 <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">100</span>;i*=<span class="number">10</span>)
 {
@@ -137,7 +128,7 @@ dec(<span class="built_in">cout</span>); <span class="comment">//代表转换为
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.wushxin.top/2015/05/10/C-流操作/" data-id="ci9i5wy4q000hwsltf9wjd3az" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/10/C-流操作/" data-id="ci9ilmsmv000hkwltw8ox9gon" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li></ul>
@@ -239,13 +230,10 @@ dec(<span class="built_in">cout</span>); <span class="comment">//代表转换为
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 WuShengXin<br>
-      Powered by Wrestle.Wu<br>
-	    <script src="//dn-lbstatics.qbox.me/lbservice/busuanzi/2.0/busuanzi.mini.js"/></script>
-  <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+      &copy; 2015 WuShengXin
     </div>
   </div>
-<script src="//dn-lbstatics.qbox.me/lbservice/busuanzi/2.0/busuanzi.mini.js"></script>
+
 </footer>
     </div>
     <nav id="mobile-nav">

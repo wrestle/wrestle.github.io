@@ -8,7 +8,7 @@
   <meta name="description" content="编程带来的不是回报而是心满意足">
 <meta property="og:type" content="website">
 <meta property="og:title" content="WuShXin's fox">
-<meta property="og:url" content="http://www.wushxin.top/index.html">
+<meta property="og:url" content="http://wushxin.top/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
 <meta property="og:description" content="编程带来的不是回报而是心满意足">
 <meta name="twitter:card" content="summary">
@@ -29,7 +29,6 @@
   <div id="container">
     <div id="wrap">
       <header id="header">
-  <script src="//http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
   <div id="banner"></div>
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
@@ -58,7 +57,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="q" value="site:http://www.wushxin.top"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="q" value="site:http://wushxin.top"></form>
       </div>
     </div>
   </div>
@@ -97,7 +96,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.wushxin.top/2015/05/10/Linux下Qt5配置/" data-id="ci9i5wy4q000bwsltne0207mm" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/10/Linux下Qt5配置/" data-id="ci9ilmsmr000bkwltzd2qo0qo" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Liunx/">Liunx</a></li></ul>
@@ -142,15 +141,20 @@
 <li>我们这里可以使用 <code>easy_install *.egg #代表安装所有的egg包,方便快捷,不用输入完整的名字</code></li>
 <li>我们可以通过 <code>pip freeze</code> 查看所安装的包</li>
 </ol>
-<h3 id="使用错误">使用错误</h3><ol>
-<li>当我们 <code>import simplegui</code>时,却出现 <code>...importError: No module named simplegui</code> <br><br>此时,我们应该使用这个语句块替换: <br><br><pre><code><br>try:<br> import simplegui<br>except:<br> import SimpleGUICS2Pygame.simpleGUICS2Pygame as simplegui<br></code><pre></pre></pre></li>
-<li>作者给出的解释是由于内部冲突所以会导致这种现象的产生</li>
-</ol>
+<h3 id="使用错误">使用错误</h3><ul>
+<li><p>当我们 <code>import simplegui</code>时,却出现 <code>...importError: No module named simplegui</code> <br><br>此时,我们应该使用这个语句块替换: <br></p>
+<pre><code><span class="string">try:</span>
+    <span class="keyword">import</span> simplegui 
+<span class="string">except:</span>
+    <span class="keyword">import</span> SimpleGUICS2Pygame.simpleGUICS2Pygame <span class="keyword">as</span> simplegui
+</code></pre></li>
+</ul>
+<p>· 作者给出的解释是由于内部冲突所以会导致这种现象的产生</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.wushxin.top/2015/05/10/Python-lib安装/" data-id="ci9i5wy4a0009wsltzzgypcaz" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/10/Python-lib安装/" data-id="ci9ilmsmp0009kwlty9s2t9p5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
@@ -194,118 +198,16 @@ elif statemen<span class="variable">t:</span>
     statement
 
 <span class="keyword">print</span> <span class="string">'That is All'</span>
-</code></pre><h3 id="for语法">for语法</h3><p><pre><code><br>    for variable in list/tuple:<br>        statement<br></code></pre></p>
-<p>则variable每次循环就会前进一个，代表一个元素</p><br><strong>for 和 in 是Python的关键字</strong><br><br><br>    int i = 0<br>    while i<2: statement="" <strong="">循环可以多层嵌套，判断条件也很灵活<br><br>    for x in [1, 2, 3]:<br>        for y in (1, 2, 3):<br>            print x+y<br>    #输出 2 4 6<br><p>同样while也可以嵌套，注意缩进即可</p><br><p>continue关键字的用法和C语言一样</p>
-
-<h3 id="list有序表">list有序表</h3><p><code>[value, ...]</code> 创建语法，其内元素类型可不相同</p><br><p>1. <code>[index]</code> 索引，也可用来赋值</p><br><p>2. <code>append()</code> 将元素加入末尾</p><br><p>3. <code>insert()</code>将元素插入开头</p><br><p>4. <code>pop()</code>剔除最后一个元素,加上索引参数就剔除指定位置元素</p>
-
-<h3 id="tuple有序表">tuple有序表</h3><p><code>(value, ...)</code> 创建语法，与list不同的是，创建后不可改变</p><br><p>1. <code>( )</code> 在创建tuple单元素的时候，记得加 , 以免造成语法歧义 &gt;&gt;&gt; t = (2,)</p><br><p>2. <code>t[1]</code>同样使用索引找到想要的值</p><br><p>“可变的”tuple 原理即在tuple中加入</p><br><pre><code><br>    list &gt;&gt;&gt; t = (1,2,[‘Kandle’, ‘Bankgh’])<br></code></pre><br><p>就可以使用tuple的索引到list进行增减</p>
-
-<h3 id="dict无序表">dict无序表</h3><p><code>{&#39;Search_name&#39;: value, ... }</code>创建语法，就像是字典，通过”名称(专业术语叫key)”来查找值(value)，</p><br><p>原理是数据结构哈希表或者叫散列表(Hash Table)</p><br><pre><code><br>    &gt;&gt;&gt; d = {‘Leao’: 65, ‘Candy’: 89, ‘Saver’: 86}<br></code></pre><br><p>1. <code>d[&#39;Leao&#39;]</code> 同样使用索引找到对应的值</p><br><p>如果只是使用<code>[ ]</code>来索引，那么当key不存在时，程序将出错，可以使用dict所带的一种方法:</p><br><p>2. <code>get(&#39;Leao&#39;)</code> 同样返回对应的值，当key不存在时，将返回 None 而不是让程序报错</p><br><p>3. key是不可变的，不可重复的。value无限制</p><br><p>4. 高级应用:</p><br><p>    充分利用key的特性，由于Python中数字类型，字符串和tuple类型不可变，故可以用来做key</p><br><pre><code><br>    t1 = {‘string’: [1, 2, 3], 20: ‘string’, [1, 2]: True}<br></code></pre><br><p>5. <code>d[&#39;Newone&#39;] = 99</code> 向已有的dict中添加新成员</p>
-
-<h3 id="set无序表">set无序表</h3><p><strong>与dict相似，只是少了value，只有key</strong></p>
-<p>([‘A’, …]) 创建语法</p><br><p>1. 与list某些特性相似，打印时显示所有元素，但顺序不一定是加入的顺序</p><br><pre><code><br>    &gt;&gt;&gt; s = ([‘A’, ‘B’, ‘C’, ‘C’]<br></code></pre><br><p>print s 可能输出 set([‘A’, ‘C’, ‘B’])</p><br><p>2. set类型只有key没有value，那么访问它们时，返回的不再像dict那样是value，而是 True 或 False</p><br><p>3. set可以用关键字 in 访问 <code>&gt;&gt;&gt; &#39;A&#39; in s</code> 返回Ture</p><br><p>4. add() 添加元素</p><br><p>5. remove() 删除元素</p>
-
-<h3 id="函数">函数</h3><p><strong>1. 内置函数可以使用 help(fun_name) 查看用法</strong></p>
-<p>类型转换函数也是内置的，比如将字符串转为数字</p>
-
-<pre><code><span class="prompt">&gt;&gt;</span>&gt; int(<span class="string">'123'</span>)
-<span class="prompt">&gt;&gt;</span>&gt; <span class="number">123</span>
-</code></pre><p>2. 编写函数</p><br><p>格式</p>
-
-<pre><code><span class="function"><span class="keyword">def</span> <span class="title">my_function</span><span class="params">(args)</span>:</span>
-    statement
-    <span class="keyword">return</span>
-</code></pre><p>其中def是定义函数的关键字，其后紧跟一个空格，函数名字，括号，括号中有传入的形式参数，冒号，</p><br><p>函数体(同样是缩进代表同一个代码块)，return也是关键字，后面可跟返回值，如果没有则默认返回None</p><br><p>3.Python的函数可以返回多个值，接收的时候可以用多个变量接受，用逗号隔开。</p><br><p>实际上Python<strong>只是返回一个tuple类型的值</strong>，并不是真的返回多个值，只不过多个变量可以接收同一个tuple类型的值，并按照相应位置赋值:</p>
-
-<pre><code><span class="comment">#假设move_north函数接收一个距离，并返回下一个坐</span>
-<span class="comment">#标的值</span>
-<span class="prompt">&gt;&gt;</span>&gt; x, y = move_north(<span class="number">200</span>)
-<span class="prompt">&gt;&gt;</span>&gt; print x, y
-<span class="prompt">&gt;&gt;</span>&gt; <span class="number">133.55</span> <span class="number">226.17</span>
-<span class="prompt">&gt;&gt;</span>&gt; r = move_north(<span class="number">200</span>)
-<span class="prompt">&gt;&gt;</span>&gt; print r
-<span class="prompt">&gt;&gt;</span>&gt;(<span class="number">133.55</span>, <span class="number">226.17</span>)
-</code></pre><p>4. 函数的默认参数</p><br><p>可以让某些函数的参数拥有默认值，来简化函数调用</p>
-
-<pre><code><span class="function"><span class="keyword">def</span> <span class="title">my_function1</span><span class="params">(x, y=<span class="number">10</span>)</span>:</span>
-    <span class="keyword">return</span> x+y
-<span class="function"><span class="keyword">def</span> <span class="title">my_function2</span><span class="params">(x, y)</span>:</span>
-    <span class="keyword">return</span> x+y
-&gt;&gt;&gt;<span class="keyword">print</span> my_function1(<span class="number">10</span>), my_function1(<span class="number">10</span>,<span class="number">10</span>)
-&gt;&gt;&gt;<span class="number">20</span>, <span class="number">20</span>
-&gt;&gt;&gt;<span class="keyword">print</span> my_function2(<span class="number">10</span>) <span class="comment">#报错</span>
-&gt;&gt;&gt;<span class="keyword">print</span> my_function2(<span class="number">10</span>, <span class="number">10</span>)
-&gt;&gt;&gt;<span class="number">20</span>
-</code></pre><p>被设置默认值的参数后面不能有没有默认参数的参数。</p><br><p>5.可变参数的函数</p>
-
-<pre><code><span class="function"><span class="keyword">def</span> <span class="title">averages</span><span class="params">(*args)</span>:</span>
-    sum = <span class="number">0.0</span>
-    count = <span class="number">0.0</span>
-    <span class="keyword">for</span> val <span class="keyword">in</span> args:
-        sum = sum + val
-        count = count + <span class="number">1.0</span>
-    <span class="keyword">return</span> sum/count
-</code></pre><p>把args变量看作一个tuple即可</p>
-
-<h3 id="list和tuple的_切片操作">list和tuple的 切片操作</h3><p>即取出其中部分的一种操作</p>
-
-<pre><code><span class="prompt">&gt;&gt;</span>&gt;<span class="constant">L</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]
-<span class="prompt">&gt;&gt;</span>&gt;<span class="constant">L</span>[<span class="number">0</span><span class="symbol">:</span><span class="number">3</span>]
-<span class="prompt">&gt;&gt;</span>&gt;[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]
-<span class="prompt">&gt;&gt;</span>&gt;<span class="constant">L</span>[<span class="symbol">:</span>]
-<span class="prompt">&gt;&gt;</span>&gt;[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]
-<span class="comment">#接收第三个参数，用来增加条件</span>
-<span class="prompt">&gt;&gt;</span>&gt;<span class="constant">L</span>[<span class="symbol">:</span><span class="symbol">:</span><span class="number">2</span>]
-<span class="prompt">&gt;&gt;</span>&gt;[<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>]
-</code></pre><h4 id="切片操作的用法">切片操作的用法</h4><pre><code>list[start_index:end_index+<span class="number">1</span>:step]
-<span class="preprocessor">#索引为end_index+1位置上的元素不会被取到</span>
-<span class="preprocessor">#步长为-1，就说明要倒序取</span>
-</code></pre><p><strong>tuple的切片操作与list一致</strong><br></p>
-<p>字符串的切片操作</p>
-
-<pre><code><span class="prompt">&gt;&gt;</span>&gt;<span class="string">'ABCD'</span>[<span class="symbol">:</span><span class="number">2</span>]
-<span class="prompt">&gt;&gt;</span>&gt;<span class="string">'AB'</span>
-</code></pre><h3 id="关于迭代">关于迭代</h3><p>1. for总是取出某个集合中的元素，而不是索引</p><br><p>如果我们想要索引，可以使用<strong>enumerate()</strong>函数</p>
-
-<pre><code>#假设有L[<span class="string">'Linda'</span>, <span class="string">'Papara'</span>, <span class="string">'Gerada'</span>, <span class="string">'Bazinga'</span>]
-<span class="keyword">for</span> index, value <span class="keyword">in</span> <span class="function"><span class="title">enumerate</span><span class="params">(L)</span></span>:
-    print index, <span class="string">'-'</span>, value
-&gt;&gt;&gt;<span class="number">0</span> - Linda <span class="number">1</span> - Papara <span class="number">2</span> - Gerada <span class="number">3</span> - Bazinga
-</code></pre><p>实际上enumerate自动把每个元素和其对应的索引组合成一个tuple类型，接下来就行了。</p><br><p>2. 迭代dict中的value</p><br><p>可以使用dict的values()方法或者intervalues()，两个方法效果一样，差别在于内存的消耗</p>
-
-<pre><code><span class="keyword">for</span> val <span class="keyword">in</span> dictionary.value()<span class="symbol">:</span>
-    print val
-<span class="prompt">&gt;&gt;</span>&gt;<span class="comment">#打印出dict 中的所有值而不是key</span>
-</code></pre><p><strong>同时输出key和value的方法:</strong></p>
-<p>使用dict的items()和iteritems()方法</p>
-
-<pre><code><span class="keyword">for</span> key, <span class="built_in">value</span> <span class="operator">in</span> dictionary.<span class="keyword">items</span>():
-    print key, <span class="string">'-'</span>, <span class="built_in">value</span>
-&gt;&gt;&gt;<span class="string">'Linda'</span> - <span class="number">65</span> ...<span class="comment">#打印出所有的key value</span>
-</code></pre><h3 id="*生成列表">*生成列表</h3><p>1. <strong>range()</strong>函数可以生成既定步长的列表</p>
-
-<pre><code><span class="prompt">&gt;&gt;</span>&gt;range(<span class="number">1</span>,<span class="number">10</span>)
-<span class="prompt">&gt;&gt;</span>&gt;[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]
-</code></pre><p>2. 有一种Python自带的列表语法</p>
-
-<pre><code>&gt;&gt;&gt;[x*x <span class="keyword">for</span> x <span class="keyword">in</span> <span class="function"><span class="title">range</span><span class="params">(<span class="number">1</span>,<span class="number">10</span>)</span></span>]
-&gt;&gt;&gt;[<span class="number">1</span>, <span class="number">4</span>, <span class="number">9</span>, <span class="number">16</span>, <span class="number">25</span>, <span class="number">36</span>, <span class="number">49</span>, <span class="number">64</span>, <span class="number">81</span>]
-</code></pre><p>语法是，先写一个元素的表达式(你的元素要满足的条件，这里是x*x)，其次跟一个for迭代式子。放在一个list生成式里</p>
-
-<pre><code>#range同样是一个有默认参数的内置函数
-<span class="function"><span class="title">range</span><span class="params">(start_index, end_index+<span class="number">1</span>, step)</span></span>
-</code></pre><p>3. 复杂表达式</p><br><p>在列表生成中，不仅可以使用for迭代，我们还能让if剔除迭代中不想要的元素</p>
-
-<pre><code>&gt;&gt;&gt;[x*<span class="function">x <span class="keyword">for</span> x <span class="keyword">in</span> <span class="title">range</span><span class="params">(<span class="number">1</span>,<span class="number">10</span>)</span> <span class="keyword">if</span> x % 2 </span>== <span class="number">0</span>]
-&gt;&gt;&gt;[<span class="number">4</span>, <span class="number">16</span>, <span class="number">36</span>, <span class="number">64</span>]
-<span class="preprocessor">#只有<span class="keyword">if</span>语句是真时，才会出现在生成的list中</span>
-</code></pre><p>4. 列表生成中，同样可以嵌套循环</p><br><p>5.高级应用，使用列表生成来制作网页中的部件，如生成表格</p>
-</2:>
+</code></pre>
+        
+          <p class="article-more-link">
+            <a href="/2015/05/10/Python学习笔记/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.wushxin.top/2015/05/10/Python学习笔记/" data-id="ci9i5wy4a0006wsltb315bno2" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/10/Python学习笔记/" data-id="ci9ilmsmn0006kwltmigw9t0w" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
@@ -339,7 +241,7 @@ elif statemen<span class="variable">t:</span>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Ｃ++流的使用(续)">Ｃ++流的使用(续)</h3><h2 id="文件I/O">文件I/O</h2>   <p> 常用的基本方法是 <code>open()</code>,<code>c_str()</code>,<code>is_open()</code> 分别时连接文件,转为Ｃ风格字符串,是否连接文件成功 </p>
+        <h3 id="Ｃ++流的使用(续)">Ｃ++流的使用(续)</h3><h2 id="文件I/O">文件I/O</h2>   <P> 常用的基本方法是 <code>open()</code>,<code>c_str()</code>,<code>is_open()</code> 分别时连接文件,转为Ｃ风格字符串,是否连接文件成功 </P>
 
 <pre><code><span class="variable">#include</span> <span class="string">`&lt;fstream&gt;`</span> <span class="comment">//此头文件已经包含了iostream</span>
 <span class="attribute">...</span>
@@ -355,43 +257,16 @@ cerr <span class="subst">&lt;&lt;</span> <span class="string">"..."</span>;
 }
 fout<span class="built_in">.</span>open();
 <span class="attribute">...</span>
-</code></pre>   <p> 使用命令行参数的使用 </p><br>   <p><code>int main(int argc, char* argv[])</code> 式中的参数很多人既熟悉又陌生,第一个参数代表参数个数(包括自身)</p><br>   <p> 第二个参数argv的意义在于使用某个参数的名字,以字符串的形式,举个栗子 </p>
-
-<pre><code>#<span class="keyword">include</span> ...
-<span class="comment">//...</span>
-<span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])
-{
-<span class="keyword">for</span>(<span class="keyword">int</span> <span class="keyword">file</span> = <span class="number">1</span>;<span class="keyword">file</span> &lt; argc;++<span class="keyword">file</span>) <span class="comment">//file为 0 时输出的是该命令或者可执行文件的名称</span>
-      cout &lt;&lt; argv[<span class="keyword">file</span>];              <span class="comment">//argv[file]的类型为char*, 即为一个字符串,内容</span>
-                                       <span class="comment">//为参数的名字,argc代表总参数个数+1</span>
-}
-</code></pre>   <p> 假设上面的程序经过编译,在Liunx下实验则为(Windows下请打开命令提示符模式(Win+R,输入cmd,回车后打开),后续操作相同) </p><br>   <code>~$ a.out file1 file2</code><br><br>   <strong> 其中 argv[1] == “file1”, argv[2] == “file2” argv[0] == “a.out” </strong><br><br>   <p> 文件I/O的模式 mode </p><br>   <pre><code><br>   //接上上个程序<br>   fin.open(cppstr1.<code>c_str()</code>,mode);//mode代表模式,后面介绍<br>   ifstream fin2(cppstr2.<code>c_str()</code>,mode);//也可以使用构造函数的方式<br>   ofstream fout2(…);//ofstream的模式多于ifstream<br>   </code></pre><br>   <p><br>   <strong>下面模式可以与Ｃ中的I/O模式对应</strong><br><br>   <code>ios_base::in</code>   //此mode适用于ifstream类型,用于打开并读取文件<br><br>   <code>ios_base::out</code>  //打开文件,并写入<br><br>   <code>ios_base::trunc</code>//如果文件存在则,截断文件,ofstream的构造函数默认使用 <code>ios_base::out|ios_base::turnc</code><br><br>   <code>ios_base::app</code>  //打开文件,追加到文件尾写入<br><br>   <code>ios_base::ate</code>  //打开文件,并移动到文件尾<br><br>   <code>ios_base::binary</code> //使用二进制文件模式.对于数字十分迅捷,但也有不足,即兼容性.<br><br>   <strong> 符号<code>|</code>,代表或,该运算符两端的操作都使用 </strong><br>   </p><br>## 文件I/O之二进制文件<br>   <p> 此后的代码都必须建立在同一种类型的系统甚至同一种类型的编译器中,即产生或使用的文件的使用的范围. </p>
-
-<pre><code><span class="preprocessor">#include `&lt;fstream&gt;`</span>
-<span class="keyword">const</span> <span class="keyword">char</span>* filename = <span class="string">"test.txt"</span>;
-<span class="keyword">struct</span> test{
-      <span class="keyword">char</span>   name[<span class="number">10</span>];
-      <span class="keyword">double</span> popu;
-      <span class="keyword">double</span> g;
-};<span class="comment">//定义一个结构体,用来展示二进制的读以及写</span>
-<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>{
-...<span class="comment">//创建一个test类型的结构体对象,并填入值,对象名为 bintest</span>
-<span class="function">ofstream <span class="title">fout</span><span class="params">(filename, `ios_base::<span class="keyword">in</span>`|`ios_base::binary`)</span></span>;
-...<span class="comment">//检查是否打开成功</span>
-fout.write((`<span class="keyword">char</span>*`)&amp;bintest, <span class="keyword">sizeof</span> bintest); 
-`<span class="comment">//使用write函数来写入,char*代表逐个字符的从内存写入到文件,而不考虑存储类型`</span>
-<span class="function">ofstream <span class="title">fin</span><span class="params">(filename, `ios_base::<span class="keyword">in</span>`|`ios_base::binary`)</span></span>;
-...<span class="comment">//检查是否打开成功</span>
-fin.read((<span class="keyword">char</span>*)&amp;bintest, <span class="keyword">sizeof</span> bintest);<span class="comment">//使用read函数来恢复使用write函数写入的二进制数据</span>
-...<span class="comment">//验证是否操作有误</span>
-<span class="keyword">return</span> <span class="number">0</span>;
-}
-</code></pre><p>   <strong>科普:由于三大类操作系统对于换行有不同定义,导致了第一句话:</strong><br><br>   </p><p>Windows使用换行加回车表示 换行符</p><br>   <p>Unix/Liunx使用换行来表示  换行符</p><br>   <p>Macintosh使用回车来表示   换行符(即苹果电脑)</p><p></p>
-
+</code></pre>   <p> 使用命令行参数的使用 </p>
+        
+          <p class="article-more-link">
+            <a href="/2015/05/10/C-流操作-续/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.wushxin.top/2015/05/10/C-流操作-续/" data-id="ci9i5wy4a0000wsltqlv1n6ic" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/10/C-流操作-续/" data-id="ci9ilmslh0000kwlt31khrgsw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li></ul>
@@ -426,54 +301,23 @@ fin.read((<span class="keyword">char</span>*)&amp;bintest, <span class="keyword"
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="C++流的使用">C++流的使用</h1><h2 id="每次使用完流,记得要关闭,虽然有时候并不是必须的-">每次使用完流,记得要关闭,虽然有时候并不是必须的.</h2><p><code>streamname.close();</code></p>
-<h2 id="重定向">重定向</h2><p>   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源 <br><br>   <pre><code><br>   ~$ program ‘&lt;’input.filetype &gt;output.filetype #去掉多余的’’<br>   </code></pre><br>   <br> 在Linux和Unix下,’&gt;’ ‘&lt;’默认是标准输出和标准输入,’2&gt;’则是标准错误(即std::cerr)</p>
-<h2 id="输出流">输出流</h2><p>   <br>1. ostream类提供了 put() 和 write() 方法用来输出 <br></p>
+<h2 id="重定向">重定向</h2><p>   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源 </br><br>   <pre><code><br>   ~$ program ‘&lt;’input.filetype &gt;output.filetype #去掉多余的’’<br>   </code></pre><br>   <br> 在Linux和Unix下,’&gt;’ ‘&lt;’默认是标准输出和标准输入,’2&gt;’则是标准错误(即std::cerr)</p>
+<h2 id="输出流">输出流</h2><p>   <br>1. ostream类提供了 put() 和 write() 方法用来输出 </br></p>
 <pre><code><span class="built_in">cout</span>.put(<span class="string">'W'</span>); <span class="comment">//输出字符Ｗ,可以拼接使用就像重载之后的 '&lt;&lt;'</span>
 <span class="built_in">cout</span>.write(<span class="string">"Candy Bob"</span>,<span class="number">5</span>); <span class="comment">//输出第一个参数的第二个参数个长度</span>
-</code></pre><p>   <br>2. 刷新输出缓冲区可以有两种方法,原理都是重载 ‘&lt;&lt;’ <br><br>   <br>   前者与后者的差别就在与后者刷新缓冲区后多了一个换行操作 <br></p>
+</code></pre><p>   <br>2. 刷新输出缓冲区可以有两种方法,原理都是重载 ‘&lt;&lt;’ </br><br>   <br>   前者与后者的差别就在与后者刷新缓冲区后多了一个换行操作 </br></p>
 <pre><code><span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; flush; <span class="comment">//相当于flush(cout);</span>
 <span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; endl;  
-</code></pre><p>   <br>3. 可以通过流操作修改现实的进制, 默认十进制,十六进制,八进制 <br></p>
-<pre><code><span class="keyword">int</span> n = <span class="number">100</span>;
-<span class="built_in">cout</span> &lt;&lt; n &lt;&lt; endl;
-<span class="comment">//八进制</span>
-<span class="built_in">cout</span> &lt;&lt; oct &lt;&lt; n &lt;&lt; endl;
-<span class="comment">//十六进制</span>
-<span class="built_in">cout</span> &lt;&lt; hex &lt;&lt; n &lt;&lt; endl;
-<span class="comment">//这种作用是持久的,在不用的时候记得转换回来</span>
-dec(<span class="built_in">cout</span>); <span class="comment">//代表转换为十进制 cout &lt;&lt; dec;同样适用  </span>
-</code></pre><p>   <br>4. 我们可以调整字段宽度来达到美观,但Ｃ++有一种数据完整大于美观的理念,所以即使你设置了字段宽度,一旦超过还是会<br>        打乱阵型,以保证数据的完整性.<br>   <br></p>
-<pre><code><span class="built_in">cout</span>.fill(<span class="string">'*'</span>);<span class="comment">//使用'*'填充空白,注意此为持久的.</span>
-<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">100</span>;i*=<span class="number">10</span>)
-{
-  <span class="built_in">cout</span>.width(<span class="number">5</span>);
-  <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">":"</span>;
-  <span class="built_in">cout</span>.width(<span class="number">8</span>);
-  <span class="built_in">cout</span> &lt;&lt; i * i &lt;&lt; endl;
-}<span class="comment">//注意，width()方法并不是持久的,也就是说每次排版都需要使用一次该方法.</span>
-</code></pre><p>   <br>5. 浮点数的使用 <br></p>
-<pre><code><span class="built_in">cout</span>.precision(<span class="number">2</span>);<span class="comment">//设置浮点数的精度为2,Ｃ++默认六位精度,但不显示末尾的0.</span>
-<span class="built_in">cout</span>.setf(ios_base::showpoint);<span class="comment">//显示末尾的零</span>
-</code></pre><h2 id="输入流">输入流</h2><p>   <br> cin检查输入: 当读取到的流和指定的类型不符合的时候,不符合的流中的数据被保留,留待下一次读取.并返回flase<br>       可以使用while语句进行判断 <br></p>
-<pre><code>int <span class="keyword">input</span>, <span class="keyword">sum</span>;
-<span class="keyword">while</span>(cin &gt;&gt; <span class="keyword">input</span>)
-<span class="keyword">sum</span> += <span class="keyword">input</span>;
-</code></pre><p>   <br> 当流由于输入不匹配失败时,发生的问题十分复杂,简述为位设置问题,使用下列代码恢复 <br></p>
-<pre><code><span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; input)
-   sum += input;
-<span class="keyword">if</span>(<span class="built_in">cin</span>.fail() &amp;&amp; !<span class="built_in">cin</span>.eof())
-{
-   <span class="built_in">cin</span>.clear();              <span class="comment">//重置流状态,但此时还是有残余留在流中</span>
-   <span class="keyword">while</span>(!<span class="built_in">isspace</span>(<span class="built_in">cin</span>.get()))<span class="comment">//丢弃那些残留在流中妨碍下一次输入的不符合的输入</span>
-         <span class="keyword">continue</span>;           <span class="comment">//头文件 cctype</span>
-}
-<span class="built_in">cin</span> &gt;&gt; input; <span class="comment">//现在可以继续输入了</span>
-</code></pre><p>   <br> 字符串的输入:<code>get(char*, int)</code> 和 <code>getline(char*, int)</code> <br><br>   <br> get读取少于第二个参数减1个或遇见换行符,并将换行符留在流中,getline则将换行符抽取并丢弃<br><br>   <br> <code>get(char*, int, char)</code> 和 <code>getline(char*, int, char)</code> <br><br>   <br> 第三个参数则是分界符,读取到分界符号时停止读取. <br></p>
-
+</code></pre><p>   <br>3. 可以通过流操作修改现实的进制, 默认十进制,十六进制,八进制 </br><br>
+        
+          <p class="article-more-link">
+            <a href="/2015/05/10/C-流操作/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.wushxin.top/2015/05/10/C-流操作/" data-id="ci9i5wy4q000hwsltf9wjd3az" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/10/C-流操作/" data-id="ci9ilmsmv000hkwltw8ox9gon" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li></ul>
@@ -561,13 +405,10 @@ dec(<span class="built_in">cout</span>); <span class="comment">//代表转换为
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 WuShengXin<br>
-      Powered by Wrestle.Wu<br>
-	    <script src="//dn-lbstatics.qbox.me/lbservice/busuanzi/2.0/busuanzi.mini.js"/></script>
-  <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+      &copy; 2015 WuShengXin
     </div>
   </div>
-<script src="//dn-lbstatics.qbox.me/lbservice/busuanzi/2.0/busuanzi.mini.js"></script>
+
 </footer>
     </div>
     <nav id="mobile-nav">

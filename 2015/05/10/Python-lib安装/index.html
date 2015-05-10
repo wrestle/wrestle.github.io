@@ -14,7 +14,7 @@
 在 https://pypi.python.org/">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python-lib安装">
-<meta property="og:url" content="http://www.wushxin.top/2015/05/10/Python-lib安装/index.html">
+<meta property="og:url" content="http://wushxin.top/2015/05/10/Python-lib安装/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
 <meta property="og:description" content="Python安装第三方库(Linux::Ubuntu 14.04 LTS)   关于一个gui的库 SimpleGUICS2Pygame    所有的命令均在 root 权限下执行 
 安装前提:
@@ -47,7 +47,6 @@
   <div id="container">
     <div id="wrap">
       <header id="header">
-  <script src="//http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js"></script>
   <div id="banner"></div>
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
@@ -76,7 +75,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="q" value="site:http://www.wushxin.top"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="q" value="site:http://wushxin.top"></form>
       </div>
     </div>
   </div>
@@ -115,15 +114,20 @@
 <li>我们这里可以使用 <code>easy_install *.egg #代表安装所有的egg包,方便快捷,不用输入完整的名字</code></li>
 <li>我们可以通过 <code>pip freeze</code> 查看所安装的包</li>
 </ol>
-<h3 id="使用错误">使用错误</h3><ol>
-<li>当我们 <code>import simplegui</code>时,却出现 <code>...importError: No module named simplegui</code> <br><br>此时,我们应该使用这个语句块替换: <br><br><pre><code><br>try:<br> import simplegui<br>except:<br> import SimpleGUICS2Pygame.simpleGUICS2Pygame as simplegui<br></code><pre></pre></pre></li>
-<li>作者给出的解释是由于内部冲突所以会导致这种现象的产生</li>
-</ol>
+<h3 id="使用错误">使用错误</h3><ul>
+<li><p>当我们 <code>import simplegui</code>时,却出现 <code>...importError: No module named simplegui</code> <br><br>此时,我们应该使用这个语句块替换: <br></p>
+<pre><code><span class="string">try:</span>
+    <span class="keyword">import</span> simplegui 
+<span class="string">except:</span>
+    <span class="keyword">import</span> SimpleGUICS2Pygame.simpleGUICS2Pygame <span class="keyword">as</span> simplegui
+</code></pre></li>
+</ul>
+<p>· 作者给出的解释是由于内部冲突所以会导致这种现象的产生</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://www.wushxin.top/2015/05/10/Python-lib安装/" data-id="ci9i5wy4a0009wsltzzgypcaz" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/10/Python-lib安装/" data-id="ci9ilmsmp0009kwlty9s2t9p5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
@@ -225,13 +229,10 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2015 WuShengXin<br>
-      Powered by Wrestle.Wu<br>
-	    <script src="//dn-lbstatics.qbox.me/lbservice/busuanzi/2.0/busuanzi.mini.js"/></script>
-  <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+      &copy; 2015 WuShengXin
     </div>
   </div>
-<script src="//dn-lbstatics.qbox.me/lbservice/busuanzi/2.0/busuanzi.mini.js"></script>
+
 </footer>
     </div>
     <nav id="mobile-nav">
