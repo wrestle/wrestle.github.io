@@ -14,7 +14,7 @@
 上述五个预处理是最常看见的，第一个代表着包含一个头文件，可以理解为没有它很多功能都无法使用，例如C语言并没有把输入输入纳入标准当中，而是使用库函数">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我为什么学C(3)">
-<meta property="og:url" content="http://wushxin.top/2015/05/13/我为什么学C-3/index.html">
+<meta property="og:url" content="http://wushxin.top/2015/05/13/我为什么学C(3)/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
 <meta property="og:description" content="0x06-C语言预处理器预处理器在一般看来，用得最多的还是宏，这里总结一下预处理器的用法。
 #include &amp;lt;stdio.h&amp;gt;
@@ -81,9 +81,9 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-我为什么学C-3" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-我为什么学C(3)" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/05/13/我为什么学C-3/" class="article-date">
+    <a href="/2015/05/13/我为什么学C(3)/" class="article-date">
   <time datetime="2015-05-13T09:17:49.000Z" itemprop="datePublished">2015-05-13</time>
 </a>
     
@@ -208,14 +208,40 @@ HCMP(x, y);
 <pre><code>printf<span class="list">(<span class="string">"x is equal to y ? %d\n"</span>, <span class="list">(<span class="number">100</span>)</span> == <span class="list">(<span class="number">200</span>)</span>)</span><span class="comment">;</span>
 </code></pre><p>总结起来，即将宏参数放于<code>#</code>操作符之后便由预处理器自动转换为字符串常量，转义也由预处理器自动完成，而不需要我们自行添加转义符号。</p>
 </li>
+<li><p>对于<code>##</code><br>它实现的是将本操作符两边的参数合并成为一个完整的标记，但需要注意的是，由于预处理器只负责展开，所以程序员必须自己保证这种标记的合法性，这里涉及到一些写法问题，都列出来</p>
+<pre><code><span class="comment">#define MERGE(x, y) have_define_ ## (x + y)</span>
+<span class="comment">#define MERGE(x, y) have_define_##(x + y)</span>
+...
+<span class="literal">result</span> = <span class="type">MERGE</span>(<span class="number">1</span>, <span class="number">3</span>);
+</code></pre><p>这里首先说明，上述写法由于习惯原因，我使用第二种，但是无论哪种都无伤大雅，效果一样。上述代码展开以后是什么呢？</p>
+<pre><code><span class="literal">result</span> = have_define_1 + <span class="number">3</span>;
+</code></pre><p>在我看来，这就有点<code>C++</code>中模版的思想了，虽然十分原始，但是总是有了一个方向，凭借这种方法我们能够使用宏来进行相似却不同函数的调用，虽然我们可以使用函数指针数组来存储，但需要提前知晓有几个函数，并且如果要实现动态增长还需要消耗内存分配，但宏则不同。</p>
+<pre><code><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">func_0</span><span class="params">(<span class="keyword">int</span> arg_1, <span class="keyword">int</span> arg_2)</span> </span>{ <span class="keyword">return</span> arg_1 + arg_2; }
+<span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">func_1</span><span class="params">(<span class="keyword">int</span> arg_1, <span class="keyword">int</span> arg_2)</span> </span>{ <span class="keyword">return</span> arg_1 - arg_2; }
+<span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">func_2</span><span class="params">(<span class="keyword">int</span> arg_1, <span class="keyword">int</span> arg_2)</span> </span>{ <span class="keyword">return</span> arg_1 * arg_2; }
+<span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">func_3</span><span class="params">(<span class="keyword">int</span> arg_1, <span class="keyword">int</span> arg_2)</span> </span>{ <span class="keyword">return</span> arg_1 / arg_2; }
+<span class="preprocessor">#<span class="keyword">define</span> CALL(x, arg1, arg2) func_##x(arg1, arg2)</span>
+...
+    <span class="built_in">printf</span>(<span class="string">"func_%d return %d\n"</span>,<span class="number">0</span> ,CALL(<span class="number">0</span>, <span class="number">2</span>, <span class="number">10</span>));
+    <span class="built_in">printf</span>(<span class="string">"func_%d return %d\n"</span>,<span class="number">1</span> ,CALL(<span class="number">1</span>, <span class="number">2</span>, <span class="number">10</span>));
+    <span class="built_in">printf</span>(<span class="string">"func_%d return %d\n"</span>,<span class="number">2</span> ,CALL(<span class="number">2</span>, <span class="number">2</span>, <span class="number">10</span>));
+    <span class="built_in">printf</span>(<span class="string">"func_%d return %d\n"</span>,<span class="number">3</span> ,CALL(<span class="number">3</span>, <span class="number">2</span>, <span class="number">10</span>));
+</code></pre><p>十分简便的一种用法，在我们增加减少函数时我们不必考虑如何找到这些函数只需要记下每个函数对应的编号即可，但还是那句话，不可滥用。</p>
+</li>
 </ul>
+</li>
+<li><p>对于宏，在使用时一定要注意，宏只能展开当前层的宏，如果你嵌套使用宏，即将宏当作宏的参数，那么将导致宏无法完全展开，即作为参数的宏只能传递名字给外部宏</p>
+<pre><code>#define WHERE(value_name, line) #value_name <span class="preprocessor">#line</span>
+...
+puts(WHERE(x, <span class="keyword">__LINE__</span>)); <span class="comment">//x = 11</span>
+</code></pre><p><code>输出: 11__LINE__</code></p>
 </li>
 </ol>
 <h4 id="未完待续">未完待续</h4><h4 id="Create_bu_WuShxin_@2015">Create bu WuShxin @2015</h4>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wushxin.top/2015/05/13/我为什么学C-3/" data-id="ci9mjbq2j0003yclt9nb5pj2l" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/13/我为什么学C(3)/" data-id="ci9nojdqs000004ltql6ty29x" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
@@ -277,7 +303,7 @@ HCMP(x, y);
       <ul>
         
           <li>
-            <a href="/2015/05/13/我为什么学C-3/">我为什么学C(3)</a>
+            <a href="/2015/05/13/我为什么学C(3)/">我为什么学C(3)</a>
           </li>
         
           <li>
