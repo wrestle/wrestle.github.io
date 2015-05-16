@@ -112,16 +112,66 @@
 <span class="function"><span class="keyword">function</span><span class="params">(11)</span></span>;
 </code></pre><p>其中，<code>value</code>是形参，<code>11</code>是实参，我们知道场面上，C语言拥有两种传递方式:<strong>按值传递</strong>和<strong>按址传递</strong>，但是你是否有认真研究过？这里给出一个实质，其实C语言只有<strong>按值传递</strong>，所谓按址传递只不过是按值传递的一种假象。至于原因稍微一想便能明白。<br><a id="more"></a></p>
 <p>对于形参和实参而言两个关系紧密，可以这么理解总是实参将自己的一份拷贝传递给形参，这样形参便能安全的使用实参的值，但也带给我们一些麻烦，最经典的交换两数</p>
-<pre><code>void swap(int<span class="keyword">*</span> val_1, int<span class="keyword">*</span> val_2)
+<pre><code>void swap_v1(int<span class="keyword">*</span> val_1, int<span class="keyword">*</span> val_2)
 {
     int temp = <span class="keyword">*</span>val_1;
     <span class="keyword">*</span>val_1 = <span class="keyword">*</span>val_2;
     <span class="keyword">*</span>val_2 = <span class="keyword">*</span>val_1;
 }
 </code></pre><p>这就是所谓的按址传递，实际上只是将外部指针(实参)的值做一个拷贝，传递给形参<code>val_1</code>与<code>val_2</code>，实际上我们使用:</p>
-<pre><code><span class="comment">#define SWAP(a, b) (a += b, b = a - b, a -= b)</span>
-<span class="comment">#define SWAP(x, y) {x ^= y; y ^= x; x ^= y}</span>
+<pre><code><span class="title">#define SWAP_V2</span><span class="comment">(a, b)</span> <span class="comment">(a += b, b = a - b, a -= b)</span>
+<span class="title">#define SWAP_V3</span><span class="comment">(x, y)</span> {x ^= y; y ^= x; x ^= y}
 </code></pre><p>试一试是不是很神奇，而且省去了函数调用的时间，空间开销。上述两种写法的原理实质是一样的。</p>
+<p>但是，动动脑筋想一想，这种写法真的没有瑕疵吗？如果输入的两个参数本就指向同一块内存，会发生什么？</p>
+<pre><code>...
+int <span class="built_in">test</span>_1 = <span class="number">10</span>, <span class="built_in">test</span>_2 = <span class="number">100</span>;
+SWAP_V2(&amp;<span class="built_in">test</span>_1, &amp;<span class="built_in">test</span>_2);                    
+<span class="built_in">printf</span>(<span class="string">"Now the test_1 is %d, test_2 is %d\n"</span>, <span class="built_in">test</span>_1, <span class="built_in">test</span>_2);
+.../*恢复原值*/
+SWAP_V2(&amp;<span class="built_in">test</span>_1, &amp;<span class="built_in">test</span>_1);
+<span class="built_in">printf</span>(<span class="string">"Now the test_1 is %d\n"</span>, <span class="built_in">test</span>_1);   
+</code></pre><p>会输出什么？:</p>
+<pre><code>$: <span class="built_in">Now</span> the test_1 <span class="keyword">is</span> <span class="number">100</span>, test_2 <span class="keyword">is</span> <span class="number">10</span>
+$: <span class="built_in">Now</span> the test_1 <span class="keyword">is</span> <span class="number">0</span>
+</code></pre><p>对，输出了0，为什么？稍微动动脑筋就能相通，那么对于后面的<code>SWAP_V3</code>亦是如此，所以在斟酌之下，解决方案应该尽可能短小精悍:</p>
+<pre><code><span class="function"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">swap_final</span><span class="params">(<span class="keyword">int</span>* val_1, <span class="keyword">int</span>* val_2)</span>
+</span>{
+    <span class="keyword">if</span>(val_1 == val_2)
+        <span class="keyword">return</span>;
+    *val_1 ^= *val_2;
+    *val_2 ^= *val_1;
+    *val_1 ^= *val_2;
+}
+</code></pre><p>这便是目前能找到最好的交换函数，我们在此基础上可以考虑的更深远一些，如何让这个交换函数更加通用？即适用范围更大？暂不考虑浮点类型。<br>提示：可用<code>void*</code></p>
+<p>与上面的情况类似，偶尔的不经意就会造成严重的后果:</p>
+<pre><code><span class="built_in">int</span> combine_1(<span class="built_in">int</span>* dest, <span class="built_in">int</span>* <span class="built_in">add</span>)
+{
+    *dest += *<span class="built_in">add</span>;
+    *dest += *<span class="built_in">add</span>;
+    <span class="keyword">return</span> *dest;
+}
+<span class="built_in">int</span> combine_2(<span class="built_in">int</span>* dest, <span class="built_in">int</span>* <span class="built_in">add</span>)
+{
+    *dest = <span class="number">2</span>* (*<span class="built_in">add</span>);<span class="comment">//在不确定优先级时用括号是一个明智的选择</span>
+    <span class="keyword">return</span> *dest;
+}
+</code></pre><p>上述两个函数的功能一样吗？恩看起来是一昂的</p>
+<pre><code>int <span class="built_in">test</span>_3 = <span class="number">10</span>, <span class="built_in">test</span>_4 = <span class="number">100</span>;
+
+combine_1(&amp;<span class="built_in">test</span>_3, &amp;<span class="built_in">test</span>_4);
+<span class="built_in">printf</span>(<span class="string">"After combine_1, test_3 = %d\n"</span>,<span class="built_in">test</span>_3);
+.../*恢复原值*/
+combine_2(&amp;<span class="built_in">test</span>_3, &amp;<span class="built_in">test</span>_4);
+<span class="built_in">printf</span>(<span class="string">"After combine_2, test_3 = %d\n"</span>,<span class="built_in">test</span>_3);
+</code></pre><p>输出<br><code>$: After combine_1, test_3 = 210</code><br><code>$: After combine_2, test_3 = 210</code></p>
+<p>如果两数相等呢？</p>
+<pre><code>... /*恢复<span class="built_in">test</span>_3原值*/
+combine_1(&amp;<span class="built_in">test</span>_3, &amp;<span class="built_in">test</span>_3);
+<span class="built_in">printf</span>(<span class="string">"After second times combine_1, test_3 = %d\n"</span>,<span class="built_in">test</span>_3);
+...
+combine_2(&amp;<span class="built_in">test</span>_3, &amp;<span class="built_in">test</span>_3);
+<span class="built_in">printf</span>(<span class="string">"After second times combine_2, test_3 = %d\n"</span>,<span class="built_in">test</span>_3);
+</code></pre><p>输出<br><code>$: After second times combine_1, test_3 = 30</code><br><code>$: After second times combine_2, test_3 = 20</code><br>知道真相总是令人吃惊，指针也是那么令人又爱又恨。</p>
 <h5 id="关于数组的那些事">关于数组的那些事</h5><p>数组和指针一样吗？<br><br><strong>不一样</strong><br><br>要时刻记住，数组与指针是不同的东西。但是为什么下面代码是正确的？</p>
 <pre><code><span class="keyword">int</span> arr[<span class="number">10</span>] = {<span class="number">10</span>, <span class="number">9</span>, <span class="number">8</span>, <span class="number">7</span>};
 <span class="keyword">int</span>* parr  = arr;
