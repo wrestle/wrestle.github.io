@@ -87,7 +87,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="0x06-C语言预处理器">0x06-C语言预处理器</h4><p>预处理器在一般看来，用得最多的还是宏，这里总结一下预处理器的用法。</p>
+        <h4 id="0x06-C语言预处理器">0x06-C语言预处理器</h4><p>××预处理最大的标志便是大写，虽然这不是标准，但请你在使用的时候大写，为了自己，也为了后人。**</p>
+<p>预处理器在一般看来，用得最多的还是宏，这里总结一下预处理器的用法。</p>
 <pre><code><span class="id">#include</span> &lt;stdio.h&gt;
 <span class="hexcolor">#def</span>ine MACRO_OF_MINE
 <span class="id">#ifdef</span> MACRO_OF_MINE
@@ -115,7 +116,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wushxin.top/2015/05/13/我为什么学C(3)/" data-id="ci9nojdqs000004ltql6ty29x" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/13/我为什么学C(3)/" data-id="ci9rryll80003zoltfbi9zyx6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
@@ -150,7 +151,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h4 id="0x05-C语言指针:(Volume-1)">0x05-C语言指针:(Volume-1)</h4><p>这似乎是一个很凝重的话题，但是它真的很有趣。</p>
-<p><strong><em>1. 指针是指向某一类型的东西，任何一个整体，只要能称为整体就能拥有它自己的独一无二的指针类型。</em></strong><br><strong><em>2. 函数名在表达式中总是以函数指针的身份呈现，除了取地址运算符以及<code>sizeof</code></em></strong><br><strong><em>3. C语言最晦涩难明的就是它复杂的声明: `void (</em>signal(int sig, void (<em>func)(int)))(int)`,试试着把它改写成容易理解的形式</em></strong></p>
+<p><strong><em>1. 指针是指向某一类型的东西，任何一个整体，只要能称为整体就能拥有它自己的独一无二的指针类型，所以指针的类型其实是近似无穷无尽的</em></strong></p>
+<p><strong><em>2. 函数名在表达式中总是以函数指针的身份呈现，除了取地址运算符以及<code>sizeof</code></em></strong></p>
+<p><strong><em>3. C语言最晦涩难明的就是它复杂的声明: `void (</em>signal(int sig, void (<em>func)(int)))(int)`,试试着把它改写成容易理解的形式</em></strong></p>
+<p><strong><em>4. 对于指针，尽最大的限度使用<code>const</code>保护它，无论是传递给函数，还是自己使用</em></strong></p>
 <p>先来看看一个特殊的指针，姑且称它为指针，因为它依赖于环境: <code>NULL</code>，是一个神奇的东西。先附上定义，在编译器中会有两种NULL(每种环境都有唯一确定的NULL):</p>
 <pre><code><span class="hexcolor">#def</span>ine NULL <span class="number">0</span>
 <span class="hexcolor">#def</span>ine NULL ((void*)<span class="number">0</span>)
@@ -169,7 +173,7 @@
 </span>{
         <span class="comment">/*...*/</span>
 }
-...
+<span class="comment">//...</span>
 <span class="function"><span class="keyword">function</span><span class="params">(11)</span></span>;
 </code></pre><p>其中，<code>value</code>是形参，<code>11</code>是实参，我们知道场面上，C语言拥有两种传递方式:<strong>按值传递</strong>和<strong>按址传递</strong>，但是你是否有认真研究过？这里给出一个实质，其实C语言只有<strong>按值传递</strong>，所谓按址传递只不过是按值传递的一种假象。至于原因稍微一想便能明白。<br>
         
@@ -180,7 +184,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wushxin.top/2015/05/13/我为什么学C(2)/" data-id="ci9mjbq2z0006yclt8nekv3c4" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/13/我为什么学C(2)/" data-id="ci9rryllc0006zoltemrr4eg3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
@@ -215,12 +219,14 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="我的C语言">我的C语言</h1><h2 id="更新至0x06-C语言预处理器">更新至0x06-C语言预处理器</h2><p><strong>正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域</strong></p>
-<h4 id="0x01-C语言序言">0x01-C语言序言</h4><p> <p>倒是觉得写代码首先不是语法，而是格式，任何时候任何地点，要是自己的代码难以理解，要么你是故意的，要么你就是菜菜<br><br> <p>一个难以被人理解的代码在我看来是没有太多的潜力的，但不排除故意为之的情况,也许很多人说这是强迫症，但是无论打开哪一个开源代码，你看到的都将是一个拥有规范的代码文件<br><br></p>
-<p><p>也许有人说人不应该被限制，不应该拘泥于小节，但是当一个工程超过一千行，也许不用只需要不到五百行，就能完全暴露出代码规范的重要性，包括缩进，变量命名，接口存放，接口参数的规范之类，听起来似乎很虚<a href="https://code.google.com/p/google-styleguide/">谷歌代码规范(翻墙后查看)</a><br><br></p>
-<p><p>在我看来C语言的内建语法真是无比简洁，几乎存在既有道理，简洁不代表着不强大，强大的某些地方在近来渐渐复苏的Lisp身上也有体现。<br><br><code>if, for, while, switch</code></p>
+<h4 id="0x01-C语言序言">0x01-C语言序言</h4><p> 倒是觉得写代码首先不是语法，而是格式，任何时候任何地点，要是自己的代码难以理解，要么你是故意的，要么你就是菜菜</p>
+<p> 一个难以被人理解的代码在我看来是没有太多的潜力的，但不排除故意为之的情况,也许很多人说这是强迫症，但是无论打开哪一个开源代码，你看到的都将是一个拥有规范的代码文件</p>
+<p>也许有人说人不应该被限制，不应该拘泥于小节，但是当一个工程超过一千行，也许不用只需要不到五百行，就能完全暴露出代码规范的重要性，包括缩进，变量命名，接口存放，接口参数的规范之类，听起来似乎很虚<a href="https://code.google.com/p/google-styleguide/">谷歌代码规范(翻墙后查看)</a></p>
+<p>在我看来C语言的内建语法真是无比简洁，几乎存在既有道理，简洁不代表着不强大，强大的某些地方在近来渐渐复苏的Lisp身上也有体现。</p>
+<p><code>if, for, while, switch</code></p>
 <p><p>组成了每个C程序的半壁江山<br><br><code> “ + “ “ - “ “ * “ “ / “ “ % “ “ = “</code></p>
 <p><p>组成了各式各样的算法计数<br><br><code>“&gt;&gt;” “&lt;&lt;” “|” “&amp;” “^” “~” “!”</code></p>
-<p><p>让C语言有了更高效的算法以及更奇妙的思路<br><br><code>struct union #define return</code><br></p>
+<p><p>让C语言有了更高效的算法以及更奇妙的思路<br><br><code>struct enum union #define return</code><br></p>
 <p><p>而这些则让C语言在这乱世纷争中站稳了脚跟，并且一枝独秀<br><br><code>“{}” “()”</code><br></p>
 <p><p>让代码不再无序混乱<br><br><code>“type * “ “&amp;” “()” “-&gt;”</code><br></p>
 <p><p>让C语言在这个世界无处不在<br><code>“ . “ “[ ]” “ &lt; “ “ &gt; “ “ == “</code><br>
@@ -232,7 +238,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wushxin.top/2015/05/12/我为什么学C(1)/" data-id="ci9mjbq2z0008ycltyuidwfgk" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/12/我为什么学C(1)/" data-id="ci9rrylld0008zolt8qew3pzj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
@@ -275,7 +281,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wushxin.top/2015/05/10/Linux下Qt5配置/" data-id="ci9mjbq3e000fycltyl8e2qre" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/10/Linux下Qt5配置/" data-id="ci9rryllk000fzolthehez7zb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Liunx/">Liunx</a></li></ul>
@@ -333,7 +339,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wushxin.top/2015/05/10/Python-lib安装/" data-id="ci9mjbq3e000dyclt6cjzhr3e" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/10/Python-lib安装/" data-id="ci9rrylli000dzoltev88mmd1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>

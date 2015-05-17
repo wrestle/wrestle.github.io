@@ -6,17 +6,23 @@
   <title>我为什么学C(2) | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="0x05-C语言指针:(Volume-1)这似乎是一个很凝重的话题，但是它真的很有趣。
-1. 指针是指向某一类型的东西，任何一个整体，只要能称为整体就能拥有它自己的独一无二的指针类型。2. 函数名在表达式中总是以函数指针的身份呈现，除了取地址运算符以及sizeof3. C语言最晦涩难明的就是它复杂的声明: `void (signal(int sig, void (func)(int)))(int)">
+1. 指针是指向某一类型的东西，任何一个整体，只要能称为整体就能拥有它自己的独一无二的指针类型，所以指针的类型其实是近似无穷无尽的
+2. 函数名在表达式中总是以函数指针的身份呈现，除了取地址运算符以及sizeof
+3. C语言最晦涩难明的就是它复杂的声明: `void (signal(int sig, void">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我为什么学C(2)">
 <meta property="og:url" content="http://wushxin.top/2015/05/13/我为什么学C(2)/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
 <meta property="og:description" content="0x05-C语言指针:(Volume-1)这似乎是一个很凝重的话题，但是它真的很有趣。
-1. 指针是指向某一类型的东西，任何一个整体，只要能称为整体就能拥有它自己的独一无二的指针类型。2. 函数名在表达式中总是以函数指针的身份呈现，除了取地址运算符以及sizeof3. C语言最晦涩难明的就是它复杂的声明: `void (signal(int sig, void (func)(int)))(int)">
+1. 指针是指向某一类型的东西，任何一个整体，只要能称为整体就能拥有它自己的独一无二的指针类型，所以指针的类型其实是近似无穷无尽的
+2. 函数名在表达式中总是以函数指针的身份呈现，除了取地址运算符以及sizeof
+3. C语言最晦涩难明的就是它复杂的声明: `void (signal(int sig, void">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我为什么学C(2)">
 <meta name="twitter:description" content="0x05-C语言指针:(Volume-1)这似乎是一个很凝重的话题，但是它真的很有趣。
-1. 指针是指向某一类型的东西，任何一个整体，只要能称为整体就能拥有它自己的独一无二的指针类型。2. 函数名在表达式中总是以函数指针的身份呈现，除了取地址运算符以及sizeof3. C语言最晦涩难明的就是它复杂的声明: `void (signal(int sig, void (func)(int)))(int)">
+1. 指针是指向某一类型的东西，任何一个整体，只要能称为整体就能拥有它自己的独一无二的指针类型，所以指针的类型其实是近似无穷无尽的
+2. 函数名在表达式中总是以函数指针的身份呈现，除了取地址运算符以及sizeof
+3. C语言最晦涩难明的就是它复杂的声明: `void (signal(int sig, void">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -89,7 +95,10 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h4 id="0x05-C语言指针:(Volume-1)">0x05-C语言指针:(Volume-1)</h4><p>这似乎是一个很凝重的话题，但是它真的很有趣。</p>
-<p><strong><em>1. 指针是指向某一类型的东西，任何一个整体，只要能称为整体就能拥有它自己的独一无二的指针类型。</em></strong><br><strong><em>2. 函数名在表达式中总是以函数指针的身份呈现，除了取地址运算符以及<code>sizeof</code></em></strong><br><strong><em>3. C语言最晦涩难明的就是它复杂的声明: `void (</em>signal(int sig, void (<em>func)(int)))(int)`,试试着把它改写成容易理解的形式</em></strong></p>
+<p><strong><em>1. 指针是指向某一类型的东西，任何一个整体，只要能称为整体就能拥有它自己的独一无二的指针类型，所以指针的类型其实是近似无穷无尽的</em></strong></p>
+<p><strong><em>2. 函数名在表达式中总是以函数指针的身份呈现，除了取地址运算符以及<code>sizeof</code></em></strong></p>
+<p><strong><em>3. C语言最晦涩难明的就是它复杂的声明: `void (</em>signal(int sig, void (<em>func)(int)))(int)`,试试着把它改写成容易理解的形式</em></strong></p>
+<p><strong><em>4. 对于指针，尽最大的限度使用<code>const</code>保护它，无论是传递给函数，还是自己使用</em></strong></p>
 <p>先来看看一个特殊的指针，姑且称它为指针，因为它依赖于环境: <code>NULL</code>，是一个神奇的东西。先附上定义，在编译器中会有两种NULL(每种环境都有唯一确定的NULL):</p>
 <pre><code><span class="hexcolor">#def</span>ine NULL <span class="number">0</span>
 <span class="hexcolor">#def</span>ine NULL ((void*)<span class="number">0</span>)
@@ -108,7 +117,7 @@
 </span>{
         <span class="comment">/*...*/</span>
 }
-...
+<span class="comment">//...</span>
 <span class="function"><span class="keyword">function</span><span class="params">(11)</span></span>;
 </code></pre><p>其中，<code>value</code>是形参，<code>11</code>是实参，我们知道场面上，C语言拥有两种传递方式:<strong>按值传递</strong>和<strong>按址传递</strong>，但是你是否有认真研究过？这里给出一个实质，其实C语言只有<strong>按值传递</strong>，所谓按址传递只不过是按值传递的一种假象。至于原因稍微一想便能明白。<br><a id="more"></a></p>
 <p>对于形参和实参而言两个关系紧密，可以这么理解总是实参将自己的一份拷贝传递给形参，这样形参便能安全的使用实参的值，但也带给我们一些麻烦，最经典的交换两数</p>
@@ -221,7 +230,7 @@ int size_<span class="keyword">in</span>  = <span class="keyword">function</span
 <p>在此处还有一种奇异又实用的技巧，在char数组中使用指针运算进行操作，提取不同类型的数据，或者是在不同类型数组中，使用<code>char*</code>指针抽取其中内容，才是显示指针运算的用途。但在使用不同类型指针操作内存块的时候需要注意，不要操作无意义的区域或者越界操作。</p>
 <p>实际上，最简单的安全研究之一，便是利用溢出进行攻击。</p>
 <p><strong>Advance:</strong>对于一个函数中的某个数组的增长方向，总是向着返回地址的，中间可能隔着许多其他自动变量，我们只需要一直进行溢出试验，直到某一次，该函数无法正常返回了！那就证明我们找到了该函数的返回地址存储地区，这时候我们可以进行一些操作，例如将我们想要的返回地址覆盖掉原先的返回地址，这就是所谓的溢出攻击中的一种。</p>
-<h5 id="内存的使用的那些事儿">内存的使用的那些事儿</h5><p>你一直以为你操作的是真实物理内存，实际上并不是，你操作的只是操作系统为你分配的资格虚拟地址，但这并不意味着我们可以无限使用内存，那内存卖那么贵干嘛，实际上存储数据的还是物理内存，只不过在操作系统这个中介的介入情况下，不同程序窗口(可以是相同程序)可以<strong>共享</strong>使用同一块内存区域，一旦某个傻大个程序的使用让物理内存不足了，我们就会把某些没用到的数据写到你的<strong>硬盘</strong>上去，之后再使用时，从硬盘读回。这个特性会导致什么呢？假设你在Windows上使用了多窗口，打开了两个相同的程序:</p>
+<h4 id="0x05-C语言指针(Volume-2)">0x05-C语言指针(Volume-2)</h4><h5 id="内存的使用的那些事儿">内存的使用的那些事儿</h5><p>你一直以为你操作的是真实物理内存，实际上并不是，你操作的只是操作系统为你分配的资格虚拟地址，但这并不意味着我们可以无限使用内存，那内存卖那么贵干嘛，实际上存储数据的还是物理内存，只不过在操作系统这个中介的介入情况下，不同程序窗口(可以是相同程序)可以<strong>共享</strong>使用同一块内存区域，一旦某个傻大个程序的使用让物理内存不足了，我们就会把某些没用到的数据写到你的<strong>硬盘</strong>上去，之后再使用时，从硬盘读回。这个特性会导致什么呢？假设你在Windows上使用了多窗口，打开了两个相同的程序:</p>
 <pre><code>...
 <span class="keyword">int</span>  stay_here;
 <span class="keyword">char</span> tran_to_int[<span class="number">100</span>];
@@ -263,7 +272,7 @@ function<span class="list">(<span class="number">11</span>)</span><span class="c
 <pre><code><span class="keyword">int</span>* pointer_2 = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>));
 </code></pre><p>哪个写法是正确的？两个都正确，这是为什么呢，这又要追求到远古C语言时期，在那个时候，<code>void*</code>这个类型还没有出现的时候，<code>malloc</code>返回的是<code>char*</code>的类型，于是那时的程序员在调用这个函数时总要加上强制类型转换，才能正确使用这个函数，但是在标准C出现之后，这个问题不再拥有，由于任何类型的指针都能与<code>void*</code>互相转换，并且C标准中并不赞同在不必要的地方使用强制类型转换，故而C语言中比较正统的写法是第二种。</p>
 <p><em>题外话:</em>C++中的指针转换需要使用强制类型转换，而不能像第二种例子，但是C++中有一种更好的内存分配方法，所以这个问题也不再是问题。</p>
-<h4 id="0x05-C语言指针(Volume-2)">0x05-C语言指针(Volume-2)</h4><h5 id="指针与结构体">指针与结构体</h5><pre><code><span class="keyword">typedef</span> <span class="keyword">struct</span> tag{
+<h5 id="指针与结构体">指针与结构体</h5><pre><code><span class="keyword">typedef</span> <span class="keyword">struct</span> tag{
         <span class="keyword">int</span>  value;
         <span class="keyword">long</span> vari_store[<span class="number">1</span>];
 }vari_struct;
@@ -291,7 +300,7 @@ vari_struct* vari_p_3 = <span class="built_in">malloc</span>(<span class="keywor
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wushxin.top/2015/05/13/我为什么学C(2)/" data-id="ci9mjbq2z0006yclt8nekv3c4" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/13/我为什么学C(2)/" data-id="ci9rryllc0006zoltemrr4eg3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
