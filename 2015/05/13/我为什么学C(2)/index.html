@@ -5,24 +5,24 @@
   
   <title>我为什么学C(2) | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="0x05-C语言指针:(Volume-1)这似乎是一个很凝重的话题，但是它真的很有趣。
+  <meta name="description" content="本章更新于 2015-05-160x05-C语言指针:(Volume-1)这似乎是一个很凝重的话题，但是它真的很有趣。
 1. 指针是指向某一类型的东西，任何一个整体，只要能称为整体就能拥有它自己的独一无二的指针类型，所以指针的类型其实是近似无穷无尽的
 2. 函数名在表达式中总是以函数指针的身份呈现，除了取地址运算符以及sizeof
-3. C语言最晦涩难明的就是它复杂的声明: `void (signal(int sig, void">
+3. C语言最晦涩难明的就是它复杂的声明: `void (sign">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我为什么学C(2)">
 <meta property="og:url" content="http://wushxin.top/2015/05/13/我为什么学C(2)/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="0x05-C语言指针:(Volume-1)这似乎是一个很凝重的话题，但是它真的很有趣。
+<meta property="og:description" content="本章更新于 2015-05-160x05-C语言指针:(Volume-1)这似乎是一个很凝重的话题，但是它真的很有趣。
 1. 指针是指向某一类型的东西，任何一个整体，只要能称为整体就能拥有它自己的独一无二的指针类型，所以指针的类型其实是近似无穷无尽的
 2. 函数名在表达式中总是以函数指针的身份呈现，除了取地址运算符以及sizeof
-3. C语言最晦涩难明的就是它复杂的声明: `void (signal(int sig, void">
+3. C语言最晦涩难明的就是它复杂的声明: `void (sign">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我为什么学C(2)">
-<meta name="twitter:description" content="0x05-C语言指针:(Volume-1)这似乎是一个很凝重的话题，但是它真的很有趣。
+<meta name="twitter:description" content="本章更新于 2015-05-160x05-C语言指针:(Volume-1)这似乎是一个很凝重的话题，但是它真的很有趣。
 1. 指针是指向某一类型的东西，任何一个整体，只要能称为整体就能拥有它自己的独一无二的指针类型，所以指针的类型其实是近似无穷无尽的
 2. 函数名在表达式中总是以函数指针的身份呈现，除了取地址运算符以及sizeof
-3. C语言最晦涩难明的就是它复杂的声明: `void (signal(int sig, void">
+3. C语言最晦涩难明的就是它复杂的声明: `void (sign">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -94,7 +94,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="0x05-C语言指针:(Volume-1)">0x05-C语言指针:(Volume-1)</h4><p>这似乎是一个很凝重的话题，但是它真的很有趣。</p>
+        <h2 id="本章更新于_2015-05-16">本章更新于 2015-05-16</h2><h4 id="0x05-C语言指针:(Volume-1)">0x05-C语言指针:(Volume-1)</h4><p>这似乎是一个很凝重的话题，但是它真的很有趣。</p>
 <p><strong><em>1. 指针是指向某一类型的东西，任何一个整体，只要能称为整体就能拥有它自己的独一无二的指针类型，所以指针的类型其实是近似无穷无尽的</em></strong></p>
 <p><strong><em>2. 函数名在表达式中总是以函数指针的身份呈现，除了取地址运算符以及<code>sizeof</code></em></strong></p>
 <p><strong><em>3. C语言最晦涩难明的就是它复杂的声明: `void (</em>signal(int sig, void (<em>func)(int)))(int)`,试试着把它改写成容易理解的形式</em></strong></p>

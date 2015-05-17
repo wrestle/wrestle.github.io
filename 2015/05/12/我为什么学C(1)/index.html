@@ -5,21 +5,21 @@
   
   <title>我为什么学C(1) | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="我的C语言更新至0x06-C语言预处理器正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域
+  <meta name="description" content="我的C语言本章更新于 2015-05-17正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域
 0x01-C语言序言 倒是觉得写代码首先不是语法，而是格式，任何时候任何地点，要是自己的代码难以理解，要么你是故意的，要么你就是菜菜
- 一个难以被人理解的代码在我看来是没有太多的潜力的，但不排除故意为之的情况,也许很多人说这是强迫症，但是无论打开哪一个开源代码，你看到的都将是一个拥有规范的代码文件">
+ 一个难以被人理解的代码在我看来是没有太多的潜力的，但不排除故意为之的情况,也许很多人说这是强迫症，但是无论打开哪一个开源代码，你看到的都将是一个拥有规范的代码文">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我为什么学C(1)">
 <meta property="og:url" content="http://wushxin.top/2015/05/12/我为什么学C(1)/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="我的C语言更新至0x06-C语言预处理器正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域
+<meta property="og:description" content="我的C语言本章更新于 2015-05-17正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域
 0x01-C语言序言 倒是觉得写代码首先不是语法，而是格式，任何时候任何地点，要是自己的代码难以理解，要么你是故意的，要么你就是菜菜
- 一个难以被人理解的代码在我看来是没有太多的潜力的，但不排除故意为之的情况,也许很多人说这是强迫症，但是无论打开哪一个开源代码，你看到的都将是一个拥有规范的代码文件">
+ 一个难以被人理解的代码在我看来是没有太多的潜力的，但不排除故意为之的情况,也许很多人说这是强迫症，但是无论打开哪一个开源代码，你看到的都将是一个拥有规范的代码文">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我为什么学C(1)">
-<meta name="twitter:description" content="我的C语言更新至0x06-C语言预处理器正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域
+<meta name="twitter:description" content="我的C语言本章更新于 2015-05-17正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域
 0x01-C语言序言 倒是觉得写代码首先不是语法，而是格式，任何时候任何地点，要是自己的代码难以理解，要么你是故意的，要么你就是菜菜
- 一个难以被人理解的代码在我看来是没有太多的潜力的，但不排除故意为之的情况,也许很多人说这是强迫症，但是无论打开哪一个开源代码，你看到的都将是一个拥有规范的代码文件">
+ 一个难以被人理解的代码在我看来是没有太多的潜力的，但不排除故意为之的情况,也许很多人说这是强迫症，但是无论打开哪一个开源代码，你看到的都将是一个拥有规范的代码文">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -91,7 +91,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="我的C语言">我的C语言</h1><h2 id="更新至0x06-C语言预处理器">更新至0x06-C语言预处理器</h2><p><strong>正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域</strong></p>
+        <h1 id="我的C语言">我的C语言</h1><h2 id="本章更新于_2015-05-17">本章更新于 2015-05-17</h2><p><strong>正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域</strong></p>
 <h4 id="0x01-C语言序言">0x01-C语言序言</h4><p> 倒是觉得写代码首先不是语法，而是格式，任何时候任何地点，要是自己的代码难以理解，要么你是故意的，要么你就是菜菜</p>
 <p> 一个难以被人理解的代码在我看来是没有太多的潜力的，但不排除故意为之的情况,也许很多人说这是强迫症，但是无论打开哪一个开源代码，你看到的都将是一个拥有规范的代码文件</p>
 <p>也许有人说人不应该被限制，不应该拘泥于小节，但是当一个工程超过一千行，也许不用只需要不到五百行，就能完全暴露出代码规范的重要性，包括缩进，变量命名，接口存放，接口参数的规范之类，听起来似乎很虚<a href="https://code.google.com/p/google-styleguide/" target="_blank" rel="external">谷歌代码规范(翻墙后查看)</a></p>
@@ -225,7 +225,7 @@ ptemp<span class="subst">-&gt;</span>next <span class="subst">=</span> <span cla
 </code></pre><p>可以很清楚的看出其实<code>ptemp-&gt;test</code>便是<code>(*ptemp).test</code>的语法糖</p>
 </li>
 </ul>
-
+<h4 id="Create_By_WuShengXin_@_2015">Create By WuShengXin @ 2015</h4>
       
     </div>
     <footer class="article-footer">

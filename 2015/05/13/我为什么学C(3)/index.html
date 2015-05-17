@@ -5,36 +5,36 @@
   
   <title>我为什么学C(3) | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="0x06-C语言预处理器××预处理最大的标志便是大写，虽然这不是标准，但请你在使用的时候大写，为了自己，也为了后人。**
+  <meta name="description" content="本章更新于 2015-05-160x06-C语言预处理器××预处理最大的标志便是大写，虽然这不是标准，但请你在使用的时候大写，为了自己，也为了后人。**
 预处理器在一般看来，用得最多的还是宏，这里总结一下预处理器的用法。
 #include &amp;lt;stdio.h&amp;gt;
 #define MACRO_OF_MINE
 #ifdef MACRO_OF_MINE
 #else
 #endif
-上述五个预处理是最常看见的，第一个代表着包含一个">
+上述五个预处理是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我为什么学C(3)">
 <meta property="og:url" content="http://wushxin.top/2015/05/13/我为什么学C(3)/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="0x06-C语言预处理器××预处理最大的标志便是大写，虽然这不是标准，但请你在使用的时候大写，为了自己，也为了后人。**
+<meta property="og:description" content="本章更新于 2015-05-160x06-C语言预处理器××预处理最大的标志便是大写，虽然这不是标准，但请你在使用的时候大写，为了自己，也为了后人。**
 预处理器在一般看来，用得最多的还是宏，这里总结一下预处理器的用法。
 #include &amp;lt;stdio.h&amp;gt;
 #define MACRO_OF_MINE
 #ifdef MACRO_OF_MINE
 #else
 #endif
-上述五个预处理是最常看见的，第一个代表着包含一个">
+上述五个预处理是">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我为什么学C(3)">
-<meta name="twitter:description" content="0x06-C语言预处理器××预处理最大的标志便是大写，虽然这不是标准，但请你在使用的时候大写，为了自己，也为了后人。**
+<meta name="twitter:description" content="本章更新于 2015-05-160x06-C语言预处理器××预处理最大的标志便是大写，虽然这不是标准，但请你在使用的时候大写，为了自己，也为了后人。**
 预处理器在一般看来，用得最多的还是宏，这里总结一下预处理器的用法。
 #include &amp;lt;stdio.h&amp;gt;
 #define MACRO_OF_MINE
 #ifdef MACRO_OF_MINE
 #else
 #endif
-上述五个预处理是最常看见的，第一个代表着包含一个">
+上述五个预处理是">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -106,7 +106,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="0x06-C语言预处理器">0x06-C语言预处理器</h4><p>××预处理最大的标志便是大写，虽然这不是标准，但请你在使用的时候大写，为了自己，也为了后人。**</p>
+        <h2 id="本章更新于_2015-05-16">本章更新于 2015-05-16</h2><h4 id="0x06-C语言预处理器">0x06-C语言预处理器</h4><p>××预处理最大的标志便是大写，虽然这不是标准，但请你在使用的时候大写，为了自己，也为了后人。**</p>
 <p>预处理器在一般看来，用得最多的还是宏，这里总结一下预处理器的用法。</p>
 <pre><code><span class="id">#include</span> &lt;stdio.h&gt;
 <span class="hexcolor">#def</span>ine MACRO_OF_MINE
@@ -142,8 +142,8 @@
 <pre><code><span class="keyword">printf</span>(<span class="string">"<span class="variable">%d</span>\n"</span>, __STDC_<span class="number">_</span>);
 </code></pre><p><code>输出: 1</code></p>
 </li>
-<li><p>如果你想进一步确定编译器使用的标准版本是C99还是C89可以使用<code>__STDC__VERSION__</code>，C99(199901L), C89(199409L)</p>
-<pre><code><span class="keyword">printf</span>(<span class="string">"<span class="variable">%ld</span>\n"</span>, __STDC__VERSION);
+<li><p>如果你想进一步确定编译器使用的标准版本是C99还是C89可以使用<code>__STDC__VERSION__</code>，C99(199901) </p>
+<pre><code><span class="keyword">printf</span>(<span class="string">"<span class="variable">%d</span>\n"</span>, __STDC_VERSION_<span class="number">_</span>);
 </code></pre><p><code>输出: 199901</code></p>
 </li>
 </ul>
@@ -194,7 +194,7 @@ printf(<span class="string">"x = %d, y = %d, result = %d\n"</span>, x, y, <span 
 </code></pre><p>展开成:<code>int result = ((((x) * (y))) * (y));</code></p>
 </li>
 </ol>
-<h5 id="对宏的高级应用">对宏的高级应用</h5><ol>
+<h5 id="对宏的应用">对宏的应用</h5><ol>
 <li><p>由于我们并不明白，在某些情况下宏是否被定义了，<strong>(NULL宏是一个例外，它可以被重复定义)</strong>，所以我们可以使用一些预处理保护机制来防止错误发生</p>
 <pre><code><span class="id">#ifndef</span> MY_MACRO
 <span class="hexcolor">#def</span>ine MY_MACRO <span class="number">10000</span>
@@ -231,7 +231,14 @@ HCMP(x, y);
     <span class="built_in">printf</span>(<span class="string">"func_%d return %d\n"</span>,<span class="number">2</span> ,CALL(<span class="number">2</span>, <span class="number">2</span>, <span class="number">10</span>));
     <span class="built_in">printf</span>(<span class="string">"func_%d return %d\n"</span>,<span class="number">3</span> ,CALL(<span class="number">3</span>, <span class="number">2</span>, <span class="number">10</span>));
 </code></pre><p>十分简便的一种用法，在我们增加减少函数时我们不必考虑如何找到这些函数只需要记下每个函数对应的编号即可，但还是那句话，不可滥用。</p>
-</li>
+<pre><code><span class="comment">#define CAT(temp, i) (cat##i)</span>
+//...
+<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">5</span>;++i)
+{
+    <span class="keyword">int</span> CAT(<span class="keyword">x</span>,i) = i*i;
+    <span class="keyword">printf</span>(<span class="string">"x<span class="variable">%d</span> = <span class="variable">%d</span> \n"</span>,i,CAT(<span class="keyword">x</span>,i));
+}
+</code></pre></li>
 </ul>
 </li>
 <li><p>对于宏，在使用时一定要注意，宏只能展开当前层的宏，如果你嵌套使用宏，即将宏当作宏的参数，那么将导致宏无法完全展开，即作为参数的宏只能传递名字给外部宏</p>
@@ -240,8 +247,10 @@ HCMP(x, y);
 puts(WHERE(x, <span class="keyword">__LINE__</span>)); <span class="comment">//x = 11</span>
 </code></pre><p><code>输出: 11__LINE__</code></p>
 </li>
+<li><p>对于其他的预编译器指令，如:<code>#program, #line, #error</code>和各类条件编译并不在此涉及，因为使用上并未有陷阱及难点。</p>
+</li>
 </ol>
-<h4 id="未完待续">未完待续</h4><h4 id="Create_bu_WuShxin_@2015">Create bu WuShxin @2015</h4>
+<h4 id="Create_By_WuShengxin_@_2015">Create By WuShengxin @ 2015</h4>
       
     </div>
     <footer class="article-footer">
