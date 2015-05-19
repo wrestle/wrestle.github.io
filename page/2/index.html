@@ -65,6 +65,107 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Linux下Qt5配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/10/Linux下Qt5配置/" class="article-date">
+  <time datetime="2015-05-09T23:48:55.000Z" itemprop="datePublished">2015-05-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/10/Linux下Qt5配置/">Linux下Qt5配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Linux_of_Qt5">Linux of Qt5</h2><p></p><p>在Ubuntu编译Qt5工程时出现了<br><br><code>can not find -lGL</code><br></p>
+<p></p><p>这是为什么?在Qt4时代并没有这种情况<br></p>
+<p></p><p>经过查找,发现Qt5在这个版本自动加入了openGL的支持,而有的平台并没有默认拥有<br><br><strong>(Windows默认有openGL,Linux却没有完全)<strong></strong></strong></p>
+<p></p><p>那么我们可以通过安装 <code>libglut-dev</code> 来进行修复<br><br><code>sudo apt-get install libglut-dev</code><br><br></p>
+<p></p><p>稍微解读一下也能知道-lGL==&gt;-linkopenGL的意思</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wushxin.top/2015/05/10/Linux下Qt5配置/" data-id="ci9uugpfe000kzgltroydk36v" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Liunx/">Liunx</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Python-lib安装" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/10/Python-lib安装/" class="article-date">
+  <time datetime="2015-05-09T23:48:28.000Z" itemprop="datePublished">2015-05-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/10/Python-lib安装/">Python-lib安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Python">Python</h1><h2 id="安装第三方库(Linux::Ubuntu_14-04_LTS)">安装第三方库(Linux::Ubuntu 14.04 LTS)</h2><p>   关于一个gui的库 SimpleGUICS2Pygame <br><br>   所有的命令均在 root 权限下执行 <br></p>
+<h3 id="安装前提:">安装前提:</h3><ol>
+<li>使用easy_install 工具 <code>apt-get install easy_install</code></li>
+<li>安装pip <code>easy_install pip</code></li>
+</ol>
+<h3 id="开始安装">开始安装</h3><ol>
+<li>在 <a href="https://pypi.python.org/pypi/SimpleGUICS2Pygame" target="_blank" rel="external">https://pypi.python.org/pypi/SimpleGUICS2Pygame</a> 下载.egg格式的安装包 <br></li>
+<li>使用命令 <code>easy_install name.egg #name.egg 为下载的第三方库的egg包名称</code></li>
+<li>我们这里可以使用 <code>easy_install *.egg #代表安装所有的egg包,方便快捷,不用输入完整的名字</code></li>
+<li>我们可以通过 <code>pip freeze</code> 查看所安装的包</li>
+</ol>
+<h3 id="使用错误">使用错误</h3><ul>
+<li><p>当我们 <code>import simplegui</code>时,却出现 <code>...importError: No module named simplegui</code> <br><br>此时,我们应该使用这个语句块替换: <br></p>
+<pre><code><span class="string">try:</span>
+    <span class="keyword">import</span> simplegui 
+<span class="string">except:</span>
+    <span class="keyword">import</span> SimpleGUICS2Pygame.simpleGUICS2Pygame <span class="keyword">as</span> simplegui
+</code></pre></li>
+</ul>
+<p>· 作者给出的解释是由于内部冲突所以会导致这种现象的产生</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wushxin.top/2015/05/10/Python-lib安装/" data-id="ci9uugpfa000izgltehjrkv87" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Python学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/05/10/Python学习笔记/" class="article-date">
@@ -106,7 +207,7 @@ elif statemen<span class="variable">t:</span>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wushxin.top/2015/05/10/Python学习笔记/" data-id="ci9rryllf000azolt6xb2zqhr" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/10/Python学习笔记/" data-id="ci9uugpf8000fzglt2n2pdq9n" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
@@ -165,7 +266,7 @@ fout<span class="built_in">.</span>open();
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wushxin.top/2015/05/10/C-流操作-续/" data-id="ci9rrylk70000zoltkvfmygbj" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/10/C-流操作-续/" data-id="ci9uugpdz0000zglt39927fxm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li></ul>
@@ -216,7 +317,7 @@ fout<span class="built_in">.</span>open();
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wushxin.top/2015/05/10/C-流操作/" data-id="ci9rryllp000lzoltymu73t9n" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/10/C-流操作/" data-id="ci9uugpfo000qzgltmqeo7xkd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C++</a></li></ul>
@@ -228,59 +329,9 @@ fout<span class="built_in">.</span>open();
 
 
   
-    <article id="post-Hexo网站布置错误解决" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/05/09/Hexo网站布置错误解决/" class="article-date">
-  <time datetime="2015-05-09T12:10:30.000Z" itemprop="datePublished">2015-05-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/09/Hexo网站布置错误解决/">Hexo网站布置错误解决</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="布置Hexo博客">布置Hexo博客</h2><h4 id="发布于Github_pages时的错误总结">发布于Github pages时的错误总结</h4><p>在布置一个个人博客的时候，我们总会遇到各种各样的错误，这里来总结一下，不记录那些常规步骤，因为网上特别多，搜集常见错误。</p>
-<ul>
-<li>本人布置建设并布置该网站在2015.5.9日，Hexo的版本已经到3了，并且在这个版本出现了一个和以前不同的配置，所以导致许多后来者按照前人的脚步跳进了深坑，当然你降至版本2也是可以使用前人的设置的。<br>首先是在你配置好本地之后，验证可行了，那么你就可以选择发布到Github Pages上了，这个时候，在<strong>_config.yml</strong>文件中修改末尾项为:<pre><code><span class="attribute">deploy</span>:
-    <span class="attribute">type</span>: git #此处在版本<span class="number">2</span>时为github
-    <span class="attribute">repository</span>: <span class="attribute">https</span>:<span class="comment">//github.com/......</span>
-    ...
-</code></pre>在这个地方容易出错的是<strong>type:</strong>后方容易被误导，版本2请填写github，版本3除了填写git以外，还需要在外头<strong>Git bash</strong>里使用命令:<pre><code>npm <span class="operator"><span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></span>
-</code></pre>有了这个命令就能分分钟解决你的问题。
-        
-          <p class="article-more-link">
-            <a href="/2015/05/09/Hexo网站布置错误解决/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://wushxin.top/2015/05/09/Hexo网站布置错误解决/" data-id="ci9rryllm000izoltt3yrxyhx" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网站/">网站</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 </section>
@@ -293,7 +344,7 @@ fout<span class="built_in">.</span>open();
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt-C/">Qt C++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -302,7 +353,7 @@ fout<span class="built_in">.</span>open();
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/C/" style="font-size: 20px;">C</a><a href="/tags/C/" style="font-size: 15px;">C++</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Python/" style="font-size: 15px;">Python</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
+      <a href="/tags/C/" style="font-size: 20px;">C</a><a href="/tags/C/" style="font-size: 15px;">C++</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Python/" style="font-size: 15px;">Python</a><a href="/tags/Qt-C/" style="font-size: 10px;">Qt C++</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
     </div>
   </div>
 
@@ -311,7 +362,7 @@ fout<span class="built_in">.</span>open();
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">9</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -323,6 +374,14 @@ fout<span class="built_in">.</span>open();
       <ul>
         
           <li>
+            <a href="/2015/05/19/Qt信号与槽/">Qt信号与槽</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/17/我为什么学C-4/">我为什么学C(4)</a>
+          </li>
+        
+          <li>
             <a href="/2015/05/13/我为什么学C(3)/">我为什么学C(3)</a>
           </li>
         
@@ -332,14 +391,6 @@ fout<span class="built_in">.</span>open();
         
           <li>
             <a href="/2015/05/12/我为什么学C(1)/">我为什么学C(1)</a>
-          </li>
-        
-          <li>
-            <a href="/2015/05/10/Linux下Qt5配置/">Linux下Qt5配置</a>
-          </li>
-        
-          <li>
-            <a href="/2015/05/10/Python-lib安装/">Python-lib安装</a>
           </li>
         
       </ul>
