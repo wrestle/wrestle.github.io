@@ -106,47 +106,11 @@
 </ol>
 <h4 id="方法1">方法1</h4><ol>
 <li><p>双击<code>.ui</code>文件，进入<strong>Qt Designer</strong>，至于不懂这个的也无所谓，只是个叫法而已，只需要知道如何在这个界面操作即可。</p>
-<ul>
-<li>这时候我们为了演示，拖动添加一个<code>Push Button</code>按钮进窗口，这时候发现主界面上多了一个 <strong>PushButton</strong>，这时候看到你的右下方，有一个<strong>属性</strong>窗口，有过设计经验的都很熟悉，</li>
-<li><code>objectName</code>代表的是在代码中这个控件的名字，记好它，当然你也可以修改它</li>
-<li><code>QAbstractButton</code>下的<code>text</code>代表的是，你的程序运行起来以后该控件在你面前显示出来的名字。</li>
-<li><code>statusTip</code>代表的是，当你鼠标移动到这个控件上时，在整个窗口中的下部有一块区域 <strong>Status Bar</strong> ，在此处显示你在其中填写的信息</li>
-<li><code>shorcut</code>顾名思义就是快捷键的意思，但是此处快捷键使用<strong>Qt Designer</strong>设置有一个不太好的地方便是，无法很好的跨平台支持，如Mac OS下是<code>Command</code>代替了很多Windows下的<code>Ctrl</code>操作，使用代码则可以调用Qt所配置好的API。</li>
-<li>以上几个是常用的几个属性。</li>
-</ul>
-</li>
-<li><p>做完<strong>PushButton</strong>的准备工作之后，<code>objectName</code>为<strong>Button_1</strong></p>
-<ul>
-<li>由于<strong>Qt Designer</strong>只支持Qt的内置槽函数的建立连接，但是我们可以想办法让它变为可行，右键主窗体，选择 <strong>改变信号/槽</strong>，在出现的窗口中的槽里，点击加号，在其中输入刚才预先做好的测试函数<code>test()</code>，点击<code>OK</code>即可</li>
-<li>这时候我们在下方找到一个窗口<code>Signals &amp; Slots Editor</code>,如果没有可以仔细找找，或者上网查询如何打开它，在此处我们可以很轻松的使用Qt中的信号与槽的连接，点击加号，出现一个新的记录，记录中包含 <strong><code>发送者(sender), 信号(signal), 接收者(receiver), 槽(slot)</code></strong> 犹如字面意思</li>
-<li>在其中发送者选择<strong>Button_1</strong>，信号选择<strong>triggered</strong>，接收者选择<strong>MainWindow</strong>，槽选择<strong>open()</strong></li>
-</ul>
-</li>
-<li><p>这样做完就行，这时候只需要保证<code>main.cpp</code>中包含有如下代码</p>
-<pre><code>MainWindow win_1<span class="comment">;</span>
-win_1.<span class="literal">show</span>()<span class="comment">;</span>
-</code></pre><p> 就行，这时候编译运行，OK，你想要的效果就出来啦</p>
-<ul>
-<li>这就是全程的可视化操作，省去了一部份精力<h4 id="方法2">方法2</h4></li>
-</ul>
-</li>
-<li>步骤1与上方的方法1一致，直到</li>
-<li><p>在此处我们记下了<strong>PushButton</strong>的<code>objectName</code>之后，在<code>mainwindow.cpp</code>文件的类构造函数的定义中，修改代码，以代码形式得到我们上面使用可视化操作的效果，在这一步，往往有人会卡住，总是发现，明明关联没有错误，但是总是提示错误: <strong>QObject connect invaild null parameter</strong>，这是为什么？我们看一下<code>mainweindow.cpp</code>的构造函数的原始状态</p>
-<pre><code><span class="rule"><span class="attribute">MainWindow</span>:<span class="value">:<span class="function">MainWindow</span>(QWidget *parent) :
-    <span class="function">QMainWindow</span>(parent),
-    <span class="function">ui</span>(new Ui::MainWindow)
-{
-    ui-&gt;<span class="function">setupUi</span>(this)</span></span>;
-}
-</code></pre><p> 其中最后一句代码是将<strong>Qt Designer</strong>中的实现自动转化为代码，如果你在这句代码之前使用使用<code>QObject::connect</code>那么会导致，无法找到刚才创建的控件对象。所以我们只需要把<code>connect</code>放在后面即可。</p>
-<pre><code>ui-&gt;setupUi(<span class="keyword">this</span>);
-QObject::connect(ui-&gt;pushButton, &amp;QPushButton::click, 
-                <span class="keyword">this</span>, <span class="keyword">this</span>-&gt;open);
-</code></pre><p> 在此处<code>QObject::connect</code>可以简写为<code>connect</code>,因为两个类是继承关系不必使用域作用符。</p>
-</li>
-<li>最后也是保证<code>main.cpp</code>的代码即可。</li>
-</ol>
-<h4 id="最后感谢Haavard_Nord_和_Eirik_Chambe-Eng为我们无私贡献了这么强大的Qt开源库">最后感谢Haavard Nord 和 Eirik Chambe-Eng为我们无私贡献了这么强大的Qt开源库</h4>
+        
+          <p class="article-more-link">
+            <a href="/2015/05/19/Qt信号与槽/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
@@ -235,7 +199,7 @@ QObject::connect(ui-&gt;pushButton, &amp;QPushButton::click,
 }
 </code></pre></li>
 </ol>
-
+<h4 id="未完待续">未完待续</h4>
       
     </div>
     <footer class="article-footer">
