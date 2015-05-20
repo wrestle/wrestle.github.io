@@ -65,6 +65,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-我为什么学C-4" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/20/我为什么学C-4/" class="article-date">
+  <time datetime="2015-05-20T03:06:38.000Z" itemprop="datePublished">2015-05-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/20/我为什么学C-4/">我为什么学C(4)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="0x07-C语言效率">0x07-C语言效率</h4><h4 id="更新于_2015-05-20">更新于 2015-05-20</h4><p>大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 </p>
+<p>对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计，虽然编译器是为程序员服务，并且在尽它最大的能力来优化程序员写出的代码，但是毕竟它还没有脱离<strong>电脑</strong>的范畴，如果我们的代码不能让编译器理解，编译器无法帮我们优化代码，那么我们就像是上个世纪的程序员，写出来的代码生硬且慢。</p>
+<p>对于此，我们可以暂且忽略CPU的设计，因为我们在层面上只能考虑如何迎合编译器的优化规则，而CPU则是语言以及编译器的事情了。</p>
+<p>提高程序的速度，就C语言而言可以有这几种方法:</p>
+<ul>
+<li>首先还是要设计合理的大纲，正所谓一个程序最大的性能提升就是它第一次运行的时候</li>
+<li>要避免连续的函数调用。</li>
+<li>消除不必要的<strong>存储器</strong>使用(并非推荐使用register)</li>
+<li>使用<strong>循环展开</strong>技巧，一般编译器的优化选项能自动帮你修改代码成循环展开</li>
+<li>对于一个操作的核心耗时部分，通过重新组合技术来提高速度</li>
+<li>多采用几种风格的写法，而不是直观的认为，因为计算机的想法和你是不一样的
+        
+          <p class="article-more-link">
+            <a href="/2015/05/20/我为什么学C-4/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wushxin.top/2015/05/20/我为什么学C-4/" data-id="ci9uugpeo0003zgltxea8jwvk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Qt信号与槽" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/05/19/Qt信号与槽/" class="article-date">
@@ -95,8 +148,7 @@
 <li><p>首先包含以下测试使用的头文件<code>&lt;QDebug&gt; &lt;QMessageBox&gt;</code><br>该函数原型需要首先加在<code>private:</code>下，作为私有成员函数。</p>
 </li>
 <li><p>其次打开<code>mainwindow.cpp</code>文件，进行测试函数的定义:</p>
-</li>
-<li><pre><code><span class="tag">void</span> <span class="rule"><span class="attribute">MainWindow</span>:<span class="value">:<span class="function">test</span>()
+<pre><code><span class="tag">void</span> <span class="rule"><span class="attribute">MainWindow</span>:<span class="value">:<span class="function">test</span>()
 {
     <span class="function">qDebug</span>() &lt;&lt; <span class="string">"Test Successful!"</span></span></span>;
     <span class="rule"><span class="attribute">QMessageBox</span>:<span class="value">:<span class="function">information</span>(this, <span class="function">tr</span>(<span class="string">"Tip"</span>), <span class="function">tr</span>(<span class="string">"Test"</span>))</span></span>;
@@ -118,95 +170,6 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt-C/">Qt C++</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-我为什么学C-4" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/05/17/我为什么学C-4/" class="article-date">
-  <time datetime="2015-05-17T03:06:38.000Z" itemprop="datePublished">2015-05-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/17/我为什么学C-4/">我为什么学C(4)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="0x07-C语言效率">0x07-C语言效率</h4><p>大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 </p>
-<p>对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计，虽然编译器是为程序员服务，并且在尽它最大的能力来优化程序员写出的代码，但是毕竟它还没有脱离<strong>电脑</strong>的范畴，如果我们的代码不能让编译器理解，编译器无法帮我们优化代码，那么我们就像是上个世纪的程序员，写出来的代码生硬且慢。</p>
-<p>对于此，我们可以暂且忽略CPU的设计，因为我们在层面上只能考虑如何迎合编译器的优化规则，而CPU则是语言以及编译器的事情了。</p>
-<p>提高程序的速度，就C语言而言可以有这几种方法:</p>
-<ul>
-<li>首先还是要设计合理的大纲，正所谓一个程序最大的性能提升就是它第一次运行的时候</li>
-<li>要避免连续的函数调用。</li>
-<li>消除不必要的<strong>存储器</strong>使用(并非推荐使用register)</li>
-<li>使用<strong>循环展开</strong>技巧，一般编译器的优化选项能自动帮你修改代码成循环展开</li>
-<li>对于一个操作的核心耗时部分，通过重新组合技术来提高速度</li>
-<li><p>多采用几种风格的写法，而不是直观的认为，因为计算机的想法和你是不一样的</p>
-</li>
-<li><p>注：随着编译器的版本更新，即使不开启优化选项，自带的编译器优化依旧能够为我们编写的代码提供一部分优化，这便是不使用老版本编译器的原因，虽然作为一个程序员不应该太依赖于编译器，但是我认为，时代在进步，信息量正在无限的膨胀，但是人类的大脑以及精力在一个大时代内是有限的，我们应该充分利用工具来帮助我们实现一些既有的功能，而程序员应该更 专注于发现新的思路，以及想法，在图灵测试尚未有人打破之前，程序员依赖编译器并不是一件错误的事情。</p>
-<p>  对于当下的编译器，以<code>GCC</code>为例，<code>-O2</code>是一个为大众所接受的优化等级，对于其他编译器，一般程序员可以选择使用由Google和Apple联合开发的编译器<code>clang</code>也是一个很好的选择， 在<code>-O2</code>的优化等级下，<code>GCC</code>一般情况下能够自动执行<strong>循环展开</strong>优化，</p>
-</li>
-</ul>
-<ol>
-<li><p><strong>避免连续的函数调用 :</strong></p>
-<pre><code><span class="comment">/*struct.h*/</span>   
-<span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span>
-<span class="keyword">typedef</span> <span class="keyword">struct</span> me{
-        <span class="keyword">int</span>        value;
-        <span class="keyword">struct</span> me* next;
-}data_t;
-<span class="keyword">typedef</span> <span class="keyword">struct</span>{
-        <span class="keyword">int</span> index;
-        data_t* storage;
-}block;    
-<span class="comment">/*main.c*/</span>
-<span class="preprocessor">#<span class="keyword">include</span> "struct.h"</span>
-<span class="function"><span class="keyword">int</span> <span class="title">get_len</span><span class="params">(data_t* data)</span>
-</span>{
-    data_t* temp = data;
-    <span class="keyword">int</span> len = <span class="number">0</span>;
-    <span class="keyword">if</span>(!temp){
-        <span class="built_in">fprintf</span>(stderr,<span class="string">"The data in %p is NULL\n"</span>,data);
-    }
-    <span class="keyword">else</span>
-        <span class="keyword">while</span>(!temp-&gt;next)
-            ++len;
-    <span class="keyword">return</span> len;
-}
-
-<span class="function"><span class="keyword">int</span> 
-
-<span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span>
-</span>{
-    <span class="keyword">return</span> <span class="number">0</span>;
-}
-</code></pre></li>
-</ol>
-<h4 id="未完待续">未完待续</h4>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://wushxin.top/2015/05/17/我为什么学C-4/" data-id="ci9uugpeo0003zgltxea8jwvk" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
 
     </footer>
   </div>
@@ -445,11 +408,11 @@
       <ul>
         
           <li>
-            <a href="/2015/05/19/Qt信号与槽/">Qt信号与槽</a>
+            <a href="/2015/05/20/我为什么学C-4/">我为什么学C(4)</a>
           </li>
         
           <li>
-            <a href="/2015/05/17/我为什么学C-4/">我为什么学C(4)</a>
+            <a href="/2015/05/19/Qt信号与槽/">Qt信号与槽</a>
           </li>
         
           <li>

@@ -96,8 +96,7 @@
 <li><p>首先包含以下测试使用的头文件<code>&lt;QDebug&gt; &lt;QMessageBox&gt;</code><br>该函数原型需要首先加在<code>private:</code>下，作为私有成员函数。</p>
 </li>
 <li><p>其次打开<code>mainwindow.cpp</code>文件，进行测试函数的定义:</p>
-</li>
-<li><pre><code><span class="tag">void</span> <span class="rule"><span class="attribute">MainWindow</span>:<span class="value">:<span class="function">test</span>()
+<pre><code><span class="tag">void</span> <span class="rule"><span class="attribute">MainWindow</span>:<span class="value">:<span class="function">test</span>()
 {
     <span class="function">qDebug</span>() &lt;&lt; <span class="string">"Test Successful!"</span></span></span>;
     <span class="rule"><span class="attribute">QMessageBox</span>:<span class="value">:<span class="function">information</span>(this, <span class="function">tr</span>(<span class="string">"Tip"</span>), <span class="function">tr</span>(<span class="string">"Test"</span>))</span></span>;
@@ -132,7 +131,8 @@ win_1.<span class="literal">show</span>()<span class="comment">;</span>
 <li>这就是全程的可视化操作，省去了一部份精力<h4 id="方法2">方法2</h4></li>
 </ul>
 </li>
-<li>步骤1与上方的方法1一致，直到</li>
+<li><p>步骤1与上方的方法1一致，直到</p>
+</li>
 <li><p>在此处我们记下了<strong>PushButton</strong>的<code>objectName</code>之后，在<code>mainwindow.cpp</code>文件的类构造函数的定义中，修改代码，以代码形式得到我们上面使用可视化操作的效果，在这一步，往往有人会卡住，总是发现，明明关联没有错误，但是总是提示错误: <strong>QObject connect invaild null parameter</strong>，这是为什么？我们看一下<code>mainweindow.cpp</code>的构造函数的原始状态</p>
 <pre><code><span class="rule"><span class="attribute">MainWindow</span>:<span class="value">:<span class="function">MainWindow</span>(QWidget *parent) :
     <span class="function">QMainWindow</span>(parent),
@@ -144,11 +144,20 @@ win_1.<span class="literal">show</span>()<span class="comment">;</span>
 <pre><code>ui-&gt;setupUi(<span class="keyword">this</span>);
 QObject::connect(ui-&gt;pushButton, &amp;QPushButton::click, 
                 <span class="keyword">this</span>, <span class="keyword">this</span>-&gt;open);
-</code></pre><p> 在此处<code>QObject::connect</code>可以简写为<code>connect</code>,因为两个类是继承关系不必使用域作用符。</p>
+</code></pre><p> 在此处<code>QObject::connect</code>可以简写为<code>connect</code>,因为此刻我们正处于<code>MainWindow::MainWindow</code>这个对象的作用域当中。</p>
 </li>
 <li>最后也是保证<code>main.cpp</code>的代码即可。</li>
 </ol>
-<h4 id="最后感谢Haavard_Nord_和_Eirik_Chambe-Eng为我们无私贡献了这么强大的Qt开源库">最后感谢Haavard Nord 和 Eirik Chambe-Eng为我们无私贡献了这么强大的Qt开源库</h4>
+<h4 id="对于可视化">对于可视化</h4><p>虽然<strong>Qt Creator</strong>给予了我们极大的便利，但是在实际的复杂功能实现中，个人感觉还是需要代码操作占到主体，而界面设计毕竟只是一小部分，虽然Qt这个框架十分之大，但是其命名却是非常的人性化，常见的几个属性:</p>
+<pre><code>ui<span class="subst">-&gt;</span>button_name<span class="subst">-&gt;</span>setText(tr(<span class="string">"button_name_you_want"</span>));
+ui<span class="subst">-&gt;</span>button_name<span class="subst">-&gt;</span>setStatusTip(tr(<span class="string">""</span>));
+ui<span class="subst">-&gt;</span>button_name<span class="subst">-&gt;</span>setShortcut(QKeySequence<span class="tag">::shortcut_you_want</span>);
+ui<span class="subst">-&gt;</span>button_name<span class="subst">-&gt;</span>setIcon(QIcon(<span class="string">":/adressofpicture"</span>));
+<span class="attribute">...</span>
+</code></pre><p>如此看，基本只要是属性的函数命名都是以<code>set...</code>开头，每个成员函数都能很清楚的看出功能。</p>
+<p>并且其中大部分都是以<code>QString</code>为类型参数，即<code>tr(&quot;...&quot;)</code>代表的就是将<strong>C风格字符串</strong>转为<code>QString</code>类型。</p>
+<p>而某些特殊的则需要记住，例如<code>QKeySequence::...</code>代表的是由Qt自带的快捷键API,使用它能更好的适应跨平台的问题。<code>QKeySequence::Open</code>在Windows下默认为<strong>Ctrl+O</strong>,Mac下为<strong>Command+O</strong></p>
+<h4 id="最后的最后感谢_Haavard_Nord_和_Eirik_Chambe-Eng_为我们无私贡献了这么强大的Qt开源库">最后的最后感谢 Haavard Nord 和 Eirik Chambe-Eng 为我们无私贡献了这么强大的Qt开源库</h4>
       
     </div>
     <footer class="article-footer">
@@ -163,10 +172,19 @@ QObject::connect(ui-&gt;pushButton, &amp;QPushButton::click,
     
 <nav id="article-nav">
   
+    <a href="/2015/05/20/我为什么学C-4/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          我为什么学C(4)
+        
+      </div>
+    </a>
   
-    <a href="/2015/05/17/我为什么学C-4/" id="article-nav-older" class="article-nav-link-wrap">
+  
+    <a href="/2015/05/13/我为什么学C(3)/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">我为什么学C(4)</div>
+      <div class="article-nav-title">我为什么学C(3)</div>
     </a>
   
 </nav>
@@ -214,11 +232,11 @@ QObject::connect(ui-&gt;pushButton, &amp;QPushButton::click,
       <ul>
         
           <li>
-            <a href="/2015/05/19/Qt信号与槽/">Qt信号与槽</a>
+            <a href="/2015/05/20/我为什么学C-4/">我为什么学C(4)</a>
           </li>
         
           <li>
-            <a href="/2015/05/17/我为什么学C-4/">我为什么学C(4)</a>
+            <a href="/2015/05/19/Qt信号与槽/">Qt信号与槽</a>
           </li>
         
           <li>
