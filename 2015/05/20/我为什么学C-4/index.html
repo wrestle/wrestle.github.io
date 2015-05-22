@@ -5,17 +5,17 @@
   
   <title>我为什么学C(4) | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="0x07-C语言效率更新于 2015-05-20大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 
+  <meta name="description" content="0x07-C语言效率更新于 2015-05-22大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 
 对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计，虽然编译器是为程序员服务，并且在尽它最大的能力来优化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我为什么学C(4)">
 <meta property="og:url" content="http://wushxin.top/2015/05/20/我为什么学C-4/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="0x07-C语言效率更新于 2015-05-20大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 
+<meta property="og:description" content="0x07-C语言效率更新于 2015-05-22大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 
 对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计，虽然编译器是为程序员服务，并且在尽它最大的能力来优化">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我为什么学C(4)">
-<meta name="twitter:description" content="0x07-C语言效率更新于 2015-05-20大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 
+<meta name="twitter:description" content="0x07-C语言效率更新于 2015-05-22大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 
 对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计，虽然编译器是为程序员服务，并且在尽它最大的能力来优化">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
@@ -88,7 +88,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="0x07-C语言效率">0x07-C语言效率</h4><h4 id="更新于_2015-05-20">更新于 2015-05-20</h4><p>大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 </p>
+        <h4 id="0x07-C语言效率">0x07-C语言效率</h4><h4 id="更新于_2015-05-22">更新于 2015-05-22</h4><p>大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 </p>
 <p>对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计，虽然编译器是为程序员服务，并且在尽它最大的能力来优化程序员写出的代码，但是毕竟它还没有脱离<strong>电脑</strong>的范畴，如果我们的代码不能让编译器理解，编译器无法帮我们优化代码，那么我们就像是上个世纪的程序员，写出来的代码生硬且慢。</p>
 <p>对于此，我们可以暂且忽略CPU的设计，因为我们在层面上只能考虑如何迎合编译器的优化规则，而CPU则是语言以及编译器的事情了。</p>
 <p>提高程序的速度，就C语言而言可以有这几种方法:</p>
@@ -100,7 +100,7 @@
 <li>对于一个操作的核心耗时部分，通过重新组合技术来提高速度</li>
 <li>多采用几种风格的写法，而不是直观的认为，因为计算机的想法和你是不一样的<a id="more"></a></li>
 <li><p>注：随着编译器的版本更新，即使不开启优化选项，自带的编译器优化依旧能够为我们编写的代码提供一部分优化，这便是不使用老版本编译器的原因，虽然作为一个程序员不应该太依赖于编译器，但是我认为，时代在进步，信息量正在无限的膨胀，但是人类的大脑以及精力在一个大时代内是有限的，我们应该充分利用工具来帮助我们实现一些既有的功能，而程序员应该更 专注于发现新的思路，以及想法，在图灵测试尚未有人打破之前，程序员依赖编译器并不是一件错误的事情。</p>
-<p>  对于当下的编译器，以<code>GCC</code>为例，<code>-O2</code>是一个为大众所接受的优化等级，对于其他编译器，一般程序员可以选择使用由Google和Apple联合开发的编译器<code>clang</code>也是一个很好的选择， 在<code>-O2</code>的优化等级下，<code>GCC</code>一般情况下能够自动执行<strong>循环展开</strong>优化，</p>
+<p>  对于当下的编译器，以<code>GCC</code>(<strong>GCC不仅仅是一个编译器，但这里将它当成编译器的代名词</strong>)为例，<code>-O2</code>是一个为大众所接受的优化等级，对于其他编译器，一般程序员可以选择使用由Google和Apple联合开发的编译器<code>clang</code>也是一个很好的选择， 在<code>-O2</code>的优化等级下，<code>GCC</code>一般情况下能够自动执行<strong>循环展开</strong>优化，</p>
 </li>
 </ul>
 <h4 id="开始">开始</h4><ol>
@@ -191,16 +191,89 @@
 <p> 以及对于外部存储位置 <code>result</code> 我们在此处也是存在着浪费，同样我们应该使用一个临时变量来存储总和，而不是每次得到结果便对它进行解引用操作。</p>
 <pre><code><span class="type">int</span> local_result = <span class="number">0</span>;
 /*...*/
-local_result = <span class="literal">result</span> + local_data[i] + local_data[i+<span class="number">1</span>];
+local_result = local_result + local_data[i] + local_data[i+<span class="number">1</span>];
 /*...*/
 *<span class="literal">result</span> = local_result;
+</code></pre><p>在上方我们可以看见<strong>循环展开</strong>被称作<strong>2次循环展开</strong>，那么自然可以推断有<code>n</code>次循环展开，自然是有的，对于一个n次循环展开的式子我们有一个简便的上届确定公式即:</p>
+<pre><code><span class="attribute">reality </span>=<span class="string"> len - n + 1;</span>
+</code></pre><p>至于展开几次最好，依然是视环境而定。<br>故最终的版本应该为：</p>
+<pre><code><span class="keyword">static</span> inline <span class="type">void</span> mix_cal(<span class="keyword">const</span> <span class="keyword">block</span>* process, <span class="type">int</span> <span class="literal">result</span>[])
+{
+    <span class="type">int</span> local_result = <span class="number">0</span>;
+    <span class="type">int</span> len = get_len(process-&gt;storage);
+    <span class="type">int</span> reality = len - <span class="number">1</span>, i;
+    data* local_data = process-&gt;storage;
+
+    <span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; reality;i+=<span class="number">2</span>)
+        local_result += local_data[i] + local_data[i+<span class="number">1</span>];
+    <span class="keyword">for</span>(;i &lt; len;++i)
+        local_result += local_data[i];
+
+    *<span class="literal">result</span> = local_result;
+}
 </code></pre></li>
+<li><p>.<br>还有一种叫做<strong>重新组合</strong>的技巧，即为让一个表达式中的运算数自由组合，组合出最快速的一种，但是这种方法未曾试验过。故不提及。</p>
+</li>
 </ol>
-<h4 id="未完待续">未完待续</h4>
+<h4 id="结束">结束</h4><h4 id="Tips:">Tips:</h4><p>上文中写到的函数大都带有<code>static inline</code>关键字，这是何意？首先我们要确定一件事情，对于非工程的单文件而言，<code>static</code>函数并没有什么意义，许多人对于<code>static</code>函数感到茫然的原因在于:我明明将一个函数声明定义成<code>static</code>类型了，但是我还是可以在别的文件中访问到啊！</p>
+<p>其实这是因为你根本就没有理解<strong>C语言</strong>工程这个意思，大部分人是这么测试的:</p>
+<ol>
+<li><p>首先在一个文件夹里创建两个文件 <code>test_static.c</code>和<code>static.h</code>:</p>
+<pre><code><span class="comment">/*static.h*/</span>
+<span class="preprocessor">#ifndef STATIC_H</span>
+<span class="preprocessor">#<span class="keyword">define</span> STATIC_H</span>
+<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">void</span>)</span></span>;
+
+<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">void</span>)</span></span>;
+{
+    <span class="built_in">printf</span>(<span class="string">"Hello World!\n"</span>);
+}
+<span class="preprocessor">#<span class="keyword">endif</span></span>
+<span class="comment">/*test_static.c*/</span>
+<span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span>
+<span class="preprocessor">#<span class="keyword">include</span> "static.h"</span>
+
+<span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">void</span>)</span></span>;
+<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span>
+</span>{
+    test();         <span class="comment">//编译通过，可以运行。</span>
+    <span class="keyword">return</span> <span class="number">0</span>;
+}
+</code></pre></li>
+<li><p>然后编译运行，发现可以通过啊！！标准怎么说在其他文件中不可见？而把<code>static.h</code>去掉<code>#include</code>之后发现报错<code>test undefined</code>，瞬间初学者就凌乱了。</p>
+</li>
+<li><p>好吧，实际上是前辈们以及教材的错，因为从始至终，所有外界现象都告诉我们<strong>C程序</strong>是独立的一个一个文件组成的，但是并没有告诉我们要先将他们弄成一个工程！此处如果是使用<strong>Visual Studio</strong>学习C语言的可能会对工程这个概念理解的稍微好一些，虽然极度反对排斥使用 VS 学习C语言这种行为。</p>
+</li>
+<li><p>你想要实现<code>static</code>函数仅在本文件可见的效果，请你先补习一下<strong>工程</strong>这个概念，对于任何可见或者不可见的概念而言都是建立在一个工程内而言，而不是像上方的代码，使用<code>#include</code>来表示，你都<code>#include</code>了，那还有什么可见不可见的当然都可见了。所以一个<code>static</code>函数可见于不可见是基于一个个工程里的所有C语言源文件而言的。所以你将常看见前辈们这么回答你的提问:</p>
+<pre><code><span class="comment">/*static.h*/</span>
+<span class="preprocessor">#ifndef STATIC_H</span>
+<span class="preprocessor">#<span class="keyword">define</span> STATIC_H</span>
+<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">void</span>)</span></span>;
+
+<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">void</span>)</span></span>;
+{
+    <span class="built_in">printf</span>(<span class="string">"Hello World!\n"</span>);
+}
+<span class="preprocessor">#<span class="keyword">endif</span></span>
+
+<span class="comment">/*test_static.c*/</span>
+<span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span>
+
+<span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">void</span>)</span></span>;
+<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span>
+</span>{
+    test();         <span class="comment">//报错，因为test是static函数。</span>
+    <span class="keyword">return</span> <span class="number">0</span>;
+}
+</code></pre><p>发现了吗？在上方代码中，少了一行<code>#include &quot;static.h&quot;</code>但是这个代码依旧可行，因为这两个文件是建立在同一个工程里的，而不是在一个文件夹中随意新建两个源文件这么简单，你可以使用各个<strong>IDE</strong>的工程功能来进行测试。</p>
+</li>
+</ol>
+<p>回到正题，在这里稍微提一下<strong>static</strong>对函数的某些作用，它可以让函数放在一个静态的空间中，而不是栈里，这是的它的调用更加快速，经常与<strong>inline</strong>关键字一起使用，为的就是让函数更加快。但是有利有弊，可以自己权衡一下。</p>
+<h4 id="参考:深入理解计算机系统—Randal_E-Bryant_/_David_O’Hallaro">参考:<a href="http://book.douban.com/subject/5333562/" target="_blank" rel="external">深入理解计算机系统—Randal E.Bryant / David O’Hallaro</a></h4>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wushxin.top/2015/05/20/我为什么学C-4/" data-id="ci9uugpeo0003zgltxea8jwvk" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/20/我为什么学C-4/" data-id="ci9zmy5ax0003o0lt1ldkxmqf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
