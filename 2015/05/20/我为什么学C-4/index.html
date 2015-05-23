@@ -5,17 +5,17 @@
   
   <title>我为什么学C(4) | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="0x07-C语言效率更新于 2015-05-22大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 
+  <meta name="description" content="0x07-C语言效率更新于 2015-05-23大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 
 对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计，虽然编译器是为程序员服务，并且在尽它最大的能力来优化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我为什么学C(4)">
 <meta property="og:url" content="http://wushxin.top/2015/05/20/我为什么学C-4/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="0x07-C语言效率更新于 2015-05-22大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 
+<meta property="og:description" content="0x07-C语言效率更新于 2015-05-23大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 
 对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计，虽然编译器是为程序员服务，并且在尽它最大的能力来优化">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我为什么学C(4)">
-<meta name="twitter:description" content="0x07-C语言效率更新于 2015-05-22大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 
+<meta name="twitter:description" content="0x07-C语言效率更新于 2015-05-23大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 
 对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计，虽然编译器是为程序员服务，并且在尽它最大的能力来优化">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
@@ -50,7 +50,7 @@
         
           <a class="main-nav-link" href="/">Home</a>
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          <a class="main-nav-link" href="/about">About</a>
         
       </nav>
       <nav id="sub-nav">
@@ -88,7 +88,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="0x07-C语言效率">0x07-C语言效率</h4><h4 id="更新于_2015-05-22">更新于 2015-05-22</h4><p>大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 </p>
+        <h4 id="0x07-C语言效率">0x07-C语言效率</h4><h4 id="更新于_2015-05-23">更新于 2015-05-23</h4><p>大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 </p>
 <p>对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计，虽然编译器是为程序员服务，并且在尽它最大的能力来优化程序员写出的代码，但是毕竟它还没有脱离<strong>电脑</strong>的范畴，如果我们的代码不能让编译器理解，编译器无法帮我们优化代码，那么我们就像是上个世纪的程序员，写出来的代码生硬且慢。</p>
 <p>对于此，我们可以暂且忽略CPU的设计，因为我们在层面上只能考虑如何迎合编译器的优化规则，而CPU则是语言以及编译器的事情了。</p>
 <p>提高程序的速度，就C语言而言可以有这几种方法:</p>
@@ -214,8 +214,41 @@ local_result = local_result + local_data[i] + local_data[i+<span class="number">
 </code></pre></li>
 <li><p>.<br>还有一种叫做<strong>重新组合</strong>的技巧，即为让一个表达式中的运算数自由组合，组合出最快速的一种，但是这种方法未曾试验过。故不提及。</p>
 </li>
+<li><p>.<br>对于条件分支预测错误造成的时间损耗，称之为<strong>惩罚</strong>，最通俗的说法，就是当你编写的代码中含有条件分支的时候，处理器会选择去<strong>预判</strong>某一个分支是此次正确的支路，这样可以避免修改任何实际的寄存器和存储器，一直到确定了实际结果，要是不对，那就惨了，这段时间做的事情都白费了。但是也不必过分的关心这种条件分支的预测，这也是我放在最后说的意义所在。</p>
+<p> 这里有两种较为客观的方法，一种被称为<strong>命令式</strong>，一种被称为<strong>功能式</strong></p>
+<p> 命令式：</p>
+<pre><code><span class="keyword">for</span>(int i = <span class="number">0</span>;i &lt; n;++i)
+<span class="comment">{
+    if(a[i] &gt; b[i]){
+        int temp = a[i];
+        a[i] = b[i];
+        b[i] = temp;
+    }</span>
+}
+</code></pre><p> 功能式：</p>
+<pre><code>int min, max;
+<span class="keyword">for</span>(int i = <span class="number">0</span>;i &lt; n;++i)
+<span class="comment">{    
+    min = a[i] &lt; b[i] ? a[i] : b[i];
+    max = a[i] &lt; b[i] ? b[i] : a[i];
+    a[i] = min;
+    b[i] = max;
+}</span>
+</code></pre><p>很清晰的一个例子，明显看出来，前者对于不同情况所作的程序步数明显不同，而后者无论什么情况都是相同的程序步。</p>
+<p> 两个形式的好处前者对于可预测数据来说，是一个很好的模型，后者则是中庸之道，什么是可预测不可预测，比如一个数是负数还是正数这就是不可预测的，用前面那个代码会有很大的<strong>惩罚</strong>。</p>
+</li>
+<li><p>.<br>多路并行的技巧也是一个很重要的思路，可能在很多人眼中看来，两条语句依次写出和合并的效果一定是一样。但是多路并行有一个缺点就是对寄存器的数量有所要求，当寄存器不够时(称为溢出)，性能不升反降。同样是对于循环展开，此次使用<strong>四次循环展开</strong>加<strong>二路并行</strong>：</p>
+<pre><code><span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; reality;i+=<span class="number">4</span>){
+    <span class="built_in">local</span>_result_1 += <span class="built_in">local</span>_data[i] + <span class="built_in">local</span>_data[i+<span class="number">1</span>];
+    <span class="built_in">local</span>_result_2 += <span class="built_in">local</span>_data[i+<span class="number">2</span>] + <span class="built_in">local</span>_data[i+<span class="number">3</span>];
+}//也可以分成四路并行，每一路存一个。这种做法充分利用了CPU流水线的性能
+<span class="keyword">for</span>(;i &lt; len;++i)
+    <span class="built_in">local</span>_result_1 += <span class="built_in">local</span>_data[i];
+
+*result = <span class="built_in">local</span>_result_1 + <span class="built_in">local</span>_result_2;
+</code></pre></li>
 </ol>
-<h4 id="结束">结束</h4><h4 id="Tips:">Tips:</h4><p>上文中写到的函数大都带有<code>static inline</code>关键字，这是何意？首先我们要确定一件事情，对于非工程的单文件而言，<code>static</code>函数并没有什么意义，许多人对于<code>static</code>函数感到茫然的原因在于:我明明将一个函数声明定义成<code>static</code>类型了，但是我还是可以在别的文件中访问到啊！</p>
+<h4 id="结束">结束</h4><h4 id="Tips:">Tips:</h4><p>上文中写到的函数大都带有<code>static inline</code>关键字，这是何意？首先我们要确定一件事情，对于非工程的单文件而言，<code>static</code>函数并没有什么意义(意义指的是对于可见性而言，并非说它一无是处)，许多人对于<code>static</code>函数感到茫然的原因在于:我明明将一个函数声明定义成<code>static</code>类型了，但是我还是可以在别的文件中访问到啊！</p>
 <p>其实这是因为你根本就没有理解<strong>C语言</strong>工程这个意思，大部分人是这么测试的:</p>
 <ol>
 <li><p>首先在一个文件夹里创建两个文件 <code>test_static.c</code>和<code>static.h</code>:</p>
@@ -229,7 +262,8 @@ local_result = local_result + local_data[i] + local_data[i+<span class="number">
     <span class="built_in">printf</span>(<span class="string">"Hello World!\n"</span>);
 }
 <span class="preprocessor">#<span class="keyword">endif</span></span>
-<span class="comment">/*test_static.c*/</span>
+</code></pre><p> …</p>
+<pre><code><span class="comment">/*test_static.c*/</span>
 <span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span>
 <span class="preprocessor">#<span class="keyword">include</span> "static.h"</span>
 
@@ -255,8 +289,8 @@ local_result = local_result + local_data[i] + local_data[i+<span class="number">
     <span class="built_in">printf</span>(<span class="string">"Hello World!\n"</span>);
 }
 <span class="preprocessor">#<span class="keyword">endif</span></span>
-
-<span class="comment">/*test_static.c*/</span>
+</code></pre><p> …</p>
+<pre><code><span class="comment">/*test_static.c*/</span>
 <span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span>
 
 <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">void</span>)</span></span>;
@@ -273,7 +307,7 @@ local_result = local_result + local_data[i] + local_data[i+<span class="number">
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wushxin.top/2015/05/20/我为什么学C-4/" data-id="ci9zmy5ax0003o0lt1ldkxmqf" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/20/我为什么学C-4/" data-id="cia119nu20004u4ltat24fo59" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
@@ -315,15 +349,6 @@ local_result = local_result + local_data[i] + local_data[i+<span class="number">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
       <a href="/tags/C/" style="font-size: 20px;">C</a><a href="/tags/C/" style="font-size: 15px;">C++</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Python/" style="font-size: 15px;">Python</a><a href="/tags/Qt-C/" style="font-size: 10px;">Qt C++</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -376,7 +401,7 @@ local_result = local_result + local_data[i] + local_data[i+<span class="number">
   
     <a href="/" class="mobile-nav-link">Home</a>
   
-    <a href="/archives" class="mobile-nav-link">Archives</a>
+    <a href="/about" class="mobile-nav-link">About</a>
   
 </nav>
     
