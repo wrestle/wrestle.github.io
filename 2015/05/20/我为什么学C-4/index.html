@@ -5,18 +5,18 @@
   
   <title>我为什么学C(4) | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="0x07-C语言效率更新于 2015-05-23大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 
-对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计，虽然编译器是为程序员服务，并且在尽它最大的能力来优化">
+  <meta name="description" content="0x07-C语言效率更新于 2015-05-23大概所有学习C语言的初学者，都被前辈说过，C语言是世界上接近最速的编程语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 
+对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计(比如架构和处理指令的方式等)，虽然编译器是为">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我为什么学C(4)">
 <meta property="og:url" content="http://wushxin.top/2015/05/20/我为什么学C-4/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="0x07-C语言效率更新于 2015-05-23大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 
-对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计，虽然编译器是为程序员服务，并且在尽它最大的能力来优化">
+<meta property="og:description" content="0x07-C语言效率更新于 2015-05-23大概所有学习C语言的初学者，都被前辈说过，C语言是世界上接近最速的编程语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 
+对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计(比如架构和处理指令的方式等)，虽然编译器是为">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我为什么学C(4)">
-<meta name="twitter:description" content="0x07-C语言效率更新于 2015-05-23大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 
-对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计，虽然编译器是为程序员服务，并且在尽它最大的能力来优化">
+<meta name="twitter:description" content="0x07-C语言效率更新于 2015-05-23大概所有学习C语言的初学者，都被前辈说过，C语言是世界上接近最速的编程语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 
+对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计(比如架构和处理指令的方式等)，虽然编译器是为">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -88,8 +88,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="0x07-C语言效率">0x07-C语言效率</h4><h4 id="更新于_2015-05-23">更新于 2015-05-23</h4><p>大概所有学习C语言的初学者，都被前辈说过，C语言是世界上最快的语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 </p>
-<p>对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计，虽然编译器是为程序员服务，并且在尽它最大的能力来优化程序员写出的代码，但是毕竟它还没有脱离<strong>电脑</strong>的范畴，如果我们的代码不能让编译器理解，编译器无法帮我们优化代码，那么我们就像是上个世纪的程序员，写出来的代码生硬且慢。</p>
+        <h4 id="0x07-C语言效率">0x07-C语言效率</h4><h4 id="更新于_2015-05-23">更新于 2015-05-23</h4><p>大概所有学习C语言的初学者，都被前辈说过，C语言是世界上接近最速的编程语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 </p>
+<p>对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计(比如架构和处理指令的方式等)，虽然编译器是为程序员服务，并且在尽它最大的能力来优化程序员写出的代码，但是毕竟它还没有脱离<strong>电子</strong>的范畴，如果我们的代码不能让编译器理解，编译器无法帮我们优化代码，那么我们就无法写出一个高速的程序。</p>
 <p>对于此，我们可以暂且忽略CPU的设计，因为我们在层面上只能考虑如何迎合编译器的优化规则，而CPU则是语言以及编译器的事情了。</p>
 <p>提高程序的速度，就C语言而言可以有这几种方法:</p>
 <ul>
@@ -99,7 +99,7 @@
 <li>使用<strong>循环展开</strong>技巧，一般编译器的优化选项能自动帮你修改代码成循环展开</li>
 <li>对于一个操作的核心耗时部分，通过重新组合技术来提高速度</li>
 <li>多采用几种风格的写法，而不是直观的认为，因为计算机的想法和你是不一样的<a id="more"></a></li>
-<li><p>注：随着编译器的版本更新，即使不开启优化选项，自带的编译器优化依旧能够为我们编写的代码提供一部分优化，这便是不使用老版本编译器的原因，虽然作为一个程序员不应该太依赖于编译器，但是我认为，时代在进步，信息量正在无限的膨胀，但是人类的大脑以及精力在一个大时代内是有限的，我们应该充分利用工具来帮助我们实现一些既有的功能，而程序员应该更 专注于发现新的思路，以及想法，在图灵测试尚未有人打破之前，程序员依赖编译器并不是一件错误的事情。</p>
+<li><p>注：随着编译器的版本更新，即使不开启优化选项，自带的编译器优化依旧能够为我们编写的代码提供一部分优化，这便是不使用老版本编译器的原因，虽然作为一个程序员不应该太依赖于编译器，但是我认为，时代在进步，信息量正在无限的膨胀，但是人类的大脑以及精力在一个大时代内是有限的，换句话说对于普通人而言我们的记忆是有限的，我们不应该把精力放在前人已经做完的事情上，而是要站在巨人的肩膀上向更远处眺望，如此我们应该充分利用工具来帮助我们实现一些既有的功能，而程序员应该更 专注于发现新的思路，以及想法，在图灵测试尚未有人打破之前，程序员依赖编译器并不是一件错误的事情。</p>
 <p>  对于当下的编译器，以<code>GCC</code>(<strong>GCC不仅仅是一个编译器，但这里将它当成编译器的代名词</strong>)为例，<code>-O2</code>是一个为大众所接受的优化等级，对于其他编译器，一般程序员可以选择使用由Google和Apple联合开发的编译器<code>clang</code>也是一个很好的选择， 在<code>-O2</code>的优化等级下，<code>GCC</code>一般情况下能够自动执行<strong>循环展开</strong>优化，</p>
 </li>
 </ul>
@@ -194,7 +194,7 @@
 local_result = local_result + local_data[i] + local_data[i+<span class="number">1</span>];
 /*...*/
 *<span class="literal">result</span> = local_result;
-</code></pre><p>在上方我们可以看见<strong>循环展开</strong>被称作<strong>2次循环展开</strong>，那么自然可以推断有<code>n</code>次循环展开，自然是有的，对于一个n次循环展开的式子我们有一个简便的上届确定公式即:</p>
+</code></pre><p>在上方我们可以看见<strong>循环展开</strong>被称作<strong>2次循环展开</strong>，那么自然可以推断有<code>n</code>次循环展开，自然是有的，对于一个n次循环展开的式子我们有一个简便的上界确定公式即:</p>
 <pre><code><span class="attribute">reality </span>=<span class="string"> len - n + 1;</span>
 </code></pre><p>至于展开几次最好，依然是视环境而定。<br>故最终的版本应该为：</p>
 <pre><code><span class="keyword">static</span> inline <span class="type">void</span> mix_cal(<span class="keyword">const</span> <span class="keyword">block</span>* process, <span class="type">int</span> <span class="literal">result</span>[])
@@ -211,7 +211,8 @@ local_result = local_result + local_data[i] + local_data[i+<span class="number">
 
     *<span class="literal">result</span> = local_result;
 }
-</code></pre></li>
+</code></pre><p>解释：循环展开将元素相加分为两个部分，第一部分每次加两个元素，由于如此做会剩余元素没有加，故在第二部分将剩下的元素都加起来。</p>
+</li>
 <li><p>.<br>还有一种叫做<strong>重新组合</strong>的技巧，即为让一个表达式中的运算数自由组合，组合出最快速的一种，但是这种方法未曾试验过。故不提及。</p>
 </li>
 <li><p>.<br>对于条件分支预测错误造成的时间损耗，称之为<strong>惩罚</strong>，最通俗的说法，就是当你编写的代码中含有条件分支的时候，处理器会选择去<strong>预判</strong>某一个分支是此次正确的支路，这样可以避免修改任何实际的寄存器和存储器，一直到确定了实际结果，要是不对，那就惨了，这段时间做的事情都白费了。但是也不必过分的关心这种条件分支的预测，这也是我放在最后说的意义所在。</p>
@@ -339,7 +340,7 @@ local_result = local_result + local_data[i] + local_data[i+<span class="number">
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt-C/">Qt C++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -348,7 +349,7 @@ local_result = local_result + local_data[i] + local_data[i+<span class="number">
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/C/" style="font-size: 20px;">C</a><a href="/tags/C/" style="font-size: 15px;">C++</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Python/" style="font-size: 15px;">Python</a><a href="/tags/Qt-C/" style="font-size: 10px;">Qt C++</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
+      <a href="/tags/C/" style="font-size: 20px;">C</a><a href="/tags/C/" style="font-size: 15px;">C++</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Python/" style="font-size: 15px;">Python</a><a href="/tags/Qt/" style="font-size: 10px;">Qt</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
     </div>
   </div>
 

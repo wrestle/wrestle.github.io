@@ -6,20 +6,20 @@
   <title>我为什么学C(1) | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="我的C语言本章更新于 2015-05-17正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域
-0x01-C语言序言 倒是觉得写代码首先不是语法，而是格式，任何时候任何地点，要是自己的代码难以理解，要么你是故意的，要么你就是菜菜
- 一个难以被人理解的代码在我看来是没有太多的潜力的，但不排除故意为之的情况,也许很多人说这是强迫症，但是无论打开哪一个开源代码，你看到的都将是一个拥有规范的代码文">
+0x00-C语言前续工作正所谓，工欲善其事，必先利其器，把握住当下最强大的工具，能让我们在学习的道路上少走许多弯路，多吸取前人的失败经验，能让自己快速成长，因为成长总是在消耗我们的耐心以及生命。
+入门或者精通或者应用，不管哪一方面，对于一个编程语言而言，最方便的还是使用一个IDE作为你的有力助手">
 <meta property="og:type" content="article">
 <meta property="og:title" content="我为什么学C(1)">
 <meta property="og:url" content="http://wushxin.top/2015/05/12/我为什么学C(1)/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
 <meta property="og:description" content="我的C语言本章更新于 2015-05-17正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域
-0x01-C语言序言 倒是觉得写代码首先不是语法，而是格式，任何时候任何地点，要是自己的代码难以理解，要么你是故意的，要么你就是菜菜
- 一个难以被人理解的代码在我看来是没有太多的潜力的，但不排除故意为之的情况,也许很多人说这是强迫症，但是无论打开哪一个开源代码，你看到的都将是一个拥有规范的代码文">
+0x00-C语言前续工作正所谓，工欲善其事，必先利其器，把握住当下最强大的工具，能让我们在学习的道路上少走许多弯路，多吸取前人的失败经验，能让自己快速成长，因为成长总是在消耗我们的耐心以及生命。
+入门或者精通或者应用，不管哪一方面，对于一个编程语言而言，最方便的还是使用一个IDE作为你的有力助手">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我为什么学C(1)">
 <meta name="twitter:description" content="我的C语言本章更新于 2015-05-17正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域
-0x01-C语言序言 倒是觉得写代码首先不是语法，而是格式，任何时候任何地点，要是自己的代码难以理解，要么你是故意的，要么你就是菜菜
- 一个难以被人理解的代码在我看来是没有太多的潜力的，但不排除故意为之的情况,也许很多人说这是强迫症，但是无论打开哪一个开源代码，你看到的都将是一个拥有规范的代码文">
+0x00-C语言前续工作正所谓，工欲善其事，必先利其器，把握住当下最强大的工具，能让我们在学习的道路上少走许多弯路，多吸取前人的失败经验，能让自己快速成长，因为成长总是在消耗我们的耐心以及生命。
+入门或者精通或者应用，不管哪一方面，对于一个编程语言而言，最方便的还是使用一个IDE作为你的有力助手">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -92,6 +92,49 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="我的C语言">我的C语言</h1><h2 id="本章更新于_2015-05-17">本章更新于 2015-05-17</h2><p><strong>正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域</strong></p>
+<h4 id="0x00-C语言前续工作">0x00-C语言前续工作</h4><p>正所谓，工欲善其事，必先利其器，把握住当下最强大的工具，能让我们在学习的道路上少走许多弯路，多吸取前人的失败经验，能让自己快速成长，因为成长总是在消耗我们的耐心以及生命。</p>
+<p>入门或者精通或者应用，不管哪一方面，对于一个编程语言而言，最方便的还是使用一个<strong>IDE</strong>作为你的有力助手，什么事<strong>IDE</strong>？通俗而专业的说叫做<strong>集成开发环境</strong>，这个通过字面就能理解到了，就是所有其他的事情都不需要程序员操心，你需要操心的就是写出代码，至于代码完成之后的一系列工作，都不需要你来管，IDE一键帮你搞定。</p>
+<p>当然，会有许多前辈告诉你，如果你想理解C语言，那你一定要使用最基层的东西来写，比如XXX编辑器配上XXX编译器，晕头转向之后更加茫然，本来就支离破碎的小心肝，又被粉碎了一次，撇开那些与当下不符合的幻想，活在现实中，选择一个适合你的<strong>IDE</strong>，逐渐适应它。</p>
+<ul>
+<li><p>讲几个著名的<strong>IDE</strong>，并给出建议，利器第一步：</p>
+<ol>
+<li><p>宇宙级的<strong>IDE</strong>Visual Studio(2010~2013)，之所以说宇宙级，因为这是市面上最强大的集成开发环境，由微软公司出品，但是放在开头不是为了推荐他，而是为了警示大家不要使用它作为C语言的集成开发环境，因为它使用的是微软公司自己定制的C++编译器，也就是说，你的C语言代码会在C++的标准下编译运行，这就是一个十分不好的现象，即便是C++我依旧不喜欢使用Visual Studio，因为它的C++编译器总是和普通的标准有所出入。</p>
+<p> 原归正传，Visual Studio的确不是一个好的C语言开发IDE，所以请另外选择一个。</p>
+</li>
+<li><p>老牌<strong>IDE</strong>DevC++，这又是一个大家耳熟能详，经常能在老师手里看见的C语言教学利器，但是，它是C++的IDE，记住C于C++完全是两个世界的人，虽然C++宣称能全面兼容C程序，但是有些东西依旧是有所区别，体现在语法的兼容性上，后文会有提及。那为什么大学老师喜欢使用它呢？因为一本由清华大学出版社出版的《数据结构》，让无数人为之折服，其中赫然写着由于性能我们不能拘泥于小细节，故对于C++的特性<code>&amp;</code>引用，我们可以将其使用在C语言的语法中，就是这句话，让无数无知的学子扑向其中，再也分不清C与C++，看成谭浩强之后的，清华大学出版社又一诲人不倦的力作。</p>
+<p> 所以，真爱编程，远离清华大学出版社，也请大家注意，不要使用DevC++这个IDE进行C语言程序的开发以及练习。</p>
+</li>
+<li><p>知名<strong>IDE</strong>Code::Blocks，是一款非常优秀的开源跨平台集成开发环境，体积并不大，适合作为C语言的IDE，并且功能齐全，有兴趣的人可以深究，这是首推的C语言开发环境选择。</p>
+</li>
+<li><p>知名<strong>IDE</strong>CodeLite，是一款非常优秀的开源跨平台集成开发环境，体积并不大，适合作为C语言的IDE，并且功能齐全，有兴趣的人可以深究，这是首推的C语言开发环境选择。</p>
+</li>
+<li><p>著名<strong>IDE</strong>Xcode，是一个苹果电脑上的史诗级集成开发环境，虽然脱胎于C语言，但是由于某些原因，并不太建议使用其作为C语言的开发环境。 </p>
+</li>
+</ol>
+</li>
+<li><p>IDE的基本配置<br>利器第二步是对所选的IDE进行一些基本的配置，以及小科普。</p>
+<ol>
+<li><p>对于一个C语言的开发环境来说，选择合适的标准是很重要的，在Windows以及Linux操作系统下，我们还是使用<code>GCC</code>这个家伙比较多，开源，免费，且极其强大。当然你也可以选择<code>clang</code>，选择了编译器，我们开始讲标准。</p>
+<p> 对于<code>GCC 5.1</code>以下的所有版本，都默认对C语言使用<code>C89</code>标准，但是我建议使用<code>C99</code>两者的差距，有一个极其明显的地方，便是<code>for</code>循环的使用</p>
+<pre><code><span class="comment">/*C89:*/</span>
+<span class="keyword">int</span> i;
+<span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; <span class="number">10</span>;++i)
+...
+</code></pre><p>…</p>
+<pre><code><span class="comment">/*C99*/</span>
+for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
+   ...
+</code></pre><p>这只是其中的一种差别，但是C99需要人为手动的开启，但是很多人有疑问，为什么有时候没有配置什么也能使用后面的语法？吴老师告诉你，这是因为你用了C++的文件进行C语言的开发，就像挂羊皮卖狗肉的道理。</p>
+</li>
+<li><p>开启C99<br>一般IDE的顶部都是一系列的标签，找到<code>工具/设置</code>，因为不同的IDE可能有不同的标签，总之在其中找到一个叫<strong>(编译器)Compiler</strong>之后，在其中的<strong>other option</strong>中加入以下:<code>-std=c99</code>，这便是开启C99的选项代码，完事之后保存即可。虽然说我们是中国人，但是毕竟这东西的外国人发明的，我们能看英文就看英文吧。</p>
+</li>
+</ol>
+</li>
+<li><p>至此，利器成功配置。</p>
+</li>
+<li><p>当然最重要的还是内在，所以加油吧，虽然是一门很古老的语言，但是存在既有其道理。</p>
+</li>
+</ul>
 <h4 id="0x01-C语言序言">0x01-C语言序言</h4><p> 倒是觉得写代码首先不是语法，而是格式，任何时候任何地点，要是自己的代码难以理解，要么你是故意的，要么你就是菜菜</p>
 <p> 一个难以被人理解的代码在我看来是没有太多的潜力的，但不排除故意为之的情况,也许很多人说这是强迫症，但是无论打开哪一个开源代码，你看到的都将是一个拥有规范的代码文件</p>
 <p>也许有人说人不应该被限制，不应该拘泥于小节，但是当一个工程超过一千行，也许不用只需要不到五百行，就能完全暴露出代码规范的重要性，包括缩进，变量命名，接口存放，接口参数的规范之类，听起来似乎很虚<a href="https://code.google.com/p/google-styleguide/" target="_blank" rel="external">谷歌代码规范(翻墙后查看)</a></p>
@@ -161,6 +204,29 @@
 }
 </code></pre><p> 这是一段标准的C语言程序，但是它能在C++个编译器下编译运行吗？换句话说当你将文件扩展名由<code>.c</code>改为<code>.cpp</code>之后，它能编译通过吗？答案是不能。</p>
 <p> 为什么？答案是C++并不支持<code>void*</code>隐式转换为其他类型的指针，但是C语言允许。还有许许多多C于C++不相同的地方，兴许有人说C++是C的超集，但我并不这么认为，一门语言的出现便有它的意义所在，关键在于我们如何发挥它的最大优势，而不是通过混淆概念来增强实用性</p>
+</li>
+<li><p>程序式子的写法</p>
+<p> 一个人活在世界上，时时刻刻都注意着自己的言行举止，而写程序也是如此，对于一个规范的能让别人读懂的程序而言，我们应该尽可能减少阻碍因子，例如:</p>
+<pre><code><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span>
+</span>{<span class="keyword">int</span> complex_int=<span class="number">100</span>;
+<span class="keyword">int</span> i,j,k,x;
+<span class="keyword">for</span>(<span class="keyword">int</span> temp=<span class="number">0</span>;temp&lt;complex_int;++temp){k=temp;
+x=k+<span class="keyword">complex</span>;}
+<span class="built_in">printf</span>(complex_int=<span class="string">"%d is k=%d x=%d\n"</span>,complex_int,k,x);
+<span class="keyword">return</span> <span class="number">0</span>;}
+</code></pre><p>对于上述的代码，我总是在班级里的同学手下出现，但这段代码除了让别人困惑以外，自己在调试的时候也是十分不方便，每每遇到问题了，即便IDE提示了在某处错误，你也找不到问题所在，经常有人来问我哪里错了，大部分情况都是少了分号，括号，或者作用域超过，原因在哪？</p>
+<p> 要是一开始将代码写清楚了，这种情况简直是凤毛麟角，想遇上都难。对于一个代码而言，我们应该注意让其变得清晰。</p>
+<ul>
+<li><p>等号两边使用空格：</p>
+<pre><code><span class="keyword">int</span> complex_int = <span class="number">100</span>;
+</code></pre></li>
+<li><p>使用多个变量的声明定义，或者函数声明定义，函数使用时，注意用空格分开变量：</p>
+<pre><code><span class="keyword">int</span> i, j, k, x;<span class="comment">//但是十分不建议这么声明难以理解意义的变量</span>
+<span class="built_in">printf</span>(complex_int=<span class="string">"%d is k=%d x=%d\n"</span>, complex_int, k, x);
+<span class="function"><span class="keyword">void</span> <span class="title">present</span><span class="params">(<span class="keyword">int</span> arg_1, <span class="keyword">double</span> arg_2)</span></span>;
+</code></pre></li>
+<li>对于一个</li>
+</ul>
 </li>
 </ol>
 <p><strong>综上所述，在开始编写一个标准C语言程序的时候，请先把下面这些东西写上:</strong><br></p>
@@ -270,7 +336,7 @@ ptemp<span class="subst">-&gt;</span>next <span class="subst">=</span> <span cla
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt-C/">Qt C++</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -279,7 +345,7 @@ ptemp<span class="subst">-&gt;</span>next <span class="subst">=</span> <span cla
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/C/" style="font-size: 20px;">C</a><a href="/tags/C/" style="font-size: 15px;">C++</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Python/" style="font-size: 15px;">Python</a><a href="/tags/Qt-C/" style="font-size: 10px;">Qt C++</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
+      <a href="/tags/C/" style="font-size: 20px;">C</a><a href="/tags/C/" style="font-size: 15px;">C++</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Python/" style="font-size: 15px;">Python</a><a href="/tags/Qt/" style="font-size: 10px;">Qt</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
     </div>
   </div>
 
