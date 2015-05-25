@@ -98,41 +98,45 @@
 <ul>
 <li><p>讲几个著名的<strong>IDE</strong>，并给出建议，利器第一步：</p>
 <ol>
-<li><p>宇宙级的<strong>IDE</strong>Visual Studio(2010~2013)，之所以说宇宙级，因为这是市面上最强大的集成开发环境，由微软公司出品，但是放在开头不是为了推荐他，而是为了警示大家不要使用它作为C语言的集成开发环境，因为它使用的是微软公司自己定制的C++编译器，也就是说，你的C语言代码会在C++的标准下编译运行，这就是一个十分不好的现象，即便是C++我依旧不喜欢使用Visual Studio，因为它的C++编译器总是和普通的标准有所出入。</p>
+<li><p>宇宙级的<strong>IDE</strong>: Visual Studio(2010~2013)，之所以说宇宙级，因为这是市面上最强大的集成开发环境，由微软公司出品，但是放在开头不是为了推荐他，而是为了警示大家不要使用它作为C语言的集成开发环境，因为它使用的是微软公司自己定制的C++编译器，也就是说，你的C语言代码会在C++的标准下编译运行，这就是一个十分不好的现象，即便是C++我依旧不喜欢使用Visual Studio，因为它的C++编译器总是和普通的标准有所出入。</p>
 <p> 原归正传，Visual Studio的确不是一个好的C语言开发IDE，所以请另外选择一个。</p>
 </li>
-<li><p>老牌<strong>IDE</strong>DevC++，这又是一个大家耳熟能详，经常能在老师手里看见的C语言教学利器，但是，它是C++的IDE，记住C于C++完全是两个世界的人，虽然C++宣称能全面兼容C程序，但是有些东西依旧是有所区别，体现在语法的兼容性上，后文会有提及。那为什么大学老师喜欢使用它呢？因为一本由清华大学出版社出版的《数据结构》，让无数人为之折服，其中赫然写着由于性能我们不能拘泥于小细节，故对于C++的特性<code>&amp;</code>引用，我们可以将其使用在C语言的语法中，就是这句话，让无数无知的学子扑向其中，再也分不清C与C++，看成谭浩强之后的，清华大学出版社又一诲人不倦的力作。</p>
+<li><p>老牌<strong>IDE</strong>: DevC++，这又是一个大家耳熟能详，经常能在老师手里看见的C语言教学利器，但是，它是C++的IDE，记住C于C++完全是两个世界的人，虽然C++宣称能全面兼容C程序，但是有些东西依旧是有所区别，体现在语法的兼容性上，后文会有提及。那为什么大学老师喜欢使用它呢？因为一本由清华大学出版社出版的《数据结构》，让无数人为之折服，其中赫然写着由于性能我们不能拘泥于小细节，故对于C++的特性<code>&amp;</code>引用，我们可以将其使用在C语言的语法中，就是这句话，让无数无知的学子扑向其中，再也分不清C与C++，看成谭浩强之后的，清华大学出版社又一诲人不倦的力作。</p>
 <p> 所以，真爱编程，远离清华大学出版社，也请大家注意，不要使用DevC++这个IDE进行C语言程序的开发以及练习。</p>
 </li>
-<li><p>知名<strong>IDE</strong>Code::Blocks，是一款非常优秀的开源跨平台集成开发环境，体积并不大，适合作为C语言的IDE，并且功能齐全，有兴趣的人可以深究，这是首推的C语言开发环境选择。</p>
+<li><p>知名<strong>IDE</strong>: Code::Blocks，是一款非常优秀的开源跨平台集成开发环境，体积并不大，适合作为C语言的IDE，并且功能齐全，有兴趣的人可以深究，这是首推的C语言开发环境选择。</p>
 </li>
-<li><p>知名<strong>IDE</strong>CodeLite，是一款非常优秀的开源跨平台集成开发环境，体积并不大，适合作为C语言的IDE，并且功能齐全，有兴趣的人可以深究，这是首推的C语言开发环境选择。</p>
+<li><p>知名<strong>IDE</strong>: CodeLite，是一款非常优秀的开源跨平台集成开发环境，体积并不大，适合作为C语言的IDE，并且功能齐全，有兴趣的人可以深究，这是次推的C语言开发环境选择，因为使用起来稍微也有些额外的工作要做。</p>
 </li>
-<li><p>著名<strong>IDE</strong>Xcode，是一个苹果电脑上的史诗级集成开发环境，虽然脱胎于C语言，但是由于某些原因，并不太建议使用其作为C语言的开发环境。 </p>
+<li><p>著名<strong>IDE</strong>: Xcode，是一个苹果电脑上的史诗级集成开发环境，虽然脱胎于C语言，但是由于某些原因，并不太建议使用其作为C语言的开发环境。 </p>
 </li>
 </ol>
 </li>
 <li><p>IDE的基本配置<br>利器第二步是对所选的IDE进行一些基本的配置，以及小科普。</p>
 <ol>
-<li><p>对于一个C语言的开发环境来说，选择合适的标准是很重要的，在Windows以及Linux操作系统下，我们还是使用<code>GCC</code>这个家伙比较多，开源，免费，且极其强大。当然你也可以选择<code>clang</code>，选择了编译器，我们开始讲标准。</p>
+<li><p>对于一个练习C语言的开发环境来说，选择合适的标准和编译器是很重要的，在Windows以及Linux操作系统下，我们还是使用<code>GCC</code>这个家伙比较多，开源，免费，且极其强大。当然你也可以选择<code>clang</code>，当然整个计算机领域中支持C语言的编译器并不止这两个，只不过这两个是开源免费，而且功能强大，十分适合作为个人开发以及无特殊需求的企业开发的选择。</p>
+<p> 选择了编译器，我们开始讲标准：</p>
 <p> 对于<code>GCC 5.1</code>以下的所有版本，都默认对C语言使用<code>C89</code>标准，但是我建议使用<code>C99</code>两者的差距，有一个极其明显的地方，便是<code>for</code>循环的使用</p>
 <pre><code><span class="comment">/*C89:*/</span>
 <span class="keyword">int</span> i;
 <span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; <span class="number">10</span>;++i)
-...
+<span class="comment">/*...*/</span>
 </code></pre><p>…</p>
 <pre><code><span class="comment">/*C99*/</span>
 for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
-   ...
-</code></pre><p>这只是其中的一种差别，但是C99需要人为手动的开启，但是很多人有疑问，为什么有时候没有配置什么也能使用后面的语法？吴老师告诉你，这是因为你用了C++的文件进行C语言的开发，就像挂羊皮卖狗肉的道理。</p>
+<span class="comment">/*...*/</span>
+</code></pre><p> 这只是其中的一种差别，但是C99需要人为手动的开启，但是很多人有疑问，为什么有时候没有配置什么也能使用后面的语法？吴老师告诉你，这是因为你用了C++的文件进行C语言的开发，就像挂羊皮卖狗肉的道理。</p>
 </li>
-<li><p>开启C99<br>一般IDE的顶部都是一系列的标签，找到<code>工具/设置</code>，因为不同的IDE可能有不同的标签，总之在其中找到一个叫<strong>(编译器)Compiler</strong>之后，在其中的<strong>other option</strong>中加入以下:<code>-std=c99</code>，这便是开启C99的选项代码，完事之后保存即可。虽然说我们是中国人，但是毕竟这东西的外国人发明的，我们能看英文就看英文吧。</p>
+<li><p>开启C99</p>
+<p>一般IDE的顶部都是一系列的标签，找到<code>工具/设置</code>，因为不同的IDE可能有不同的标签，总之在其中找到一个叫<strong>(编译器)Compiler</strong>之后，在其中的<strong>other option</strong>中加入以下:<code>-std=c99</code>，这便是开启C99的选项代码，完事之后保存即可。虽然说我们是中国人，但是毕竟这东西的外国人发明的，我们能看英文就看英文吧。</p>
 </li>
 </ol>
-</li>
+<ul>
 <li><p>至此，利器成功配置。</p>
 </li>
 <li><p>当然最重要的还是内在，所以加油吧，虽然是一门很古老的语言，但是存在既有其道理。</p>
+</li>
+</ul>
 </li>
 </ul>
 <h4 id="0x01-C语言序言">0x01-C语言序言</h4><p> 倒是觉得写代码首先不是语法，而是格式，任何时候任何地点，要是自己的代码难以理解，要么你是故意的，要么你就是菜菜</p>
@@ -149,18 +153,18 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
 <p><strong>还记得他们吗？我想这一辈子都忘不了了</strong></p>
 <h4 id="0x02-编程带给我的">0x02-编程带给我的</h4><p>是快乐而不是痛苦，如果你觉得编程痛苦，请放下你手头的工作，找找自己真正想要的，无论从什么角度来看，你都应该放弃令你痛苦的事情，花上三杯茶的时间，看看自己的心到底喜欢什么。</p>
 <p>C语言可谓是让一个程序员最难以感受到自己进步的编程语言，一个黑窗口就让无数程序员再也走不出来。或者迷失，或者停滞不前，或者放弃，一个人最恐惧无助，甚至彷徨的时候，就是在努力之后却感受不到自己在进步，努力的白费是所有人不愿意看到的，但是太多人就着所谓前途而奋不顾身的投入这个事业，他们也许对计算机完全没有喜爱之心，埋头苦干，世人皆称<strong>爱读书的好孩子</strong>，但是这意义又在何处？即使最后你领着你觉得高的工资，站在了同学，朋友的前方，依然发现自己并没有得到满足，在我看来，让自己开心的才是最好的，不适合你的永远是最差的，即便能带来利益？何不花三杯茶的时间，想想自己到底适合何处。</p>
-<p>在C语言的道路上，囊括了许多到天堑，并不是说这门语言比其他语言难，相反它十分符合人类的思维逻辑，但就是因为它存在的时间太久远，普通的使用于它于世界已经无甚大用，有用的只是那些将C语言发挥到极限的工程，不再是小窗口中写一个数据结构，一个算法，也许你觉得写出一棵<strong>红黑树</strong>很了不起了？那也就是做成一个字典树，在一个浩大的工程中，一个虽重要却不起眼的小部分罢了，学完所有语法，却不知所措接下去该怎么做？有心人在无尽的探索之后发觉，啊！标准库！啊算法！嗯对了，还有各种各样的第三方扩展，以后呢？啊！操作系统！然而自学的路上充满着坎坷，艰辛，无助，烦恼，那又如何？喜欢就好。</p>
-<p>所谓师傅领进门，修行在个人，这句话在我看来有两个重要点，却是现在大学生几乎缺失的。<strong>师傅</strong>一词告诉我们，要不耻下问，要善于询问，而不是伸手即来思想，”提问的智慧”在我看来是一门很重要的课程，特别是在当今信息时代。而更重要的是，不要有先入为主的思想，在这两年的自学历程里，见过太多后来者居上的事迹，当你一直认为自己一定比后辈强时，你就注定输了，所以不耻下问才是最重要的。但是如果师傅是那么容易找到的，那就不会有学校了，<strong>个人</strong>指的并不是孤军奋战，而是要善于自己发现问题，解决问题，这个过程自然少不了请教他人<br></p>
-<p>编程是一种信仰，至少在我认为是这样的，请把它当作信仰，它能给你快乐，给你充实，当然也不要忘了现实</p>
+<p>在C语言的道路上，囊括了许多道天堑，并不是说这门语言比其他语言难，相反它十分符合人类的思维逻辑，但就是因为它存在的时间太久远，普通的使用于它于世界已经无甚大用，在现在这个高级语言遍地走的时代里，有用的只是那些将C语言发挥到极限的工程，不再是小窗口中写一个数据结构，一个算法，也许你觉得徒手写出一棵<strong>红黑树</strong>很了不起了？那也就是做成一个字典树，在一个浩大的工程中，一个虽重要却不起眼的小部分罢了，学完所有语法，却不知所措接下去该怎么做？有心人在无尽的探索之后发觉，啊！标准库！啊算法！嗯对了，还有各种各样的第三方扩展，以后呢？啊！操作系统！然而自学的路上充满着坎坷，艰辛，无助，烦恼，那又如何？喜欢就好。</p>
+<p>所谓师傅领进门，修行在个人，这句话在我看来有两个重要点，却是现在大学生几乎缺失的。<strong>师傅</strong>一词告诉我们，要不耻下问，要善于询问，而不是伸手即来思想，”提问的智慧”在我看来是一门很重要的课程，特别是在当今信息时代。而更重要的是，先入为主的思想是极其可怕的，在这两年的自学历程里，见过太多后来者居上的事迹，当你一直认为自己一定比后辈强时，你就注定输了，所以不耻下问才是最重要的。但是如果师傅是那么容易找到的，那就不会有学校了，<strong>个人</strong>指的并不是孤军奋战，而是要善于自己发现问题，努力解决问题，这个过程可能少不了请教他人</p>
+<p>编程可以是一种信仰，至少在我认为是这样的，把它当作信仰的人，它就能给你快乐，给你充实，当然也不要忘了现实，虽然现实中总是少不了加班的羁绊，但是如果是真心喜爱编程，又怎么会被这些困难所打败？但是C语言真的不是一门容易精通的语言。</p>
 <h4 id="0x03-C代码">0x03-C代码</h4><pre><code><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span>
 <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span>
 </span>{
     <span class="built_in">printf</span>(<span class="string">"That is Right Style\n"</span>);
     <span class="keyword">return</span> <span class="number">0</span>;
 }
-</code></pre><p></p><p>在一个标准的C语言程序中，最重要的莫过于main函数了，而说到底它就是一个函数而已，仅仅因为它地位特殊拥有第一执行权力，换句话说，难道因为一个人是省长它就不是人类了？所以函数该有的它都应该有，那么函数还有什么呢？<br></p>
-<p></p><p>函数大体上分为<a href="http://www.greenend.org.uk/rjk/tech/inline.html" target="_blank" rel="external">内联函数(C99)</a><strong>(内联函数并非C++专属，C语言亦有，具体见前方链接)</strong>和非内联的普通函数，它们之间有一个很明显的特点(一般情况下)，那就是不写原型直接在main函数上方定义，即使不加’inline’关键字，也能被编译器默认为内联函数，但之后带来的某些并发问题就不是编译器考虑的了。<br></p>
-<p></p><p>普通函数正确的形式应该为声明与定义分离，声明就是一个函数原型，函数原型应该有一个函数名字，一个参数列表，一个返回值类型和一个分号。定义就是函数的内在，花括号内的就是函数的定义:</p>
+</code></pre><p>在一个标准的C语言程序中，最特殊的莫过于main函数了，而说到底它就是一个函数而已，仅仅因为它地位特殊拥有第一执行权力，换句话说，难道因为一个人是省长它就不是人类了？所以函数该有的它都应该有，那么函数还有什么呢？</p>
+<p>函数大体上分为<a href="http://www.greenend.org.uk/rjk/tech/inline.html" target="_blank" rel="external">内联函数(C99)</a><strong>(内联函数并非C++专属，C语言亦有，具体见前方链接)</strong>和非内联的普通函数，它们之间有一个很明显的特点(一般情况下)，那就是不写原型直接在main函数上方定义，即使不加’inline’关键字，也能被编译器默认为内联函数，但之后带来的某些并发问题就不是编译器考虑的了。</p>
+<p>普通函数正确的形式应该为声明与定义分离，声明就是一个函数原型，函数原型应该有一个函数名字，一个参数列表，一个返回值类型和一个分号。定义就是函数的内在，花括号内的就是函数的定义:</p>
 <pre><code><span class="comment">//...</span>
 <span class="function"><span class="keyword">int</span> <span class="title">function</span><span class="params">(<span class="keyword">int</span> arg_1, <span class="keyword">float</span> arg_2)</span></span>;
 <span class="comment">//...</span>
@@ -207,12 +211,12 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
 </li>
 <li><p>程序式子的写法</p>
 <p> 一个人活在世界上，时时刻刻都注意着自己的言行举止，而写程序也是如此，对于一个规范的能让别人读懂的程序而言，我们应该尽可能减少阻碍因子，例如:</p>
-<pre><code><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span>
-</span>{<span class="keyword">int</span> complex_int=<span class="number">100</span>;
-<span class="keyword">int</span> i,j,k,x;
+<pre><code><span class="keyword">int</span> main(void)
+{<span class="keyword">int</span> complex_int=<span class="number">100</span>;
+<span class="keyword">int</span> i,j,k,<span class="keyword">x</span>;
 <span class="keyword">for</span>(<span class="keyword">int</span> temp=<span class="number">0</span>;temp&lt;complex_int;++temp){k=temp;
-x=k+<span class="keyword">complex</span>;}
-<span class="built_in">printf</span>(complex_int=<span class="string">"%d is k=%d x=%d\n"</span>,complex_int,k,x);
+<span class="keyword">x</span>=k+complex_int;}
+<span class="keyword">printf</span>(complex_int=<span class="string">"<span class="variable">%d</span> is k=<span class="variable">%d</span> x=<span class="variable">%d</span>\n"</span>,complex_int,k,<span class="keyword">x</span>);
 <span class="keyword">return</span> <span class="number">0</span>;}
 </code></pre><p>对于上述的代码，我总是在班级里的同学手下出现，但这段代码除了让别人困惑以外，自己在调试的时候也是十分不方便，每每遇到问题了，即便IDE提示了在某处错误，你也找不到问题所在，经常有人来问我哪里错了，大部分情况都是少了分号，括号，或者作用域超过，原因在哪？</p>
 <p> 要是一开始将代码写清楚了，这种情况简直是凤毛麟角，想遇上都难。对于一个代码而言，我们应该注意让其变得清晰。</p>
@@ -222,15 +226,44 @@ x=k+<span class="keyword">complex</span>;}
 </code></pre></li>
 <li><p>使用多个变量的声明定义，或者函数声明定义，函数使用时，注意用空格分开变量：</p>
 <pre><code><span class="keyword">int</span> i, j, k, x;<span class="comment">//但是十分不建议这么声明难以理解意义的变量</span>
-<span class="built_in">printf</span>(complex_int=<span class="string">"%d is k=%d x=%d\n"</span>, complex_int, k, x);
+<span class="built_in">printf</span>(<span class="string">"complex_int = %d is k = %d x = %d\n"</span>, complex_int, k, x);
 <span class="function"><span class="keyword">void</span> <span class="title">present</span><span class="params">(<span class="keyword">int</span> arg_1, <span class="keyword">double</span> arg_2)</span></span>;
 </code></pre></li>
-<li>对于一个</li>
+<li><p>对于一个清晰的程序而言，我们要让每一个步骤清晰且有意义，这就要求我们在编写程序的时候尽量能让代码看起来结构化，或者整体化。尽量让每个程序式子为一行，如果有特别的需要让多个式子写在同一行，可以使用<code>,</code>操作符进行组合，但是会让程序更难理解，日后调试的时候也更难发现错误。</p>
+<pre><code><span class="comment">/*Style 1*/</span>    
+for(int <span class="variable">temp =</span> <span class="number">0</span>;temp &lt; complex_int;++temp)
+{
+    <span class="variable">k =</span> temp;
+    <span class="variable">x =</span> k + complex_int;
+}
+<span class="comment">/*Style 2*/</span>
+for(int <span class="variable">temp =</span> <span class="number">0</span>;temp &lt; complex_int;++temp){
+    <span class="variable">k =</span> temp;
+    <span class="variable">x =</span> k + complex_int;
+}
+</code></pre><p>对于上方的代码，是C语言代码花括号的两种风格，最好能选择其中一种作为自己的编程风格，这样能让你的程序看起来更加清晰，混合使用的利弊并不好说，关键还是看个人风格。</p>
+</li>
+<li><p>对于作用域而言，在C语言中有一个经常被使用的特例，当一个条件语句，或者循环只有一条语句的时候，我们常常省略了花括号<code>{}</code>，而是仅仅使用一个分号作为结尾，这在很多情况下让代码不再啰嗦：</p>
+<pre><code><span class="keyword">if</span>(pointo_int == NULL)
+    fprintf(stderr, <span class="string">"The pointer is NULL!\n"</span>);
+<span class="keyword">else</span>
+{
+    <span class="keyword">printf</span>(<span class="string">"<span class="variable">%d</span>\n"</span>,*pointo_int);
+    pointo_int = pointo_int-&gt;<span class="keyword">next</span>;
+}
+</code></pre><p>在这段代码中<code>if</code>语句下方的代码并没有使用<code>{}</code>运算符进行指明，但是根据语法，该语句的确是属于<code>if</code>语句的作用范围内，如果我们此时写上了<code>{}</code>反而会令代码看起来过于啰嗦。但是有的时候，这条特性并不是那么的有趣，当使用嵌套功能的时候，还是建议使用<code>{}</code>进行显式的范围规定，而不是使用默认的作用域：</p>
+<pre><code>for<span class="comment">(int i = 0;i&lt; 10;++i)</span>
+    for<span class="comment">(int k = 0;k &lt; 10;++k)</span>
+        <span class="keyword">while</span><span class="comment">(flag != 1)</span>
+            set_value<span class="comment">(arr[i][k])</span>;
+</code></pre><p>这段代码，看起来十分简洁，但是确实是一个很大的隐患，当我们要调试这段代码的时候，总是需要修改它的构造，而这就带来了潜在的隐患。所以建议在使用嵌套的时候，无论什么情况，都能使用<code>{}</code>进行包装。</p>
+</li>
 </ul>
 </li>
 </ol>
 <p><strong>综上所述，在开始编写一个标准C语言程序的时候，请先把下面这些东西写上:</strong><br></p>
 <pre><code><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span>
+
 <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span>
 </span>{
     <span class="keyword">return</span> <span class="number">0</span>;
@@ -295,7 +328,7 @@ ptemp<span class="subst">-&gt;</span>next <span class="subst">=</span> <span cla
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wushxin.top/2015/05/12/我为什么学C(1)/" data-id="cia12q2it000804lt6ttx4enk" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/12/我为什么学C(1)/" data-id="cia3zmw2600083oltfgtvwjya" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
@@ -336,7 +369,7 @@ ptemp<span class="subst">-&gt;</span>next <span class="subst">=</span> <span cla
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C++</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -345,7 +378,16 @@ ptemp<span class="subst">-&gt;</span>next <span class="subst">=</span> <span cla
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/C/" style="font-size: 20px;">C</a><a href="/tags/C/" style="font-size: 15px;">C++</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Python/" style="font-size: 15px;">Python</a><a href="/tags/Qt/" style="font-size: 10px;">Qt</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
+      <a href="/tags/C/" style="font-size: 20px;">C</a><a href="/tags/Cpp/" style="font-size: 15px;">Cpp</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Python/" style="font-size: 15px;">Python</a><a href="/tags/Qt/" style="font-size: 10px;">Qt</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -357,7 +399,7 @@ ptemp<span class="subst">-&gt;</span>next <span class="subst">=</span> <span cla
       <ul>
         
           <li>
-            <a href="/2015/05/20/我为什么学C-4/">我为什么学C(4)</a>
+            <a href="/2015/05/20/我为什么学C(4)/">我为什么学C(4)</a>
           </li>
         
           <li>
