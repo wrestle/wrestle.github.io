@@ -65,6 +65,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-C-流操作" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/10/C-流操作/" class="article-date">
+  <time datetime="2015-05-09T23:47:37.000Z" itemprop="datePublished">2015-05-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/10/C-流操作/">C++流操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C++流的使用">C++流的使用</h1><h2 id="每次使用完流,记得要关闭,虽然有时候并不是必须的-">每次使用完流,记得要关闭,虽然有时候并不是必须的.</h2><p><code>streamname.close();</code></p>
+<h2 id="重定向">重定向</h2><p>   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源 </br><br>   <pre><code><br>   ~$ program ‘&lt;’input.filetype &gt;output.filetype #去掉多余的’’<br>   </code></pre><br>   <br> 在Linux和Unix下,’&gt;’ ‘&lt;’默认是标准输出和标准输入,’2&gt;’则是标准错误(即std::cerr)</p>
+<h2 id="输出流">输出流</h2><p>   <br>1. ostream类提供了 put() 和 write() 方法用来输出 </br></p>
+<pre><code><span class="built_in">cout</span>.put(<span class="string">'W'</span>); <span class="comment">//输出字符Ｗ,可以拼接使用就像重载之后的 '&lt;&lt;'</span>
+<span class="built_in">cout</span>.write(<span class="string">"Candy Bob"</span>,<span class="number">5</span>); <span class="comment">//输出第一个参数的第二个参数个长度</span>
+</code></pre><p>   <br>2. 刷新输出缓冲区可以有两种方法,原理都是重载 ‘&lt;&lt;’ </br><br>   <br>   前者与后者的差别就在与后者刷新缓冲区后多了一个换行操作 </br></p>
+<pre><code><span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; flush; <span class="comment">//相当于flush(cout);</span>
+<span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; endl;  
+</code></pre><p>   <br>3. 可以通过流操作修改现实的进制, 默认十进制,十六进制,八进制 </br><br>
+        
+          <p class="article-more-link">
+            <a href="/2015/05/10/C-流操作/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wushxin.top/2015/05/10/C-流操作/" data-id="cia9niml9000q3wlt1rntnjts" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Hexo网站布置错误解决" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/05/09/Hexo网站布置错误解决/" class="article-date">
@@ -103,7 +154,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wushxin.top/2015/05/09/Hexo网站布置错误解决/" data-id="cia3znlhd000l5olt2q56r3a5" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/09/Hexo网站布置错误解决/" data-id="cia9niml5000n3wltmvdykchg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网站/">网站</a></li></ul>
@@ -130,7 +181,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -148,7 +199,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">12</span></li></ul>
     </div>
   </div>
 
@@ -158,6 +209,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/05/29/我为什么学C-5/">我为什么学C(5)</a>
+          </li>
         
           <li>
             <a href="/2015/05/20/我为什么学C(4)/">我为什么学C(4)</a>
@@ -173,10 +228,6 @@
         
           <li>
             <a href="/2015/05/13/我为什么学C(2)/">我为什么学C(2)</a>
-          </li>
-        
-          <li>
-            <a href="/2015/05/12/我为什么学C(1)/">我为什么学C(1)</a>
           </li>
         
       </ul>
