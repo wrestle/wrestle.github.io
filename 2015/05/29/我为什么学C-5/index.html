@@ -102,18 +102,20 @@
 </li>
 <li><p>所谓局部性就是当我们使用过某些资源后，这些资源总是以一种形式存储在更高级更方便的存储器当中，让最近一次的存取请求能够更加有效率的进行。</p>
 <ul>
-<li>打个不太贴切的比喻，假设计算机是一个家，CPU是一个人，想象一下这个家中的所有物品都是井然有序的，这个人想要工作必然会需要工作物品，所以他需要从某些地方拿来，用干完以后再放回去，这些地方就是硬盘或者内存，但是过了一段时间发现这么做太浪费时间，有时候某些东西太远了，所以，人想把它把它放在离自己更进的地方，这样自己的效率就高很多，如果这个东西一段时间内不再用，则把它放回原处，留出位置给更需要的工作物品，于是形成了越常使用的物品离人越近的现象。这便是计算机存储器的分层结构的意义。<a id="more"></a></li>
+<li>打个不太贴切的比喻，假设计算机是一个家，CPU是一个人，想象一下这个家中的所有物品都是井然有序的，这个人想要工作必然会需要工作物品，所以他需要从某些地方拿来，用完以后再放回去，这些地方就是硬盘或者内存，但是过了一段时间发现这么做太浪费时间，有时候某些东西太远了，所以，人想把它把它放在离自己更进的地方，这样自己的效率就高很多，如果这个东西一段时间内不再用，则把它放回原处，留出位置给更需要的工作物品，于是形成了越常使用的物品离人越近的现象。这便是计算机存储器的分层结构的意义。</li>
+<li>而对于一个有良好局部性的程序而言，我们总能在离自己最近的地方找到我们所需要的数据，回到计算机：我们知道计算机的存储器是分层结构的，即每一层对应着不同的读写速度等级(CPU寄存器 &gt; 高速缓存 &gt; 主存 &gt; 硬盘)，而我们的程序总是按照从左至右的顺序依次查找，每次找到一个所需要数据，不出意外，总是将其移动到上一层次的存储器中存储，以便下次更高速的访问，我们称这种行为叫做 <strong>命中</strong> 。越好的程序，越能将当时所需的数据放在越靠近左边的地方。这便是局部性的意义所在。</li>
 <li>也许某一天，当内存的<strong>位价</strong>和普通硬盘不相上下或者差距不多的时候，也许内存就是硬盘了。而当今也有人使用某些特殊的软件在实现这个功能，凭着自己计算机上大容量的内存，分割出来当作硬盘使用，存取速度让硬盘望尘莫及。</li>
 </ul>
 </li>
 </ul>
+<a id="more"></a>
 <h4 id="局部性">局部性</h4><p>前方提到了局部性，局部性体现在了，当步长越大，空间局部性越低，大多数情况下会造成性能降低，比如最常见的多维数组循环(我不使用多维数组的原因之一便在于此)，前面说过多维数组实际上只是数个一维数组的包装而已，C语言中并没有真正的多维数组，而是将其解读成内存中的一维的连续内存，但是当我们遍历它的时候，C语言为了不让我们被底层实现所困扰，所以生成了多维数组遍历的假象：</p>
 <p>让我们重温一遍”多维数组”：</p>
 <pre><code><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;    </span>
 <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span>
 </span>{
     <span class="keyword">int</span> dim_1_arr[<span class="number">4</span>]    = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>};
-    <span class="keyword">int</span> dim_2_arr[<span class="number">2</span>][<span class="number">2</span>] = &lt;!--￼<span class="number">0</span>--&gt;;
+    <span class="keyword">int</span> dim_2_arr[<span class="number">2</span>][<span class="number">2</span>] = { {<span class="number">1</span>, <span class="number">2</span>}, {<span class="number">3</span>, <span class="number">4</span>} };
     <span class="keyword">int</span> result_1 = <span class="number">0</span>;
     <span class="keyword">int</span> result_2 = <span class="number">0</span>;
 
@@ -208,7 +210,7 @@ typedef struct{
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://wushxin.top/2015/05/29/我为什么学C-5/" data-id="cia9np02g0001iwltg7bgobvl" class="article-share-link">Share</a>
+      <a data-url="http://wushxin.top/2015/05/29/我为什么学C-5/" data-id="cia9qjv0x0001mgltashvpwuc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
