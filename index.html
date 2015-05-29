@@ -101,109 +101,12 @@
 </li>
 <li><p>所谓局部性就是当我们使用过某些资源后，这些资源总是以一种形式存储在更高级更方便的存储器当中，让最近一次的存取请求能够更加有效率的进行。</p>
 <ul>
-<li>打个不太贴切的比喻，假设计算机是一个家，CPU是一个人，想象一下这个家中的所有物品都是井然有序的，这个人想要工作必然会需要工作物品，所以他需要从某些地方拿来，用干完以后再放回去，这些地方就是硬盘或者内存，但是过了一段时间发现这么做太浪费时间，有时候某些东西太远了，所以，人想把它把它放在离自己更进的地方，这样自己的效率就高很多，如果这个东西一段时间内不再用，则把它放回原处，留出位置给更需要的工作物品，于是形成了越常使用的物品离人越近的现象。这便是计算机存储器的分层结构的意义。</li>
-<li>也许某一天，当内存的<strong>位价</strong>和普通硬盘不相上下或者差距不多的时候，也许内存就是硬盘了。而当今也有人使用某些特殊的软件在实现这个功能，凭着自己计算机上大容量的内存，分割出来当作硬盘使用，存取速度让硬盘望尘莫及。</li>
-</ul>
-</li>
-</ul>
-<h4 id="局部性">局部性</h4><p>前方提到了局部性，局部性体现在了，当步长越大，空间局部性越低，大多数情况下会造成性能降低，比如最常见的多维数组循环(我不使用多维数组的原因之一便在于此)，前面说过多维数组实际上只是数个一维数组的包装而已，C语言中并没有真正的多维数组，而是将其解读成内存中的一维的连续内存，但是当我们遍历它的时候，C语言为了不让我们被底层实现所困扰，所以生成了多维数组遍历的假象：</p>
-<p>让我们重温一遍”多维数组”：</p>
-<pre><code><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;    </span>
-<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span>
-</span>{
-    <span class="keyword">int</span> dim_1_arr[<span class="number">4</span>]    = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>};
-    <span class="keyword">int</span> dim_2_arr[<span class="number">2</span>][<span class="number">2</span>] = &lt;!--￼<span class="number">0</span>--&gt;;
-    <span class="keyword">int</span> result_1 = <span class="number">0</span>;
-    <span class="keyword">int</span> result_2 = <span class="number">0</span>;
-
-    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">4</span>;++i)
-        result_1 += dim_1_arr[i];
-    <span class="keyword">return</span> <span class="number">0</span>;
-}
-</code></pre><p>此例中，对一维数组进行步长为 <code>1</code> 遍历求和，假设内存中数组的起始位置是 <code>0</code></p>
-<p><code>0 =&gt; 4 =&gt; 8 =&gt; 12</code></p>
-<pre><code><span class="keyword">for</span>(int j = <span class="number">0</span>;j &lt; <span class="number">3</span>;++j)<span class="comment">{
-    for(int i = 0;i &lt; 3;++i){
-        result_2 += dim_2_arr[i][j];
-    }</span>
-}
-</code></pre><p>此例中，我们的步长是多少呢？我们来看一下</p>
-<p><code>0 =&gt; 8 =&gt; 4 =&gt; 12</code></p>
-<p>可以很清晰的看出两段不同代码之间的跳跃，为什么？观察到多维数组的遍历中我们和平时的做法有些不同，是先对<code>i</code>进行遍历，再对<code>j</code>进行遍历，这就导致了程序必须在内存块中<strong>无规律</strong>的跳动，这里的无规律是计算机认为的无规律，虽然在我们看来的确是有迹可寻，优秀的编译器能够对它进行优化处理。就事论事，即这段程序的空间局部性比较差，对于一个在内存中大幅度跳跃，无规律跳跃的程序都将影响程序的性能。这个判定对于一个连续的内存块来说是很重要的，比如C语言中的结构体。</p>
-<p>实际上C语言也是能够面向对象的，但是十分复杂，就像拿着棒子织衣服一样。而C语言的机构体能够让我们在一定程度上初步理解对象这个概念，因为它是一个完整的个体，虽然对外界<strong>毫不设防</strong>。</p>
-<blockquote>
-<p><strong>对于结构体</strong></p>
-</blockquote>
-<pre><code><span class="comment">#define VECTOR 4</span>
-typedef struct{
-        double salary;
-        <span class="type">int</span>    index[<span class="number">4</span>];
-}test_data;
-
-<span class="type">int</span> main(<span class="type">void</span>)
-{
-    <span class="type">int</span> result_1 = <span class="number">0</span>;
-    <span class="type">int</span> result_2 = <span class="number">0</span>;
-    test_data dim_1_arr[<span class="type">VECTOR</span>];
-    /* ...填充数据 */
-
-    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; <span class="type">VECTOR</span>;++i)
-    {    
-        <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>;j &lt; <span class="number">4</span>;++j)
-            <span class="literal">result</span> += dim_1_arr[i].index[j];
-    }/* <span class="keyword">for</span> loop <span class="number">1</span> */
-
-    <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>;j &lt; <span class="number">4</span>;++j)
-    {
-        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; <span class="type">VECTOR</span>;++i)
-            <span class="literal">result</span> += dim_1_arr[i].index[j];
-    }/* <span class="keyword">for</span> loop <span class="number">2</span> */
-    <span class="keyword">return</span> <span class="number">0</span>;
-}    
-</code></pre><p>还是和上方一样，假设 <code>dim_1_arr</code> 起始位置为 <code>0</code></p>
-<p> <strong>for loop 1</strong>：</p>
-<p><code>8 =&gt; 12 =&gt; 16 =&gt; 20 ==&gt; 32 =&gt; 36 =&gt; 40 =&gt; 44 ==&gt; ...</code></p>
-<p><strong>for loop 2</strong>：</p>
-<p><code>8 =&gt; 32 =&gt; 56 =&gt; 80 ==&gt; 12 =&gt; 36 =&gt; 60 =&gt; 84 ==&gt; ...</code></p>
-<p>从上方不完整的比较来看，<strong>loop 1</strong> 相对于 <strong>loop 2</strong> 来说有更好的空间局部性，很明显在 <strong>loop 2</strong> 中，CPU读取是在无规律的内存位置跳跃，而 <strong>loop 1</strong> 则是以递增的趋势向前(这里的向前指的是直观上的向前)读取内存。</p>
-<ul>
-<li>在此处回顾一下C语言的结构体性质与知识：<ul>
-<li>对于任意一个完整定义的结构体，每一个对象所占有的内存大小都符合内存对齐的规则。</li>
-<li>对于结构体内的各个成员而言，其相对于对象存储地址起始的距离，称为偏移量。</li>
-</ul>
-</li>
-<li><p>解释：</p>
-<ul>
-<li><p>内存对齐便是对于一个结构体而言，其所占内存大小总是最大成员的整数倍，其中最大成员指的是最基本成员，即：</p>
-<pre><code><span class="keyword">typedef</span> <span class="keyword">struct</span>{
-    test_data test_1;
-    <span class="keyword">int</span>       test_2;
-}test_data_2;
-
-<span class="comment">/*...*/</span>
-<span class="built_in">printf</span>(<span class="string">"The size of test_data_2 = %d\n"</span>,<span class="keyword">sizeof</span>(test_data_2));
-<span class="comment">/*...*/</span>
-</code></pre><p>  <code>值为： 32</code></p>
-<pre><code><span class="keyword">typedef</span> <span class="keyword">struct</span>{
-        <span class="keyword">int</span> index[<span class="number">4</span>];
-        <span class="keyword">int</span> store_1;
-        <span class="keyword">int</span> store_2;
-}test_data_3;
-<span class="keyword">typedef</span> <span class="keyword">struct</span>{
-        test_data_3 test_3;
-        <span class="keyword">int</span>         test_4;
-}test_data_4;
-<span class="comment">/*...*/</span>
-<span class="built_in">printf</span>(<span class="string">"The size of test_data_4 = %d\n"</span>,<span class="keyword">sizeof</span>(test_data_4));
-</code></pre><p>  <code>值为： 28</code></p>
-<p>  仔细对比<code>test_data_3</code>与<code>test_data</code>的差异，可以发现不同处，在前者的内部包含了一个<code>double</code>类型的成员，在我的机器上它的长度为 <code>8</code> ，后者的内部包含了两个<code>int</code>类型的成员，每个长度为 <code>4</code>，但是他们的长度在直观上是一样的！但是真正在使用的时候我们才能察觉到其中的差异，这就是我所说的<strong>最基本成员</strong>的意义所在，虽然我们在使用结构体的时候，能够将其当作一个整体，但是实际上他们与内建(build-in)的类型还是有一些差异的。</p>
-</li>
-<li>偏移量通俗地说，就是该成员起始地址距离起始位置的长度，在结构体中，C语言是怎么为结构体分配设定大小的呢？除了内存对齐外，还需要考虑定义结构体时，其中成员的声明顺序，换句话说，谁首先声明，谁的位置就靠前。而某个成员的偏移量代表着其<strong>起始位置</strong>减去其所属对象的<strong>起始位置</strong>，(此处需要注意的是，两个毫不相干的指针相减所得到的结果是无意义的，只有当两个指针同在一个作用域内时，减法才是有意义的，为了避免潜在的错误，我们要谨慎使用指针减法操作)。</li>
-</ul>
-</li>
-<li>就此回过头去再看看上方的<strong>loop</strong>解释，应该能够理解到，那些数字是通过偏移量来进行计算得到的。</li>
-</ul>
-<h4 id="未完待续">未完待续</h4><h4 id="参考:深入理解计算机系统—Randal_E-Bryant_/_David_O’Hallaro">参考:<a href="http://book.douban.com/subject/5333562/" target="_blank" rel="external">深入理解计算机系统—Randal E.Bryant / David O’Hallaro</a></h4>
+<li>打个不太贴切的比喻，假设计算机是一个家，CPU是一个人，想象一下这个家中的所有物品都是井然有序的，这个人想要工作必然会需要工作物品，所以他需要从某些地方拿来，用干完以后再放回去，这些地方就是硬盘或者内存，但是过了一段时间发现这么做太浪费时间，有时候某些东西太远了，所以，人想把它把它放在离自己更进的地方，这样自己的效率就高很多，如果这个东西一段时间内不再用，则把它放回原处，留出位置给更需要的工作物品，于是形成了越常使用的物品离人越近的现象。这便是计算机存储器的分层结构的意义。
+        
+          <p class="article-more-link">
+            <a href="/2015/05/29/我为什么学C-5/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
