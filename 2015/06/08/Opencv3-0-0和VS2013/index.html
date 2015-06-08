@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Opencv3.0.0和VS2013 | WuShXin&#39;s fox</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="配置Opencv3.0.0前天，Opencv3.0.0的正式版本发布，不再有奇怪的缺少文件之类的错误，正好最近需要使用它来完成一些神经网络上的辅助，也就尝试了配置，下面记录配置的过程。
+准备
+Visual Studio 2013
+Opencv-3.0.0
+
+声明
+Windows8.1 + 64位
+Opencv-3.0.0 的放置路径为 C:\opencv
+Visual Studio 工程存放位置为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Opencv3.0.0和VS2013">
+<meta property="og:url" content="http://wushxin.top/2015/06/08/Opencv3-0-0和VS2013/index.html">
+<meta property="og:site_name" content="WuShXin's fox">
+<meta property="og:description" content="配置Opencv3.0.0前天，Opencv3.0.0的正式版本发布，不再有奇怪的缺少文件之类的错误，正好最近需要使用它来完成一些神经网络上的辅助，也就尝试了配置，下面记录配置的过程。
+准备
+Visual Studio 2013
+Opencv-3.0.0
+
+声明
+Windows8.1 + 64位
+Opencv-3.0.0 的放置路径为 C:\opencv
+Visual Studio 工程存放位置为">
+<meta property="og:image" content="http://c.picphotos.baidu.com/album/s%3D1100%3Bq%3D90/sign=26fd4268a6cc7cd9fe2d30d809311a4e/aec379310a55b3196196dbf046a98226cefc17c3.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwivdbyj20mz0cbdgq.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/81b736ebjw1eswqwh92pcj20dp0gtq3c.jpg">
+<meta property="og:image" content="http://g.picphotos.baidu.com/album/s%3D740%3Bq%3D90/sign=b329924b9c25bc312f5d039c6ee4fc8c/b21c8701a18b87d6b9a3ec9a020828381e30fd56.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/81b736ebjw1eswqwkxxz0j20bh05adfs.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/81b736ebjw1eswqwkirl7j20880hh749.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwjcj8kj20lc0ea3zk.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwehzjxj20jw0e0aa7.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/81b736ebjw1eswqwf0k50j20jw0e0jrp.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/81b736ebjw1eswqwfiqf9j20lc0fc3zn.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/81b736ebjw1eswqwg1wm4j20lc0f4ab0.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/81b736ebjw1eswqwhuj95j20lc0gaab2.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/81b736ebjw1eswqwib94kj20sb0e1dh5.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/81b736ebjw1eswqwgxfdfj20j009o74r.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwnccirj20iy076wer.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/81b736ebjw1eswqwd6uz9j20ag0e9jry.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwdmf0nj20l20dqjsk.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwe3srkj20l20dqt9j.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Opencv3.0.0和VS2013">
+<meta name="twitter:description" content="配置Opencv3.0.0前天，Opencv3.0.0的正式版本发布，不再有奇怪的缺少文件之类的错误，正好最近需要使用它来完成一些神经网络上的辅助，也就尝试了配置，下面记录配置的过程。
+准备
+Visual Studio 2013
+Opencv-3.0.0
+
+声明
+Windows8.1 + 64位
+Opencv-3.0.0 的放置路径为 C:\opencv
+Visual Studio 工程存放位置为">
+  
+    <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.useso.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">WuShXin&#39;s fox</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">喜欢编程带来的快乐</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon"  href="https://www.baidu.com" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="q" value="site:http://wushxin.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Opencv3-0-0和VS2013" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/06/08/Opencv3-0-0和VS2013/" class="article-date">
+  <time datetime="2015-06-08T08:26:15.000Z" itemprop="datePublished">2015-06-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Opencv3.0.0和VS2013
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="配置Opencv3-0-0">配置Opencv3.0.0</h4><p>前天，Opencv3.0.0的正式版本发布，不再有奇怪的缺少文件之类的错误，正好最近需要使用它来完成一些神经网络上的辅助，也就尝试了配置，下面记录配置的过程。</p>
+<h4 id="准备">准备</h4><ol>
+<li><a href="https://www.visualstudio.com/" target="_blank" rel="external">Visual Studio 2013</a></li>
+<li><a href="http://opencv.org/downloads.html" target="_blank" rel="external">Opencv-3.0.0</a></li>
+</ol>
+<h4 id="声明">声明</h4><ol>
+<li>Windows8.1 + 64位</li>
+<li>Opencv-3.0.0 的放置路径为 <strong>C:\opencv</strong></li>
+<li>Visual Studio 工程存放位置为 <strong>C:\VSProject</strong> 目录下<ul>
+<li>在此处建议，无论什么路径，都是用英文，并且不要使用空格，如果是操作系统自带的文件路径请看准是否有空格，否则配置这opencv会让你疯狂。</li>
+</ul>
+</li>
+<li>对于 <strong>Visual Studio 2013</strong> 来说，我们使用的官方编译好的文件夹所在位置是 <strong>vc12</strong>，我也不懂为什么，总之就是这样。</li>
+</ol>
+<h4 id="配置">配置</h4><a id="more"></a>
+<p>有了上述两个工具之后，我们就可以着手配置自己的开发环境了，但是先要声明的是，每一个不同的工程项目就需要重新配置一次。</p>
+<ol>
+<li><p>工程项目是什么？就是 <strong>文件 -&gt; 新建 -&gt; 项目</strong>，在这里我们点击了项目之后出现一个窗口：<br><img src="http://c.picphotos.baidu.com/album/s%3D1100%3Bq%3D90/sign=26fd4268a6cc7cd9fe2d30d809311a4e/aec379310a55b3196196dbf046a98226cefc17c3.jpg" alt=""></p>
+<p> 图片可能不太清晰，但是大概是这么一个回事，修改一下名称，以及存储位置(为了方便)之后，点击 <strong>确定</strong> 之后 Visual Studio 自动帮你生成一个工程项目，这时候先停下，回到桌面。</p>
+<ul>
+<li>打开目录： <strong>C:\opencv\build\x64\vc12\bin</strong>，查看里面是否有文件，并将目录添加到系统环境变量(<strong>PATH</strong>)当中，如何添加？<ul>
+<li><img src="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwivdbyj20mz0cbdgq.jpg" alt=""> </li>
+<li><img src="http://ww1.sinaimg.cn/mw690/81b736ebjw1eswqwh92pcj20dp0gtq3c.jpg" alt=""></li>
+<li><img src="http://g.picphotos.baidu.com/album/s%3D740%3Bq%3D90/sign=b329924b9c25bc312f5d039c6ee4fc8c/b21c8701a18b87d6b9a3ec9a020828381e30fd56.jpg" alt=""></li>
+<li><img src="http://ww2.sinaimg.cn/mw690/81b736ebjw1eswqwkxxz0j20bh05adfs.jpg" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>添加完环境变量以后，我们可以开始下一步的配置，根据第一步所创建的项目，我们打开它的属性管理器，当然很可能的就是你创建完成以后，自动就在这个界面，初始情况下，我们创建的是Win32(x86)的工程，这个时候我们需要做的就是，因地制宜。先前说了我是X86_64，也就是64位操作系统，那么我们就应该让整个环境适配他，<strong>(至于32位网上的教程很多)</strong></p>
+<ul>
+<li><p><img src="http://ww2.sinaimg.cn/mw690/81b736ebjw1eswqwkirl7j20880hh749.jpg" alt=""></p>
+<p>接下来，右键你的工程，选择 <strong>属性</strong>，可以很清楚的看见，右上角显示的是<strong>Win32</strong>，我们的目的是将其改为适配64位的开发环境：</p>
+</li>
+<li><img src="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwjcj8kj20lc0ea3zk.jpg" alt=""></li>
+<li>如图所示，点击配置管理器，选择X64，并在外面将目标计算机改成x64<ul>
+<li><img src="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwehzjxj20jw0e0aa7.jpg" alt=""></li>
+<li><img src="http://ww1.sinaimg.cn/mw690/81b736ebjw1eswqwf0k50j20jw0e0jrp.jpg" alt=""></li>
+<li><img src="http://ww3.sinaimg.cn/mw690/81b736ebjw1eswqwfiqf9j20lc0fc3zn.jpg" alt=""> </li>
+</ul>
+</li>
+<li>架构问题解决。接下去才是真正的配置步骤。</li>
+<li>在属性管理器中，打开你的工程看见四个包含文件夹，删除Win32的两个，留下x64，右键 <strong>Debug|x64</strong> 文件夹，选择 <strong>添加新项目属性表(P)…</strong>，保存为 <strong>opencv_debug</strong> 以后，会发现多了一个属性表文件，如法炮制<strong>Release|x64</strong>文件夹，接下来的操作直到第五步，其它的两个属性表都一样</li>
+<li><strong>(opencv_release)</strong></li>
+</ul>
+</li>
+<li><p>首先是打开任意一个属性表文件(双击它= =)，在 <strong>配置属性 -&gt; VC++目录 -&gt; 包含目录 -&gt; &lt;编辑…&gt;</strong>之中添加 <strong>include 目录</strong>，按照我的路径格式，需要添加三个路径分别是：</p>
+<blockquote>
+<p>C:\opencv\build\include</p>
+<p>C:\opencv\build\include\opencv</p>
+<p>C:\opencv\build\include\opencv2</p>
+</blockquote>
+<ul>
+<li><img src="http://ww3.sinaimg.cn/mw690/81b736ebjw1eswqwg1wm4j20lc0f4ab0.jpg" alt=""></li>
+</ul>
+</li>
+<li><p>其次是，在 <strong>配置属性 -&gt; VC++目录 -&gt; 库目录 -&gt; &lt;编辑…&gt;</strong>之中添加 <strong>lib</strong> 目录，按照我的路径格式，需要添加路径是：</p>
+<blockquote>
+<p>C:opencv\build\x64\vc12\lib</p>
+</blockquote>
+<ul>
+<li><img src="http://ww2.sinaimg.cn/mw690/81b736ebjw1eswqwhuj95j20lc0gaab2.jpg" alt=""><br>这个便是存放依赖文件的地方，后续会用到。</li>
+</ul>
+</li>
+<li><p>最后是，在 <strong>配置属性 -&gt; 链接器 -&gt; 输入 -&gt; 附加依赖项 -&gt; &lt;编辑…&gt;</strong> 之中添加依赖，对于 <strong>Opencv-3.0.0</strong> 来说，我们只需要添加两个依赖就足够了，此处分为两部分：</p>
+<ul>
+<li><p>对于<strong>Debug|x64</strong>，也就是当下我们正在配置的这个属性表，添加两个文件:</p>
+<blockquote>
+<p>opencv_ts300d.lib</p>
+<p>opencv_world300d.lib</p>
+</blockquote>
+<ul>
+<li><img src="http://ww1.sinaimg.cn/mw690/81b736ebjw1eswqwib94kj20sb0e1dh5.jpg" alt=""></li>
+</ul>
+</li>
+<li><p>对于 <strong>Release|x64</strong>的属性表来说，需要添加剩下的两个文件：</p>
+<blockquote>
+<p>opencv_ts300.lib</p>
+<p>opencv_world300.lib  </p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>Ps: 对于其他版本的Opencv的依赖库添加，可以自行打开 <strong>lib</strong> 文件夹进行查看，不一定需要网上的教程。</li>
+<li>如果不想每次创建工程的时候都这么麻烦，那么我们只需要把两个属性表拷贝出来就行了，下次直接导入即可。 </li>
+<li>当两个属性表都配置完成之后，我们就大功告成啦，接下来进入最后一步，测试</li>
+</ol>
+<h4 id="测试">测试</h4><p>在 <strong>属性管理器</strong> 的旁边有一个 <strong>解决方案资源管理器</strong> ，点击之后，会发现这才是以后工作的场景</p>
+<ol>
+<li>在 <strong>源文件</strong> 文件夹中，添加C++源文件，在其中输入测试代码：<ul>
+<li><img src="http://ww2.sinaimg.cn/mw690/81b736ebjw1eswqwgxfdfj20j009o74r.jpg" alt=""></li>
+</ul>
+</li>
+</ol>
+<pre><code><span class="preprocessor">#<span class="keyword">include</span> &lt;iostream&gt; </span>
+<span class="preprocessor">#<span class="keyword">include</span> &lt;opencv2\core\core.hpp&gt;</span>
+<span class="preprocessor">#<span class="keyword">include</span> &lt;opencv2\highgui\highgui.hpp&gt;  </span>
+
+<span class="keyword">using</span> <span class="keyword">namespace</span> cv;
+<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;
+<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
+</span>{
+    Mat img = imread(<span class="string">"temp.jpg"</span>);    
+
+    <span class="keyword">if</span> (img.empty())
+    {
+        <span class="built_in">cout</span> &lt;&lt; <span class="string">"error"</span>;
+        <span class="keyword">return</span> -<span class="number">1</span>;
+    }
+
+    imshow(<span class="string">"mypic"</span>, img);
+    waitKey();
+
+    <span class="keyword">return</span> <span class="number">0</span>;
+}
+</code></pre><p>保存。</p>
+<ol>
+<li>在 <strong>资源文件</strong> 文件夹中，添加图片<strong>temp.jpg</strong>，随便找一张格式是jpg的图，放进去就行，放进去的方式是 <strong>右键资源文件 -&gt; 添加 -&gt; 现有项(G)…</strong>，找到你的图片，双击，添加完成。</li>
+</ol>
+<ul>
+<li><img src="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwnccirj20iy076wer.jpg" alt=""></li>
+</ul>
+<ol>
+<li><p>点击 <strong>生成 -&gt; 生成解决方案</strong> ，之后点击 <strong>启动调试</strong> 也就是运行的意思。</p>
+</li>
+<li><p>很大的几率发现并不能正常的运行，错误提示无法打开PDB文件，查了一下，似乎尿性很高，于是乎有一个解决办法，不是无法打开吗？那就从微软的服务器在线下载过来，这个方法对每个工程都需要进行一次，但是第一次过后就不需要第二次了。请在联网情况下，完成下列操作，具体方法： </p>
+<ul>
+<li>依次点击 <strong>调试 -&gt; 选项与设置(G)…</strong> <ul>
+<li><img src="http://ww1.sinaimg.cn/mw690/81b736ebjw1eswqwd6uz9j20ag0e9jry.jpg" alt=""></li>
+</ul>
+</li>
+<li>之后选择 <strong>调试 -&gt; 常规</strong> ，勾选 <strong>启动源服务器支持</strong><ul>
+<li><img src="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwdmf0nj20l20dqjsk.jpg" alt=""></li>
+</ul>
+</li>
+<li>之后选择 <strong>调试 -&gt; 符号</strong> ，勾选 <strong>Microsoft服务器支持</strong><ul>
+<li><img src="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwe3srkj20l20dqt9j.jpg" alt=""> </li>
+</ul>
+</li>
+<li>中间如果有警告，一律选择是。</li>
+</ul>
+</li>
+</ol>
+<h4 id="结束">结束</h4><p>就是这样如果还有什么错误的话，不妨去Google看看。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://wushxin.top/2015/06/08/Opencv3-0-0和VS2013/" data-id="cianmxjr6000ky8ltlxavpgnj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Opencv/">Opencv</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/05/29/我为什么学C-5/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">我为什么学C(5)---效率(下)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/C/" style="font-size: 20px;">C</a><a href="/tags/Cpp/" style="font-size: 16.67px;">Cpp</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 13.33px;">Python</a><a href="/tags/Qt/" style="font-size: 10px;">Qt</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">12</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/06/08/Opencv3-0-0和VS2013/">Opencv3.0.0和VS2013</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/29/我为什么学C-5/">我为什么学C(5)---效率(下)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/20/我为什么学C(4)/">我为什么学C(4)---效率(上)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/19/Qt信号与槽/">Qt信号与槽</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/13/我为什么学C(3)/">我为什么学C(3)---预处理器</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 WuShengXin
+    </div>
+  </div>
+
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>
