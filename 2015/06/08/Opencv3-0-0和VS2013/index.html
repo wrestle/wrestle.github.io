@@ -3,30 +3,34 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Opencv3.0.0和VS2013 | WuShXin&#39;s fox</title>
+  <title>Opencv3.0.0配置 | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="配置Opencv3.0.0前天，Opencv3.0.0的正式版本发布，不再有奇怪的缺少文件之类的错误，正好最近需要使用它来完成一些神经网络上的辅助，也就尝试了配置，下面记录配置的过程。
 准备
 Visual Studio 2013
+Code::Blocks 13.12
 Opencv-3.0.0
+CMake3.3.0-rc1-win32-x86
 
 声明
-Windows8.1 + 64位
-Opencv-3.0.0 的放置路径为 C:\opencv
-Visual Studio 工程存放位置为">
+按照自己的喜好来选择第一部分或者第二部分
+
+第一">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Opencv3.0.0和VS2013">
+<meta property="og:title" content="Opencv3.0.0配置">
 <meta property="og:url" content="//wushxin.top/2015/06/08/Opencv3-0-0和VS2013/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
 <meta property="og:description" content="配置Opencv3.0.0前天，Opencv3.0.0的正式版本发布，不再有奇怪的缺少文件之类的错误，正好最近需要使用它来完成一些神经网络上的辅助，也就尝试了配置，下面记录配置的过程。
 准备
 Visual Studio 2013
+Code::Blocks 13.12
 Opencv-3.0.0
+CMake3.3.0-rc1-win32-x86
 
 声明
-Windows8.1 + 64位
-Opencv-3.0.0 的放置路径为 C:\opencv
-Visual Studio 工程存放位置为">
+按照自己的喜好来选择第一部分或者第二部分
+
+第一">
 <meta property="og:image" content="http://ww3.sinaimg.cn/mw690/81b736ebjw1eswqwljr6jj211y0lc418.jpg">
 <meta property="og:image" content="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwivdbyj20mz0cbdgq.jpg">
 <meta property="og:image" content="http://ww1.sinaimg.cn/mw690/81b736ebjw1eswqwh92pcj20dp0gtq3c.jpg">
@@ -45,17 +49,26 @@ Visual Studio 工程存放位置为">
 <meta property="og:image" content="http://ww1.sinaimg.cn/mw690/81b736ebjw1eswqwd6uz9j20ag0e9jry.jpg">
 <meta property="og:image" content="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwdmf0nj20l20dqjsk.jpg">
 <meta property="og:image" content="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwe3srkj20l20dqt9j.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/81b736ebjw1esxo9ay0n5j20n20jdq30.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/81b736ebjw1esxo9bdr6hj20n20jdglz.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/81b736ebjw1esxo9bvra5j20n20jd0td.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/81b736ebjw1esxo9cnz6sj20h70eq0u6.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/81b736ebjw1esxo99ko98j20kw0fmq3c.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/81b736ebjw1esxo99xg7wj20kw0fmjrp.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/81b736ebjw1esxo9ajo5qj20rw0gataz.jpg">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Opencv3.0.0和VS2013">
+<meta name="twitter:title" content="Opencv3.0.0配置">
 <meta name="twitter:description" content="配置Opencv3.0.0前天，Opencv3.0.0的正式版本发布，不再有奇怪的缺少文件之类的错误，正好最近需要使用它来完成一些神经网络上的辅助，也就尝试了配置，下面记录配置的过程。
 准备
 Visual Studio 2013
+Code::Blocks 13.12
 Opencv-3.0.0
+CMake3.3.0-rc1-win32-x86
 
 声明
-Windows8.1 + 64位
-Opencv-3.0.0 的放置路径为 C:\opencv
-Visual Studio 工程存放位置为">
+按照自己的喜好来选择第一部分或者第二部分
+
+第一">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -119,7 +132,7 @@ Visual Studio 工程存放位置为">
         
   
     <h1 class="article-title" itemprop="name">
-      Opencv3.0.0和VS2013
+      Opencv3.0.0配置
     </h1>
   
 
@@ -130,9 +143,17 @@ Visual Studio 工程存放位置为">
         <h4 id="配置Opencv3-0-0">配置Opencv3.0.0</h4><p>前天，Opencv3.0.0的正式版本发布，不再有奇怪的缺少文件之类的错误，正好最近需要使用它来完成一些神经网络上的辅助，也就尝试了配置，下面记录配置的过程。</p>
 <h4 id="准备">准备</h4><ol>
 <li><a href="https://www.visualstudio.com/" target="_blank" rel="external">Visual Studio 2013</a></li>
+<li><a href="http://www.codeblocks.org/downloads/26" target="_blank" rel="external">Code::Blocks 13.12</a></li>
 <li><a href="http://opencv.org/downloads.html" target="_blank" rel="external">Opencv-3.0.0</a></li>
+<li><a href="http://www.cmake.org/download/" target="_blank" rel="external">CMake3.3.0-rc1-win32-x86</a></li>
 </ol>
-<h4 id="声明">声明</h4><ol>
+<h4 id="声明">声明</h4><ul>
+<li><p>按照自己的喜好来选择第一部分或者第二部分</p>
+</li>
+<li><p>第一部分 ： Visual Studio 2013 配置 Opencv3.0.0</p>
+</li>
+</ul>
+<ol>
 <li>Windows8.1 + 64位</li>
 <li>Opencv-3.0.0 的放置路径为 <strong>C:\opencv</strong></li>
 <li>Visual Studio 工程存放位置为 <strong>C:\VSProject</strong> 目录下<ul>
@@ -141,7 +162,16 @@ Visual Studio 工程存放位置为">
 </li>
 <li>对于 <strong>Visual Studio 2013</strong> 来说，我们使用的官方编译好的文件夹所在位置是 <strong>vc12</strong>，我也不懂为什么，总之就是这样。</li>
 </ol>
-<h4 id="配置">配置</h4><a id="more"></a>
+<ul>
+<li>第二部分 ： Code::Blocks 13.12 配置 Opencv3.0.0</li>
+</ul>
+<ol>
+<li>Windows8.1 + 64位</li>
+<li>Opencv-3.0.0待编译的源代码路径为 <strong>C:\opencv3</strong></li>
+<li>Opencv编译完成的所有文件放于 <strong>C:\opencv\mybuild</strong>，即待会使用CMake输出的文件夹。</li>
+<li><strong>include</strong> 和第一部分相同，不同的只是 <strong>lib</strong> 和 <strong>bin</strong> 目录，我选择把<strong>bin</strong>目录全部拷贝到Debug文件夹里。</li>
+</ol>
+<h4 id="1_配置_Visual_Studio_2013">1 配置 Visual Studio 2013</h4><a id="more"></a>
 <p>有了上述两个工具之后，我们就可以着手配置自己的开发环境了，但是先要声明的是，每一个不同的工程项目就需要重新配置一次。</p>
 <ol>
 <li><p>工程项目是什么？就是 <strong>文件 -&gt; 新建 -&gt; 项目</strong>，在这里我们点击了项目之后出现一个窗口：<br><img src="http://ww3.sinaimg.cn/mw690/81b736ebjw1eswqwljr6jj211y0lc418.jpg" alt=""></p>
@@ -270,7 +300,35 @@ Visual Studio 工程存放位置为">
 </ul>
 </li>
 </ol>
-<h4 id="结束">结束</h4><p>就是这样如果还有什么错误的话，不妨去Google看看。</p>
+<h4 id="2_配置_Code::Blocks_13-12">2 配置 Code::Blocks 13.12</h4><ul>
+<li><p>首先打开安装好的 <strong>CMake-gui</strong>，在<strong>source code</strong>一栏加入源文件的路径，也就是下载的<strong>opencv</strong>里的<strong>source</strong>，在<strong>build binaries</strong>一栏加入输出的路径。</p>
+<ul>
+<li><img src="http://ww2.sinaimg.cn/mw690/81b736ebjw1esxo9ay0n5j20n20jdq30.jpg" alt=""></li>
+</ul>
+</li>
+<li><p>点击<strong>Tools -&gt; Configure</strong>，如图配置：</p>
+<ul>
+<li><img src="http://ww2.sinaimg.cn/mw690/81b736ebjw1esxo9bdr6hj20n20jdglz.jpg" alt=""></li>
+</ul>
+</li>
+<li>随后等待进度条，完成之后出现红色的选项，将<strong>WITH_IPP</strong>选项去掉，之后点击<strong>Options -&gt; Sipress dev Warnings</strong>，后点击<strong>Generate</strong>生成makefile文件：<ul>
+<li><img src="http://ww4.sinaimg.cn/mw690/81b736ebjw1esxo9bvra5j20n20jd0td.jpg" alt=""></li>
+</ul>
+</li>
+<li>随后等待进度条，完成之后，打开目录<strong>C:\opencv\mybuild</strong>，双击打开工程文件<strong>OpenCV.cbp</strong>开始编译，并附上编译后的文件夹图：<ul>
+<li><img src="http://ww1.sinaimg.cn/mw690/81b736ebjw1esxo9cnz6sj20h70eq0u6.jpg" alt=""></li>
+</ul>
+</li>
+<li>编译结束后，如果一切正常，将上图中的<strong>bin</strong>加入路径</li>
+<li>打开<strong>Code::Blocks</strong>，新建一个Console Application工程，右键工程名字，选择<strong>Build Option</strong>出现一个新窗口，在其中我们要开始配置<strong>Opencv</strong>：<ul>
+<li><img src="http://ww4.sinaimg.cn/mw690/81b736ebjw1esxo99ko98j20kw0fmq3c.jpg" alt=""></li>
+<li><img src="http://ww2.sinaimg.cn/mw690/81b736ebjw1esxo99xg7wj20kw0fmjrp.jpg" alt=""></li>
+<li><img src="http://ww4.sinaimg.cn/mw690/81b736ebjw1esxo9ajo5qj20rw0gataz.jpg" alt=""></li>
+</ul>
+</li>
+<li>添加测试文件（和VS的一样）。</li>
+</ul>
+<h4 id="结束">结束</h4><p>就是这样如果还有什么错误的话，不妨去Google看看，比如dll不存在的问题，可以把编译生成的bin目录下的所有东西都加到当前目录下就行了</p>
 
       
     </div>
@@ -337,7 +395,7 @@ Visual Studio 工程存放位置为">
       <ul>
         
           <li>
-            <a href="/2015/06/08/Opencv3-0-0和VS2013/">Opencv3.0.0和VS2013</a>
+            <a href="/2015/06/08/Opencv3-0-0和VS2013/">Opencv3.0.0配置</a>
           </li>
         
           <li>

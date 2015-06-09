@@ -79,7 +79,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/06/08/Opencv3-0-0和VS2013/">Opencv3.0.0和VS2013</a>
+      <a class="article-title" href="/2015/06/08/Opencv3-0-0和VS2013/">Opencv3.0.0配置</a>
     </h1>
   
 
@@ -90,9 +90,17 @@
         <h4 id="配置Opencv3-0-0">配置Opencv3.0.0</h4><p>前天，Opencv3.0.0的正式版本发布，不再有奇怪的缺少文件之类的错误，正好最近需要使用它来完成一些神经网络上的辅助，也就尝试了配置，下面记录配置的过程。</p>
 <h4 id="准备">准备</h4><ol>
 <li><a href="https://www.visualstudio.com/">Visual Studio 2013</a></li>
+<li><a href="http://www.codeblocks.org/downloads/26">Code::Blocks 13.12</a></li>
 <li><a href="http://opencv.org/downloads.html">Opencv-3.0.0</a></li>
+<li><a href="http://www.cmake.org/download/">CMake3.3.0-rc1-win32-x86</a></li>
 </ol>
-<h4 id="声明">声明</h4><ol>
+<h4 id="声明">声明</h4><ul>
+<li><p>按照自己的喜好来选择第一部分或者第二部分</p>
+</li>
+<li><p>第一部分 ： Visual Studio 2013 配置 Opencv3.0.0</p>
+</li>
+</ul>
+<ol>
 <li>Windows8.1 + 64位</li>
 <li>Opencv-3.0.0 的放置路径为 <strong>C:\opencv</strong></li>
 <li>Visual Studio 工程存放位置为 <strong>C:\VSProject</strong> 目录下<ul>
@@ -101,7 +109,16 @@
 </li>
 <li>对于 <strong>Visual Studio 2013</strong> 来说，我们使用的官方编译好的文件夹所在位置是 <strong>vc12</strong>，我也不懂为什么，总之就是这样。</li>
 </ol>
-<h4 id="配置">配置</h4>
+<ul>
+<li>第二部分 ： Code::Blocks 13.12 配置 Opencv3.0.0</li>
+</ul>
+<ol>
+<li>Windows8.1 + 64位</li>
+<li>Opencv-3.0.0待编译的源代码路径为 <strong>C:\opencv3</strong></li>
+<li>Opencv编译完成的所有文件放于 <strong>C:\opencv\mybuild</strong>，即待会使用CMake输出的文件夹。</li>
+<li><strong>include</strong> 和第一部分相同，不同的只是 <strong>lib</strong> 和 <strong>bin</strong> 目录，我选择把<strong>bin</strong>目录全部拷贝到Debug文件夹里。</li>
+</ol>
+<h4 id="1_配置_Visual_Studio_2013">1 配置 Visual Studio 2013</h4>
         
           <p class="article-more-link">
             <a href="/2015/06/08/Opencv3-0-0和VS2013/#more">Read More</a>
@@ -398,7 +415,7 @@
       <ul>
         
           <li>
-            <a href="/2015/06/08/Opencv3-0-0和VS2013/">Opencv3.0.0和VS2013</a>
+            <a href="/2015/06/08/Opencv3-0-0和VS2013/">Opencv3.0.0配置</a>
           </li>
         
           <li>
