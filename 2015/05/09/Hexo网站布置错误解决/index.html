@@ -114,16 +114,25 @@
 <li><p>有时候会遇到，标签失效，或者说两个标签指向了同一个路径，那么你可以看看自己的标签是否有符号例如<code>C</code>和<code>C++</code>，那么就会导致两个都指向同一个路径，这时候只需要把<code>C++</code>改成<code>Cpp</code>即可。</p>
 </li>
 </ul>
-<h4 id="这就是我今天遇到的所有问题，建设虽难，可不要放弃啊。">这就是我今天遇到的所有问题，建设虽难，可不要放弃啊。</h4><h4 id="技巧">技巧</h4><p>对于那些使用googleapi站点的链接来说，由于国内把谷歌墙了，所以可改用百度静态CDN库，在目录文件：</p>
+<h4 id="这就是我今天遇到的所有问题，建设虽难，可不要放弃啊。">这就是我今天遇到的所有问题，建设虽难，可不要放弃啊。</h4><h3 id="技巧">技巧</h3><ul>
+<li><p>对于那些使用googleapi站点的链接来说，由于国内把谷歌墙了，所以可改用百度静态CDN库，在目录文件：</p>
 <blockquote>
 <p>\themes\landscape\layout_partial\after-footer.ejs</p>
 </blockquote>
-<p>中修改jQuery的引用网址为百度cdn的地址即可。</p>
+<p>  中修改jQuery的引用网址为百度cdn的地址即可。</p>
+</li>
+<li><p>对于<strong>RSS</strong>功能，请使用如下命令：</p>
+<blockquote>
+<p>npm install hexo-generator-feed —save</p>
+</blockquote>
+<p>  亲测，如果不加<strong>—save</strong>参数有的环境下这个插件无法正常的工作。</p>
+</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="//wushxin.top/2015/05/09/Hexo网站布置错误解决/" data-id="ciaqihi5w000ti4ltldyd0gab" class="article-share-link">Share</a>
+      <a data-url="//wushxin.top/2015/05/09/Hexo网站布置错误解决/" data-id="ciaqkink6000u7kltcln76crg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网站/">网站</a></li></ul>
