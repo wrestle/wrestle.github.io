@@ -18,7 +18,7 @@ CMake3.3.0-rc1-win32-x86
 第一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Opencv3.0.0配置">
-<meta property="og:url" content="//wushxin.top/2015/06/08/Opencv3-0-0和VS2013/index.html">
+<meta property="og:url" content="//wushxin.top/2015/06/08/Opencv3配置/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
 <meta property="og:description" content="配置Opencv3.0.0前天，Opencv3.0.0的正式版本发布，不再有奇怪的缺少文件之类的错误，正好最近需要使用它来完成一些神经网络上的辅助，也就尝试了配置，下面记录配置的过程。
 准备
@@ -118,9 +118,9 @@ CMake3.3.0-rc1-win32-x86
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Opencv3-0-0和VS2013" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Opencv3配置" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/06/08/Opencv3-0-0和VS2013/" class="article-date">
+    <a href="/2015/06/08/Opencv3配置/" class="article-date">
   <time datetime="2015-06-08T08:26:15.000Z" itemprop="datePublished">2015-06-08</time>
 </a>
     
@@ -167,7 +167,7 @@ CMake3.3.0-rc1-win32-x86
 </ul>
 <ol>
 <li>Windows8.1 + 64位</li>
-<li>Opencv-3.0.0待编译的源代码路径为 <strong>C:\opencv3</strong></li>
+<li>Opencv-3.0.0待编译的源代码路径为 <strong>C:\opencv3</strong>（由Github上下载）</li>
 <li>Opencv编译完成的所有文件放于 <strong>C:\opencv\mybuild</strong>，即待会使用CMake输出的文件夹。</li>
 <li><strong>include</strong> 和第一部分相同，不同的只是 <strong>lib</strong> 和 <strong>bin</strong> 目录，我选择把<strong>bin</strong>目录全部拷贝到Debug文件夹里。</li>
 </ol>
@@ -328,12 +328,12 @@ CMake3.3.0-rc1-win32-x86
 </li>
 <li>添加测试文件（和VS的一样）。</li>
 </ul>
-<h4 id="结束">结束</h4><p>就是这样如果还有什么错误的话，不妨去Google看看，比如dll不存在的问题，可以把编译生成的bin目录下的所有东西都加到当前目录下就行了</p>
+<h4 id="结束">结束</h4><p>就是这样如果还有什么错误的话，不妨去Google看看，比如dll不存在的问题，那一定是你没有把要使用的bin目录加入到系统环境当中</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="//wushxin.top/2015/06/08/Opencv3-0-0和VS2013/" data-id="cianmxjr6000ky8ltlxavpgnj" class="article-share-link">Share</a>
+      <a data-url="//wushxin.top/2015/06/08/Opencv3配置/" data-id="ciaqihi5g000li4lt25zyos8v" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Opencv/">Opencv</a></li></ul>
@@ -395,7 +395,7 @@ CMake3.3.0-rc1-win32-x86
       <ul>
         
           <li>
-            <a href="/2015/06/08/Opencv3-0-0和VS2013/">Opencv3.0.0配置</a>
+            <a href="/2015/06/08/Opencv3配置/">Opencv3.0.0配置</a>
           </li>
         
           <li>
