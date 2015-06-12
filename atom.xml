@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-06-12T00:45:34.398Z</updated>
+  <updated>2015-06-12T09:33:11.219Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/06/12/Qt%E8%AE%B0%E5%BD%95/"/>
     <id>//wushxin.top/2015/06/12/Qt记录/</id>
     <published>2015-06-12T00:42:47.000Z</published>
-    <updated>2015-06-12T00:45:34.398Z</updated>
+    <updated>2015-06-12T09:33:11.219Z</updated>
     <content type="html"><![CDATA[<h4 id="开启C++11支持">开启C++11支持</h4><ol>
 <li><p>.pro文件中增加：</p>
 <pre><code><span class="comment">CONFIG</span> <span class="literal">+</span><span class="comment">=</span> <span class="comment">c</span><span class="literal">+</span><span class="literal">+</span><span class="comment">11</span>
@@ -1899,7 +1899,7 @@ fout<span class="built_in">.</span>open();
     <link href="//wushxin.top/2015/05/09/Hexo%E7%BD%91%E7%AB%99%E5%B8%83%E7%BD%AE%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3/"/>
     <id>//wushxin.top/2015/05/09/Hexo网站布置错误解决/</id>
     <published>2015-05-09T12:10:30.000Z</published>
-    <updated>2015-06-12T00:47:49.610Z</updated>
+    <updated>2015-06-12T01:27:05.988Z</updated>
     <content type="html"><![CDATA[<h2 id="布置Hexo博客">布置Hexo博客</h2><h4 id="发布于Github_pages时的错误总结">发布于Github pages时的错误总结</h4><p>在布置一个个人博客的时候，我们总会遇到各种各样的错误，这里来总结一下，不记录那些常规步骤，因为网上特别多，搜集常见错误。</p>
 <ul>
 <li>本人布置建设并布置该网站在2015.5.9日，Hexo的版本已经到3了，并且在这个版本出现了一个和以前不同的配置，所以导致许多后来者按照前人的脚步跳进了深坑，当然你降至版本2也是可以使用前人的设置的。<br>首先是在你配置好本地之后，验证可行了，那么你就可以选择发布到Github Pages上了，这个时候，在<strong>_config.yml</strong>文件中修改末尾项为:<pre><code><span class="attribute">deploy</span>:
