@@ -67,6 +67,119 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-我为什么学C(4)" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/20/我为什么学C(4)/" class="article-date">
+  <time datetime="2015-05-20T03:06:38.000Z" itemprop="datePublished">2015-05-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/20/我为什么学C(4)/">我为什么学C(4)---效率(上)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="0x07-C语言效率(上)">0x07-C语言效率(上)</h4><h4 id="更新于_2015-05-23">更新于 2015-05-23</h4><p>大概所有学习C语言的初学者，都被前辈说过，C语言是世界上接近最速的编程语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 </p>
+<p>对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计(比如架构和处理指令的方式等)，虽然编译器是为程序员服务，并且在尽它最大的能力来优化程序员写出的代码，但是毕竟它还没有脱离<strong>电子</strong>的范畴，如果我们的代码不能让编译器理解，编译器无法帮我们优化代码，那么我们就无法写出一个高速的程序。</p>
+<p>对于此，我们可以暂且忽略CPU的设计，因为我们在层面上只能考虑如何迎合编译器的优化规则，而CPU则是语言以及编译器的事情了。</p>
+<p>提高程序的速度，就C语言而言可以有这几种方法:</p>
+<ul>
+<li>首先还是要设计合理的大纲，正所谓一个程序最大的性能提升就是它第一次运行的时候</li>
+<li>要避免连续的函数调用。</li>
+<li>消除不必要的<strong>存储器</strong>使用(并非推荐使用register)</li>
+<li>使用<strong>循环展开</strong>技巧，一般编译器的优化选项能自动帮你修改代码成循环展开</li>
+<li>对于一个操作的核心耗时部分，通过重新组合技术来提高速度</li>
+<li>多采用几种风格的写法，而不是直观的认为，因为计算机的想法和你是不一样的
+        
+          <p class="article-more-link">
+            <a href="/2015/05/20/我为什么学C(4)/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="//wushxin.top/2015/05/20/我为什么学C(4)/" data-id="ciasxiafe00067slthydgm3cr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Qt信号与槽" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/19/Qt信号与槽/" class="article-date">
+  <time datetime="2015-05-19T01:38:38.000Z" itemprop="datePublished">2015-05-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/19/Qt信号与槽/">Qt信号与槽</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Qt5_中的信号与槽">Qt5 中的信号与槽</h2><p>对于已经有了IDE的Qt而言，我们拥有更多的建立<strong>信号-槽</strong>方法的选择，但是作为一名自然人类，我们最喜欢的还是眼见为实，既然Qt为我们设计了 <strong>Qt Creator</strong>，那么我们就应该充分利用它，然而国内的教程大都停留在非可视化操作下，这里记录在 <strong>Qt Creator</strong> 下我们该如何设计一个<strong>信号-槽</strong>机制</p>
+<h4 id="准备工作">准备工作</h4><p>打开<strong>Qt Creator</strong>，创建<strong>Qt Gui</strong>项目，我使用的是Qt5，但是同样也适用于Qt4，两者的在本次中的区别就在于建立连接<code>(QObject::connect)</code>的时候，Qt5更加灵活。</p>
+<p>项目是<code>MainWindow</code>类，建立完成之后， <strong>Qt Creator</strong> 自动生成一系列文件</p>
+<ol>
+<li>打开<code>mainwindow.h</code>头文件，进行添加测试函数 <code>void test();</code></li>
+<li><p>首先包含以下测试使用的头文件<code>&lt;QDebug&gt; &lt;QMessageBox&gt;</code><br>该函数原型需要首先加在<code>private:</code>下，作为私有成员函数。</p>
+</li>
+<li><p>其次打开<code>mainwindow.cpp</code>文件，进行测试函数的定义:</p>
+<pre><code><span class="tag">void</span> <span class="rule"><span class="attribute">MainWindow</span>:<span class="value">:<span class="function">test</span>()
+{
+    <span class="function">qDebug</span>() &lt;&lt; <span class="string">"Test Successful!"</span></span></span>;
+    <span class="rule"><span class="attribute">QMessageBox</span>:<span class="value">:<span class="function">information</span>(this, <span class="function">tr</span>(<span class="string">"Tip"</span>), <span class="function">tr</span>(<span class="string">"Test"</span>))</span></span>;
+}
+</code></pre></li>
+<li>上方的系列操作，<code>2</code>这个功能在Qt5下成功，Qt4需要在标签<code>public slots:</code>下放置该函数声明。<code>3</code>这个操作中定义了<code>test()</code>的函数体，其中<code>qDebug()</code>是在终端调试的时候使用的一个函数，我们使用它来在 <strong>应用程序输出</strong> 窗口显示是否成功。<code>QMessageBox::information(...)</code>则是用来显示一个窗口，也用来显示是否成功。</li>
+</ol>
+<h4 id="方法1">方法1</h4><ol>
+<li><p>双击<code>.ui</code>文件，进入<strong>Qt Designer</strong>，至于不懂这个的也无所谓，只是个叫法而已，只需要知道如何在这个界面操作即可。</p>
+        
+          <p class="article-more-link">
+            <a href="/2015/05/19/Qt信号与槽/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="//wushxin.top/2015/05/19/Qt信号与槽/" data-id="ciasxiaft000j7sltobumzooh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/">Qt</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-我为什么学C(3)" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/05/13/我为什么学C(3)/" class="article-date">
@@ -130,279 +243,9 @@
 
 
   
-    <article id="post-我为什么学C(2)" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/05/13/我为什么学C(2)/" class="article-date">
-  <time datetime="2015-05-13T04:17:12.000Z" itemprop="datePublished">2015-05-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/13/我为什么学C(2)/">我为什么学C(2)---指针</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="本章更新于_2015-05-16">本章更新于 2015-05-16</h2><h4 id="0x05-C语言指针:(Volume-1)">0x05-C语言指针:(Volume-1)</h4><p>这似乎是一个很凝重的话题，但是它真的很有趣。</p>
-<p><strong><em>1. 指针是指向某一类型的东西，任何一个整体，只要能称为整体就能拥有它自己的独一无二的指针类型，所以指针的类型其实是近似无穷无尽的</em></strong></p>
-<p><strong><em>2. 函数名在表达式中总是以函数指针的身份呈现，除了取地址运算符以及<code>sizeof</code></em></strong></p>
-<p><strong><em>3. C语言最晦涩难明的就是它复杂的声明: `void (</em>signal(int sig, void (<em>func)(int)))(int)`,试试着把它改写成容易理解的形式</em></strong></p>
-<p><strong><em>4. 对于指针，尽最大的限度使用<code>const</code>保护它，无论是传递给函数，还是自己使用</em></strong></p>
-<p>先来看看一个特殊的指针，姑且称它为指针，因为它依赖于环境: <code>NULL</code>，是一个神奇的东西。先附上定义，在编译器中会有两种NULL(每种环境都有唯一确定的NULL):</p>
-<pre><code><span class="hexcolor">#def</span>ine NULL <span class="number">0</span>
-<span class="hexcolor">#def</span>ine NULL ((void*)<span class="number">0</span>)
-</code></pre><p>有什么区别吗？看起来没什么区别都是<code>0</code>，只不过一个是常量，一个是地址为0的指针。</p>
-<p>当它们都作为指针的值时并不会报错或者警告，即编译器或者说C标准认为这是合法的:</p>
-<pre><code><span class="keyword">int</span>* temp_int_1 = <span class="number">0</span>; <span class="comment">//无警告</span>
-<span class="keyword">int</span>* temp_int_2 = (<span class="keyword">void</span>*)<span class="number">0</span>; <span class="comment">//无警告</span>
-<span class="keyword">int</span>* temp_int_3 = <span class="number">10</span>; <span class="comment">//出现警告</span>
-</code></pre><p>为什么？为什么<code>0</code>可以赋值给指针，但是<code>10</code>却不行？他们都是常量。</p>
-<p>因为C语言规定当处理上下文的编译器发现常量<code>0</code>出现在指针赋值的语句中，它就作为指针使用，似乎很扯淡，可是却是如此。</p>
-<p>回到最开始，对于<code>NULL</code>的两种情况，会有什么区别？拿字符串来说，实际上我是将字符数组看作是C风格字符串。</p>
-<p>在C语言中，字符数组是用来存储一连串有意义的字符，默认在这些字符的结尾添加<code>&#39;\0&#39;</code>，好这里又出现了一个0值。</p>
-<p>对于某些人，在使用字符数组的时候总是分不清楚<code>NULL</code>与<code>&#39;\0&#39;</code>的区别而误用，在字符数组的末尾使用<code>NULL</code>是绝对错误的！虽然它们的本质都是常量0，但由于位置不同所以含义也不同。</p>
-<h5 id="开胃菜已过">开胃菜已过</h5><p>对于一个函数，我们进行参数传递，参数有两种形式: 形参与实参</p>
-<pre><code>int <span class="function"><span class="keyword">function</span><span class="params">(int value)</span>
-</span>{
-        <span class="comment">/*...*/</span>
-}
-<span class="comment">//...</span>
-<span class="function"><span class="keyword">function</span><span class="params">(11)</span></span>;
-</code></pre><p>其中，<code>value</code>是形参，<code>11</code>是实参，我们知道场面上，C语言拥有两种传递方式:<strong>按值传递</strong>和<strong>按址传递</strong>，但是你是否有认真研究过？这里给出一个实质，其实C语言只有<strong>按值传递</strong>，所谓按址传递只不过是按值传递的一种假象。至于原因稍微一想便能明白。<br>
-        
-          <p class="article-more-link">
-            <a href="/2015/05/13/我为什么学C(2)/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="//wushxin.top/2015/05/13/我为什么学C(2)/" data-id="ciasxiafe000a7sltpobg89mi" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-我为什么学C(1)" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/05/12/我为什么学C(1)/" class="article-date">
-  <time datetime="2015-05-12T14:22:23.000Z" itemprop="datePublished">2015-05-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/12/我为什么学C(1)/">我为什么学C(1)---开篇</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="我的C语言">我的C语言</h1><h2 id="本章更新于_2015-05-17">本章更新于 2015-05-17</h2><p><strong>正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域</strong></p>
-<h4 id="0x00-C语言前续工作">0x00-C语言前续工作</h4><p>正所谓，工欲善其事，必先利其器，把握住当下最强大的工具，能让我们在学习的道路上少走许多弯路，多吸取前人的失败经验，能让自己快速成长，因为成长总是在消耗我们的耐心以及生命。</p>
-<p>入门或者精通或者应用，不管哪一方面，对于一个编程语言而言，最方便的还是使用一个<strong>IDE</strong>作为你的有力助手，什么事<strong>IDE</strong>？通俗而专业的说叫做<strong>集成开发环境</strong>，这个通过字面就能理解到了，就是所有其他的事情都不需要程序员操心，你需要操心的就是写出代码，至于代码完成之后的一系列工作，都不需要你来管，IDE一键帮你搞定。</p>
-<p>当然，会有许多前辈告诉你，如果你想理解C语言，那你一定要使用最基层的东西来写，比如XXX编辑器配上XXX编译器，晕头转向之后更加茫然，本来就支离破碎的小心肝，又被粉碎了一次，撇开那些与当下不符合的幻想，活在现实中，选择一个适合你的<strong>IDE</strong>，逐渐适应它。</p>
-<ul>
-<li><p>讲几个著名的<strong>IDE</strong>，并给出建议，利器第一步：</p>
-<ol>
-<li><p>宇宙级的<strong>IDE</strong>: Visual Studio(2010~2013)，之所以说宇宙级，因为这是市面上最强大的集成开发环境，由微软公司出品，但是放在开头不是为了推荐他，而是为了警示大家不要使用它作为C语言的集成开发环境，因为它使用的是微软公司自己定制的C++编译器，也就是说，你的C语言代码会在C++的标准下编译运行，这就是一个十分不好的现象，即便是C++我依旧不喜欢使用Visual Studio，因为它的C++编译器总是和普通的标准有所出入。</p>
-<p> 原归正传，Visual Studio的确不是一个好的C语言开发IDE，所以请另外选择一个。</p>
-</li>
-<li><p>老牌<strong>IDE</strong>: DevC++，这又是一个大家耳熟能详，经常能在老师手里看见的C语言教学利器，但是，它是C++的IDE，记住C于C++完全是两个世界的人，虽然C++宣称能全面兼容C程序，但是有些东西依旧是有所区别，体现在语法的兼容性上，后文会有提及。那为什么大学老师喜欢使用它呢？因为一本由清华大学出版社出版的《数据结构》，让无数人为之折服，其中赫然写着由于性能我们不能拘泥于小细节，故对于C++的特性<code>&amp;</code>引用，我们可以将其使用在C语言的语法中，就是这句话，让无数无知的学子扑向其中，再也分不清C与C++，看成谭浩强之后的，清华大学出版社又一诲人不倦的力作。</p>
-<p> 所以，真爱编程，远离清华大学出版社，也请大家注意，不要使用DevC++这个IDE进行C语言程序的开发以及练习。</p>
-</li>
-<li><p>知名<strong>IDE</strong>: Code::Blocks，是一款非常优秀的开源跨平台集成开发环境，体积并不大，适合作为C语言的IDE，并且功能齐全，有兴趣的人可以深究，这是首推的C语言开发环境选择。</p>
-</li>
-<li><p>知名<strong>IDE</strong>: CodeLite，是一款非常优秀的开源跨平台集成开发环境，体积并不大，适合作为C语言的IDE，并且功能齐全，有兴趣的人可以深究，这是次推的C语言开发环境选择，因为使用起来稍微也有些额外的工作要做。</p>
-</li>
-<li><p>著名<strong>IDE</strong>: Xcode，是一个苹果电脑上的史诗级集成开发环境，虽然脱胎于C语言，但是由于某些原因，并不太建议使用其作为C语言的开发环境。 </p>
-</li>
-</ol>
-</li>
-<li><p>IDE的基本配置<br>利器第二步是对所选的IDE进行一些基本的配置，以及小科普。</p>
-<ol>
-<li><p>对于一个练习C语言的开发环境来说，选择合适的标准和编译器是很重要的，在Windows以及Linux操作系统下，我们还是使用<code>GCC</code>这个家伙比较多，开源，免费，且极其强大。当然你也可以选择<code>clang</code>，当然整个计算机领域中支持C语言的编译器并不止这两个，只不过这两个是开源免费，而且功能强大，十分适合作为个人开发以及无特殊需求的企业开发的选择。</p>
-<p> 选择了编译器，我们开始讲标准：</p>
-<p> 对于<code>GCC 5.1</code>以下的所有版本，都默认对C语言使用<code>C89</code>标准，但是我建议使用<code>C99</code>两者的差距，有一个极其明显的地方，便是<code>for</code>循环的使用</p>
-<pre><code><span class="comment">/*C89:*/</span>
-<span class="keyword">int</span> i;
-<span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; <span class="number">10</span>;++i)
-<span class="comment">/*...*/</span>
-</code></pre><p>…</p>
-<pre><code><span class="comment">/*C99*/</span>
-for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
-<span class="comment">/*...*/</span>
-</code></pre><p> 这只是其中的一种差别，但是C99需要人为手动的开启，但是很多人有疑问，为什么有时候没有配置什么也能使用后面的语法？吴老师告诉你，这是因为你用了C++的文件进行C语言的开发，就像挂羊皮卖狗肉的道理。</p>
-</li>
-<li><p>开启C99</p>
-<p>一般IDE的顶部都是一系列的标签，找到<code>工具/设置</code>，因为不同的IDE可能有不同的标签，总之在其中找到一个叫<strong>(编译器)Compiler</strong>之后，在其中的<strong>other option</strong>中加入以下:<code>-std=c99</code>，这便是开启C99的选项代码，完事之后保存即可。虽然说我们是中国人，但是毕竟这东西的外国人发明的，我们能看英文就看英文吧。</p>
-</li>
-</ol>
-<ul>
-<li><p>至此，利器成功配置。</p>
-</li>
-<li><p>当然最重要的还是内在，所以加油吧，虽然是一门很古老的语言，但是存在既有其道理。</p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="0x01-C语言序言">0x01-C语言序言</h4><p> 倒是觉得写代码首先不是语法，而是格式，任何时候任何地点，要是自己的代码难以理解，要么你是故意的，要么你就是菜菜</p>
-<p> 一个难以被人理解的代码在我看来是没有太多的潜力的，但不排除故意为之的情况,也许很多人说这是强迫症，但是无论打开哪一个开源代码，你看到的都将是一个拥有规范的代码文件</p>
-<p>也许有人说人不应该被限制，不应该拘泥于小节，但是当一个工程超过一千行，也许不用只需要不到五百行，就能完全暴露出代码规范的重要性，包括缩进，变量命名，接口存放，接口参数的规范之类，听起来似乎很虚<a href="https://code.google.com/p/google-styleguide/">谷歌代码规范(翻墙后查看)</a></p>
-<p>在我看来C语言的内建语法真是无比简洁，几乎存在既有道理，简洁不代表着不强大，强大的某些地方在近来渐渐复苏的Lisp身上也有体现。</p>
-<p><code>if, for, while, switch</code></p>
-<p><p>组成了每个C程序的半壁江山<br><br><code> “ + “ “ - “ “ * “ “ / “ “ % “ “ = “</code></p>
-<p><p>组成了各式各样的算法计数<br><br><code>“&gt;&gt;” “&lt;&lt;” “|” “&amp;” “^” “~” “!”</code></p>
-<p><p>让C语言有了更高效的算法以及更奇妙的思路<br><br><code>struct enum union #define return</code><br></p>
-<p><p>而这些则让C语言在这乱世纷争中站稳了脚跟，并且一枝独秀<br><br><code>“{}” “()”</code><br></p>
-<p><p>让代码不再无序混乱<br><br><code>“type * “ “&amp;” “()” “-&gt;”</code><br></p>
-<p><p>让C语言在这个世界无处不在<br><code>“ . “ “[ ]” “ &lt; “ “ &gt; “ “ == “</code><br>
-        
-          <p class="article-more-link">
-            <a href="/2015/05/12/我为什么学C(1)/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="//wushxin.top/2015/05/12/我为什么学C(1)/" data-id="ciasxiafe000c7sltxiqfnr7b" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Linux下Qt5配置" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/05/10/Linux下Qt5配置/" class="article-date">
-  <time datetime="2015-05-09T23:48:55.000Z" itemprop="datePublished">2015-05-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/10/Linux下Qt5配置/">Linux下Qt5配置</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Linux_of_Qt5">Linux of Qt5</h2><p></p><p>在Ubuntu编译Qt5工程时出现了<br><br><code>can not find -lGL</code><br></p>
-<p></p><p>这是为什么?在Qt4时代并没有这种情况<br></p>
-<p></p><p>经过查找,发现Qt5在这个版本自动加入了openGL的支持,而有的平台并没有默认拥有<br><br><strong>(Windows默认有openGL,Linux却没有完全)<strong></strong></strong></p>
-<p></p><p>那么我们可以通过安装 <code>libglut-dev</code> 来进行修复<br><br><code>sudo apt-get install libglut-dev</code><br><br></p>
-<p></p><p>稍微解读一下也能知道-lGL==&gt;-linkopenGL的意思</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="//wushxin.top/2015/05/10/Linux下Qt5配置/" data-id="ciasxiag9000v7sltnszd2pjn" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Liunx/">Liunx</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Python-lib安装" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/05/10/Python-lib安装/" class="article-date">
-  <time datetime="2015-05-09T23:48:28.000Z" itemprop="datePublished">2015-05-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/10/Python-lib安装/">Python-lib安装</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Python">Python</h1><h2 id="安装第三方库(Linux::Ubuntu_14-04_LTS)">安装第三方库(Linux::Ubuntu 14.04 LTS)</h2><p>   关于一个gui的库 SimpleGUICS2Pygame <br><br>   所有的命令均在 root 权限下执行 <br></p>
-<h3 id="安装前提:">安装前提:</h3><ol>
-<li>使用easy_install 工具 <code>apt-get install easy_install</code></li>
-<li>安装pip <code>easy_install pip</code></li>
-</ol>
-<h3 id="开始安装">开始安装</h3><ol>
-<li>在 <a href="https://pypi.python.org/pypi/SimpleGUICS2Pygame" target="_blank" rel="external">https://pypi.python.org/pypi/SimpleGUICS2Pygame</a> 下载.egg格式的安装包 <br></li>
-<li>使用命令 <code>easy_install name.egg #name.egg 为下载的第三方库的egg包名称</code></li>
-<li>我们这里可以使用 <code>easy_install *.egg #代表安装所有的egg包,方便快捷,不用输入完整的名字</code></li>
-<li>我们可以通过 <code>pip freeze</code> 查看所安装的包</li>
-</ol>
-<h3 id="使用错误">使用错误</h3><ul>
-<li><p>当我们 <code>import simplegui</code>时,却出现 <code>...importError: No module named simplegui</code> <br><br>此时,我们应该使用这个语句块替换: <br></p>
-<pre><code><span class="string">try:</span>
-    <span class="keyword">import</span> simplegui 
-<span class="string">except:</span>
-    <span class="keyword">import</span> SimpleGUICS2Pygame.simpleGUICS2Pygame <span class="keyword">as</span> simplegui
-</code></pre></li>
-</ul>
-<p>· 作者给出的解释是由于内部冲突所以会导致这种现象的产生</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="//wushxin.top/2015/05/10/Python-lib安装/" data-id="ciasxiaft000o7sltj0p1v2uu" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 </section>

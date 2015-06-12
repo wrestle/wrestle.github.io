@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives: 2015/5 | WuShXin&#39;s fox</title>
+  <title>WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="编程带来的不是回报而是心满意足">
 <meta property="og:type" content="website">
 <meta property="og:title" content="WuShXin's fox">
-<meta property="og:url" content="//wushxin.top/archives/2015/05/page/3/index.html">
+<meta property="og:url" content="//wushxin.top/page/5/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
 <meta property="og:description" content="编程带来的不是回报而是心满意足">
 <meta name="twitter:card" content="summary">
@@ -67,74 +67,111 @@
       <div class="outer">
         <section id="main">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/10/Linux下Qt5配置/" class="archive-article-date">
-  <time datetime="2015-05-09T23:48:55.000Z" itemprop="datePublished">5月 10</time>
+    <article id="post-C-流操作" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/10/C-流操作/" class="article-date">
+  <time datetime="2015-05-09T23:47:37.000Z" itemprop="datePublished">2015-05-10</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/10/Linux下Qt5配置/">Linux下Qt5配置</a>
+      <a class="article-title" href="/2015/05/10/C-流操作/">C++流操作</a>
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/10/Python-lib安装/" class="archive-article-date">
-  <time datetime="2015-05-09T23:48:28.000Z" itemprop="datePublished">5月 10</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
+        <h1 id="C++流的使用">C++流的使用</h1><h2 id="每次使用完流,记得要关闭,虽然有时候并不是必须的-">每次使用完流,记得要关闭,虽然有时候并不是必须的.</h2><p><code>streamname.close();</code></p>
+<h2 id="重定向">重定向</h2><p>   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源 </br><br>   <pre><code><br>   ~$ program ‘&lt;’input.filetype &gt;output.filetype #去掉多余的’’<br>   </code></pre><br>   <br> 在Linux和Unix下,’&gt;’ ‘&lt;’默认是标准输出和标准输入,’2&gt;’则是标准错误(即std::cerr)</p>
+<h2 id="输出流">输出流</h2><p>   <br>1. ostream类提供了 put() 和 write() 方法用来输出 </br></p>
+<pre><code><span class="built_in">cout</span>.put(<span class="string">'W'</span>); <span class="comment">//输出字符Ｗ,可以拼接使用就像重载之后的 '&lt;&lt;'</span>
+<span class="built_in">cout</span>.write(<span class="string">"Candy Bob"</span>,<span class="number">5</span>); <span class="comment">//输出第一个参数的第二个参数个长度</span>
+</code></pre><p>   <br>2. 刷新输出缓冲区可以有两种方法,原理都是重载 ‘&lt;&lt;’ </br><br>   <br>   前者与后者的差别就在与后者刷新缓冲区后多了一个换行操作 </br></p>
+<pre><code><span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; flush; <span class="comment">//相当于flush(cout);</span>
+<span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; endl;  
+</code></pre><p>   <br>3. 可以通过流操作修改现实的进制, 默认十进制,十六进制,八进制 </br><br>
+        
+          <p class="article-more-link">
+            <a href="/2015/05/10/C-流操作/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="//wushxin.top/2015/05/10/C-流操作/" data-id="ciasxiag900127sltbbjd2p0r" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Hexo网站布置错误解决" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/09/Hexo网站布置错误解决/" class="article-date">
+  <time datetime="2015-05-09T12:10:30.000Z" itemprop="datePublished">2015-05-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/10/Python-lib安装/">Python-lib安装</a>
+      <a class="article-title" href="/2015/05/09/Hexo网站布置错误解决/">Hexo网站布置错误解决</a>
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/10/Python学习笔记/" class="archive-article-date">
-  <time datetime="2015-05-09T23:48:13.000Z" itemprop="datePublished">5月 10</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/10/Python学习笔记/">Python学习笔记</a>
-    </h1>
-  
+        <h2 id="布置Hexo博客">布置Hexo博客</h2><h4 id="发布于Github_pages时的错误总结">发布于Github pages时的错误总结</h4><p>在布置一个个人博客的时候，我们总会遇到各种各样的错误，这里来总结一下，不记录那些常规步骤，因为网上特别多，搜集常见错误。</p>
+<ul>
+<li>本人布置建设并布置该网站在2015.5.9日，Hexo的版本已经到3了，并且在这个版本出现了一个和以前不同的配置，所以导致许多后来者按照前人的脚步跳进了深坑，当然你降至版本2也是可以使用前人的设置的。<br>首先是在你配置好本地之后，验证可行了，那么你就可以选择发布到Github Pages上了，这个时候，在<strong>_config.yml</strong>文件中修改末尾项为:<pre><code><span class="attribute">deploy</span>:
+    <span class="attribute">type</span>: git #此处在版本<span class="number">2</span>时为github
+    <span class="attribute">repository</span>: <span class="attribute">https</span>:<span class="comment">//github.com/......</span>
+    ...
+</code></pre>在这个地方容易出错的是<strong>type:</strong>后方容易被误导，版本2请填写github，版本3除了填写git以外，还需要在外头<strong>Git bash</strong>里使用命令:<pre><code>npm <span class="operator"><span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></span>
+</code></pre>有了这个命令就能分分钟解决你的问题。
+        
+          <p class="article-more-link">
+            <a href="/2015/05/09/Hexo网站布置错误解决/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="//wushxin.top/2015/05/09/Hexo网站布置错误解决/" data-id="ciasxiag9000y7slt4j40tsnr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网站/">网站</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
 </article>
+
+
   
   
-    </div></section>
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    </nav>
   
 </section>
         
