@@ -67,6 +67,69 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-我为什么学C(3)" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/13/我为什么学C(3)/" class="article-date">
+  <time datetime="2015-05-13T09:17:49.000Z" itemprop="datePublished">2015-05-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/13/我为什么学C(3)/">我为什么学C(3)---预处理器</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="本章更新于_2015-05-16">本章更新于 2015-05-16</h2><h4 id="0x06-C语言预处理器">0x06-C语言预处理器</h4><p><strong>预处理最大的标志便是大写，虽然这不是标准，但请你在使用的时候大写，为了自己，也为了后人。</strong></p>
+<p>预处理器在一般看来，用得最多的还是宏，这里总结一下预处理器的用法。</p>
+<pre><code><span class="id">#include</span> &lt;stdio.h&gt;
+<span class="hexcolor">#def</span>ine MACRO_OF_MINE
+<span class="id">#ifdef</span> MACRO_OF_MINE
+<span class="id">#else</span>
+#endif
+</code></pre><p>上述五个预处理是最常看见的，第一个代表着包含一个头文件，可以理解为没有它很多功能都无法使用，例如C语言并没有把输入输入纳入标准当中，而是使用库函数来提供，所以只有包含了<code>stdio.h</code>这个头文件，我们才能使用那些输入输出函数。<br><code>#define</code>则是使用频率第二高的预处理机制，广泛用在常量的定义，只不过它和<code>const</code>声明的常量有所所区别:</p>
+<pre><code><span class="preprocessor">#<span class="keyword">define</span> MAR_VA 100</span>
+<span class="keyword">const</span> <span class="keyword">int</span> Con_va = <span class="number">100</span>;
+...
+<span class="comment">/*定义两个数组*/</span>
+...
+<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">10</span>;++i)
+{
+    mar_arr[i] = MAR_VA;
+    con_arr[i] = Con_va;
+}
+</code></pre><ul>
+<li>区别1,定义上<code>MAR_VA</code>可以用于数组维数，而<code>Con_va</code>则不行</li>
+<li>区别2,在使用时，MAR_VA的原理是在文中找到所有使用本身的地方，用值替代，也就是说<code>Con_va</code>将只有一分真迹，而<code>MAR_VA</code>则会有<code>n</code>份真迹(n为使用的次数)<br>剩下三个则是在保护头文件中使用颇多。
+        
+          <p class="article-more-link">
+            <a href="/2015/05/13/我为什么学C(3)/#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="//wushxin.top/2015/05/13/我为什么学C(3)/" data-id="ciasxiafe00087slt7g9j9flt" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-我为什么学C(2)" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/05/13/我为什么学C(2)/" class="article-date">
@@ -123,7 +186,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="//wushxin.top/2015/05/13/我为什么学C(2)/" data-id="ciaqu4smw000auoltvtbcdw6z" class="article-share-link">Share</a>
+      <a data-url="//wushxin.top/2015/05/13/我为什么学C(2)/" data-id="ciasxiafe000a7sltpobg89mi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
@@ -224,7 +287,7 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
       
     </div>
     <footer class="article-footer">
-      <a data-url="//wushxin.top/2015/05/12/我为什么学C(1)/" data-id="ciaqu4smy000cuoltpq89i5q4" class="article-share-link">Share</a>
+      <a data-url="//wushxin.top/2015/05/12/我为什么学C(1)/" data-id="ciasxiafe000c7sltxiqfnr7b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
@@ -267,7 +330,7 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
       
     </div>
     <footer class="article-footer">
-      <a data-url="//wushxin.top/2015/05/10/Linux下Qt5配置/" data-id="ciaqu4snk000ruoltqthcwgxs" class="article-share-link">Share</a>
+      <a data-url="//wushxin.top/2015/05/10/Linux下Qt5配置/" data-id="ciasxiag9000v7sltnszd2pjn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Liunx/">Liunx</a></li></ul>
@@ -325,60 +388,7 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
       
     </div>
     <footer class="article-footer">
-      <a data-url="//wushxin.top/2015/05/10/Python-lib安装/" data-id="ciaqu4sn9000kuoltxdhp8xhq" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Python学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/05/10/Python学习笔记/" class="article-date">
-  <time datetime="2015-05-09T23:48:13.000Z" itemprop="datePublished">2015-05-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/10/Python学习笔记/">Python学习笔记</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Python学习笔记之基础">Python学习笔记之基础</h2><h3 id="Python缩进">Python缩进</h3><p>1. Python用相同缩进来代表同一个代码块，而某2些语言则是用花括号</p><br><p>2. 缩进最好使用四个空格，不要混用和使用Tab</p><br><p>3. 退出缩进多敲一个回车</p>
-
-<h3 id="if语句">if语句</h3><pre><code><span class="keyword">if</span> statemen<span class="variable">t:</span>
-    statement
-elif statemen<span class="variable">t:</span>
-    statement
-<span class="keyword">else</span> statemen<span class="variable">t:</span>
-    statement
-
-<span class="keyword">print</span> <span class="string">'That is All'</span>
-</code></pre>
-        
-          <p class="article-more-link">
-            <a href="/2015/05/10/Python学习笔记/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="//wushxin.top/2015/05/10/Python学习笔记/" data-id="ciaqu4sn5000huolt3f6tycu7" class="article-share-link">Share</a>
+      <a data-url="//wushxin.top/2015/05/10/Python-lib安装/" data-id="ciasxiaft000o7sltj0p1v2uu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
@@ -405,7 +415,7 @@ elif statemen<span class="variable">t:</span>
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -414,7 +424,7 @@ elif statemen<span class="variable">t:</span>
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/C/" style="font-size: 20px;">C</a><a href="/tags/Cpp/" style="font-size: 16.67px;">Cpp</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 13.33px;">Python</a><a href="/tags/Qt/" style="font-size: 10px;">Qt</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
+      <a href="/tags/C/" style="font-size: 20px;">C</a><a href="/tags/Cpp/" style="font-size: 16.67px;">Cpp</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 13.33px;">Python</a><a href="/tags/Qt/" style="font-size: 13.33px;">Qt</a><a href="/tags/杂货居/" style="font-size: 13.33px;">杂货居</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
     </div>
   </div>
 
@@ -423,7 +433,7 @@ elif statemen<span class="variable">t:</span>
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">12</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">12</span></li></ul>
     </div>
   </div>
 
@@ -433,6 +443,10 @@ elif statemen<span class="variable">t:</span>
     <h3 class="widget-title">Recents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/06/12/Qt记录/">Qt记录</a>
+          </li>
         
           <li>
             <a href="/2015/06/08/Opencv3配置/">Opencv3.0.0配置</a>
@@ -448,10 +462,6 @@ elif statemen<span class="variable">t:</span>
         
           <li>
             <a href="/2015/05/19/Qt信号与槽/">Qt信号与槽</a>
-          </li>
-        
-          <li>
-            <a href="/2015/05/13/我为什么学C(3)/">我为什么学C(3)---预处理器</a>
           </li>
         
       </ul>

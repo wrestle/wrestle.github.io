@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-06-10T08:21:31.798Z</updated>
+  <updated>2015-06-12T00:45:34.398Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -14,6 +14,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Qt记录]]></title>
+    <link href="//wushxin.top/2015/06/12/Qt%E8%AE%B0%E5%BD%95/"/>
+    <id>//wushxin.top/2015/06/12/Qt记录/</id>
+    <published>2015-06-12T00:42:47.000Z</published>
+    <updated>2015-06-12T00:45:34.398Z</updated>
+    <content type="html"><![CDATA[<h4 id="开启C++11支持">开启C++11支持</h4><ol>
+<li><p>.pro文件中增加：</p>
+<pre><code><span class="comment">CONFIG</span> <span class="literal">+</span><span class="comment">=</span> <span class="comment">c</span><span class="literal">+</span><span class="literal">+</span><span class="comment">11</span>
+</code></pre><p>或者</p>
+<pre><code>QMAKE_CXXFLAGS += -<span class="keyword">std</span>=c++<span class="number">11</span>
+</code></pre><p>两种添加形式都是可行的，建议每个工程单独配置，而不要一劳永逸。</p>
+</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h4 id="开启C++11支持">开启C++11支持</h4><ol>
+<li><p>.pro文件中增加：</p>
+<pre><code><span class="comment">CONFIG</span> <span class="literal">+</span><sp]]>
+    </summary>
+    
+      <category term="Qt" scheme="//wushxin.top/tags/Qt/"/>
+    
+      <category term="杂货居" scheme="//wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Opencv3.0.0配置]]></title>
@@ -1872,7 +1899,7 @@ fout<span class="built_in">.</span>open();
     <link href="//wushxin.top/2015/05/09/Hexo%E7%BD%91%E7%AB%99%E5%B8%83%E7%BD%AE%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3/"/>
     <id>//wushxin.top/2015/05/09/Hexo网站布置错误解决/</id>
     <published>2015-05-09T12:10:30.000Z</published>
-    <updated>2015-06-10T09:42:27.605Z</updated>
+    <updated>2015-06-12T00:47:49.610Z</updated>
     <content type="html"><![CDATA[<h2 id="布置Hexo博客">布置Hexo博客</h2><h4 id="发布于Github_pages时的错误总结">发布于Github pages时的错误总结</h4><p>在布置一个个人博客的时候，我们总会遇到各种各样的错误，这里来总结一下，不记录那些常规步骤，因为网上特别多，搜集常见错误。</p>
 <ul>
 <li>本人布置建设并布置该网站在2015.5.9日，Hexo的版本已经到3了，并且在这个版本出现了一个和以前不同的配置，所以导致许多后来者按照前人的脚步跳进了深坑，当然你降至版本2也是可以使用前人的设置的。<br>首先是在你配置好本地之后，验证可行了，那么你就可以选择发布到Github Pages上了，这个时候，在<strong>_config.yml</strong>文件中修改末尾项为:<pre><code><span class="attribute">deploy</span>:
@@ -1898,16 +1925,12 @@ fout<span class="built_in">.</span>open();
 </ul>
 <h4 id="这就是我今天遇到的所有问题，建设虽难，可不要放弃啊。">这就是我今天遇到的所有问题，建设虽难，可不要放弃啊。</h4><h3 id="技巧">技巧</h3><ul>
 <li><p>对于那些使用googleapi站点的链接来说，由于国内把谷歌墙了，所以可改用百度静态CDN库，在目录文件：</p>
-<blockquote>
-<p>\themes\landscape\layout_partial\after-footer.ejs</p>
-</blockquote>
-<p>  中修改jQuery的引用网址为百度cdn的地址即可。</p>
+<pre><code><span class="command">\themes</span><span class="command">\landscape</span><span class="command">\layout</span><span class="command">\_</span>partial<span class="command">\after</span>-footer.ejs
+</code></pre><p>  中修改jQuery的引用网址为百度cdn的地址即可。</p>
 </li>
 <li><p>对于<strong>RSS</strong>功能，请使用如下命令：</p>
-<blockquote>
-<p>npm install hexo-generator-feed —save</p>
-</blockquote>
-<p>  亲测，如果不加<strong>—save</strong>参数有的环境下这个插件无法正常的工作。</p>
+<pre><code>npm <span class="operator"><span class="keyword">install</span> hexo-generator-feed <span class="comment">--save</span></span>
+</code></pre><p>  亲测，如果不加<strong>- -save</strong>参数有的环境下这个插件无法正常的工作。</p>
 </li>
 </ul>
 ]]></content>
@@ -1922,6 +1945,8 @@ fout<span class="built_in">.</span>open();
 </code></pre>有了这个命令就能分分钟解决你的问题。]]>
     
     </summary>
+    
+      <category term="杂货居" scheme="//wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
     
       <category term="网站" scheme="//wushxin.top/tags/%E7%BD%91%E7%AB%99/"/>
     
