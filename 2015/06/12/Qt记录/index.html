@@ -10,7 +10,10 @@
 CONFIG += c++11
 或者
 QMAKE_CXXFLAGS += -std=c++11
-两种添加形式都是可行的，建议每个工程单独配置，而不要一劳永逸。">
+两种添加形式都是可行的，建议每个工程单独配置，而不要一劳永逸。
+
+
+信号与槽">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Qt记录">
 <meta property="og:url" content="//wushxin.top/2015/06/12/Qt记录/index.html">
@@ -20,7 +23,10 @@ QMAKE_CXXFLAGS += -std=c++11
 CONFIG += c++11
 或者
 QMAKE_CXXFLAGS += -std=c++11
-两种添加形式都是可行的，建议每个工程单独配置，而不要一劳永逸。">
+两种添加形式都是可行的，建议每个工程单独配置，而不要一劳永逸。
+
+
+信号与槽">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Qt记录">
 <meta name="twitter:description" content="开启C++11支持
@@ -28,7 +34,10 @@ QMAKE_CXXFLAGS += -std=c++11
 CONFIG += c++11
 或者
 QMAKE_CXXFLAGS += -std=c++11
-两种添加形式都是可行的，建议每个工程单独配置，而不要一劳永逸。">
+两种添加形式都是可行的，建议每个工程单独配置，而不要一劳永逸。
+
+
+信号与槽">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -111,6 +120,51 @@ QMAKE_CXXFLAGS += -std=c++11
 </code></pre><p>两种添加形式都是可行的，建议每个工程单独配置，而不要一劳永逸。</p>
 </li>
 </ol>
+<h4 id="信号与槽">信号与槽</h4><a id="more"></a>
+<p>作为信号(signal)与槽(slot)，我们的信号函数的<strong>参数个数</strong>可以多于槽函数的参数个数，也就是说，我们可以选择接受不多于信号函数<strong>参数个数</strong>的参数，有点绕：</p>
+<ul>
+<li><p>信号函数：</p>
+<pre><code><span class="keyword">class</span> Signal_Class:<span class="keyword">public</span> QObject{
+...
+<span class="keyword">public</span>:
+    <span class="function"><span class="keyword">void</span> <span class="title">Q_SendSignal</span><span class="params">()</span>
+    </span>{
+        <span class="function">emit <span class="title">Q_TestSignal</span><span class="params">(UserName, UserAge)</span></span>;
+        <span class="comment">//UserName, UserAge 是该类的私有属性。</span>
+    }
+<span class="keyword">public</span> signals:
+    <span class="function"><span class="keyword">void</span> <span class="title">Q_TestSignal</span><span class="params">(<span class="keyword">const</span> QString &amp; name)</span></span>;
+    <span class="function"><span class="keyword">void</span> <span class="title">Q_TestSignal</span><span class="params">(<span class="keyword">const</span> QString &amp; name, <span class="keyword">int</span> age)</span></span>;
+<span class="comment">// ...</span>
+</code></pre></li>
+</ul>
+<pre><code>-<span class="ruby"> 对于这段代码而言，有两个地方需要注意，<span class="string">`emit`</span>, <span class="string">`public signals:`</span>
+</span>
+    -<span class="ruby"> 此处故意令信号函数重载，是为了在后方体现，槽函数的参数个数可以小于或者等于信号函数的参数个数。
+</span>    -<span class="ruby"> <span class="string">`emit`</span> 就是发射信号的意思。</span>
+</code></pre><ul>
+<li><p>槽函数：</p>
+<pre><code><span class="keyword">class</span> Slot_Class:<span class="keyword">public</span> QObject{
+...
+slots:
+    <span class="function"><span class="keyword">void</span> <span class="title">Q_TestSlot</span><span class="params">(<span class="keyword">const</span> QString &amp; name)</span>
+    </span>{
+         QMessageBox mesbox;
+         mesbox.setText(<span class="string">"Receive : "</span>+name);
+         mesbox.exec();
+    }
+<span class="comment">// ...</span>
+</code></pre></li>
+<li><p>测试：</p>
+<pre><code><span class="keyword">void</span> (Signal_Class::* p_to_test)(<span class="keyword">const</span> QString &amp;, <span class="keyword">int</span>) = 
+     &amp;Signal_Class::Q_TestSignal;
+    <span class="comment">//因为是重载函数，所以需要明确指明使用哪个作为连接的信号函数 </span>
+QObject::connect(&amp;test_sig, p_to_test,
+                 &amp;test_slot, Slot_Class::Q_TestSlot);
+test_sig.Q_SendSignal(); <span class="comment">//发射信号</span>
+</code></pre><p>我们会发现，即使槽函数的参数个数与信号函数不一致（小于），但是依然可以接收到参数，但是需要注意的是，虽然能够自由选择接受的参数，但是依旧需要按照顺序。</p>
+</li>
+</ul>
 
       
     </div>
@@ -193,7 +247,7 @@ QMAKE_CXXFLAGS += -std=c++11
           </li>
         
           <li>
-            <a href="/2015/05/19/Qt信号与槽/">Qt信号与槽</a>
+            <a href="/2015/05/19/可视化Qt信号与槽/">可视化Qt信号与槽</a>
           </li>
         
       </ul>

@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-06-12T09:33:11.219Z</updated>
+  <updated>2015-06-12T13:16:30.575Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/06/12/Qt%E8%AE%B0%E5%BD%95/"/>
     <id>//wushxin.top/2015/06/12/Qt记录/</id>
     <published>2015-06-12T00:42:47.000Z</published>
-    <updated>2015-06-12T09:33:11.219Z</updated>
+    <updated>2015-06-12T13:16:30.575Z</updated>
     <content type="html"><![CDATA[<h4 id="开启C++11支持">开启C++11支持</h4><ol>
 <li><p>.pro文件中增加：</p>
 <pre><code><span class="comment">CONFIG</span> <span class="literal">+</span><span class="comment">=</span> <span class="comment">c</span><span class="literal">+</span><span class="literal">+</span><span class="comment">11</span>
@@ -29,11 +29,63 @@
 </code></pre><p>两种添加形式都是可行的，建议每个工程单独配置，而不要一劳永逸。</p>
 </li>
 </ol>
+<h4 id="信号与槽">信号与槽</h4><a id="more"></a>
+<p>作为信号(signal)与槽(slot)，我们的信号函数的<strong>参数个数</strong>可以多于槽函数的参数个数，也就是说，我们可以选择接受不多于信号函数<strong>参数个数</strong>的参数，有点绕：</p>
+<ul>
+<li><p>信号函数：</p>
+<pre><code><span class="keyword">class</span> Signal_Class:<span class="keyword">public</span> QObject{
+...
+<span class="keyword">public</span>:
+    <span class="function"><span class="keyword">void</span> <span class="title">Q_SendSignal</span><span class="params">()</span>
+    </span>{
+        <span class="function">emit <span class="title">Q_TestSignal</span><span class="params">(UserName, UserAge)</span></span>;
+        <span class="comment">//UserName, UserAge 是该类的私有属性。</span>
+    }
+<span class="keyword">public</span> signals:
+    <span class="function"><span class="keyword">void</span> <span class="title">Q_TestSignal</span><span class="params">(<span class="keyword">const</span> QString &amp; name)</span></span>;
+    <span class="function"><span class="keyword">void</span> <span class="title">Q_TestSignal</span><span class="params">(<span class="keyword">const</span> QString &amp; name, <span class="keyword">int</span> age)</span></span>;
+<span class="comment">// ...</span>
+</code></pre></li>
+</ul>
+<pre><code>-<span class="ruby"> 对于这段代码而言，有两个地方需要注意，<span class="string">`emit`</span>, <span class="string">`public signals:`</span>
+</span>
+    -<span class="ruby"> 此处故意令信号函数重载，是为了在后方体现，槽函数的参数个数可以小于或者等于信号函数的参数个数。
+</span>    -<span class="ruby"> <span class="string">`emit`</span> 就是发射信号的意思。</span>
+</code></pre><ul>
+<li><p>槽函数：</p>
+<pre><code><span class="keyword">class</span> Slot_Class:<span class="keyword">public</span> QObject{
+...
+slots:
+    <span class="function"><span class="keyword">void</span> <span class="title">Q_TestSlot</span><span class="params">(<span class="keyword">const</span> QString &amp; name)</span>
+    </span>{
+         QMessageBox mesbox;
+         mesbox.setText(<span class="string">"Receive : "</span>+name);
+         mesbox.exec();
+    }
+<span class="comment">// ...</span>
+</code></pre></li>
+<li><p>测试：</p>
+<pre><code><span class="keyword">void</span> (Signal_Class::* p_to_test)(<span class="keyword">const</span> QString &amp;, <span class="keyword">int</span>) = 
+     &amp;Signal_Class::Q_TestSignal;
+    <span class="comment">//因为是重载函数，所以需要明确指明使用哪个作为连接的信号函数 </span>
+QObject::connect(&amp;test_sig, p_to_test,
+                 &amp;test_slot, Slot_Class::Q_TestSlot);
+test_sig.Q_SendSignal(); <span class="comment">//发射信号</span>
+</code></pre><p>我们会发现，即使槽函数的参数个数与信号函数不一致（小于），但是依然可以接收到参数，但是需要注意的是，虽然能够自由选择接受的参数，但是依旧需要按照顺序。</p>
+</li>
+</ul>
 ]]></content>
     <summary type="html">
     <![CDATA[<h4 id="开启C++11支持">开启C++11支持</h4><ol>
 <li><p>.pro文件中增加：</p>
-<pre><code><span class="comment">CONFIG</span> <span class="literal">+</span><sp]]>
+<pre><code><span class="comment">CONFIG</span> <span class="literal">+</span><span class="comment">=</span> <span class="comment">c</span><span class="literal">+</span><span class="literal">+</span><span class="comment">11</span>
+</code></pre><p>或者</p>
+<pre><code>QMAKE_CXXFLAGS += -<span class="keyword">std</span>=c++<span class="number">11</span>
+</code></pre><p>两种添加形式都是可行的，建议每个工程单独配置，而不要一劳永逸。</p>
+</li>
+</ol>
+<h4 id="信号与槽">信号与槽</h4>]]>
+    
     </summary>
     
       <category term="Qt" scheme="//wushxin.top/tags/Qt/"/>
@@ -723,11 +775,11 @@ local_result = local_result + local_data[i] + local_data[i+<span class="number">
   </entry>
   
   <entry>
-    <title><![CDATA[Qt信号与槽]]></title>
-    <link href="//wushxin.top/2015/05/19/Qt%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD/"/>
-    <id>//wushxin.top/2015/05/19/Qt信号与槽/</id>
+    <title><![CDATA[可视化Qt信号与槽]]></title>
+    <link href="//wushxin.top/2015/05/19/%E5%8F%AF%E8%A7%86%E5%8C%96Qt%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD/"/>
+    <id>//wushxin.top/2015/05/19/可视化Qt信号与槽/</id>
     <published>2015-05-19T01:38:38.000Z</published>
-    <updated>2015-05-24T08:38:02.015Z</updated>
+    <updated>2015-06-12T12:52:32.538Z</updated>
     <content type="html"><![CDATA[<h2 id="Qt5_中的信号与槽">Qt5 中的信号与槽</h2><p>对于已经有了IDE的Qt而言，我们拥有更多的建立<strong>信号-槽</strong>方法的选择，但是作为一名自然人类，我们最喜欢的还是眼见为实，既然Qt为我们设计了 <strong>Qt Creator</strong>，那么我们就应该充分利用它，然而国内的教程大都停留在非可视化操作下，这里记录在 <strong>Qt Creator</strong> 下我们该如何设计一个<strong>信号-槽</strong>机制</p>
 <h4 id="准备工作">准备工作</h4><p>打开<strong>Qt Creator</strong>，创建<strong>Qt Gui</strong>项目，我使用的是Qt5，但是同样也适用于Qt4，两者的在本次中的区别就在于建立连接<code>(QObject::connect)</code>的时候，Qt5更加灵活。</p>
 <p>项目是<code>MainWindow</code>类，建立完成之后， <strong>Qt Creator</strong> 自动生成一系列文件</p>
