@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-06-12T13:16:30.575Z</updated>
+  <updated>2015-06-13T03:51:56.420Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/06/12/Qt%E8%AE%B0%E5%BD%95/"/>
     <id>//wushxin.top/2015/06/12/Qt记录/</id>
     <published>2015-06-12T00:42:47.000Z</published>
-    <updated>2015-06-12T13:16:30.575Z</updated>
+    <updated>2015-06-13T03:51:56.420Z</updated>
     <content type="html"><![CDATA[<h4 id="开启C++11支持">开启C++11支持</h4><ol>
 <li><p>.pro文件中增加：</p>
 <pre><code><span class="comment">CONFIG</span> <span class="literal">+</span><span class="comment">=</span> <span class="comment">c</span><span class="literal">+</span><span class="literal">+</span><span class="comment">11</span>
@@ -32,16 +32,17 @@
 <h4 id="信号与槽">信号与槽</h4><a id="more"></a>
 <p>作为信号(signal)与槽(slot)，我们的信号函数的<strong>参数个数</strong>可以多于槽函数的参数个数，也就是说，我们可以选择接受不多于信号函数<strong>参数个数</strong>的参数，有点绕：</p>
 <ul>
-<li><p>信号函数：</p>
+<li><p>信号函数的类：</p>
 <pre><code><span class="keyword">class</span> Signal_Class:<span class="keyword">public</span> QObject{
 ...
 <span class="keyword">public</span>:
+...
     <span class="function"><span class="keyword">void</span> <span class="title">Q_SendSignal</span><span class="params">()</span>
     </span>{
         <span class="function">emit <span class="title">Q_TestSignal</span><span class="params">(UserName, UserAge)</span></span>;
         <span class="comment">//UserName, UserAge 是该类的私有属性。</span>
     }
-<span class="keyword">public</span> signals:
+signals:
     <span class="function"><span class="keyword">void</span> <span class="title">Q_TestSignal</span><span class="params">(<span class="keyword">const</span> QString &amp; name)</span></span>;
     <span class="function"><span class="keyword">void</span> <span class="title">Q_TestSignal</span><span class="params">(<span class="keyword">const</span> QString &amp; name, <span class="keyword">int</span> age)</span></span>;
 <span class="comment">// ...</span>
@@ -52,10 +53,10 @@
     -<span class="ruby"> 此处故意令信号函数重载，是为了在后方体现，槽函数的参数个数可以小于或者等于信号函数的参数个数。
 </span>    -<span class="ruby"> <span class="string">`emit`</span> 就是发射信号的意思。</span>
 </code></pre><ul>
-<li><p>槽函数：</p>
+<li><p>槽函数的类：</p>
 <pre><code><span class="keyword">class</span> Slot_Class:<span class="keyword">public</span> QObject{
 ...
-slots:
+<span class="keyword">public</span> slots:
     <span class="function"><span class="keyword">void</span> <span class="title">Q_TestSlot</span><span class="params">(<span class="keyword">const</span> QString &amp; name)</span>
     </span>{
          QMessageBox mesbox;
@@ -71,7 +72,41 @@ slots:
 QObject::connect(&amp;test_sig, p_to_test,
                  &amp;test_slot, Slot_Class::Q_TestSlot);
 test_sig.Q_SendSignal(); <span class="comment">//发射信号</span>
-</code></pre><p>我们会发现，即使槽函数的参数个数与信号函数不一致（小于），但是依然可以接收到参数，但是需要注意的是，虽然能够自由选择接受的参数，但是依旧需要按照顺序。</p>
+</code></pre><blockquote>
+<p>效果图</p>
+</blockquote>
+</li>
+<li><p><img src="http://ww1.sinaimg.cn/mw690/81b736ebtw1et2ajoj7ydj20bk09f3ye.jpg" alt=""></p>
+</li>
+</ul>
+<p>我们会发现，即使槽函数的参数个数与信号函数不一致（小于），但是依然可以接收到参数，但是需要注意的是，虽然能够自由选择接受的参数，但是依旧需要按照顺序(按照C++语法上的顺序)。</p>
+<p>既然槽函数能够接受不多于信号函数参数个数的参数，那么我们自然而然能够想到，是否可以使用让槽函数拥有默认参数，以此来扩大槽函数的适用范围，答案是可以。</p>
+<ul>
+<li><p>依旧是上方的代码，改动些许：</p>
+<ul>
+<li><p>信号函数的类改动</p>
+<pre><code><span class="function"><span class="keyword">void</span> <span class="title">Q_SendSignal</span><span class="params">()</span>
+</span>{
+    <span class="function">emit <span class="title">Q_TestSignal</span><span class="params">(UserName)</span></span>;
+    <span class="comment">//UserName 是该类的私有属性。</span>
+}
+</code></pre></li>
+<li><p>信号函数类改动</p>
+<pre><code><span class="keyword">void</span> Q_TestSlot(<span class="keyword">const</span> QString &amp; name
+              , <span class="keyword">const</span> QDate &amp; time = QDate::currentDate())
+{
+    <span class="comment">//需要添加#include &lt;QDebug&gt;</span>
+    <span class="comment">//如果接受成功，可在终端看到输出。</span>
+    qDebug() &lt;&lt; name &lt;&lt; time;
+}
+</code></pre></li>
+<li>测试代码改动（关键点）</li>
+<li><p>在此刻我们需要让编译器知道，我们的信号函数是一个参数，而槽函数是两个参数，其中一个是带有默认参数的，我们应该怎么做？函数指针对于默认参数是无效的，那么除了使用C++11新特性<strong>Lambda匿名函数</strong>以外，最直接的还是使用宏<strong>SLOT 和 SIGNAL</strong>，在这里我们使用这两个宏可以节省很多工作量，缺点就是无法在编译时刻知道是否匹配，所以我们需要小心谨慎的使用。</p>
+<pre><code><span class="rule"><span class="attribute">QObject</span>:<span class="value">:<span class="function">connect</span>(&amp;new_paper_1, <span class="function">SIGNAL</span>(<span class="function">newPaper</span>(QString)),
+                &amp;new_reader_1, <span class="function">SLOT</span>(<span class="function">receive_newpaper</span>(QString)))</span></span>;
+</code></pre><p>可以看到，我们的槽函数明明有两个参数，但是此处<strong>SLOT</strong>宏内只出现了一个，这就表明已经告知编译器是默认参数。</p>
+</li>
+</ul>
 </li>
 </ul>
 ]]></content>
