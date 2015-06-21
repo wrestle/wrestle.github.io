@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-06-13T03:51:56.420Z</updated>
+  <updated>2015-06-21T05:00:24.397Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -14,6 +14,101 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Cpp记录]]></title>
+    <link href="//wushxin.top/2015/06/21/Cpp%E8%AE%B0%E5%BD%95/"/>
+    <id>//wushxin.top/2015/06/21/Cpp记录/</id>
+    <published>2015-06-21T03:38:55.000Z</published>
+    <updated>2015-06-21T05:00:24.397Z</updated>
+    <content type="html"><![CDATA[<h4 id="名称空间">名称空间</h4><ul>
+<li><p>匿名的名称空间只在本文件中可见。</p>
+<pre><code><span class="comment">//file1.cpp</span>
+<span class="keyword">namespace</span>{
+    <span class="keyword">int</span> challenge = <span class="number">0</span>;
+    <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span>
+    </span>{
+        ...
+}
+</code></pre></li>
+<li><p>名称空间的创建</p>
+</li>
+</ul>
+<p>一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文件中声明它，并在实现文件中定义它们<br>        // file1.h<br>        namespace mix_define{</p>
+<pre><code>        <span class="function"><span class="keyword">void</span> <span class="title">interF</span><span class="params">(<span class="keyword">int</span> args_1)</span></span>;
+        <span class="function"><span class="keyword">double</span> <span class="title">goRound</span><span class="params">(<span class="keyword">int</span> args_1)</span></span>;
+        ...
+}
+
+
+<span class="comment">//file1.cpp</span>
+<span class="keyword">namespace</span> <span class="title">mix_define</span>{
+
+        <span class="function"><span class="keyword">void</span> <span class="title">interF</span><span class="params">(<span class="keyword">int</span> args_1)</span>
+        </span>{
+            <span class="comment">//Something happen...</span>
+        }
+
+        <span class="function"><span class="keyword">double</span> <span class="title">goRound</span><span class="params">(<span class="keyword">int</span> args_1)</span>
+        </span>{
+            <span class="comment">//Something happen...</span>
+        }
+}
+</code></pre><ul>
+<li><p>使用名称空间的时候，最好避免全部倒入，容易造成名称污染。</p>
+<pre><code><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>; <span class="comment">//不建议这么做</span>
+
+<span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>;
+<span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cin</span>; <span class="comment">//最好如此或者，更好的做法是:</span>
+
+<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"In the Real Code"</span> &lt;&lt; <span class="built_in">std</span>::endl;
+</code></pre></li>
+</ul>
+<ul>
+<li>类设计中特殊的函数</li>
+</ul>
+<p>一个类，当它拥有这样的构造函数时：</p>
+<pre><code><span class="class"><span class="keyword">class</span> <span class="title">Wushxin</span></span>{
+
+<span class="keyword">public</span>:
+        Wushxin() {}
+        Wushxin(<span class="keyword">double</span> heigth);
+...
+<span class="keyword">private</span>:
+        <span class="keyword">double</span> my_heth;
+...
+};
+</code></pre><p>我们可以这么使用它：</p>
+<pre><code><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
+</span>{
+    Wushxin FirstCopy;
+    FirstCopy = <span class="number">178.6</span>; <span class="comment">//这样的赋值是成立的</span>
+                       <span class="comment">//首先调用Wushxin(double heigth)，将176.8传入，</span>
+                       <span class="comment">//将生成一个临时的Wushxin类型的对象，再拷贝进FirstCopy对象中。</span>
+    <span class="keyword">double</span> heigth = FirstCopy; <span class="comment">// 可行吗？，答案是不可行</span>
+</code></pre><p>但是，如果要让他成立，自然也有方法：</p>
+<p>很少使用的特殊函数：</p>
+<pre><code><span class="keyword">class</span> <span class="title">Wushxin</span>{
+...
+    <span class="function"><span class="keyword">operator</span> <span class="title">double</span><span class="params">()</span> <span class="keyword">const</span></span>{
+            <span class="keyword">return</span> my_heth;
+    }
+...
+}; 
+</code></pre><p>如此定义一个特殊的转换函数之后，我们就能无错的编译通过并运行上述代码了。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h4 id="名称空间">名称空间</h4><ul>
+<li><p>匿名的名称空间只在本文件中可见。</p>
+<pre><code><span class="comment">//file1.cpp</span>
+<span class="keyword">namespace<]]>
+    </summary>
+    
+      <category term="Cpp" scheme="//wushxin.top/tags/Cpp/"/>
+    
+      <category term="杂货居" scheme="//wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Qt记录]]></title>
