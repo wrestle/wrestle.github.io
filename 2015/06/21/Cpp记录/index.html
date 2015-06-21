@@ -5,7 +5,7 @@
   
   <title>Cpp记录 | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="名称空间
+  <meta name="description" content="更新于 2015/6/21 22:34:49名称空间
 匿名的名称空间只在本文件中可见。
 //file1.cpp
 namespace{
@@ -18,12 +18,12 @@ namespace{
 名称空间的创建
 
 
-一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文件中声明它，并在实现文件中定义它们">
+一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Cpp记录">
 <meta property="og:url" content="//wushxin.top/2015/06/21/Cpp记录/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="名称空间
+<meta property="og:description" content="更新于 2015/6/21 22:34:49名称空间
 匿名的名称空间只在本文件中可见。
 //file1.cpp
 namespace{
@@ -36,10 +36,10 @@ namespace{
 名称空间的创建
 
 
-一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文件中声明它，并在实现文件中定义它们">
+一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Cpp记录">
-<meta name="twitter:description" content="名称空间
+<meta name="twitter:description" content="更新于 2015/6/21 22:34:49名称空间
 匿名的名称空间只在本文件中可见。
 //file1.cpp
 namespace{
@@ -52,7 +52,7 @@ namespace{
 名称空间的创建
 
 
-一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文件中声明它，并在实现文件中定义它们">
+一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -127,7 +127,7 @@ namespace{
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="名称空间">名称空间</h4><ul>
+        <h4 id="更新于_2015/6/21_22:34:49">更新于 2015/6/21 22:34:49</h4><h4 id="名称空间">名称空间</h4><ul>
 <li><p>匿名的名称空间只在本文件中可见。</p>
 <pre><code><span class="comment">//file1.cpp</span>
 <span class="keyword">namespace</span>{
@@ -161,7 +161,7 @@ namespace{
         }
 }
 </code></pre><ul>
-<li><p>使用名称空间的时候，最好避免全部倒入，容易造成名称污染。</p>
+<li><p>使用名称空间的时候，最好避免全部倒入，容易造成名称污染。<a id="more"></a></p>
 <pre><code><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>; <span class="comment">//不建议这么做</span>
 
 <span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>;
@@ -202,6 +202,99 @@ namespace{
 ...
 }; 
 </code></pre><p>如此定义一个特殊的转换函数之后，我们就能无错的编译通过并运行上述代码了。</p>
+<h4 id="try-throw-catch_三段式">try-throw-catch 三段式</h4><p>这是异常抛出的方式，简单的用法便是在外部使用的try-catch形式：</p>
+<pre><code><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
+</span>{
+    <span class="keyword">int</span> get_num;
+    <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; get_num;
+    <span class="keyword">try</span>
+    {
+        <span class="keyword">if</span>(get_num &lt; <span class="number">0</span>)
+            <span class="keyword">throw</span> get_num
+        <span class="comment">//Something happen</span>
+    }
+    <span class="keyword">catch</span>(<span class="keyword">int</span> e) <span class="comment">//此处括号内的参数的类型和抛出的类型需要一致</span>
+    {
+        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"The number "</span> &lt;&lt; get_num &lt;&lt; <span class="string">" is negative"</span>
+                  &lt;<span class="built_in">std</span>::endl;
+    }
+    <span class="comment">//...</span>
+}
+</code></pre><p>这是最简单的使用，在三段式中，<code>try</code>充当的是正常代码块，而<code>catch</code>则是对于抛出异常的处理。<code>catch</code> 可以不止一个，但一定要合理，实际来说，三段式能少用尽量少用，我们一般是这么使用三段式的：</p>
+<ul>
+<li>在函数中使用三段式，例如函数调用里<code>throw</code>一个异常</li>
+<li>在调用函数的地方的附近使用三段式获取一个异常</li>
+<li><p>异常被抛出后一定要有接收的<code>catch</code>，否则会默认调用<code>unexcept()</code>，从而紧接着默认调用<code>terminate()</code>终止程序。</p>
+<pre><code><span class="comment">//head.h</span>
+<span class="preprocessor">#<span class="keyword">include</span> &lt;...&gt; <span class="comment">//各种必要的头文件 </span></span>
+<span class="keyword">class</span> ExceptionText{
+<span class="keyword">public</span>:
+        ExceptionTest(){}
+        ExceptionTest(<span class="built_in">std</span>::<span class="built_in">string</span> err_mes): message(err_mes){}
+        <span class="comment">//调用接口</span>
+        <span class="built_in">std</span>::<span class="function"><span class="built_in">string</span> <span class="title">show_message</span><span class="params">()</span></span>{
+            <span class="keyword">return</span> message;
+        }
+<span class="keyword">private</span>:
+        <span class="built_in">std</span>::<span class="built_in">string</span> message;
+};
+
+<span class="keyword">class</span> ExceptionNumber{
+};
+</code></pre><p>这个类的作用在于抛出异常的时候，使用该类作为抛出对象的类型，<code>throw</code>可以抛出任意类型的异常。</p>
+<pre><code><span class="comment">//run.cpp</span>
+<span class="preprocessor">#<span class="keyword">include</span> &lt;...&gt;</span>
+<span class="function"><span class="keyword">void</span> <span class="title">AddFunction</span><span class="params">()</span></span>;
+<span class="function"><span class="keyword">void</span> <span class="title">TheMainFunction</span><span class="params">(<span class="keyword">double</span> args)</span></span>;
+
+<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
+</span>{
+    <span class="keyword">int</span> SomeThingYouWant = <span class="number">0</span>;
+    <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; SomeThingYouWant; 
+    <span class="keyword">try</span>
+    {
+        TheMainFunction(SomeThingYouWant);
+    }
+    <span class="keyword">catch</span>(ExceptionText t)
+    {
+        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; e.show_message();
+        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="built_in">std</span>::endl;
+    }
+    <span class="keyword">catch</span>(ExceptionNumber n) <span class="comment">// 抛出类型可以只定义类型，而不加任何具体实现</span>
+    {
+        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"The number is not match the logic"</span>
+                  &lt;&lt; <span class="built_in">std</span>::endl;
+    }
+    <span class="keyword">catch</span>(...) <span class="comment">//这是默认的catch，...并不代表无限的参数，而是默认的意思，就像switch中的default.</span>
+    {
+        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"There has some thing bad happen to us"</span>;
+    }
+    <span class="keyword">return</span> <span class="number">0</span>;
+}
+</code></pre><p>在三段式中，可以有很多个<code>catch</code>，并且可以拥有一个默认的<code>catch</code>，在上述代码中，只要抛出类型不是<code>ExceptionText</code>和<code>ExceptionNumber</code>,抛出就会被默认<code>catch</code>所获取。</p>
+<pre><code><span class="type">void</span> <span class="type">TheMainFunction</span>(double args) 
+{
+    double <span class="literal">result</span>;
+    <span class="keyword">if</span>(args &lt; <span class="number">0</span>)
+        throw <span class="type">ExceptionText</span>(<span class="string">"The number is negative"</span>);
+    <span class="keyword">else</span> <span class="keyword">if</span>(args == <span class="number">0</span>)
+        throw <span class="type">ExceptionText</span>(<span class="string">"The number is Zero"</span>);
+    <span class="literal">result</span> = (args-<span class="number">1</span>) / args;
+
+    <span class="keyword">while</span>(<span class="literal">result</span> &gt; <span class="number">0</span>)
+        <span class="literal">result</span> -= <span class="number">0</span>.<span class="number">01</span>;
+    <span class="keyword">if</span>(<span class="literal">result</span> &lt; <span class="number">0</span>)
+        throw <span class="type">ExceptionNumber</span>;
+    <span class="keyword">else</span>
+        throw <span class="number">0</span>; //只要是<span class="type">ExceptionText</span>和<span class="type">ExceptionNumber</span>之外的任意类型都可以。    
+}
+</code></pre></li>
+</ul>
+<p>在TheMainFunction的定义里，可以添加一些限制条件，来限制抛出的类型：</p>
+<pre><code>void <span class="function"><span class="title">TheMainFunction</span><span class="params">(double)</span></span> <span class="function"><span class="title">throw</span><span class="params">(ExceptionText, ExceptionNumber)</span></span>
+<span class="comment">//...</span>
+</code></pre><p>这样抛出类型就只有<code>ExceptionText</code>和<code>ExceptionNumber</code>两种了。</p>
+<p>虽然三段式看起来十分实用，但是我们依然应该尽可能的减少他们的使用频率。</p>
 
       
     </div>
