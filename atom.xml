@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-06-13T03:51:56.420Z</updated>
+  <updated>2015-06-21T03:40:42.396Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -14,6 +14,23 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Cpp记录]]></title>
+    <link href="//wushxin.top/2015/06/21/Cpp%E8%AE%B0%E5%BD%95/"/>
+    <id>//wushxin.top/2015/06/21/Cpp记录/</id>
+    <published>2015-06-21T03:38:55.000Z</published>
+    <updated>2015-06-21T03:40:42.396Z</updated>
+    <content type="html"></content>
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="Cpp" scheme="//wushxin.top/tags/Cpp/"/>
+    
+      <category term="杂货居" scheme="//wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Qt记录]]></title>
@@ -1339,8 +1356,8 @@ vari_struct* vari_p_3 = <span class="built_in">malloc</span>(<span class="keywor
     <link href="//wushxin.top/2015/05/12/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(1)/"/>
     <id>//wushxin.top/2015/05/12/我为什么学C(1)/</id>
     <published>2015-05-12T14:22:23.000Z</published>
-    <updated>2015-06-03T11:49:36.221Z</updated>
-    <content type="html"><![CDATA[<h1 id="我的C语言">我的C语言</h1><h2 id="本章更新于_2015-05-17">本章更新于 2015-05-17</h2><p><strong>正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域</strong></p>
+    <updated>2015-06-21T03:36:04.981Z</updated>
+    <content type="html"><![CDATA[<h1 id="我的C语言">我的C语言</h1><h2 id="本章更新于_2015/6/21_11:36:01">本章更新于 2015/6/21 11:36:01</h2><p><strong>正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域</strong></p>
 <h4 id="0x00-C语言前续工作">0x00-C语言前续工作</h4><p>正所谓，工欲善其事，必先利其器，把握住当下最强大的工具，能让我们在学习的道路上少走许多弯路，多吸取前人的失败经验，能让自己快速成长，因为成长总是在消耗我们的耐心以及生命。</p>
 <p>入门或者精通或者应用，不管哪一方面，对于一个编程语言而言，最方便的还是使用一个<strong>IDE</strong>作为你的有力助手，什么事<strong>IDE</strong>？通俗而专业的说叫做<strong>集成开发环境</strong>，这个通过字面就能理解到了，就是所有其他的事情都不需要程序员操心，你需要操心的就是写出代码，至于代码完成之后的一系列工作，都不需要你来管，IDE一键帮你搞定。</p>
 <p>当然，会有许多前辈告诉你，如果你想理解C语言，那你一定要使用最基层的东西来写，比如XXX编辑器配上XXX编译器，晕头转向之后更加茫然，本来就支离破碎的小心肝，又被粉碎了一次，撇开那些与当下不符合的幻想，活在现实中，选择一个适合你的<strong>IDE</strong>，逐渐适应它。</p>
@@ -1398,7 +1415,8 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
 <p></p><p>让C语言有了更高效的算法以及更奇妙的思路<br><br><code>struct enum union #define return</code><br></p>
 <p></p><p>而这些则让C语言在这乱世纷争中站稳了脚跟，并且一枝独秀<br><br><code>“{}” “()”</code><br></p>
 <p></p><p>让代码不再无序混乱<br><br><code>“type * “ “&amp;” “()” “-&gt;”</code><br></p>
-<p></p><p>让C语言在这个世界无处不在<br><code>“ . “ “[ ]” “ &lt; “ “ &gt; “ “ == “</code><br> <a id="more"></a></p>
+<p></p><p>让C语言在这个世界无处不在<br><code>“ . “ “[ ]” “ &lt; “ “ &gt; “ “ == “</code><br></p>
+<a id="more"></a>
 <p><strong>还记得他们吗？我想这一辈子都忘不了了</strong></p>
 <h4 id="0x02-编程带给我的">0x02-编程带给我的</h4><p>是快乐而不是痛苦，如果你觉得编程痛苦，请放下你手头的工作，找找自己真正想要的，无论从什么角度来看，你都应该放弃令你痛苦的事情，花上三杯茶的时间，看看自己的心到底喜欢什么。</p>
 <p>C语言可谓是让一个程序员最难以感受到自己进步的编程语言，一个黑窗口就让无数程序员再也走不出来。或者迷失，或者停滞不前，或者放弃，一个人最恐惧无助，甚至彷徨的时候，就是在努力之后却感受不到自己在进步，努力的白费是所有人不愿意看到的，但是太多人就着所谓前途而奋不顾身的投入这个事业，他们也许对计算机完全没有喜爱之心，埋头苦干，世人皆称<strong>爱读书的好孩子</strong>，但是这意义又在何处？即使最后你领着你觉得高的工资，站在了同学，朋友的前方，依然发现自己并没有得到满足，在我看来，让自己开心的才是最好的，不适合你的永远是最差的，即便能带来利益？何不花三杯茶的时间，想想自己到底适合何处。</p>
@@ -1572,10 +1590,46 @@ ptemp<span class="subst">-&gt;</span>next <span class="subst">=</span> <span cla
 <span class="attribute">...</span>
 </code></pre><p>可以很清楚的看出其实<code>ptemp-&gt;test</code>便是<code>(*ptemp).test</code>的语法糖</p>
 </li>
+<li><p>变量限定</p>
+<p>  <code>const</code> 是最常用的变量限定符，它的意思是告诉编译器，这个变量或者对象在初始化以后不能被改变，常用它来保护一些必要的返回值，参数以及常量的定义。</p>
+<p>  <code>volatile</code> 这个关键字常常被C语言教材所忽略，它很神秘。实际上确实如此，他的作用的确很神秘：一旦使用了，就是告诉编译器，即使这个变量没有被使用或修改其他内存单元，它的值也可能发生变化。通俗的说就是，<strong>告诉编译器，不要把你的那一套优化策略用在我身上</strong>。</p>
+<pre><code><span class="comment">/* 此时我们将编译器优化等级提高到 -O2 */</span>
+<span class="keyword">int</span>          test_num   = <span class="number">100</span>; <span class="comment">//测试一个迭代加法</span>
+<span class="keyword">int</span>          nor_result = <span class="number">0</span>;
+<span class="keyword">volatile</span> <span class="keyword">int</span> vol_result = <span class="number">0</span>;
+<span class="comment">/* 测试无volatile限定下，该程序的耗时 */</span>            
+<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">10000</span>;++i)
+    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; <span class="number">10000</span>;++j)
+            nor_result += test_num;
+</code></pre><p>接下来就是测试<code>volatile</code>限定下的代码</p>
+<pre><code><span class="keyword">for</span>(int <span class="built_in">i</span> = <span class="number">0</span>;<span class="built_in">i</span> &lt; <span class="number">10000</span>;++<span class="built_in">i</span>)
+    <span class="keyword">for</span>(int <span class="built_in">j</span> = <span class="number">0</span>;<span class="built_in">j</span> &lt; <span class="number">10000</span>;++<span class="built_in">j</span>)
+            vol_result += test_num;
+</code></pre><p>在使用一些手段后，得到运行时间，可以很清晰的看出差别，在我的机器上，<code>i5-4CPU</code>，得到的结果是后者比前者慢大概十五倍。<br>从某一些方向上证明了，volatile的一些作用，比如调试的时候，或者一些特殊用途。涉足不多，故不记录。</p>
+</li>
+<li><p>变量说明</p>
+<p><code>extern</code> 用于将不同文件的，带有外部链接性的变量引用到本文件中。所谓外部链接性就是可以被除本文件外的其他文件<strong>“看见”</strong>的变量，如全局变量，使用方法：</p>
+<pre><code><span class="comment">/* 以下为一个工程内可见 */</span>
+<span class="comment">/*file1.c*/</span>
+<span class="keyword">int</span> glo_show;<span class="comment">//对于该全局变量来说，它们在声明时无初始化，则默认初始为0</span>
+<span class="keyword">int</span> glo_print = <span class="number">10</span>;<span class="comment">//声明定义完成后，自动分配内存以存储信息    </span>
+...
+
+<span class="comment">/* file2.c */</span>
+<span class="keyword">extern</span> glo_print; <span class="comment">//仅仅是引用名字，并不会额外分配空间</span>
+                  <span class="comment">//所以，只需要写正确变量名字即可，后方的初始化无须完全</span>
+                  <span class="comment">//因为变量的初始化定义只能有一次。</span>
+
+<span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span>
+</span>{
+    <span class="built_in">printf</span>(<span class="string">"The Globle Value is %d \n"</span>, glo_print);
+}
+</code></pre><p>  <code>auto</code> 可以姑且忽略，因为没有什么实际意义。</p>
+<h4 id="Create_By_WuShengXin_@_2015">Create By WuShengXin @ 2015</h4></li>
 </ul>
-<h4 id="Create_By_WuShengXin_@_2015">Create By WuShengXin @ 2015</h4>]]></content>
+]]></content>
     <summary type="html">
-    <![CDATA[<h1 id="我的C语言">我的C语言</h1><h2 id="本章更新于_2015-05-17">本章更新于 2015-05-17</h2><p><strong>正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域</strong></p>
+    <![CDATA[<h1 id="我的C语言">我的C语言</h1><h2 id="本章更新于_2015/6/21_11:36:01">本章更新于 2015/6/21 11:36:01</h2><p><strong>正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域</strong></p>
 <h4 id="0x00-C语言前续工作">0x00-C语言前续工作</h4><p>正所谓，工欲善其事，必先利其器，把握住当下最强大的工具，能让我们在学习的道路上少走许多弯路，多吸取前人的失败经验，能让自己快速成长，因为成长总是在消耗我们的耐心以及生命。</p>
 <p>入门或者精通或者应用，不管哪一方面，对于一个编程语言而言，最方便的还是使用一个<strong>IDE</strong>作为你的有力助手，什么事<strong>IDE</strong>？通俗而专业的说叫做<strong>集成开发环境</strong>，这个通过字面就能理解到了，就是所有其他的事情都不需要程序员操心，你需要操心的就是写出代码，至于代码完成之后的一系列工作，都不需要你来管，IDE一键帮你搞定。</p>
 <p>当然，会有许多前辈告诉你，如果你想理解C语言，那你一定要使用最基层的东西来写，比如XXX编辑器配上XXX编译器，晕头转向之后更加茫然，本来就支离破碎的小心肝，又被粉碎了一次，撇开那些与当下不符合的幻想，活在现实中，选择一个适合你的<strong>IDE</strong>，逐渐适应它。</p>
@@ -1633,7 +1687,7 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
 <p><p>让C语言有了更高效的算法以及更奇妙的思路<br><br><code>struct enum union #define return</code><br></p>
 <p><p>而这些则让C语言在这乱世纷争中站稳了脚跟，并且一枝独秀<br><br><code>“{}” “()”</code><br></p>
 <p><p>让代码不再无序混乱<br><br><code>“type * “ “&amp;” “()” “-&gt;”</code><br></p>
-<p><p>让C语言在这个世界无处不在<br><code>“ . “ “[ ]” “ &lt; “ “ &gt; “ “ == “</code><br>]]>
+<p><p>让C语言在这个世界无处不在<br><code>“ . “ “[ ]” “ &lt; “ “ &gt; “ “ == “</code><br></p>]]>
     
     </summary>
     
