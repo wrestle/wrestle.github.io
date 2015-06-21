@@ -140,8 +140,11 @@ namespace{
 <li><p>名称空间的创建</p>
 </li>
 </ul>
-<p>一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文件中声明它，并在实现文件中定义它们<br>        // file1.h<br>        namespace mix_define{</p>
-<pre><code>        <span class="function"><span class="keyword">void</span> <span class="title">interF</span><span class="params">(<span class="keyword">int</span> args_1)</span></span>;
+<p>一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文件中声明它，并在实现文件中定义它们</p>
+<pre><code><span class="comment">// file1.h</span>
+<span class="keyword">namespace</span> <span class="title">mix_define</span>{
+
+        <span class="function"><span class="keyword">void</span> <span class="title">interF</span><span class="params">(<span class="keyword">int</span> args_1)</span></span>;
         <span class="function"><span class="keyword">double</span> <span class="title">goRound</span><span class="params">(<span class="keyword">int</span> args_1)</span></span>;
         ...
 }
@@ -192,6 +195,7 @@ namespace{
                        <span class="comment">//首先调用Wushxin(double heigth)，将176.8传入，</span>
                        <span class="comment">//将生成一个临时的Wushxin类型的对象，再拷贝进FirstCopy对象中。</span>
     <span class="keyword">double</span> heigth = FirstCopy; <span class="comment">// 可行吗？，答案是不可行</span>
+...
 </code></pre><p>但是，如果要让他成立，自然也有方法：</p>
 <p>很少使用的特殊函数：</p>
 <pre><code><span class="keyword">class</span> <span class="title">Wushxin</span>{

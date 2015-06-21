@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-06-21T14:34:49.846Z</updated>
+  <updated>2015-06-21T14:38:39.388Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/06/21/Cpp%E8%AE%B0%E5%BD%95/"/>
     <id>//wushxin.top/2015/06/21/Cpp记录/</id>
     <published>2015-06-21T03:38:55.000Z</published>
-    <updated>2015-06-21T14:34:49.846Z</updated>
+    <updated>2015-06-21T14:38:39.388Z</updated>
     <content type="html"><![CDATA[<h4 id="更新于_2015/6/21_22:34:49">更新于 2015/6/21 22:34:49</h4><h4 id="名称空间">名称空间</h4><ul>
 <li><p>匿名的名称空间只在本文件中可见。</p>
 <pre><code><span class="comment">//file1.cpp</span>
@@ -34,8 +34,11 @@
 <li><p>名称空间的创建</p>
 </li>
 </ul>
-<p>一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文件中声明它，并在实现文件中定义它们<br>        // file1.h<br>        namespace mix_define{</p>
-<pre><code>        <span class="function"><span class="keyword">void</span> <span class="title">interF</span><span class="params">(<span class="keyword">int</span> args_1)</span></span>;
+<p>一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文件中声明它，并在实现文件中定义它们</p>
+<pre><code><span class="comment">// file1.h</span>
+<span class="keyword">namespace</span> <span class="title">mix_define</span>{
+
+        <span class="function"><span class="keyword">void</span> <span class="title">interF</span><span class="params">(<span class="keyword">int</span> args_1)</span></span>;
         <span class="function"><span class="keyword">double</span> <span class="title">goRound</span><span class="params">(<span class="keyword">int</span> args_1)</span></span>;
         ...
 }
@@ -86,6 +89,7 @@
                        <span class="comment">//首先调用Wushxin(double heigth)，将176.8传入，</span>
                        <span class="comment">//将生成一个临时的Wushxin类型的对象，再拷贝进FirstCopy对象中。</span>
     <span class="keyword">double</span> heigth = FirstCopy; <span class="comment">// 可行吗？，答案是不可行</span>
+...
 </code></pre><p>但是，如果要让他成立，自然也有方法：</p>
 <p>很少使用的特殊函数：</p>
 <pre><code><span class="keyword">class</span> <span class="title">Wushxin</span>{
@@ -204,8 +208,11 @@
 <li><p>名称空间的创建</p>
 </li>
 </ul>
-<p>一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文件中声明它，并在实现文件中定义它们<br>        // file1.h<br>        namespace mix_define{</p>
-<pre><code>        <span class="function"><span class="keyword">void</span> <span class="title">interF</span><span class="params">(<span class="keyword">int</span> args_1)</span></span>;
+<p>一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文件中声明它，并在实现文件中定义它们</p>
+<pre><code><span class="comment">// file1.h</span>
+<span class="keyword">namespace</span> <span class="title">mix_define</span>{
+
+        <span class="function"><span class="keyword">void</span> <span class="title">interF</span><span class="params">(<span class="keyword">int</span> args_1)</span></span>;
         <span class="function"><span class="keyword">double</span> <span class="title">goRound</span><span class="params">(<span class="keyword">int</span> args_1)</span></span>;
         ...
 }
