@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-06-21T14:38:39.388Z</updated>
+  <updated>2015-06-22T03:44:54.017Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/06/21/Cpp%E8%AE%B0%E5%BD%95/"/>
     <id>//wushxin.top/2015/06/21/Cpp记录/</id>
     <published>2015-06-21T03:38:55.000Z</published>
-    <updated>2015-06-21T14:38:39.388Z</updated>
+    <updated>2015-06-22T03:44:54.017Z</updated>
     <content type="html"><![CDATA[<h4 id="更新于_2015/6/21_22:34:49">更新于 2015/6/21 22:34:49</h4><h4 id="名称空间">名称空间</h4><ul>
 <li><p>匿名的名称空间只在本文件中可见。</p>
 <pre><code><span class="comment">//file1.cpp</span>
@@ -193,6 +193,25 @@
 <span class="comment">//...</span>
 </code></pre><p>这样抛出类型就只有<code>ExceptionText</code>和<code>ExceptionNumber</code>两种了。</p>
 <p>虽然三段式看起来十分实用，但是我们依然应该尽可能的减少他们的使用频率。</p>
+<h4 id="const">const</h4><ul>
+<li><p>在C++中，<code>const</code>默认是内部链接，即只能在本文件中可见，如果想让其他文件也能使用，则应该添加<code>extern</code>说明符</p>
+<pre><code><span class="keyword">extern</span> <span class="keyword">const</span> <span class="keyword">int</span> sizes = <span class="number">100</span>;
+</code></pre><p>代表着，编译器给它分配了内存空间，使得其他文件能够找到它</p>
+</li>
+<li><p>一个<code>const</code>的临时变量，总能将自己的地址传递给函数：</p>
+<ul>
+<li><p>这句话的意义在于，我们可以让一个函数返回值的过程中，所创建的临时变量，被林一个函数以<code>const &amp;</code>接收，并保证它的正确性和效率。</p>
+</li>
+<li><p>一个函数的返回值所创建的临时对象(编译器创建它的目的是为了保存返回值)，只能被<code>const</code>的参数列表接收，这是因为任何对临时变量进行修改的操作都是无意义的，因为最后临时变量都是要被销毁的(在表达式之后)。</p>
+</li>
+<li><p>一个临时变量是不能够被取地址的，而且编译器总是把<strong>临时类对象</strong>当成常量。</p>
+</li>
+</ul>
+</li>
+<li><p>一个<code>const</code>对象，必须在创立的时候就初始化它，所以选择在构造函数里的参数列表中对<code>const</code>进行初始化是一个最好的选择。</p>
+<pre><code><span class="tag">MyClass</span>(int args)<span class="pseudo">:mem_int</span>(args) {} 
+</code></pre></li>
+</ul>
 ]]></content>
     <summary type="html">
     <![CDATA[<h4 id="更新于_2015/6/21_22:34:49">更新于 2015/6/21 22:34:49</h4><h4 id="名称空间">名称空间</h4><ul>
@@ -1323,7 +1342,7 @@ puts(WHERE(x, <span class="keyword">__LINE__</span>)); <span class="comment">//x
     <link href="//wushxin.top/2015/05/13/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(2)/"/>
     <id>//wushxin.top/2015/05/13/我为什么学C(2)/</id>
     <published>2015-05-13T04:17:12.000Z</published>
-    <updated>2015-06-03T11:50:02.655Z</updated>
+    <updated>2015-06-22T01:46:39.833Z</updated>
     <content type="html"><![CDATA[<h2 id="本章更新于_2015-05-16">本章更新于 2015-05-16</h2><h4 id="0x05-C语言指针:(Volume-1)">0x05-C语言指针:(Volume-1)</h4><p>这似乎是一个很凝重的话题，但是它真的很有趣。</p>
 <p><strong><em>1. 指针是指向某一类型的东西，任何一个整体，只要能称为整体就能拥有它自己的独一无二的指针类型，所以指针的类型其实是近似无穷无尽的</em></strong></p>
 <p><strong><em>2. 函数名在表达式中总是以函数指针的身份呈现，除了取地址运算符以及<code>sizeof</code></em></strong></p>
@@ -1496,12 +1515,26 @@ function<span class="list">(<span class="number">11</span>)</span><span class="c
 </code></pre><p>上述三个代码的意义也相同，同样我们也能使用<strong>函数指针数组</strong>这个概念</p>
 <pre><code><span class="keyword">int</span> (*p_func_arr[])(<span class="keyword">int</span>) = {func1, func2,};
 </code></pre><p>其中<code>func1,func2</code>都是返回值为<code>int</code>参数为<code>int</code>的函数，接着我们能像数组索引一样使用这个函数了。</p>
+<p><strong>Tips:</strong> 我们总是忽略函数声明，这并不是什么好事。</p>
+<ul>
+<li>在C语言中，因为编译器并不会对有没有函数声明过分深究，甚至还会放纵，当然这并不包含内联函数(<strong>inline</strong>)，因为它本身就只在本文件可用。</li>
+<li><p>比如，当我们在某个地方调用了一个函数，但是并没有声明它：</p>
+<pre><code>CallWithoutDeclare<span class="comment">(100)</span>; <span class="comment">//参数100为 int 型</span>
+</code></pre><p>那么，C编译器就会推测，这个使用了<code>int</code>型参数的函数，一定是有一个<code>int</code>型的参数列表，一旦<strong>函数定义</strong>中的参数列表与之不符合，将会导致参数信息传递错误(编译器永远坚信自己是对的！)，我们知道C语言是强类型语言，一旦类型不正确，会导致许多意想不到的结果(往往是Bug)发生。</p>
+</li>
+<li>对函数指针的调用同样如此</li>
+</ul>
 <h5 id="C语言中malloc的那些事儿">C语言中malloc的那些事儿</h5><p>我们常常见到这种写法:</p>
 <pre><code>int* pointer = <span class="list">(<span class="keyword">int*</span>)</span>malloc<span class="list">(<span class="keyword">sizeof</span><span class="list">(<span class="keyword">int</span>)</span>)</span><span class="comment">;</span>
 </code></pre><p>这有什么奇怪的吗？看下面这个例子:</p>
 <pre><code><span class="keyword">int</span>* pointer_2 = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>));
-</code></pre><p>哪个写法是正确的？两个都正确，这是为什么呢，这又要追求到远古C语言时期，在那个时候，<code>void*</code>这个类型还没有出现的时候，<code>malloc</code>返回的是<code>char*</code>的类型，于是那时的程序员在调用这个函数时总要加上强制类型转换，才能正确使用这个函数，但是在标准C出现之后，这个问题不再拥有，由于任何类型的指针都能与<code>void*</code>互相转换，并且C标准中并不赞同在不必要的地方使用强制类型转换，故而C语言中比较正统的写法是第二种。</p>
-<p><em>题外话:</em>C++中的指针转换需要使用强制类型转换，而不能像第二种例子，但是C++中有一种更好的内存分配方法，所以这个问题也不再是问题。</p>
+</code></pre><p>哪个写法是正确的？两个都正确，这是为什么呢，这又要追求到远古C语言时期，在那个时候， <code>void*</code> 这个类型还没有出现的时候，<code>malloc</code> 返回的是 <code>char*</code> 的类型，于是那时的程序员在调用这个函数时总要加上强制类型转换，才能正确使用这个函数，但是在标准C出现之后，这个问题不再拥有，由于任何类型的指针都能与 <code>void*</code> 互相转换，并且C标准中并不赞同在不必要的地方使用强制类型转换，故而C语言中比较正统的写法是第二种。</p>
+<p><strong>题外话:</strong> C++中的指针转换需要使用强制类型转换，而不能像第二种例子，但是C++中有一种更好的内存分配方法，所以这个问题也不再是问题。</p>
+<p><strong>Tips:</strong></p>
+<ul>
+<li>C语言的三个函数<code>malloc</code>, <code>calloc</code>, <code>realloc</code>都是拥有很大风险的函数，在使用的时候务必记得对他们的结果进行校验，最好的办法还是对他们进行<strong>再包装</strong>，可以选择宏包装，也可以选择函数包装。</li>
+<li><code>realloc</code>函数是最为人诟病的一个函数，因为它的职能过于宽广，既能分配空间，也能释放空间，虽然看起来是一个好函数，但是有可能在不经意间会帮我们做一些意料之外的事情，例如多次释放空间。正确的做法就是，应该使用<strong>再包装</strong>阉割它的功能，使他只能进行扩展或者缩小堆内存块大小。</li>
+</ul>
 <h5 id="指针与结构体">指针与结构体</h5><pre><code><span class="keyword">typedef</span> <span class="keyword">struct</span> tag{
         <span class="keyword">int</span>  value;
         <span class="keyword">long</span> vari_store[<span class="number">1</span>];
@@ -1515,14 +1548,14 @@ vari_struct* vari_p_2 = <span class="built_in">malloc</span>(<span class="keywor
 <pre><code><span class="keyword">int</span>          what_spa_want = <span class="number">10</span>;
 vari_struct* vari_p_3 = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(vari_struct) + <span class="keyword">sizeof</span>(<span class="keyword">long</span>)*what_spa_want);
 </code></pre><p>这么做是什么意思呢？这叫做可变长结构体，即便我们超出了结构体范围，只要在分配空间内，就不算越界。<code>what_spa_want</code>解释为<strong>你需要多大的空间</strong>，即在一个结构体大小之外还需要多少的空间，空间用来存储<code>long</code>类型，由于分配的内存是连续的，故可以直接使用数组<code>vari_store</code>直接索引。<br>而且由于C语言中，编译器并不对数组做越界检查，故对于一个有<code>N</code>个数的数组<code>arr</code>，表达式<code>&amp;arr[N]</code>是被标准允许的行为，但是要记住<code>arr[N]</code>却是非法的。<br>这种用法并非是娱乐，而是成为了标准(<strong>C99</strong>)的一部分，运用到了实际中</p>
-<h5 id="对于内存的理解">对于内存的理解</h5><p>在内存分配的过程中，我们使用<code>malloc</code>进行分配，用<code>free</code>进行释放，但这是我们理解中的分配与释放吗？<br>在调用<code>malloc</code>时，该函数或使用<code>brk()</code>或使用<code>nmap()</code>向操作系统申请一片内存，在使用时分配给需要的地方，与之对应的是<code>free</code>，与我们硬盘删除东西一样，实际上:</p>
+<h5 id="对于内存的理解">对于内存的理解</h5><p>在内存分配的过程中，我们使用 <code>malloc</code> 进行分配，用 <code>free</code> 进行释放，但这是我们理解中的分配与释放吗？<br>在调用 <code>malloc</code> 时，该函数或使用 <code>brk()</code> 或使用 <code>nmap()</code> 向操作系统申请一片内存，在使用时分配给需要的地方，与之对应的是 <code>free</code>，与我们硬盘删除东西一样，实际上:</p>
 <pre><code><span class="keyword">int</span>* value = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>)*<span class="number">5</span>);
 ...
 <span class="built_in">free</span>(value);
 <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, value[<span class="number">0</span>]);
-</code></pre><p>代码中，为什么在<code>free</code>之后，我又继续使用这个内存呢？因为<code>free</code>只是将该内存标记上释放的标记，示意分配内存的函数，我可以使用，但并没有破坏当前内存中的内容，直到有操作对它进行写入。<br>这便引申出几个问题:</p>
+</code></pre><p>代码中，为什么在 <code>free</code> 之后，我又继续使用这个内存呢？因为 <code>free</code> 只是将该内存标记上释放的标记，示意分配内存的函数，我可以使用，但并没有破坏当前内存中的内容，直到有操作对它进行写入。<br>这便引申出几个问题:</p>
 <ul>
-<li>Bug更加难以发现，让我们假设，如果我们有两个指针<code>p1</code>,<code>p2</code>指向同一个内存，如果我们对其中某一个指针使用了<code>free(p1);</code>操作，却忘记了还有另一个指针指向它，那这就会导致很严重的安全隐患，而且这个隐患十分难以发现，原因在于这个Bug并不会在当时显露出来，而是有可能在未来的某个时刻，不经意的让你的程序崩溃。</li>
+<li>Bug更加难以发现，让我们假设，如果我们有两个指针<code>p1</code>,<code>p2</code>指向同一个内存，如果我们对其中某一个指针使用了 <code>free(p1);</code> 操作，却忘记了还有另一个指针指向它，那这就会导致很严重的安全隐患，而且这个隐患十分难以发现，原因在于这个Bug并不会在当时显露出来，而是有可能在未来的某个时刻，不经意的让你的程序崩溃。</li>
 <li>有可能会让某些问题更加简化，例如释放一个条条相连的链表域。</li>
 </ul>
 <p>总的来说，还是那句话C语言是一把双刃剑。</p>
@@ -1566,7 +1599,7 @@ vari_struct* vari_p_3 = <span class="built_in">malloc</span>(<span class="keywor
     <link href="//wushxin.top/2015/05/12/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(1)/"/>
     <id>//wushxin.top/2015/05/12/我为什么学C(1)/</id>
     <published>2015-05-12T14:22:23.000Z</published>
-    <updated>2015-06-21T03:36:04.981Z</updated>
+    <updated>2015-06-22T01:33:14.181Z</updated>
     <content type="html"><![CDATA[<h1 id="我的C语言">我的C语言</h1><h2 id="本章更新于_2015/6/21_11:36:01">本章更新于 2015/6/21 11:36:01</h2><p><strong>正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域</strong></p>
 <h4 id="0x00-C语言前续工作">0x00-C语言前续工作</h4><p>正所谓，工欲善其事，必先利其器，把握住当下最强大的工具，能让我们在学习的道路上少走许多弯路，多吸取前人的失败经验，能让自己快速成长，因为成长总是在消耗我们的耐心以及生命。</p>
 <p>入门或者精通或者应用，不管哪一方面，对于一个编程语言而言，最方便的还是使用一个<strong>IDE</strong>作为你的有力助手，什么事<strong>IDE</strong>？通俗而专业的说叫做<strong>集成开发环境</strong>，这个通过字面就能理解到了，就是所有其他的事情都不需要程序员操心，你需要操心的就是写出代码，至于代码完成之后的一系列工作，都不需要你来管，IDE一键帮你搞定。</p>
@@ -1574,7 +1607,7 @@ vari_struct* vari_p_3 = <span class="built_in">malloc</span>(<span class="keywor
 <ul>
 <li><p>讲几个著名的<strong>IDE</strong>，并给出建议，利器第一步：</p>
 <ol>
-<li><p>宇宙级的<strong>IDE</strong>: Visual Studio(2010~2013)，之所以说宇宙级，因为这是市面上最强大的集成开发环境，由微软公司出品，但是放在开头不是为了推荐他，而是为了警示大家不要使用它作为C语言的集成开发环境，因为它使用的是微软公司自己定制的C++编译器，也就是说，你的C语言代码会在C++的标准下编译运行，这就是一个十分不好的现象，即便是C++我依旧不喜欢使用Visual Studio，因为它的C++编译器总是和普通的标准有所出入。</p>
+<li><p>宇宙级的<strong>IDE</strong>: Visual Studio(2010~2015)，之所以说宇宙级，因为这是市面上最强大的集成开发环境，由微软公司出品，但是放在开头不是为了推荐他，而是为了警示大家不要使用它作为C语言的集成开发环境，因为它使用的是微软公司自己定制的C++编译器，也就是说，你的C语言代码会在C++的标准下编译运行，这就是一个十分不好的现象，即便是C++我依旧不喜欢使用Visual Studio，因为它的C++编译器总是和普通的标准有所出入。</p>
 <p> 原归正传，Visual Studio的确不是一个好的C语言开发IDE，所以请另外选择一个。</p>
 </li>
 <li><p>老牌<strong>IDE</strong>: DevC++，这又是一个大家耳熟能详，经常能在老师手里看见的C语言教学利器，但是，它是C++的IDE，记住C于C++完全是两个世界的人，虽然C++宣称能全面兼容C程序，但是有些东西依旧是有所区别，体现在语法的兼容性上，后文会有提及。那为什么大学老师喜欢使用它呢？因为一本由清华大学出版社出版的《数据结构》，让无数人为之折服，其中赫然写着由于性能我们不能拘泥于小细节，故对于C++的特性<code>&amp;</code>引用，我们可以将其使用在C语言的语法中，就是这句话，让无数无知的学子扑向其中，再也分不清C与C++，看成谭浩强之后的，清华大学出版社又一诲人不倦的力作。</p>
@@ -1846,7 +1879,7 @@ ptemp<span class="subst">-&gt;</span>next <span class="subst">=</span> <span cla
 <ul>
 <li><p>讲几个著名的<strong>IDE</strong>，并给出建议，利器第一步：</p>
 <ol>
-<li><p>宇宙级的<strong>IDE</strong>: Visual Studio(2010~2013)，之所以说宇宙级，因为这是市面上最强大的集成开发环境，由微软公司出品，但是放在开头不是为了推荐他，而是为了警示大家不要使用它作为C语言的集成开发环境，因为它使用的是微软公司自己定制的C++编译器，也就是说，你的C语言代码会在C++的标准下编译运行，这就是一个十分不好的现象，即便是C++我依旧不喜欢使用Visual Studio，因为它的C++编译器总是和普通的标准有所出入。</p>
+<li><p>宇宙级的<strong>IDE</strong>: Visual Studio(2010~2015)，之所以说宇宙级，因为这是市面上最强大的集成开发环境，由微软公司出品，但是放在开头不是为了推荐他，而是为了警示大家不要使用它作为C语言的集成开发环境，因为它使用的是微软公司自己定制的C++编译器，也就是说，你的C语言代码会在C++的标准下编译运行，这就是一个十分不好的现象，即便是C++我依旧不喜欢使用Visual Studio，因为它的C++编译器总是和普通的标准有所出入。</p>
 <p> 原归正传，Visual Studio的确不是一个好的C语言开发IDE，所以请另外选择一个。</p>
 </li>
 <li><p>老牌<strong>IDE</strong>: DevC++，这又是一个大家耳熟能详，经常能在老师手里看见的C语言教学利器，但是，它是C++的IDE，记住C于C++完全是两个世界的人，虽然C++宣称能全面兼容C程序，但是有些东西依旧是有所区别，体现在语法的兼容性上，后文会有提及。那为什么大学老师喜欢使用它呢？因为一本由清华大学出版社出版的《数据结构》，让无数人为之折服，其中赫然写着由于性能我们不能拘泥于小细节，故对于C++的特性<code>&amp;</code>引用，我们可以将其使用在C语言的语法中，就是这句话，让无数无知的学子扑向其中，再也分不清C与C++，看成谭浩强之后的，清华大学出版社又一诲人不倦的力作。</p>

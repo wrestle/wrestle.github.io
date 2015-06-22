@@ -299,6 +299,25 @@ namespace{
 <span class="comment">//...</span>
 </code></pre><p>这样抛出类型就只有<code>ExceptionText</code>和<code>ExceptionNumber</code>两种了。</p>
 <p>虽然三段式看起来十分实用，但是我们依然应该尽可能的减少他们的使用频率。</p>
+<h4 id="const">const</h4><ul>
+<li><p>在C++中，<code>const</code>默认是内部链接，即只能在本文件中可见，如果想让其他文件也能使用，则应该添加<code>extern</code>说明符</p>
+<pre><code><span class="keyword">extern</span> <span class="keyword">const</span> <span class="keyword">int</span> sizes = <span class="number">100</span>;
+</code></pre><p>代表着，编译器给它分配了内存空间，使得其他文件能够找到它</p>
+</li>
+<li><p>一个<code>const</code>的临时变量，总能将自己的地址传递给函数：</p>
+<ul>
+<li><p>这句话的意义在于，我们可以让一个函数返回值的过程中，所创建的临时变量，被林一个函数以<code>const &amp;</code>接收，并保证它的正确性和效率。</p>
+</li>
+<li><p>一个函数的返回值所创建的临时对象(编译器创建它的目的是为了保存返回值)，只能被<code>const</code>的参数列表接收，这是因为任何对临时变量进行修改的操作都是无意义的，因为最后临时变量都是要被销毁的(在表达式之后)。</p>
+</li>
+<li><p>一个临时变量是不能够被取地址的，而且编译器总是把<strong>临时类对象</strong>当成常量。</p>
+</li>
+</ul>
+</li>
+<li><p>一个<code>const</code>对象，必须在创立的时候就初始化它，所以选择在构造函数里的参数列表中对<code>const</code>进行初始化是一个最好的选择。</p>
+<pre><code><span class="tag">MyClass</span>(int args)<span class="pseudo">:mem_int</span>(args) {} 
+</code></pre></li>
+</ul>
 
       
     </div>

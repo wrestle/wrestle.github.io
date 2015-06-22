@@ -269,12 +269,26 @@ function<span class="list">(<span class="number">11</span>)</span><span class="c
 </code></pre><p>上述三个代码的意义也相同，同样我们也能使用<strong>函数指针数组</strong>这个概念</p>
 <pre><code><span class="keyword">int</span> (*p_func_arr[])(<span class="keyword">int</span>) = {func1, func2,};
 </code></pre><p>其中<code>func1,func2</code>都是返回值为<code>int</code>参数为<code>int</code>的函数，接着我们能像数组索引一样使用这个函数了。</p>
+<p><strong>Tips:</strong> 我们总是忽略函数声明，这并不是什么好事。</p>
+<ul>
+<li>在C语言中，因为编译器并不会对有没有函数声明过分深究，甚至还会放纵，当然这并不包含内联函数(<strong>inline</strong>)，因为它本身就只在本文件可用。</li>
+<li><p>比如，当我们在某个地方调用了一个函数，但是并没有声明它：</p>
+<pre><code>CallWithoutDeclare<span class="comment">(100)</span>; <span class="comment">//参数100为 int 型</span>
+</code></pre><p>那么，C编译器就会推测，这个使用了<code>int</code>型参数的函数，一定是有一个<code>int</code>型的参数列表，一旦<strong>函数定义</strong>中的参数列表与之不符合，将会导致参数信息传递错误(编译器永远坚信自己是对的！)，我们知道C语言是强类型语言，一旦类型不正确，会导致许多意想不到的结果(往往是Bug)发生。</p>
+</li>
+<li>对函数指针的调用同样如此</li>
+</ul>
 <h5 id="C语言中malloc的那些事儿">C语言中malloc的那些事儿</h5><p>我们常常见到这种写法:</p>
 <pre><code>int* pointer = <span class="list">(<span class="keyword">int*</span>)</span>malloc<span class="list">(<span class="keyword">sizeof</span><span class="list">(<span class="keyword">int</span>)</span>)</span><span class="comment">;</span>
 </code></pre><p>这有什么奇怪的吗？看下面这个例子:</p>
 <pre><code><span class="keyword">int</span>* pointer_2 = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>));
-</code></pre><p>哪个写法是正确的？两个都正确，这是为什么呢，这又要追求到远古C语言时期，在那个时候，<code>void*</code>这个类型还没有出现的时候，<code>malloc</code>返回的是<code>char*</code>的类型，于是那时的程序员在调用这个函数时总要加上强制类型转换，才能正确使用这个函数，但是在标准C出现之后，这个问题不再拥有，由于任何类型的指针都能与<code>void*</code>互相转换，并且C标准中并不赞同在不必要的地方使用强制类型转换，故而C语言中比较正统的写法是第二种。</p>
-<p><em>题外话:</em>C++中的指针转换需要使用强制类型转换，而不能像第二种例子，但是C++中有一种更好的内存分配方法，所以这个问题也不再是问题。</p>
+</code></pre><p>哪个写法是正确的？两个都正确，这是为什么呢，这又要追求到远古C语言时期，在那个时候， <code>void*</code> 这个类型还没有出现的时候，<code>malloc</code> 返回的是 <code>char*</code> 的类型，于是那时的程序员在调用这个函数时总要加上强制类型转换，才能正确使用这个函数，但是在标准C出现之后，这个问题不再拥有，由于任何类型的指针都能与 <code>void*</code> 互相转换，并且C标准中并不赞同在不必要的地方使用强制类型转换，故而C语言中比较正统的写法是第二种。</p>
+<p><strong>题外话:</strong> C++中的指针转换需要使用强制类型转换，而不能像第二种例子，但是C++中有一种更好的内存分配方法，所以这个问题也不再是问题。</p>
+<p><strong>Tips:</strong></p>
+<ul>
+<li>C语言的三个函数<code>malloc</code>, <code>calloc</code>, <code>realloc</code>都是拥有很大风险的函数，在使用的时候务必记得对他们的结果进行校验，最好的办法还是对他们进行<strong>再包装</strong>，可以选择宏包装，也可以选择函数包装。</li>
+<li><code>realloc</code>函数是最为人诟病的一个函数，因为它的职能过于宽广，既能分配空间，也能释放空间，虽然看起来是一个好函数，但是有可能在不经意间会帮我们做一些意料之外的事情，例如多次释放空间。正确的做法就是，应该使用<strong>再包装</strong>阉割它的功能，使他只能进行扩展或者缩小堆内存块大小。</li>
+</ul>
 <h5 id="指针与结构体">指针与结构体</h5><pre><code><span class="keyword">typedef</span> <span class="keyword">struct</span> tag{
         <span class="keyword">int</span>  value;
         <span class="keyword">long</span> vari_store[<span class="number">1</span>];
@@ -288,14 +302,14 @@ vari_struct* vari_p_2 = <span class="built_in">malloc</span>(<span class="keywor
 <pre><code><span class="keyword">int</span>          what_spa_want = <span class="number">10</span>;
 vari_struct* vari_p_3 = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(vari_struct) + <span class="keyword">sizeof</span>(<span class="keyword">long</span>)*what_spa_want);
 </code></pre><p>这么做是什么意思呢？这叫做可变长结构体，即便我们超出了结构体范围，只要在分配空间内，就不算越界。<code>what_spa_want</code>解释为<strong>你需要多大的空间</strong>，即在一个结构体大小之外还需要多少的空间，空间用来存储<code>long</code>类型，由于分配的内存是连续的，故可以直接使用数组<code>vari_store</code>直接索引。<br>而且由于C语言中，编译器并不对数组做越界检查，故对于一个有<code>N</code>个数的数组<code>arr</code>，表达式<code>&amp;arr[N]</code>是被标准允许的行为，但是要记住<code>arr[N]</code>却是非法的。<br>这种用法并非是娱乐，而是成为了标准(<strong>C99</strong>)的一部分，运用到了实际中</p>
-<h5 id="对于内存的理解">对于内存的理解</h5><p>在内存分配的过程中，我们使用<code>malloc</code>进行分配，用<code>free</code>进行释放，但这是我们理解中的分配与释放吗？<br>在调用<code>malloc</code>时，该函数或使用<code>brk()</code>或使用<code>nmap()</code>向操作系统申请一片内存，在使用时分配给需要的地方，与之对应的是<code>free</code>，与我们硬盘删除东西一样，实际上:</p>
+<h5 id="对于内存的理解">对于内存的理解</h5><p>在内存分配的过程中，我们使用 <code>malloc</code> 进行分配，用 <code>free</code> 进行释放，但这是我们理解中的分配与释放吗？<br>在调用 <code>malloc</code> 时，该函数或使用 <code>brk()</code> 或使用 <code>nmap()</code> 向操作系统申请一片内存，在使用时分配给需要的地方，与之对应的是 <code>free</code>，与我们硬盘删除东西一样，实际上:</p>
 <pre><code><span class="keyword">int</span>* value = <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">int</span>)*<span class="number">5</span>);
 ...
 <span class="built_in">free</span>(value);
 <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, value[<span class="number">0</span>]);
-</code></pre><p>代码中，为什么在<code>free</code>之后，我又继续使用这个内存呢？因为<code>free</code>只是将该内存标记上释放的标记，示意分配内存的函数，我可以使用，但并没有破坏当前内存中的内容，直到有操作对它进行写入。<br>这便引申出几个问题:</p>
+</code></pre><p>代码中，为什么在 <code>free</code> 之后，我又继续使用这个内存呢？因为 <code>free</code> 只是将该内存标记上释放的标记，示意分配内存的函数，我可以使用，但并没有破坏当前内存中的内容，直到有操作对它进行写入。<br>这便引申出几个问题:</p>
 <ul>
-<li>Bug更加难以发现，让我们假设，如果我们有两个指针<code>p1</code>,<code>p2</code>指向同一个内存，如果我们对其中某一个指针使用了<code>free(p1);</code>操作，却忘记了还有另一个指针指向它，那这就会导致很严重的安全隐患，而且这个隐患十分难以发现，原因在于这个Bug并不会在当时显露出来，而是有可能在未来的某个时刻，不经意的让你的程序崩溃。</li>
+<li>Bug更加难以发现，让我们假设，如果我们有两个指针<code>p1</code>,<code>p2</code>指向同一个内存，如果我们对其中某一个指针使用了 <code>free(p1);</code> 操作，却忘记了还有另一个指针指向它，那这就会导致很严重的安全隐患，而且这个隐患十分难以发现，原因在于这个Bug并不会在当时显露出来，而是有可能在未来的某个时刻，不经意的让你的程序崩溃。</li>
 <li>有可能会让某些问题更加简化，例如释放一个条条相连的链表域。</li>
 </ul>
 <p>总的来说，还是那句话C语言是一把双刃剑。</p>
