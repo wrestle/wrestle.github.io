@@ -5,10 +5,11 @@
   
   <title>Cpp记录 | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="更新于 2015/6/21 22:34:49名称空间
+  <meta name="description" content="更新于 2015/7/6 14:42:27名称空间
 匿名的名称空间只在本文件中可见。
 //file1.cpp
-namespace{
+namespace
+{
     int challenge = 0;
     void test()
     {
@@ -23,10 +24,11 @@ namespace{
 <meta property="og:title" content="Cpp记录">
 <meta property="og:url" content="//wushxin.top/2015/06/21/Cpp记录/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="更新于 2015/6/21 22:34:49名称空间
+<meta property="og:description" content="更新于 2015/7/6 14:42:27名称空间
 匿名的名称空间只在本文件中可见。
 //file1.cpp
-namespace{
+namespace
+{
     int challenge = 0;
     void test()
     {
@@ -39,10 +41,11 @@ namespace{
 一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Cpp记录">
-<meta name="twitter:description" content="更新于 2015/6/21 22:34:49名称空间
+<meta name="twitter:description" content="更新于 2015/7/6 14:42:27名称空间
 匿名的名称空间只在本文件中可见。
 //file1.cpp
-namespace{
+namespace
+{
     int challenge = 0;
     void test()
     {
@@ -127,10 +130,11 @@ namespace{
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="更新于_2015/6/21_22:34:49">更新于 2015/6/21 22:34:49</h4><h4 id="名称空间">名称空间</h4><ul>
+        <h4 id="更新于_2015/7/6_14:42:27">更新于 2015/7/6 14:42:27</h4><h4 id="名称空间">名称空间</h4><ul>
 <li><p>匿名的名称空间只在本文件中可见。</p>
 <pre><code><span class="comment">//file1.cpp</span>
-<span class="keyword">namespace</span>{
+<span class="keyword">namespace</span>
+{
     <span class="keyword">int</span> challenge = <span class="number">0</span>;
     <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span>
     </span>{
@@ -317,6 +321,33 @@ namespace{
 <li><p>一个<code>const</code>对象，必须在创立的时候就初始化它，所以选择在构造函数里的参数列表中对<code>const</code>进行初始化是一个最好的选择。</p>
 <pre><code><span class="tag">MyClass</span>(int args)<span class="pseudo">:mem_int</span>(args) {} 
 </code></pre></li>
+</ul>
+<h4 id="引用">引用</h4><ul>
+<li>引用经常被用在函数的参数列表以及返回值类型。</li>
+<li><p>当使用引用作为参数的时候，如非必要，我们要尽最大限度的让参数是 <code>const &amp;</code>：</p>
+<ul>
+<li>如果我们按值传递(Pass By value),那么我们就需要一个构造函数和一个析构函数的调用，而如果是常量引用，我们紧紧需要将这个对象的地址压入函数建立的栈中。</li>
+</ul>
+</li>
+</ul>
+<h4 id="auto_(C++11)">auto (C++11)</h4><ul>
+<li><code>auto</code> 并不能自动的添加 <code>const</code> 属性，只能人为选择是否添加</li>
+<li><p><code>auto</code> 可以与 <code>decltype</code> 配合使用，来推断函数的返回值，在<strong>C++14</strong>中可以只用 <code>auto</code> ，但对于 <strong>C++11</strong> 而言：</p>
+<pre><code><span class="function"><span class="keyword">auto</span> <span class="title">TestFunc</span><span class="params">(<span class="keyword">int</span> arg_1, <span class="keyword">int</span> arg_2)</span> -&gt; <span class="title">decltype</span><span class="params">(x+y)</span> 
+</span>{
+    <span class="keyword">return</span> x+y;
+}
+</code></pre><p>在代码中，auto的作用就是占一个位置，类型由 <code>-&gt; decltype(x+y)</code> 提供，与Lambdas的语法类似。</p>
+</li>
+</ul>
+<h4 id="copy-construction">copy-construction</h4><ul>
+<li>对于一个类而言，一个拷贝构造函数是十分有必要的，它能有效的防止你的类对象在传递的时候不出错，否则，由于C++要与C语言进行兼容，在按值传递(<strong>Pass By Value</strong>)故采用的是<strong>位拷贝</strong>，这会导致并不是真正的重新构造一个新的临时对象，但是在退出函数的时候，却会调用<strong>析构函数</strong>，相当于一不小心把传递进来的这个对象给销毁了！而我们并没有想让它被改变，所以我们当初才采用按值传递。</li>
+<li>这一点十分重要。</li>
+<li><p>拷贝构造函数，通常是这样的：</p>
+<pre><code>ClassDefineByMe(<span class="keyword">const</span> ClassDefineByMe &amp; PassObj);
+<span class="comment">//ClassDefineByMe是自己定义的类型</span>
+</code></pre></li>
+<li>总之，拷贝构造函数是为了解决按值传递这个问题的，如果你不会用到按值传递，那么可以关闭它(<code>=delete</code> — <strong>C++11</strong> OR <code>private it</code> — <strong>C++98</strong>)。或者干脆一些，不显式定义，交给编译器去自动生成。</li>
 </ul>
 
       
