@@ -333,9 +333,9 @@ namespace
 <h4 id="auto_(C++11)">auto (C++11)</h4><ul>
 <li><code>auto</code> 并不能自动的添加 <code>const</code> 属性，只能人为选择是否添加</li>
 <li><p><code>auto</code> 可以与 <code>decltype</code> 配合使用，来推断函数的返回值，在<strong>C++14</strong>中可以只用 <code>auto</code> ，但对于 <strong>C++11</strong> 而言：</p>
-<pre><code><span class="function"><span class="keyword">auto</span> <span class="title">TestFunc</span><span class="params">(<span class="keyword">int</span> arg_1, <span class="keyword">int</span> arg_2)</span> -&gt; <span class="title">decltype</span><span class="params">(x+y)</span> 
+<pre><code><span class="function"><span class="keyword">auto</span> <span class="title">TestFunc</span><span class="params">(<span class="keyword">int</span> arg_1, <span class="keyword">int</span> arg_2)</span> -&gt; <span class="title">decltype</span><span class="params">(arg_1+arg_2)</span> 
 </span>{
-    <span class="keyword">return</span> x+y;
+    <span class="keyword">return</span> arg_1+arg_2;
 }
 </code></pre><p>在代码中，auto的作用就是占一个位置，类型由 <code>-&gt; decltype(x+y)</code> 提供，与Lambdas的语法类似。</p>
 </li>

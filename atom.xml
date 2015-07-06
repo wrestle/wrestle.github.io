@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-07-06T11:07:06.167Z</updated>
+  <updated>2015-07-06T11:11:44.400Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/06/21/Cpp%E8%AE%B0%E5%BD%95/"/>
     <id>//wushxin.top/2015/06/21/Cpp记录/</id>
     <published>2015-06-21T03:38:55.000Z</published>
-    <updated>2015-07-06T11:07:06.167Z</updated>
+    <updated>2015-07-06T11:11:44.400Z</updated>
     <content type="html"><![CDATA[<h4 id="更新于_2015/7/6_14:42:27">更新于 2015/7/6 14:42:27</h4><h4 id="名称空间">名称空间</h4><ul>
 <li><p>匿名的名称空间只在本文件中可见。</p>
 <pre><code><span class="comment">//file1.cpp</span>
@@ -224,9 +224,9 @@
 <h4 id="auto_(C++11)">auto (C++11)</h4><ul>
 <li><code>auto</code> 并不能自动的添加 <code>const</code> 属性，只能人为选择是否添加</li>
 <li><p><code>auto</code> 可以与 <code>decltype</code> 配合使用，来推断函数的返回值，在<strong>C++14</strong>中可以只用 <code>auto</code> ，但对于 <strong>C++11</strong> 而言：</p>
-<pre><code><span class="function"><span class="keyword">auto</span> <span class="title">TestFunc</span><span class="params">(<span class="keyword">int</span> arg_1, <span class="keyword">int</span> arg_2)</span> -&gt; <span class="title">decltype</span><span class="params">(x+y)</span> 
+<pre><code><span class="function"><span class="keyword">auto</span> <span class="title">TestFunc</span><span class="params">(<span class="keyword">int</span> arg_1, <span class="keyword">int</span> arg_2)</span> -&gt; <span class="title">decltype</span><span class="params">(arg_1+arg_2)</span> 
 </span>{
-    <span class="keyword">return</span> x+y;
+    <span class="keyword">return</span> arg_1+arg_2;
 }
 </code></pre><p>在代码中，auto的作用就是占一个位置，类型由 <code>-&gt; decltype(x+y)</code> 提供，与Lambdas的语法类似。</p>
 </li>
