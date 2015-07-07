@@ -5,7 +5,7 @@
   
   <title>Cpp记录 | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="更新于 2015/7/6 14:42:27名称空间
+  <meta name="description" content="更新于 2015/7/7 20:57:52名称空间
 匿名的名称空间只在本文件中可见。
 //file1.cpp
 namespace
@@ -24,7 +24,7 @@ namespace
 <meta property="og:title" content="Cpp记录">
 <meta property="og:url" content="//wushxin.top/2015/06/21/Cpp记录/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="更新于 2015/7/6 14:42:27名称空间
+<meta property="og:description" content="更新于 2015/7/7 20:57:52名称空间
 匿名的名称空间只在本文件中可见。
 //file1.cpp
 namespace
@@ -41,7 +41,7 @@ namespace
 一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Cpp记录">
-<meta name="twitter:description" content="更新于 2015/7/6 14:42:27名称空间
+<meta name="twitter:description" content="更新于 2015/7/7 20:57:52名称空间
 匿名的名称空间只在本文件中可见。
 //file1.cpp
 namespace
@@ -130,7 +130,7 @@ namespace
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="更新于_2015/7/6_14:42:27">更新于 2015/7/6 14:42:27</h4><h4 id="名称空间">名称空间</h4><ul>
+        <h4 id="更新于_2015/7/7_20:57:52">更新于 2015/7/7 20:57:52</h4><h4 id="名称空间">名称空间</h4><ul>
 <li><p>匿名的名称空间只在本文件中可见。</p>
 <pre><code><span class="comment">//file1.cpp</span>
 <span class="keyword">namespace</span>
@@ -175,6 +175,7 @@ namespace
 <span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cin</span>; <span class="comment">//最好如此或者，更好的做法是:</span>
 
 <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"In the Real Code"</span> &lt;&lt; <span class="built_in">std</span>::endl;
+<span class="comment">//但是这么做会让代码显得十分臃肿，所以取舍在于自己。</span>
 </code></pre></li>
 </ul>
 <ul>
@@ -353,11 +354,12 @@ namespace
 <li>实际上，因为类的实际对象，一直到运行时才会有具体的地址，但是我们如果对某个还没有生成的对象中的成员取地址呢？</li>
 <li>可以，但那并不是真正的地址，而是取到<strong>偏移量</strong>，但是表面上看着像取了地址一般，所以由此引发了两种新的怪异语法糖： <code>-&gt;*</code> 和 <code>.*</code></li>
 <li><p>也就是说，对一个类成员成员，无论是数据成员还是成员函数，都是一样的。就是语法有些怪异。</p>
-<pre><code><span class="keyword">class</span> ClDefByMe{
+<pre><code><span class="class"><span class="keyword">class</span> <span class="title">ClDefByMe</span></span>{
 <span class="keyword">public</span>:
-    ClDefByMe():count(<span class="number">0</span>),pubIntMem(<span class="number">0</span>){}
+    ClDefByMe():count(0),pubIntMem(0){}
+    ClDefByMe(<span class="keyword">int</span> PreKey):count(PreKey),pubIntMem(0){}
     <span class="function"><span class="keyword">void</span> <span class="title">getCounts</span><span class="params">()</span></span>{
-        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"The count is "</span> &lt;&lt; count &lt;&lt; <span class="built_in">std</span>::endl;
+        std::cout &lt;&lt; <span class="string">"The count is "</span> &lt;&lt; count &lt;&lt; std::endl;
     }
     <span class="keyword">int</span> pubIntMem;
 <span class="keyword">private</span>:    
@@ -378,6 +380,180 @@ namespace
     <span class="keyword">return</span> <span class="number">0</span>;
 }
 </code></pre><p>其中域解析操作符 <code>::</code> 一定要有，其次函数前方的取地址符号<code>&amp;</code>也一定要有。虽然函数名即使函数地址，但是此处并非真正的取函数地址，而是偏移量。</p>
+</li>
+</ul>
+<h4 id="运算符重载(未完成)">运算符重载(未完成)</h4><ul>
+<li>用于自定义类的运算符重载</li>
+<li>不能重载一切内建类型的运算符，不能重载不存在的运算符(如 <code>**</code> )，</li>
+<li><p>重载方式1： <strong>友元函数形式</strong></p>
+<ul>
+<li>特点：<ul>
+<li>可以在类的外部直接操作类的私有成员</li>
+<li>但是不能使用 <code>this</code> 指针</li>
+<li>类外实现时，可以不带域解析操作符，而一般类成员函数却要</li>
+<li>使用所重载的运算符时，可以任意调换<strong>运算符</strong>两边的<strong>操作数</strong>，只需要有对应的重载函数即可。</li>
+</ul>
+</li>
+<li><p>声明：</p>
+<pre><code><span class="keyword">class</span> ClDefByMe{
+<span class="keyword">public</span>:
+    <span class="comment">//...构造函数 和 接口</span>
+    <span class="comment">//新增接口:</span>
+    ClDefByMe* address(){ <span class="keyword">return</span> <span class="keyword">this</span>; }
+
+    <span class="comment">//部分一元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
+    <span class="keyword">friend</span> ClDefByMe* 
+            <span class="keyword">operator</span>&amp;(<span class="keyword">const</span> ClDefByMe&amp;); <span class="comment">//重载取地址运算符</span>
+    <span class="keyword">friend</span> <span class="keyword">const</span> ClDefByMe&amp;
+            <span class="keyword">operator</span>++(ClDefByMe&amp;); <span class="comment">//重载前缀递增操作符</span>
+    <span class="keyword">friend</span> <span class="keyword">const</span> ClDefByMe&amp;
+            <span class="keyword">operator</span>++(ClDefByMe&amp;, <span class="keyword">int</span>); <span class="comment">//重载后缀形式</span>
+    <span class="comment">//递减运算符类似。</span>
+    <span class="comment">//一元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
+
+    <span class="comment">//部分二元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
+    <span class="keyword">friend</span> <span class="keyword">const</span> ClDefByMe
+            <span class="keyword">operator</span>+(<span class="keyword">const</span> ClDefByMe&amp;, <span class="keyword">const</span> ClDefByMe&amp;);
+    <span class="keyword">friend</span> <span class="keyword">const</span> ClDefByMe
+            <span class="keyword">operator</span>&lt;&lt;(<span class="keyword">const</span> ClDefByMe&amp;, <span class="keyword">int</span>);
+
+    <span class="keyword">friend</span> <span class="keyword">const</span> ClDefByMe
+            <span class="keyword">operator</span>&amp;(<span class="keyword">const</span> ClDefByMe&amp;, <span class="keyword">const</span> ClDefByMe&amp;);
+    <span class="keyword">friend</span> ClDefByMe&amp;
+            <span class="keyword">operator</span>&amp;=(ClDefByMe&amp;, <span class="keyword">const</span> ClDefByMe&amp;);
+    <span class="comment">//二元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
+
+<span class="keyword">private</span>:
+    <span class="comment">//...数据成员</span>
+};
+</code></pre></li>
+<li><p>类外部实现：</p>
+<pre><code><span class="comment">//部分一元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;记得不必写friend&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
+ClDefByMe* operator&amp;(<span class="keyword">const</span> ClDefByMe&amp; GetAddress)
+{
+    <span class="keyword">return</span> GetAddress.address();
+}<span class="comment">//此处并没有用到域解析操作符，因为是友元函数</span>
+<span class="keyword">const</span> ClDefByMe&amp; operator++(<span class="keyword">const</span> ClDefByMe&amp; PrePlus)
+{
+    ++PrePlus.<span class="keyword">count</span>;
+    <span class="keyword">return</span> PrePlus;
+}
+<span class="keyword">const</span> ClDefByMe&amp; operator++(ClDefByMe&amp; PostPlus, int)
+{<span class="comment">//int可以看成一个永远不会被使用的标志，值由编译器提供。</span>
+    ClDefByMe tmpRet(PostPlus.getCounts());
+    ++PostPlus.counts; <span class="comment">//此处使用前缀后缀都无所谓，推荐前缀</span>
+    <span class="keyword">return</span> tmpRet; <span class="comment">//使用这个返回值的表达式结束后，这个对象立刻被销毁，不用担心内存问题</span>
+}
+<span class="comment">//一元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
+
+<span class="comment">//二元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&amp;在此处是二元运算符与&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
+<span class="keyword">const</span> ClDefByMe operator+(<span class="keyword">const</span> ClDefByMe&amp; addObjLeft, <span class="keyword">const</span> ClDefByMe&amp; addObjRight)
+{
+    <span class="keyword">return</span> ClDefByMe(addObjLeft.<span class="keyword">count</span> + addObjRight.<span class="keyword">count</span>);
+}
+
+<span class="keyword">const</span> ClDefByMe operator&amp;(<span class="keyword">const</span> ClDefByMe&amp; andObjLetf, <span class="keyword">const</span> ClDefByMe&amp; andObjRight)
+{
+    <span class="keyword">return</span> ClDefByMe(andObjLeft.<span class="keyword">count</span> &amp; andObjRight.<span class="keyword">count</span>);
+}
+ClDefByMe&amp; operator&amp;=(ClDefByMe&amp; andassiLeft, <span class="keyword">const</span> ClDefByMe&amp; adnassiRight)
+{<span class="comment">//此处注意，Left是非const，因为根据语法 x &amp;= y 中的x是需要拥有被改变的权限的，</span>
+ <span class="comment">//并且返回值设为非const也是为了这个权限考虑</span>
+    <span class="comment">//在这种永久改变操作对象的实现中，我们要注意一点就是，</span>
+    <span class="comment">//如果运算符两边的操作数是同一个的情况</span>
+    <span class="keyword">if</span>(&amp;andassiLeft == &amp;andassiRight) <span class="comment">//判断是否相同</span>
+    {
+        andassiLeft.<span class="keyword">count</span> = andassiRight.<span class="keyword">count</span> &amp; andassiRight.<span class="keyword">count</span>;
+        <span class="keyword">return</span> andassiLeft;    
+    }
+    andassiLeft.<span class="keyword">count</span> &amp;= andssiLeft.<span class="keyword">count</span>;
+    <span class="keyword">return</span> andassiLeft;
+}
+
+<span class="keyword">const</span> ClDefByMe&amp; operator&lt;&lt;(<span class="keyword">const</span> ClDefByMe&amp; lmoveLeft, int moveBits)
+{
+    <span class="keyword">return</span> ClDefByMe(lmoveLeft.<span class="keyword">count</span> &lt;&lt; moveBits);
+}<span class="comment">//注意这不是重载输出流的运算符，而是移位运算符</span>
+<span class="comment">//二元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
+</code></pre></li>
+</ul>
+</li>
+<li><p>重载方式2：<strong>成员函数形式</strong></p>
+<ul>
+<li>特点：<ul>
+<li>可以使用this指针</li>
+<li>与普通的成员函数一眼</li>
+<li>当所重载的运算符左边不是该类的对象时重载失效。</li>
+<li>成员函数形式的重载，相当于运算符左边的操作数被默认定下（即对象本身）</li>
+</ul>
+</li>
+<li><p>声明：</p>
+<pre><code><span class="keyword">class</span> <span class="title">ClDefByMe</span>{
+<span class="keyword">public</span>:
+    <span class="comment">//...构造函数 和 接口</span>
+
+    <span class="comment">//部分一元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
+    <span class="keyword">const</span> ClDefByMe&amp; <span class="keyword">operator</span>+(); <span class="comment">//一元运算符 取正</span>
+    <span class="keyword">const</span> ClDefByMe&amp; <span class="keyword">operator</span>--(); <span class="comment">//前缀递减</span>
+    <span class="keyword">const</span> ClDefByMe&amp; <span class="keyword">operator</span>--(<span class="keyword">int</span>); <span class="comment">//后缀递减</span>
+    <span class="comment">//一元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
+
+    <span class="comment">//部分二元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
+    <span class="keyword">const</span> ClDefByMe <span class="keyword">operator</span>-(<span class="keyword">const</span> ClDefByMe&amp;); <span class="comment">//二元运算符 减法</span>
+    <span class="keyword">const</span> ClDefByMe <span class="keyword">operator</span>&gt;&gt;(<span class="keyword">int</span>); <span class="comment">//二元运算符 右移</span>
+    ClDefByMe&amp;      <span class="keyword">operator</span>&amp;=(<span class="keyword">const</span> ClDefByMe &amp;);
+    <span class="comment">//二元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
+<span class="keyword">private</span>:
+    <span class="comment">//...</span>
+};
+</code></pre></li>
+<li><p>类外部实现：</p>
+<pre><code><span class="comment">//部分一元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;使用域解析操作符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
+<span class="keyword">const</span> ClDefByMe&amp; ClDefByMe::<span class="keyword">operator</span>+()
+{
+    <span class="keyword">return</span> *<span class="keyword">this</span>; <span class="comment">//使用成员函数形式的实现可以直接使用 this 指针</span>
+}
+<span class="keyword">const</span> ClDefByMe&amp; ClDefByMe::<span class="keyword">operator</span>--()
+{
+    --counts;     <span class="comment">//因为是成员函数，可以直接操作私有成员</span>
+    <span class="keyword">return</span> *<span class="keyword">this</span>;
+}
+<span class="keyword">const</span> ClDefByMe&amp; ClDefByMe::<span class="keyword">operator</span>--(<span class="keyword">int</span>)
+{
+    <span class="function">ClDefByMe <span class="title">tmpRet</span><span class="params">(counts)</span></span>;
+    --counts;
+    <span class="keyword">return</span> tmpRet;
+}
+<span class="comment">//一元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
+
+<span class="comment">//部分二元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
+<span class="keyword">const</span> ClDefByMe ClDefByMe::<span class="keyword">operator</span>+(<span class="keyword">const</span> ClDefByMe&amp; addArgRight)
+{
+    <span class="keyword">return</span> ClDefByMe(count+addArgRight.count);<span class="comment">//直接操作私有成员    </span>
+}
+<span class="keyword">const</span> ClDefByMe <span class="keyword">operator</span>&gt;&gt;(<span class="keyword">int</span> moveBits)
+{
+    <span class="keyword">return</span> ClDefByMe(count &gt;&gt; moveBits);
+}
+
+ClDefByMe&amp; <span class="keyword">operator</span>&amp;=(<span class="keyword">const</span> ClDefByMe &amp; andassiRight)
+{
+    <span class="keyword">if</span>(<span class="keyword">this</span> == &amp;andassiRight)
+    {
+        count = andassiRight.count &amp; andassiRight.count;
+        <span class="keyword">return</span> *<span class="keyword">this</span>;
+    }
+    count &amp;= andassiRight.count;
+    <span class="keyword">return</span> *<span class="keyword">this</span>;
+}
+<span class="comment">//二元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
+</code></pre></li>
+</ul>
+</li>
+<li><p>总结</p>
+<ul>
+<li>对于一元运算符而言，成员函数形式总是比较适合的。</li>
+</ul>
 </li>
 </ul>
 
