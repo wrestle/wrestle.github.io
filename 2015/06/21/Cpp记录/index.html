@@ -349,6 +349,37 @@ namespace
 </code></pre></li>
 <li>总之，拷贝构造函数是为了解决按值传递这个问题的，如果你不会用到按值传递，那么可以关闭它(<code>=delete</code> — <strong>C++11</strong> OR <code>private it</code> — <strong>C++98</strong>)。或者干脆一些，不显式定义，交给编译器去自动生成。</li>
 </ul>
+<h4 id="指向类成员的指针">指向类成员的指针</h4><ul>
+<li>实际上，因为类的实际对象，一直到运行时才会有具体的地址，但是我们如果对某个还没有生成的对象中的成员取地址呢？</li>
+<li>可以，但那并不是真正的地址，而是取到<strong>偏移量</strong>，但是表面上看着像取了地址一般，所以由此引发了两种新的怪异语法糖： <code>-&gt;*</code> 和 <code>.*</code></li>
+<li><p>也就是说，对一个类成员成员，无论是数据成员还是成员函数，都是一样的。就是语法有些怪异。</p>
+<pre><code><span class="keyword">class</span> ClDefByMe{
+<span class="keyword">public</span>:
+    ClDefByMe():count(<span class="number">0</span>),pubIntMem(<span class="number">0</span>){}
+    <span class="function"><span class="keyword">void</span> <span class="title">getCounts</span><span class="params">()</span></span>{
+        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"The count is "</span> &lt;&lt; count &lt;&lt; <span class="built_in">std</span>::endl;
+    }
+    <span class="keyword">int</span> pubIntMem;
+<span class="keyword">private</span>:    
+    <span class="keyword">int</span> count;
+};
+</code></pre><p>这是类的实现，类中有一个 <code>int</code> 私有数据成员, <code>int</code> 公有数据成员，和一个成员函数</p>
+<pre><code><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
+</span>{
+    ClDefByMe testObj, *pToObj = &amp;testObj;
+    <span class="comment">//我们可以这么用</span>
+    <span class="keyword">int</span> ClDefByMe::*pToInt = &amp;ClDefByMe::pubIntMem;
+    <span class="keyword">void</span> (ClDefByMe::*pToFunc) = &amp;ClDefByMe::getCounts;
+    <span class="comment">//可以直接初始化，也可以声明完后再初始化。</span>
+    testObj.*pToInt = <span class="number">10</span>; <span class="comment">//现在数据成员pubIntMem的值为10</span>
+    (testObj.*pToFunc)(); <span class="comment">//调用。</span>
+    <span class="comment">//pToObj-&gt;*pToInt = 10;</span>
+    <span class="comment">//(pToObj-&gt;*pToFunc)();</span>
+    <span class="keyword">return</span> <span class="number">0</span>;
+}
+</code></pre><p>其中域解析操作符 <code>::</code> 一定要有，其次函数前方的取地址符号<code>&amp;</code>也一定要有。虽然函数名即使函数地址，但是此处并非真正的取函数地址，而是偏移量。</p>
+</li>
+</ul>
 
       
     </div>
