@@ -5,7 +5,7 @@
   
   <title>Cpp记录 | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="更新于 2015/7/7 20:57:52名称空间
+  <meta name="description" content="更新于 2015/7/8 19:09:20名称空间
 匿名的名称空间只在本文件中可见。
 //file1.cpp
 namespace
@@ -24,7 +24,7 @@ namespace
 <meta property="og:title" content="Cpp记录">
 <meta property="og:url" content="//wushxin.top/2015/06/21/Cpp记录/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="更新于 2015/7/7 20:57:52名称空间
+<meta property="og:description" content="更新于 2015/7/8 19:09:20名称空间
 匿名的名称空间只在本文件中可见。
 //file1.cpp
 namespace
@@ -41,7 +41,7 @@ namespace
 一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Cpp记录">
-<meta name="twitter:description" content="更新于 2015/7/7 20:57:52名称空间
+<meta name="twitter:description" content="更新于 2015/7/8 19:09:20名称空间
 匿名的名称空间只在本文件中可见。
 //file1.cpp
 namespace
@@ -130,7 +130,7 @@ namespace
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="更新于_2015/7/7_20:57:52">更新于 2015/7/7 20:57:52</h4><h4 id="名称空间">名称空间</h4><ul>
+        <h4 id="更新于_2015/7/8_19:09:20">更新于 2015/7/8 19:09:20</h4><h4 id="名称空间">名称空间</h4><ul>
 <li><p>匿名的名称空间只在本文件中可见。</p>
 <pre><code><span class="comment">//file1.cpp</span>
 <span class="keyword">namespace</span>
@@ -385,7 +385,12 @@ namespace
 <h4 id="运算符重载(未完成)">运算符重载(未完成)</h4><ul>
 <li>用于自定义类的运算符重载</li>
 <li>不能重载一切内建类型的运算符，不能重载不存在的运算符(如 <code>**</code> )，</li>
-<li><p>重载方式1： <strong>友元函数形式</strong></p>
+</ul>
+<blockquote>
+<p>重载方式1： <strong>友元函数形式</strong></p>
+</blockquote>
+<ul>
+<li><p>.</p>
 <ul>
 <li>特点：<ul>
 <li>可以在类的外部直接操作类的私有成员</li>
@@ -478,7 +483,12 @@ ClDefByMe&amp; operator&amp;=(ClDefByMe&amp; andassiLeft, <span class="keyword">
 </code></pre></li>
 </ul>
 </li>
-<li><p>重载方式2：<strong>成员函数形式</strong></p>
+</ul>
+<blockquote>
+<p>重载方式2：<strong>成员函数形式</strong></p>
+</blockquote>
+<ul>
+<li><p>.</p>
 <ul>
 <li>特点：<ul>
 <li>可以使用this指针</li>
@@ -499,9 +509,9 @@ ClDefByMe&amp; operator&amp;=(ClDefByMe&amp; andassiLeft, <span class="keyword">
     <span class="comment">//一元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
 
     <span class="comment">//部分二元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
-    <span class="keyword">const</span> ClDefByMe <span class="keyword">operator</span>-(<span class="keyword">const</span> ClDefByMe&amp;); <span class="comment">//二元运算符 减法</span>
+    <span class="keyword">const</span> ClDefByMe <span class="keyword">operator</span>-(<span class="keyword">const</span> ClDefByMe&amp;);  <span class="comment">//二元运算符 减法</span>
     <span class="keyword">const</span> ClDefByMe <span class="keyword">operator</span>&gt;&gt;(<span class="keyword">int</span>); <span class="comment">//二元运算符 右移</span>
-    ClDefByMe&amp;      <span class="keyword">operator</span>&amp;=(<span class="keyword">const</span> ClDefByMe &amp;);
+    ClDefByMe&amp;      <span class="keyword">operator</span>&amp;=(<span class="keyword">const</span> ClDefByMe &amp;); <span class="comment">//组合运算</span>
     <span class="comment">//二元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
 <span class="keyword">private</span>:
     <span class="comment">//...</span>
@@ -509,9 +519,10 @@ ClDefByMe&amp; operator&amp;=(ClDefByMe&amp; andassiLeft, <span class="keyword">
 </code></pre></li>
 <li><p>类外部实现：</p>
 <pre><code><span class="comment">//部分一元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;使用域解析操作符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
-<span class="keyword">const</span> ClDefByMe&amp; ClDefByMe::<span class="keyword">operator</span>+()
+<span class="keyword">const</span> ClDefByMe ClDefByMe::<span class="keyword">operator</span>+()
 {
-    <span class="keyword">return</span> *<span class="keyword">this</span>; <span class="comment">//使用成员函数形式的实现可以直接使用 this 指针</span>
+    <span class="keyword">return</span> ClDefByMe(counts); <span class="comment">//也可以返回 *this,不过类型要变为</span>
+                              <span class="comment">// const ClDefByMe &amp;</span>
 }
 <span class="keyword">const</span> ClDefByMe&amp; ClDefByMe::<span class="keyword">operator</span>--()
 {
@@ -550,9 +561,35 @@ ClDefByMe&amp; <span class="keyword">operator</span>&amp;=(<span class="keyword"
 </code></pre></li>
 </ul>
 </li>
+</ul>
+<blockquote>
+<p>某些特殊的操作符重载</p>
+</blockquote>
+<ul>
 <li><p>总结</p>
 <ul>
 <li>对于一元运算符而言，成员函数形式总是比较适合的。</li>
+<li>一些正常的数学运算，将传递的参数都置为 常量引用(const &amp;)</li>
+<li>所有赋值运算符这一类运算符(如=, +=, &amp;=, …)的重载，需要改变其左边的操作数，<ul>
+<li>对于友元函数形式的，就需要将左操作数声明为非 <code>const</code> 参数，否则就在函数参数列表中把它们都声明为 <code>const</code> </li>
+<li>对于成员函数形式的，就需要将函数声明为 <code>const</code> 即可，其余不需考虑。</li>
+</ul>
+</li>
+<li><p>返回值类型：</p>
+<ul>
+<li>对于返回临时对象，需要让返回值类型为 const value.</li>
+<li>对于返回非临时对象的，需要让返回值类型为 const value reference.</li>
+<li>如果是改变左值的运算符，那么就去掉返回值中的const，其余结构不变，何时改变，就是所有赋值一类的运算符。</li>
+<li>但临时对象总是默认为 <code>const</code>，所以如果返回临时对象，但是不在返回值地方声明为 <code>const</code>，它依然是const。</li>
+<li><p>如果没有必要，请不要画蛇添足的把：</p>
+<pre><code><span class="command">return</span> ClDefByMe(addObjLeft.<span class="command">count</span> + addObjRight.<span class="command">count</span>);
+</code></pre><p>  写成</p>
+<pre><code>ClDefByMe tmp(addObjLeft.<span class="command">count</span> + addObjRight.<span class="command">count</span>)；
+<span class="command">return</span> tmp;
+</code></pre><p>  这涉及到编译器的操作，可能开启最大程度优化会帮你优化成功，但是一般情况下后面这种写法会对出一个操作，也就是调用拷贝构造函数，如果你的类恰好没定义，而这个类的拷贝又需要自己定义的拷贝构造函数，那就 Boom！</p>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
