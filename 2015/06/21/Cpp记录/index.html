@@ -5,7 +5,7 @@
   
   <title>Cpp记录 | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="更新于 2015/7/8 19:09:20名称空间
+  <meta name="description" content="更新于 2015/7/8 20:44:47名称空间
 匿名的名称空间只在本文件中可见。
 //file1.cpp
 namespace
@@ -24,7 +24,7 @@ namespace
 <meta property="og:title" content="Cpp记录">
 <meta property="og:url" content="//wushxin.top/2015/06/21/Cpp记录/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="更新于 2015/7/8 19:09:20名称空间
+<meta property="og:description" content="更新于 2015/7/8 20:44:47名称空间
 匿名的名称空间只在本文件中可见。
 //file1.cpp
 namespace
@@ -41,7 +41,7 @@ namespace
 一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Cpp记录">
-<meta name="twitter:description" content="更新于 2015/7/8 19:09:20名称空间
+<meta name="twitter:description" content="更新于 2015/7/8 20:44:47名称空间
 匿名的名称空间只在本文件中可见。
 //file1.cpp
 namespace
@@ -130,7 +130,7 @@ namespace
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="更新于_2015/7/8_19:09:20">更新于 2015/7/8 19:09:20</h4><h4 id="名称空间">名称空间</h4><ul>
+        <h4 id="更新于_2015/7/8_20:44:47">更新于 2015/7/8 20:44:47</h4><h4 id="名称空间">名称空间</h4><ul>
 <li><p>匿名的名称空间只在本文件中可见。</p>
 <pre><code><span class="comment">//file1.cpp</span>
 <span class="keyword">namespace</span>
@@ -350,6 +350,22 @@ namespace
 </code></pre></li>
 <li>总之，拷贝构造函数是为了解决按值传递这个问题的，如果你不会用到按值传递，那么可以关闭它(<code>=delete</code> — <strong>C++11</strong> OR <code>private it</code> — <strong>C++98</strong>)。或者干脆一些，不显式定义，交给编译器去自动生成。</li>
 </ul>
+<h4 id="operator=_重载">operator= 重载</h4><ul>
+<li>当我们在表达式中使用 <code>=</code> 时，对于内建类型，自然是很简单的拷贝，对于C++的容器而言，自有重载好的 <code>=</code> 进行拷贝操作。</li>
+<li><p>对于自己定义的类而言，当我们：</p>
+<pre><code><span class="title">ClDefByMe</span> tmp1 = <span class="number">1</span>;
+<span class="title">ClDefByMe</span> tmp2 = tmp1;
+<span class="title">tmp1</span> = tmp2;
+</code></pre><p>第一句调用匹配的构造函数或者默认构造函数，第二句调用拷贝构造函数(而不是 <code>=</code> )，第三句才是使用重载后的<code>=</code>(假设类中重载了它)</p>
+</li>
+<li><p>所以对于初始化以及赋值而言，为了清晰明了，我们在初始化定义一个新的对象的时候，时空直接初始化的语法即：</p>
+<pre><code><span class="function">ClDefByMe <span class="title">tmp</span><span class="params">(<span class="number">1</span>)</span></span>;
+</code></pre></li>
+<li><p>对于已经创建好的对象进行赋值的时候，使用<code>=</code></p>
+<pre><code><span class="attribute">tmp2 </span>=<span class="string"> tmp;</span>
+</code></pre><p>这样就能很清楚的看出使用的是<code>=</code>的功能。</p>
+</li>
+</ul>
 <h4 id="指向类成员的指针">指向类成员的指针</h4><ul>
 <li>实际上，因为类的实际对象，一直到运行时才会有具体的地址，但是我们如果对某个还没有生成的对象中的成员取地址呢？</li>
 <li>可以，但那并不是真正的地址，而是取到<strong>偏移量</strong>，但是表面上看着像取了地址一般，所以由此引发了两种新的怪异语法糖： <code>-&gt;*</code> 和 <code>.*</code></li>
@@ -382,7 +398,7 @@ namespace
 </code></pre><p>其中域解析操作符 <code>::</code> 一定要有，其次函数前方的取地址符号<code>&amp;</code>也一定要有。虽然函数名即使函数地址，但是此处并非真正的取函数地址，而是偏移量。</p>
 </li>
 </ul>
-<h4 id="运算符重载(未完成)">运算符重载(未完成)</h4><ul>
+<h4 id="运算符重载">运算符重载</h4><ul>
 <li>用于自定义类的运算符重载</li>
 <li>不能重载一切内建类型的运算符，不能重载不存在的运算符(如 <code>**</code> )，</li>
 </ul>
@@ -565,6 +581,16 @@ ClDefByMe&amp; <span class="keyword">operator</span>&amp;=(<span class="keyword"
 <blockquote>
 <p>某些特殊的操作符重载</p>
 </blockquote>
+<pre><code><span class="comment">//某些操作实现包含在&lt;iostream&gt;中</span>
+<span class="keyword">friend</span> ostream &amp; 
+    <span class="keyword">operator</span>&lt;&lt;(ostream &amp;, <span class="keyword">const</span> ClDefByMe &amp;);<span class="comment">//类中声明 重载输出</span>
+ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; streams, <span class="keyword">const</span> ClDefByMe &amp; outRight)
+{
+    streams &lt;&lt; outRight.count &lt;&lt; endl;
+    <span class="keyword">return</span> stream; <span class="comment">//没有return其实也行，但是就无法嵌套输出了。</span>
+}
+</code></pre><p>此处，传递的参数和返回值必须是引用(对于流)，这样在函数里的改变才能影响到外部。</p>
+<p>输入也是一样。</p>
 <ul>
 <li><p>总结</p>
 <ul>
@@ -588,6 +614,18 @@ ClDefByMe&amp; <span class="keyword">operator</span>&amp;=(<span class="keyword"
 <span class="command">return</span> tmp;
 </code></pre><p>  这涉及到编译器的操作，可能开启最大程度优化会帮你优化成功，但是一般情况下后面这种写法会对出一个操作，也就是调用拷贝构造函数，如果你的类恰好没定义，而这个类的拷贝又需要自己定义的拷贝构造函数，那就 Boom！</p>
 </li>
+</ul>
+</li>
+<li>推荐的重载写法：<ul>
+<li>推荐写成 <strong>友元函数形式</strong> 的运算符： <code>所有二元运算符</code></li>
+<li>必须写成 <strong>成员函数形式</strong> 的运算符： <code>=, (), [], -&gt;, -&gt;*</code></li>
+<li>推荐写成 <strong>成员函数形式</strong> 的运算符： <code>所有赋值相关的运算符，如：</code><pre><code><span class="escape">`+</span>=, /=, *=, &gt;&gt;=, ...`
+</code></pre></li>
+<li>推荐写成 <em>*成员函数形式</em> * 的运算符： <code>所有一元运算符</code></li>
+</ul>
+</li>
+<li>不可以重载的运算符：<ul>
+<li><code>**</code>(不存在)， <code>.</code>(点运算符), <code>.*</code></li>
 </ul>
 </li>
 </ul>
