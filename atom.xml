@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-07-09T01:17:59.443Z</updated>
+  <updated>2015-07-09T01:45:44.129Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/06/21/Cpp%E8%AE%B0%E5%BD%95/"/>
     <id>//wushxin.top/2015/06/21/Cpp记录/</id>
     <published>2015-06-21T03:38:55.000Z</published>
-    <updated>2015-07-09T01:17:59.443Z</updated>
+    <updated>2015-07-09T01:45:44.129Z</updated>
     <content type="html"><![CDATA[<h4 id="更新于_2015/7/8_20:44:47">更新于 2015/7/8 20:44:47</h4><h4 id="名称空间">名称空间</h4><ul>
 <li><p>匿名的名称空间只在本文件中可见。</p>
 <pre><code><span class="comment">//file1.cpp</span>
@@ -382,7 +382,7 @@ ClDefByMe&amp; operator&amp;=(ClDefByMe&amp; andassiLeft, <span class="keyword">
     <span class="keyword">return</span> andassiLeft;
 }
 
-<span class="keyword">const</span> ClDefByMe&amp; operator&lt;&lt;(<span class="keyword">const</span> ClDefByMe&amp; lmoveLeft, int moveBits)
+<span class="keyword">const</span> ClDefByMe operator&lt;&lt;(<span class="keyword">const</span> ClDefByMe&amp; lmoveLeft, int moveBits)
 {
     <span class="keyword">return</span> ClDefByMe(lmoveLeft.<span class="keyword">count</span> &lt;&lt; moveBits);
 }<span class="comment">//注意这不是重载输出流的运算符，而是移位运算符</span>
@@ -438,9 +438,7 @@ ClDefByMe&amp; operator&amp;=(ClDefByMe&amp; andassiLeft, <span class="keyword">
 }
 <span class="keyword">const</span> ClDefByMe ClDefByMe::<span class="keyword">operator</span>--(<span class="keyword">int</span>)
 {
-    <span class="function">ClDefByMe <span class="title">tmpRet</span><span class="params">(counts)</span></span>;
-    --counts;
-    <span class="keyword">return</span> tmpRet;
+    <span class="keyword">return</span> ClDefByMe(counts--);
 }
 <span class="comment">//一元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
 
@@ -478,15 +476,15 @@ ClDefByMe&amp; <span class="keyword">operator</span>&amp;=(<span class="keyword"
 ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; streams, <span class="keyword">const</span> ClDefByMe &amp; outRight)
 {
     streams &lt;&lt; outRight.count &lt;&lt; endl;
-    <span class="keyword">return</span> stream; <span class="comment">//没有return其实也行，但是就无法嵌套输出了。</span>
+    <span class="keyword">return</span> streams; <span class="comment">//没有return其实也行，但是就无法嵌套输出了。</span>
 }
 </code></pre><p>此处，传递的参数和返回值必须是引用(对于流)，这样在函数里的改变才能影响到外部。</p>
 <p>输入也是一样。</p>
 <ul>
 <li><p>总结</p>
-<ul>
+<ol>
 <li>对于一元运算符而言，成员函数形式总是比较适合的。</li>
-<li>一些正常的数学运算，将传递的参数都置为 常量引用(const &amp;)</li>
+<li>一些正常的数学运算，将传递的参数都置为 常量引用(<code>const &amp;</code>)</li>
 <li>所有赋值运算符这一类运算符(如=, +=, &amp;=, …)的重载，需要改变其左边的操作数，<ul>
 <li>对于友元函数形式的，就需要将左操作数声明为非 <code>const</code> 参数，否则就在函数参数列表中把它们都声明为 <code>const</code> </li>
 <li>对于成员函数形式的，就需要将函数声明为 <code>const</code> 即可，其余不需考虑。</li>
@@ -497,21 +495,20 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
 <li>对于返回临时对象，需要让返回值类型为 const value.</li>
 <li>对于返回非临时对象的，需要让返回值类型为 const value reference.</li>
 <li>如果是改变左值的运算符，那么就去掉返回值中的const，其余结构不变，何时改变，就是所有赋值一类的运算符。</li>
-<li>但临时对象总是默认为 <code>const</code>，所以如果返回临时对象，但是不在返回值地方声明为 <code>const</code>，它依然是const。</li>
-<li><p>如果没有必要，请不要画蛇添足的把：</p>
+<li>但临时对象总是默认为 <code>const</code>，所以如果返回临时对象，但是不在返回值地方声明为 <code>const</code>，它依然是 <code>const</code>。</li>
+<li><p>如果没有必要，请不要把(如果是版本新的编译器就无所谓了，会帮你优化)：</p>
 <pre><code><span class="command">return</span> ClDefByMe(addObjLeft.<span class="command">count</span> + addObjRight.<span class="command">count</span>);
 </code></pre><p>  写成</p>
 <pre><code>ClDefByMe tmp(addObjLeft.<span class="command">count</span> + addObjRight.<span class="command">count</span>)；
 <span class="command">return</span> tmp;
-</code></pre><p>  这涉及到编译器的操作，可能开启最大程度优化会帮你优化成功，但是一般情况下后面这种写法会对出一个操作，也就是调用拷贝构造函数，如果你的类恰好没定义，而这个类的拷贝又需要自己定义的拷贝构造函数，那就 Boom！</p>
+</code></pre><p>  这涉及到编译器的操作，一般情况下后面这种写法会多出一个操作，也就是调用拷贝构造函数，如果你的类恰好没定义，而这个类的拷贝又需要自己定义的拷贝构造函数，那就 Boom！</p>
 </li>
 </ul>
 </li>
 <li>推荐的重载写法：<ul>
 <li>推荐写成 <strong>友元函数形式</strong> 的运算符： <code>所有二元运算符</code></li>
 <li>必须写成 <strong>成员函数形式</strong> 的运算符： <code>=, (), [], -&gt;, -&gt;*</code></li>
-<li>推荐写成 <strong>成员函数形式</strong> 的运算符： <code>所有赋值相关的运算符，如：</code><pre><code><span class="escape">`+</span>=, /=, *=, &gt;&gt;=, ...`
-</code></pre></li>
+<li>推荐写成 <strong>成员函数形式</strong> 的运算符： <code>所有赋值相关的运算符，如：</code>+=, /=, *=, &gt;&gt;=, …`</li>
 <li>推荐写成 <em>*成员函数形式</em> * 的运算符： <code>所有一元运算符</code></li>
 </ul>
 </li>
@@ -519,7 +516,7 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
 <li><code>**</code>(不存在)， <code>.</code>(点运算符), <code>.*</code></li>
 </ul>
 </li>
-</ul>
+</ol>
 </li>
 </ul>
 ]]></content>
