@@ -427,7 +427,7 @@ namespace
             <span class="keyword">operator</span>&amp;(<span class="keyword">const</span> ClDefByMe&amp;); <span class="comment">//重载取地址运算符</span>
     <span class="keyword">friend</span> <span class="keyword">const</span> ClDefByMe&amp;
             <span class="keyword">operator</span>++(ClDefByMe&amp;); <span class="comment">//重载前缀递增操作符</span>
-    <span class="keyword">friend</span> <span class="keyword">const</span> ClDefByMe&amp;
+    <span class="keyword">friend</span> <span class="keyword">const</span> ClDefByMe
             <span class="keyword">operator</span>++(ClDefByMe&amp;, <span class="keyword">int</span>); <span class="comment">//重载后缀形式</span>
     <span class="comment">//递减运算符类似。</span>
     <span class="comment">//一元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
@@ -459,7 +459,7 @@ ClDefByMe* operator&amp;(<span class="keyword">const</span> ClDefByMe&amp; GetAd
     ++PrePlus.<span class="keyword">count</span>;
     <span class="keyword">return</span> PrePlus;
 }
-<span class="keyword">const</span> ClDefByMe&amp; operator++(ClDefByMe&amp; PostPlus, int)
+<span class="keyword">const</span> ClDefByMe operator++(ClDefByMe&amp; PostPlus, int)
 {<span class="comment">//int可以看成一个永远不会被使用的标志，值由编译器提供。</span>
     ClDefByMe tmpRet(PostPlus.getCounts());
     ++PostPlus.counts; <span class="comment">//此处使用前缀后缀都无所谓，推荐前缀</span>
@@ -521,7 +521,7 @@ ClDefByMe&amp; operator&amp;=(ClDefByMe&amp; andassiLeft, <span class="keyword">
     <span class="comment">//部分一元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
     <span class="keyword">const</span> ClDefByMe&amp; <span class="keyword">operator</span>+(); <span class="comment">//一元运算符 取正</span>
     <span class="keyword">const</span> ClDefByMe&amp; <span class="keyword">operator</span>--(); <span class="comment">//前缀递减</span>
-    <span class="keyword">const</span> ClDefByMe&amp; <span class="keyword">operator</span>--(<span class="keyword">int</span>); <span class="comment">//后缀递减</span>
+    <span class="keyword">const</span> ClDefByMe  <span class="keyword">operator</span>--(<span class="keyword">int</span>); <span class="comment">//后缀递减</span>
     <span class="comment">//一元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
 
     <span class="comment">//部分二元运算符&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span>
@@ -545,7 +545,7 @@ ClDefByMe&amp; operator&amp;=(ClDefByMe&amp; andassiLeft, <span class="keyword">
     --counts;     <span class="comment">//因为是成员函数，可以直接操作私有成员</span>
     <span class="keyword">return</span> *<span class="keyword">this</span>;
 }
-<span class="keyword">const</span> ClDefByMe&amp; ClDefByMe::<span class="keyword">operator</span>--(<span class="keyword">int</span>)
+<span class="keyword">const</span> ClDefByMe ClDefByMe::<span class="keyword">operator</span>--(<span class="keyword">int</span>)
 {
     <span class="function">ClDefByMe <span class="title">tmpRet</span><span class="params">(counts)</span></span>;
     --counts;
