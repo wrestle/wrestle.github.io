@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-07-09T01:45:44.129Z</updated>
+  <updated>2015-07-09T01:47:47.972Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/06/21/Cpp%E8%AE%B0%E5%BD%95/"/>
     <id>//wushxin.top/2015/06/21/Cpp记录/</id>
     <published>2015-06-21T03:38:55.000Z</published>
-    <updated>2015-07-09T01:45:44.129Z</updated>
+    <updated>2015-07-09T01:47:47.972Z</updated>
     <content type="html"><![CDATA[<h4 id="更新于_2015/7/8_20:44:47">更新于 2015/7/8 20:44:47</h4><h4 id="名称空间">名称空间</h4><ul>
 <li><p>匿名的名称空间只在本文件中可见。</p>
 <pre><code><span class="comment">//file1.cpp</span>
@@ -508,7 +508,7 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
 <li>推荐的重载写法：<ul>
 <li>推荐写成 <strong>友元函数形式</strong> 的运算符： <code>所有二元运算符</code></li>
 <li>必须写成 <strong>成员函数形式</strong> 的运算符： <code>=, (), [], -&gt;, -&gt;*</code></li>
-<li>推荐写成 <strong>成员函数形式</strong> 的运算符： <code>所有赋值相关的运算符，如：</code>+=, /=, *=, &gt;&gt;=, …`</li>
+<li>推荐写成 <strong>成员函数形式</strong> 的运算符： <code>所有赋值相关的运算符，如：</code><br><code>+=, /=, *=, &gt;&gt;=, ...</code></li>
 <li>推荐写成 <em>*成员函数形式</em> * 的运算符： <code>所有一元运算符</code></li>
 </ul>
 </li>
