@@ -3,17 +3,29 @@
 <head>
   <meta charset="utf-8">
   
-  <title>WuShXin&#39;s fox</title>
+  <title>Cpp记录 | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="编程带来的不是回报而是心满意足">
-<meta property="og:type" content="website">
-<meta property="og:title" content="WuShXin's fox">
-<meta property="og:url" content="//wushxin.top/index.html">
+  <meta name="description" content="再记录 operator= 重载
+因为在类的设计中 重载 = 可能是在所难免的，如果你的类设计比较复杂。
+之所以需要重载它是为了当类中包含了复杂的关系的时候，提供了一个人为的保证，最典型的莫过于对象的拷贝：
+假设 类中有一个成员是指针，指向一个对象，这个对象可以是数组，也可以是其他类或者容器。
+当我们执行赋值操作符的时候，假定这里规范的使用赋值运算符，让其一定能调用赋值拷贝构造函数 = ，此时对于">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cpp记录">
+<meta property="og:url" content="//wushxin.top/2015/07/09/Cpp记录/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="编程带来的不是回报而是心满意足">
+<meta property="og:description" content="再记录 operator= 重载
+因为在类的设计中 重载 = 可能是在所难免的，如果你的类设计比较复杂。
+之所以需要重载它是为了当类中包含了复杂的关系的时候，提供了一个人为的保证，最典型的莫过于对象的拷贝：
+假设 类中有一个成员是指针，指向一个对象，这个对象可以是数组，也可以是其他类或者容器。
+当我们执行赋值操作符的时候，假定这里规范的使用赋值运算符，让其一定能调用赋值拷贝构造函数 = ，此时对于">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="WuShXin's fox">
-<meta name="twitter:description" content="编程带来的不是回报而是心满意足">
+<meta name="twitter:title" content="Cpp记录">
+<meta name="twitter:description" content="再记录 operator= 重载
+因为在类的设计中 重载 = 可能是在所难免的，如果你的类设计比较复杂。
+之所以需要重载它是为了当类中包含了复杂的关系的时候，提供了一个人为的保证，最典型的莫过于对象的拷贝：
+假设 类中有一个成员是指针，指向一个对象，这个对象可以是数组，也可以是其他类或者容器。
+当我们执行赋值操作符的时候，假定这里规范的使用赋值运算符，让其一定能调用赋值拷贝构造函数 = ，此时对于">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -66,9 +78,7 @@
 </header>
 <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-Cpp记录" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Cpp记录" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/07/09/Cpp记录/" class="article-date">
   <time datetime="2015-07-09T02:03:28.000Z" itemprop="datePublished">2015-07-09</time>
@@ -81,8 +91,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/09/Cpp记录/">Cpp记录</a>
+    <h1 class="article-title" itemprop="name">
+      Cpp记录
     </h1>
   
 
@@ -157,147 +167,20 @@ testFunc(ClDefByMe(tmp)); <span class="comment">//编译通过</span>
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-Cpp记录13k" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/06/21/Cpp记录13k/" class="article-date">
-  <time datetime="2015-06-21T03:38:55.000Z" itemprop="datePublished">2015-06-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/06/21/Cpp记录13k/">Cpp记录</a>
-    </h1>
+    <a href="/2015/06/21/Cpp记录13k/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Cpp记录</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="更新于_2015/7/9_10:03:12">更新于 2015/7/9 10:03:12</h4><h4 id="名称空间">名称空间</h4><ul>
-<li><p>匿名的名称空间只在本文件中可见。</p>
-<pre><code><span class="comment">//file1.cpp</span>
-<span class="keyword">namespace</span>
-{
-    <span class="keyword">int</span> challenge = <span class="number">0</span>;
-    <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span>
-    </span>{
-        ...
-}
-</code></pre></li>
-<li><p>名称空间的创建</p>
-</li>
-</ul>
-<p>一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文件中声明它，并在实现文件中定义它们</p>
-<pre><code><span class="comment">// file1.h</span>
-<span class="keyword">namespace</span> <span class="title">mix_define</span>{
-
-        <span class="function"><span class="keyword">void</span> <span class="title">interF</span><span class="params">(<span class="keyword">int</span> args_1)</span></span>;
-        <span class="function"><span class="keyword">double</span> <span class="title">goRound</span><span class="params">(<span class="keyword">int</span> args_1)</span></span>;
-        ...
-}
-
-
-<span class="comment">//file1.cpp</span>
-<span class="keyword">namespace</span> <span class="title">mix_define</span>{
-
-        <span class="function"><span class="keyword">void</span> <span class="title">interF</span><span class="params">(<span class="keyword">int</span> args_1)</span>
-        </span>{
-            <span class="comment">//Something happen...</span>
-        }
-
-        <span class="function"><span class="keyword">double</span> <span class="title">goRound</span><span class="params">(<span class="keyword">int</span> args_1)</span>
-        </span>{
-            <span class="comment">//Something happen...</span>
-        }
-}
-</code></pre><ul>
-<li><p>使用名称空间的时候，最好避免全部倒入，容易造成名称污染。
-        
-          <p class="article-more-link">
-            <a href="/2015/06/21/Cpp记录13k/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="//wushxin.top/2015/06/21/Cpp记录13k/" data-id="cibvwqk6f0012aolt580i0dqd" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
 
-
-  
-    <article id="post-Qt记录" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/06/12/Qt记录/" class="article-date">
-  <time datetime="2015-06-12T00:42:47.000Z" itemprop="datePublished">2015-06-12</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/06/12/Qt记录/">Qt记录</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="开启C++11支持">开启C++11支持</h4><ol>
-<li><p>.pro文件中增加：</p>
-<pre><code><span class="comment">CONFIG</span> <span class="literal">+</span><span class="comment">=</span> <span class="comment">c</span><span class="literal">+</span><span class="literal">+</span><span class="comment">11</span>
-</code></pre><p>或者</p>
-<pre><code>QMAKE_CXXFLAGS += -<span class="keyword">std</span>=c++<span class="number">11</span>
-</code></pre><p>两种添加形式都是可行的，建议每个工程单独配置，而不要一劳永逸。</p>
-</li>
-</ol>
-<h4 id="信号与槽">信号与槽</h4>
-        
-          <p class="article-more-link">
-            <a href="/2015/06/12/Qt记录/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="//wushxin.top/2015/06/12/Qt记录/" data-id="cibvwqk5s000haoltd3hjsj8g" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/">Qt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
 </section>
         
           <aside id="sidebar">

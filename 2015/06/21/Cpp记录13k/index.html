@@ -5,7 +5,7 @@
   
   <title>Cpp记录 | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="更新于 2015/7/8 20:44:47名称空间
+  <meta name="description" content="更新于 2015/7/9 10:03:12名称空间
 匿名的名称空间只在本文件中可见。
 //file1.cpp
 namespace
@@ -22,9 +22,9 @@ namespace
 一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Cpp记录">
-<meta property="og:url" content="//wushxin.top/2015/06/21/Cpp记录/index.html">
+<meta property="og:url" content="//wushxin.top/2015/06/21/Cpp记录13k/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="更新于 2015/7/8 20:44:47名称空间
+<meta property="og:description" content="更新于 2015/7/9 10:03:12名称空间
 匿名的名称空间只在本文件中可见。
 //file1.cpp
 namespace
@@ -41,7 +41,7 @@ namespace
 一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Cpp记录">
-<meta name="twitter:description" content="更新于 2015/7/8 20:44:47名称空间
+<meta name="twitter:description" content="更新于 2015/7/9 10:03:12名称空间
 匿名的名称空间只在本文件中可见。
 //file1.cpp
 namespace
@@ -108,9 +108,9 @@ namespace
 </header>
 <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       <div class="outer">
-        <section id="main"><article id="post-Cpp记录" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Cpp记录13k" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/06/21/Cpp记录/" class="article-date">
+    <a href="/2015/06/21/Cpp记录13k/" class="article-date">
   <time datetime="2015-06-21T03:38:55.000Z" itemprop="datePublished">2015-06-21</time>
 </a>
     
@@ -130,7 +130,7 @@ namespace
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="更新于_2015/7/8_20:44:47">更新于 2015/7/8 20:44:47</h4><h4 id="名称空间">名称空间</h4><ul>
+        <h4 id="更新于_2015/7/9_10:03:12">更新于 2015/7/9 10:03:12</h4><h4 id="名称空间">名称空间</h4><ul>
 <li><p>匿名的名称空间只在本文件中可见。</p>
 <pre><code><span class="comment">//file1.cpp</span>
 <span class="keyword">namespace</span>
@@ -594,6 +594,7 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
 <ol>
 <li>对于一元运算符而言，成员函数形式总是比较适合的。</li>
 <li>一些正常的数学运算，将传递的参数都置为 常量引用(<code>const &amp;</code>)</li>
+<li>对比成员函数形式和友元函数形式的重载，后者可能将具有更高的灵活性，例如类型转换，比如表达式： <code>a+1</code>,两种形式的重载都合法，但是换一个写法 <code>1+a</code>,成员函数形式的写法一定会报错，但是友元函数的写法只要有对应的构造函数进行类型转换(将1构造成对应的类型)就能通过编译。<strong>因为</strong>对于成员函数的实现而言，其左操作数的类型必须是完全匹配的。</li>
 <li>所有赋值运算符这一类运算符(如=, +=, &amp;=, …)的重载，需要改变其左边的操作数，<ul>
 <li>对于友元函数形式的，就需要将左操作数声明为非 <code>const</code> 参数，否则就在函数参数列表中把它们都声明为 <code>const</code> </li>
 <li>对于成员函数形式的，就需要将函数声明为 <code>const</code> 即可，其余不需考虑。</li>
@@ -632,7 +633,7 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
       
     </div>
     <footer class="article-footer">
-      <a data-url="//wushxin.top/2015/06/21/Cpp记录/" data-id="cib6ktz1l0012rsltzrhlwpvc" class="article-share-link">Share</a>
+      <a data-url="//wushxin.top/2015/06/21/Cpp记录13k/" data-id="cibvwqk6f0012aolt580i0dqd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li></ul>
@@ -642,6 +643,15 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
   
     
 <nav id="article-nav">
+  
+    <a href="/2015/07/09/Cpp记录/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Cpp记录
+        
+      </div>
+    </a>
   
   
     <a href="/2015/06/12/Qt记录/" id="article-nav-older" class="article-nav-link-wrap">
@@ -664,7 +674,7 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -673,7 +683,7 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/C/" style="font-size: 20px;">C</a><a href="/tags/Cpp/" style="font-size: 17.5px;">Cpp</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 12.5px;">Python</a><a href="/tags/Qt/" style="font-size: 12.5px;">Qt</a><a href="/tags/杂货居/" style="font-size: 15px;">杂货居</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
+      <a href="/tags/C/" style="font-size: 20px;">C</a><a href="/tags/Cpp/" style="font-size: 20px;">Cpp</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 13.33px;">Python</a><a href="/tags/Qt/" style="font-size: 13.33px;">Qt</a><a href="/tags/杂货居/" style="font-size: 16.67px;">杂货居</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
     </div>
   </div>
 
@@ -682,7 +692,7 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">12</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">12</span></li></ul>
     </div>
   </div>
 
@@ -694,7 +704,11 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
       <ul>
         
           <li>
-            <a href="/2015/06/21/Cpp记录/">Cpp记录</a>
+            <a href="/2015/07/09/Cpp记录/">Cpp记录</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/21/Cpp记录13k/">Cpp记录</a>
           </li>
         
           <li>
@@ -707,10 +721,6 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
         
           <li>
             <a href="/2015/05/29/我为什么学C-5/">我为什么学C(5)---效率(下)</a>
-          </li>
-        
-          <li>
-            <a href="/2015/05/20/我为什么学C(4)/">我为什么学C(4)---效率(上)</a>
           </li>
         
       </ul>
