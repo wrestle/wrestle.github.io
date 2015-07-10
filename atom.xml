@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-07-09T09:41:43.473Z</updated>
+  <updated>2015-07-10T10:30:23.186Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/07/09/Cpp%E8%AE%B0%E5%BD%95/"/>
     <id>//wushxin.top/2015/07/09/Cpp记录/</id>
     <published>2015-07-09T02:03:28.000Z</published>
-    <updated>2015-07-09T09:41:43.473Z</updated>
+    <updated>2015-07-10T10:30:23.186Z</updated>
     <content type="html"><![CDATA[<h4 id="再记录_operator=_重载">再记录 operator= 重载</h4><ul>
 <li>因为在类的设计中 重载 <code>=</code> 可能是在所难免的，如果你的类设计比较复杂。</li>
 <li>之所以需要重载它是为了当类中包含了复杂的关系的时候，提供了一个人为的保证，最典型的莫过于对象的拷贝：<ol>
@@ -29,7 +29,7 @@
 </ol>
 </li>
 <li><strong>拷贝指针</strong>，即便不重载运算符 <code>=</code> 编译器也会帮你自动实现，这在国内大概就叫做 <strong>浅拷贝</strong> ，如果仅仅拷贝指针，这就引发了一个问题，多个对象共享一个实际内存，当执行析构函数的时候，会造成多次析构同一个内存块。</li>
-<li><strong>拷贝对象</strong>，这是普遍的解决方法，在拷贝的同时，将指针所指向的对象同样做一份拷贝，似乎也不错，但是如果对象太大，似乎并不是什么很喜人的事情，但也不失为一种好的解决方案 <a id="more"></a></li>
+<li><strong>拷贝对象</strong>，这是普遍的解决方法，在拷贝的同时，将指针所指向的对象同样做一份拷贝，似乎也不错，但是如果对象太大，似乎并不是什么很喜人的事情，但也不失为一种好的解决方案 <a id="more"></a> </li>
 <li>当使用拷贝对象这个方案的时候，发现内存使用超过自己所能承受的范围，我们就应该重新考虑一下拷贝指针这个方法，即我们勀使用一个 <strong>计数器</strong>，用来记录有多少个指针指向这个共享的内存块(即对象)，这很像 <strong>C++11</strong> 中智能指针 <code>shared_ptr</code> 的做法，实际上的确可以使用 它来作为解决方法，当然也可以自己实现。</li>
 <li>实现的方法就是增加一个计数成员(不是在本类中，而是在指针指向的对象的类中，当然容器和数组另找方法实现，可以考虑用静态成员)，用来记录是否还有指针指向这个内存，对象每次析构的时候，减少计数器。如果还有指针指向它那么在析构函数执行时就不释放那块内存。</li>
 <li>总之，总是重载赋值拷贝构造函数 <code>=</code> 总是一个好的习惯。</li>
@@ -75,6 +75,39 @@ testFunc(ClDefByMe(tmp)); <span class="comment">//编译通过</span>
 <li>然而并不是自动类型转换一无是处，它能够让类很好的适应由C语言带过来的库函数，最大的体现便是，C形式的字符串 <code>const char*</code>。只要我们在类中提过了如实现2这种形式的运算符重载，就能让自己的类在C语言的库函数中畅通无阻。</li>
 </ol>
 </li>
+</ul>
+<h4 id="重载_new_和_delete">重载 new 和 delete</h4><ul>
+<li>全局重载 和 类内重载</li>
+<li>全局重载也就是让每个地方用到的 <code>new/delete</code> 都是你重载过的效果</li>
+<li>类内重载就像重载运算符一样，只对特别的类有效 </li>
+<li><p>可以分为两种:</p>
+<pre><code><span class="keyword">void</span>* <span class="function"><span class="keyword">operator</span> <span class="title">new</span><span class="params">(site_t sizes)</span></span>;
+<span class="function"><span class="keyword">void</span>  <span class="keyword">operator</span> <span class="title">delete</span><span class="params">(<span class="keyword">void</span>* dele_p)</span></span>;
+</code></pre><ul>
+<li>在重载的实现中，如果想分配的内存要在堆上，那么就使用 <strong>C语言</strong> 提供的内存管理机制<code>malloc, calloc, realloc, free</code>，并且如果这是重载全局的 <code>new/delete</code>，就不能使用 <code>istream</code> 之类的流对象进行输入输出，因为这些流会调用原来的 <code>new/delete</code> 去分配内存空间创建对戏那个，但是实际上此时已经不存在原来的 <code>new/delete</code> 了。</li>
+<li>如果重载发生在了某个特定的类中，那么依旧可以调用全局的 <code>new/delete</code> 帮自己完成重载的工作，调用方法便是通过，域解析作用符 <code>::</code></li>
+<li>在重载的实现中，如果想分配的内存要在栈上，那么就需要在类设计的时候，预先定义好一个 <strong>内存池</strong>，这个 <strong>内存池</strong> 的大小是固定的，无法改变，但是我们可以使用它来实现一个内存分配的效果，即将这个内存池看作一个系统内存，而我们重载的   <code>new/delete</code> 负责从里面分配和归还内存，这能达到一个目的，可以精确操控内存，让任意一个对象落在我们想要让他们出现的内存里。</li>
+</ul>
+</li>
+<li><p>实现的时候，若是类内重载，则可以使用全局的 <code>new/delete</code>，进行辅助设计：</p>
+<pre><code><span class="keyword">void</span>* <span class="function"><span class="keyword">operator</span> <span class="title">new</span><span class="params">(site_t sizes)</span>
+</span>{
+    <span class="keyword">return</span> ::<span class="keyword">new</span> <span class="keyword">char</span>[sizes];
+}
+</code></pre><p>其中 <code>sizes</code> 是经过编译器计算得到的，并不需类设计这操心，在实现完之后，只需要正常使用即可</p>
+</li>
+<li>对于<code>new/delete</code>的重载，我们仅仅只能改变内存分配的位置而已。</li>
+<li><code>new</code>所分配的内存会比原先所要求的内存要大一些，多出来的内存是用来存储一些有用的信息，即本次分配了多少个内存，(每个内存是对象的大小)，以便<code>delete</code>的操作。</li>
+<li><p>相应的，我们也可以传递别的参数给<code>new</code>，以此来调用不同的构造函数来初始化：</p>
+<pre><code><span class="function"><span class="keyword">void</span> <span class="keyword">operator</span> <span class="title">new</span><span class="params">(size_t sizes, <span class="keyword">void</span>* arg1)</span>
+</span>{
+    <span class="keyword">return</span> arg1; ...
+<span class="comment">//..调用</span>
+<span class="keyword">int</span> arr_[<span class="number">11</span>];
+ClDefByMe* tmp = <span class="keyword">new</span>(arr_) ClDefByMe;<span class="comment">//在这个数组里创建对象。</span>
+<span class="comment">//销毁的时候无法使用delete否则会造成程序错误，只能显式调用析构函数</span>
+<span class="comment">//这相当于另一种内存池的实现。</span>
+</code></pre></li>
 </ul>
 ]]></content>
     <summary type="html">
