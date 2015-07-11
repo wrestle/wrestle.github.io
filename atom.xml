@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-07-10T10:30:23.186Z</updated>
+  <updated>2015-07-11T04:42:08.704Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/07/09/Cpp%E8%AE%B0%E5%BD%95/"/>
     <id>//wushxin.top/2015/07/09/Cpp记录/</id>
     <published>2015-07-09T02:03:28.000Z</published>
-    <updated>2015-07-10T10:30:23.186Z</updated>
+    <updated>2015-07-11T04:42:08.704Z</updated>
     <content type="html"><![CDATA[<h4 id="再记录_operator=_重载">再记录 operator= 重载</h4><ul>
 <li>因为在类的设计中 重载 <code>=</code> 可能是在所难免的，如果你的类设计比较复杂。</li>
 <li>之所以需要重载它是为了当类中包含了复杂的关系的时候，提供了一个人为的保证，最典型的莫过于对象的拷贝：<ol>
@@ -103,11 +103,65 @@ testFunc(ClDefByMe(tmp)); <span class="comment">//编译通过</span>
 </span>{
     <span class="keyword">return</span> arg1; ...
 <span class="comment">//..调用</span>
-<span class="keyword">int</span> arr_[<span class="number">11</span>];
-ClDefByMe* tmp = <span class="keyword">new</span>(arr_) ClDefByMe;<span class="comment">//在这个数组里创建对象。</span>
+<span class="keyword">int</span> arr_[<span class="number">11</span>] = {<span class="number">0</span>};
+<span class="comment">//假设有一个构造函数，将唯一的成员初始化为括号内传递的参数的值</span>
+ClDefByMe* tmp = <span class="keyword">new</span>(arr_) ClDefByMe(<span class="number">22</span>);<span class="comment">//在这个数组里创建对象。</span>
+                                         <span class="comment">//每个对象大小为 int</span>
 <span class="comment">//销毁的时候无法使用delete否则会造成程序错误，只能显式调用析构函数</span>
 <span class="comment">//这相当于另一种内存池的实现。</span>
+</code></pre><p>使用的方式：</p>
+<pre><code><span class="comment">//下一个对象可以是</span>
+ClDefByMe* tmp2 = <span class="keyword">new</span>(arr_+<span class="number">1</span>) ClDefByMe(<span class="number">33</span>); <span class="comment">//此处+1 代表下一个对象的位置</span>
+</code></pre><p>但是因为没有内存检测，所以需要很小心的使用，不能让其越界，因为<code>C++</code>和 <code>C</code> 语言一样，是不提供越界检查的。</p>
+<pre><code><span class="comment">//此时的内存示意|22|33|0|0|0|0|0|0|0|0|0| &lt;&lt;代表arr_的内存示意图</span>
+ClDefByMe<span class="subst">*</span> tmp3 <span class="subst">=</span> <span class="literal">new</span>(arr_<span class="subst">+</span><span class="number">3</span>) ClDefByMe(<span class="number">44</span>);
+<span class="comment">//此时的内存示意|22|33|0|44|0|0|0|0|0|0|0|</span>
+tmp3<span class="subst">-&gt;</span>~ClDefByMe(); <span class="comment">//只能显式调用析构函数，而不能使用 delete</span>
+                     <span class="comment">//调用完析构函数，发现内存中的值依旧存在，但实际上已经</span>
+                    <span class="comment">//被“销毁”了，涉及到计算机的删除的实现。</span>
 </code></pre></li>
+</ul>
+<h4 id="类设计中的关键字_public,_private,_protected">类设计中的关键字 public, private, protected</h4><ul>
+<li>在类声明定义中，可以设定外部对象对本身成员的访问权限<ul>
+<li><code>public:</code> 代表任何权限的对象都能访问</li>
+<li><code>private:</code> 代表只有该类本身和友元(类/函数)能够访问，继承类也无法直接访问</li>
+<li><code>protected:</code> 代表只有类本身和友元还有继承者能访问</li>
+</ul>
+</li>
+<li>在类继承中<ul>
+<li><code>public</code> 继承 代表将基类的公有，私有，保护关系，原封不动的继承</li>
+<li>不写或者 <code>private</code> 继承 代表 所有成员都作为继承类的私有成员。</li>
+</ul>
+</li>
+</ul>
+<h4 id="继承中的重写">继承中的重写</h4><ul>
+<li><p>在继承的时候，继承类对于基类的成员都照搬继承，但是当基类中的成员函数，在继承类中被重写，被改变返回值或者参数列表，那么基类所继承过来的同名函数将被 <strong>隐藏</strong> </p>
+<pre><code><span class="keyword">class</span> ClDefByMe{
+    <span class="keyword">int</span> counts;
+<span class="keyword">public</span>:
+    <span class="comment">//...</span>
+    <span class="function"><span class="keyword">void</span> <span class="title">output</span><span class="params">()</span> </span>{ 
+        <span class="built_in">cout</span> &lt;&lt; <span class="string">"There is ClDefByMe -- "</span> &lt;&lt; counts &lt;&lt; endl;
+    }
+    <span class="function"><span class="keyword">void</span> <span class="title">output</span><span class="params">(<span class="keyword">int</span> args)</span></span>{
+        <span class="built_in">cout</span> &lt;&lt; <span class="string">"There is ClDefByMe -- "</span> &lt;&lt; args &lt;&lt; <span class="string">"of"</span> &lt;&lt; counts &lt;&lt; endl;
+    }
+<span class="comment">//...</span>
+};
+<span class="keyword">class</span> Deri : <span class="keyword">public</span> ClDefByMe{
+<span class="keyword">public</span>:
+    <span class="function"><span class="keyword">void</span> <span class="title">output</span><span class="params">()</span></span>{
+        <span class="built_in">cout</span> &lt;&lt; <span class="string">"There is Deri --"</span> &lt;&lt; endl;
+    }
+<span class="comment">//...</span>
+};
+Deri tmp;
+</code></pre><p>使用 <code>tmp.output();</code> 调用的是 <strong>Deri</strong> 中的 <code>output()</code>，当选择编译 <code>tmp.output(11);</code> 时，编译器会提示你 </p>
+<blockquote>
+<p><strong>no matching function for call Deri::output(int)</strong></p>
+</blockquote>
+<p>  这便是继承类隐藏了基类的实现，如果要调用基类的 <code>output</code>函数，只能显式调用，依旧是采用域解析操作符 <code>::</code> 实现： <code>tmp.ClDefByMe::output();</code></p>
+</li>
 </ul>
 ]]></content>
     <summary type="html">
