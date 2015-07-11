@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-07-11T04:42:08.704Z</updated>
+  <updated>2015-07-11T13:05:08.298Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/07/09/Cpp%E8%AE%B0%E5%BD%95/"/>
     <id>//wushxin.top/2015/07/09/Cpp记录/</id>
     <published>2015-07-09T02:03:28.000Z</published>
-    <updated>2015-07-11T04:42:08.704Z</updated>
+    <updated>2015-07-11T13:05:08.298Z</updated>
     <content type="html"><![CDATA[<h4 id="再记录_operator=_重载">再记录 operator= 重载</h4><ul>
 <li>因为在类的设计中 重载 <code>=</code> 可能是在所难免的，如果你的类设计比较复杂。</li>
 <li>之所以需要重载它是为了当类中包含了复杂的关系的时候，提供了一个人为的保证，最典型的莫过于对象的拷贝：<ol>
@@ -162,6 +162,20 @@ Deri tmp;
 </blockquote>
 <p>  这便是继承类隐藏了基类的实现，如果要调用基类的 <code>output</code>函数，只能显式调用，依旧是采用域解析操作符 <code>::</code> 实现： <code>tmp.ClDefByMe::output();</code></p>
 </li>
+<li>如果在继承类中出现了和基类一致的函数名，无论修改其返回值或者参数列表与否，都会 将基类中的同名函数隐藏，如果没有出现，那么继承类可以正常的调用基类的接口函数。</li>
+</ul>
+<h4 id="继承的函数">继承的函数</h4><ul>
+<li><p>并不是所有公有函数都会被继承</p>
+<ul>
+<li>构造函数，并不会被继承，虽然看起来像是继承(即基类中可以调用)</li>
+<li>重载或者自动生成的 <code>operator=</code> 不会被继承，因为它表现的十分类似一个构造函数干的事情</li>
+</ul>
+</li>
+<li><p>当我们试图去创建一个对象的时候，构造函数会按照既定的顺序(基类到继承类)依次调用</p>
+</li>
+<li>其中 拷贝构造函数在被调用的时候，会默认去调用其上一级基类的 <strong>默认构造函数</strong> 而非 上一级基类的 <strong>拷贝构造函数</strong>，如果要调用上一级的 <strong>拷贝构造函数</strong>， 就需要<strong>显式</strong>地在 初始化列表 中调用，否则可能会导致拷贝失败。</li>
+<li><code>operator=</code> 也是如此。</li>
+<li></li>
 </ul>
 ]]></content>
     <summary type="html">
