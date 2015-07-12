@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-07-11T13:05:08.298Z</updated>
+  <updated>2015-07-12T09:44:15.607Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,8 +20,8 @@
     <link href="//wushxin.top/2015/07/09/Cpp%E8%AE%B0%E5%BD%95/"/>
     <id>//wushxin.top/2015/07/09/Cpp记录/</id>
     <published>2015-07-09T02:03:28.000Z</published>
-    <updated>2015-07-11T13:05:08.298Z</updated>
-    <content type="html"><![CDATA[<h4 id="再记录_operator=_重载">再记录 operator= 重载</h4><ul>
+    <updated>2015-07-12T09:44:15.607Z</updated>
+    <content type="html"><![CDATA[<h3 id="更新于_2015/7/12_17:44:14">更新于 2015/7/12 17:44:14</h3><h4 id="再记录_operator=_重载">再记录 operator= 重载</h4><ul>
 <li>因为在类的设计中 重载 <code>=</code> 可能是在所难免的，如果你的类设计比较复杂。</li>
 <li>之所以需要重载它是为了当类中包含了复杂的关系的时候，提供了一个人为的保证，最典型的莫过于对象的拷贝：<ol>
 <li>假设 类中有一个成员是指针，指向一个对象，这个对象可以是数组，也可以是其他类或者容器。</li>
@@ -124,13 +124,24 @@ tmp3<span class="subst">-&gt;</span>~ClDefByMe(); <span class="comment">//只能
 <h4 id="类设计中的关键字_public,_private,_protected">类设计中的关键字 public, private, protected</h4><ul>
 <li>在类声明定义中，可以设定外部对象对本身成员的访问权限<ul>
 <li><code>public:</code> 代表任何权限的对象都能访问</li>
-<li><code>private:</code> 代表只有该类本身和友元(类/函数)能够访问，继承类也无法直接访问</li>
-<li><code>protected:</code> 代表只有类本身和友元还有继承者能访问</li>
+<li><code>private:</code> 代表只有该类设计者本身和友元(类/函数)能够访问，继承类也无法直接访问</li>
+<li><code>protected:</code> 代表只有 类设计者本身 和 友元 还有 继承类 能访问</li>
 </ul>
 </li>
-<li>在类继承中<ul>
+<li><p>在类继承中</p>
+<ul>
 <li><code>public</code> 继承 代表将基类的公有，私有，保护关系，原封不动的继承</li>
-<li>不写或者 <code>private</code> 继承 代表 所有成员都作为继承类的私有成员。</li>
+<li><p>不写或者 <code>private</code> 继承 代表 所有成员都作为继承类的私有成员。</p>
+<ul>
+<li><p>当所有继承来的成员都成为是 <code>pirvate</code> 时，可以使用 <code>using</code> 关键字使得其权限改变。例如：</p>
+<pre><code><span class="keyword">class</span> Deri : ClDefByMe{
+<span class="keyword">public</span>:
+    <span class="keyword">using</span> ClDefByMe::counts; <span class="comment">//使得counts由private变为public</span>
+    <span class="keyword">using</span> ClDefByMe::address; <span class="comment">//使得接口函数address()成为public</span>
+...
+</code></pre></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -158,7 +169,7 @@ tmp3<span class="subst">-&gt;</span>~ClDefByMe(); <span class="comment">//只能
 Deri tmp;
 </code></pre><p>使用 <code>tmp.output();</code> 调用的是 <strong>Deri</strong> 中的 <code>output()</code>，当选择编译 <code>tmp.output(11);</code> 时，编译器会提示你 </p>
 <blockquote>
-<p><strong>no matching function for call Deri::output(int)</strong></p>
+<p><strong>no matching function for call to ‘Deri::output(int)’</strong></p>
 </blockquote>
 <p>  这便是继承类隐藏了基类的实现，如果要调用基类的 <code>output</code>函数，只能显式调用，依旧是采用域解析操作符 <code>::</code> 实现： <code>tmp.ClDefByMe::output();</code></p>
 </li>
@@ -173,13 +184,20 @@ Deri tmp;
 </li>
 <li><p>当我们试图去创建一个对象的时候，构造函数会按照既定的顺序(基类到继承类)依次调用</p>
 </li>
-<li>其中 拷贝构造函数在被调用的时候，会默认去调用其上一级基类的 <strong>默认构造函数</strong> 而非 上一级基类的 <strong>拷贝构造函数</strong>，如果要调用上一级的 <strong>拷贝构造函数</strong>， 就需要<strong>显式</strong>地在 初始化列表 中调用，否则可能会导致拷贝失败。</li>
+<li>其中 拷贝构造函数在被调用的时候，会默认去调用其上一级基类的 <strong>默认构造函数</strong> 而非 上一级基类的 <strong>拷贝构造函数</strong>，如果要调用上一级的 <strong>拷贝构造函数</strong>， 就需要<strong>显式</strong>地在 初始化列表 中调用，否则可能会导致拷贝失败。<ul>
+<li>出现 <strong>拷贝构造函数</strong> 调用上一级基类的 <strong>默认构造函数</strong> 的情况，只有当类设计者自行编写 <strong>拷贝构造函数</strong> 且未显式调用上一级基类的 <strong>拷贝构造函数</strong> 才会发生</li>
+<li>故设计类时：<ol>
+<li>如果决定让 <strong>拷贝构造函数</strong> 由编译器自动生成，那么就证明新类(即当前类)中没有 <strong>复杂类型</strong> 成员(或复杂类型够健全)，那么编译器自动生成的拷贝构造函数会自动调用基类的拷贝构造函数，以及类成员的拷贝构造函数。</li>
+<li>如果决定自己实现 <strong>拷贝构造函数</strong> 那么久需要记住，一定要显式的调用基类的拷贝构造函数，否则将会出错(编译器会默认调用基类的<strong>默认构造函数</strong>)</li>
+</ol>
+</li>
+</ul>
+</li>
 <li><code>operator=</code> 也是如此。</li>
-<li></li>
 </ul>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h4 id="再记录_operator=_重载">再记录 operator= 重载</h4><ul>
+    <![CDATA[<h3 id="更新于_2015/7/12_17:44:14">更新于 2015/7/12 17:44:14</h3><h4 id="再记录_operator=_重载">再记录 operator= 重载</h4><ul>
 <li>因为在类的设计中 重载 <code>=</code> 可能是在所难免的，如果你的类设计比较复杂。</li>
 <li>之所以需要重载它是为了当类中包含了复杂的关系的时候，提供了一个人为的保证，最典型的莫过于对象的拷贝：<ol>
 <li>假设 类中有一个成员是指针，指向一个对象，这个对象可以是数组，也可以是其他类或者容器。</li>
