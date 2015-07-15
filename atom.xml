@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-07-14T13:17:26.660Z</updated>
+  <updated>2015-07-15T10:56:24.421Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/07/09/Cpp%E8%AE%B0%E5%BD%95/"/>
     <id>//wushxin.top/2015/07/09/Cpp记录/</id>
     <published>2015-07-09T02:03:28.000Z</published>
-    <updated>2015-07-14T13:17:26.660Z</updated>
+    <updated>2015-07-15T10:56:24.421Z</updated>
     <content type="html"><![CDATA[<h3 id="更新于_2015/7/14_21:14:21">更新于 2015/7/14 21:14:21</h3><h4 id="再记录_operator=_重载">再记录 operator= 重载</h4><ul>
 <li>因为在类的设计中 重载 <code>=</code> 可能是在所难免的，如果你的类设计比较复杂。</li>
 <li>之所以需要重载它是为了当类中包含了复杂的关系的时候，提供了一个人为的保证，最典型的莫过于对象的拷贝：<ol>
@@ -230,7 +230,7 @@ Deri tmp;
 </li>
 <li><p>关系呈现</p>
 <pre><code> <span class="strong">_____</span><span class="strong">_____</span><span class="emphasis">_           _</span><span class="strong">_____</span><span class="strong">_____</span><span class="strong">_____</span><span class="strong">_____</span><span class="strong">_____</span>_
-| ClDefByMe |      ----&gt;|  ClDefByMe::output      |
+| ClDefByMe |     ----&gt;|  ClDefByMe::output      |
 |<span class="strong">_____</span><span class="emphasis">_vptr_</span>| <span class="strong">____|    |__</span><span class="strong">____其他虚函数__</span><span class="strong">_____</span><span class="emphasis">___</span>|
 <span class="strong">_____</span><span class="strong">_____</span><span class="strong">___          __</span><span class="strong">_____</span><span class="strong">_____</span><span class="strong">_____</span><span class="strong">_____</span><span class="strong">_____</span>
 | Deri      |     ----&gt;|     Deri::output        |    
