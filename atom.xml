@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-07-21T07:08:46.020Z</updated>
+  <updated>2015-07-21T11:59:58.066Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/07/21/Practical-cpp/"/>
     <id>//wushxin.top/2015/07/21/Practical-cpp/</id>
     <published>2015-07-21T03:08:13.000Z</published>
-    <updated>2015-07-21T07:08:46.020Z</updated>
+    <updated>2015-07-21T11:59:58.066Z</updated>
     <content type="html"><![CDATA[<h4 id="try-throw-catch_三段式">try-throw-catch 三段式</h4><p>这是异常抛出的方式，简单的用法便是在外部使用的try-catch形式：</p>
 <pre><code><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
 </span>{
@@ -40,7 +40,7 @@
     <span class="comment">//...</span>
 }
 </code></pre><ul>
-<li><p>这是最简单的使用，在三段式中，<code>try</code>充当的是正常代码块，而<code>catch</code>则是对于抛出异常的处理。<code>catch</code> 可以不止一个，但一定要合理，实际来说，三段式能少用尽量少用，我们一般是这么使用三段式的：</p>
+<li><p>这是最简单的使用，在三段式中，<code>try</code>充当的是正常代码块，而<code>catch</code>则是对于抛出异常的处理。<code>catch</code> 可以不止一个，但一定要合理，实际来说，三段式能少用尽量少用，我们一般是这么使用三段式的： <a id="more"></a></p>
 <ul>
 <li>在函数中使用三段式，例如函数调用里<code>throw</code>一个异常</li>
 <li>在调用函数的地方的附近使用三段式获取一个异常</li>
@@ -151,7 +151,26 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<h4 id="try-throw-catch_三段式">try-throw-catch 三段式</h4><p>这是异常抛出的方式，简单的用法便是在外部使用的try-catch形式：</p>
-<pre><code><span class="function"><span clas]]>
+<pre><code><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
+</span>{
+    <span class="keyword">int</span> get_num;
+    <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; get_num;
+    <span class="keyword">try</span>
+    {
+        <span class="keyword">if</span>(get_num &lt; <span class="number">0</span>)
+            <span class="keyword">throw</span> get_num
+        <span class="comment">//Something happen</span>
+    }
+    <span class="keyword">catch</span>(<span class="keyword">int</span> e) <span class="comment">//此处括号内的参数的类型和抛出的类型需要一致</span>
+    {
+        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"The number "</span> &lt;&lt; get_num &lt;&lt; <span class="string">" is negative"</span>
+                  &lt;<span class="built_in">std</span>::endl;
+    }
+    <span class="comment">//...</span>
+}
+</code></pre><ul>
+<li><p>这是最简单的使用，在三段式中，<code>try</code>充当的是正常代码块，而<code>catch</code>则是对于抛出异常的处理。<code>catch</code> 可以不止一个，但一定要合理，实际来说，三段式能少用尽量少用，我们一般是这么使用三段式的：]]>
+    
     </summary>
     
       <category term="Cpp" scheme="//wushxin.top/tags/Cpp/"/>
