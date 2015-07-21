@@ -241,6 +241,26 @@ int main()
 <h4 id="标准_C++_异常">标准 C++ 异常</h4><ul>
 <li>比起自己定义的异常处理，标准库自带的要更加快速</li>
 <li>头文件 <code>&lt;exception&gt;</code> <code>&lt;stdexcept&gt;</code>,后者 <strong>include</strong> 前者</li>
+<li>异常类 <code>exception</code> &lt;- <code>logic_error</code>，<code>runtime_error</code><ul>
+<li>后两者继承自前者，通常用法是构造后两者的对象，设置错误信息，并调用其接口 <code>what()</code>，其中 <strong>what()</strong> 接口继承自类 <code>exception</code>， 但是由于 <code>exception</code> 的构造函数并没有提供接口让用户设置错误信息，故总是用其两个继承类</li>
+<li>具体用法有两种：<ol>
+<li>继承法，通过让自己的类继承类 <code>logic_error</code> 或者 <code>runtime_error</code> 来实现使用它们的目的</li>
+<li>成员法，通过让自己的类拥有一个嵌套类，专门用来抛出错误信息，类中拥有 <code>logic_error</code> 或者 <code>runtime_error</code>的成员，并在必要时设置构造这个类对象</li>
+</ol>
+</li>
+<li><a href="zh.cppreference.com/w/cpp/error">异常处理参考网址</a></li>
+<li>补充上述 <code>logic_error</code> 的 子类<ol>
+<li><code>bad_cast</code> 是 <strong>dynamic_cast</strong> 失败之后，抛出的异常，与(RTTI机制有关) -&gt; <code>#include &lt;typeinfo&gt;</code></li>
+<li><code>bad_typeid</code> 也与 RTTI 机制有关 -&gt; <code>#include &lt;typeinfo&gt;</code></li>
+</ol>
+</li>
+<li>补充 <code>runtime_error</code> 的 子类<ol>
+<li><code>bad_alloc</code> 如果 <strong>new</strong> 分配内存失败，则会抛出这个异常 -&gt; <code>#include &lt;new&gt;</code></li>
+</ol>
+</li>
+<li>补充的继承类不再 <code>&lt;stdexcept&gt;</code> 中声明定义而在各自的头文件中声明定义。</li>
+</ul>
+</li>
 </ul>
 
       
