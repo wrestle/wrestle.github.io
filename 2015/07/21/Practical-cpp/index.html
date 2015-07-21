@@ -3,17 +3,44 @@
 <head>
   <meta charset="utf-8">
   
-  <title>WuShXin&#39;s fox</title>
+  <title>Practical cpp | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="编程带来的不是回报而是心满意足">
-<meta property="og:type" content="website">
-<meta property="og:title" content="WuShXin's fox">
-<meta property="og:url" content="//wushxin.top/index.html">
+  <meta name="description" content="try-throw-catch 三段式这是异常抛出的方式，简单的用法便是在外部使用的try-catch形式：
+int main()
+{
+    int get_num;
+    std::cin &amp;gt;&amp;gt; get_num;
+    try
+    {
+        if(get_num &amp;lt; 0)
+            throw get_num
+        //Somethi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Practical cpp">
+<meta property="og:url" content="//wushxin.top/2015/07/21/Practical-cpp/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="编程带来的不是回报而是心满意足">
+<meta property="og:description" content="try-throw-catch 三段式这是异常抛出的方式，简单的用法便是在外部使用的try-catch形式：
+int main()
+{
+    int get_num;
+    std::cin &amp;gt;&amp;gt; get_num;
+    try
+    {
+        if(get_num &amp;lt; 0)
+            throw get_num
+        //Somethi">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="WuShXin's fox">
-<meta name="twitter:description" content="编程带来的不是回报而是心满意足">
+<meta name="twitter:title" content="Practical cpp">
+<meta name="twitter:description" content="try-throw-catch 三段式这是异常抛出的方式，简单的用法便是在外部使用的try-catch形式：
+int main()
+{
+    int get_num;
+    std::cin &amp;gt;&amp;gt; get_num;
+    try
+    {
+        if(get_num &amp;lt; 0)
+            throw get_num
+        //Somethi">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -66,9 +93,7 @@
 </header>
 <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-Practical-cpp" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Practical-cpp" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/07/21/Practical-cpp/" class="article-date">
   <time datetime="2015-07-21T03:08:13.000Z" itemprop="datePublished">2015-07-21</time>
@@ -81,8 +106,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/21/Practical-cpp/">Practical cpp</a>
+    <h1 class="article-title" itemprop="name">
+      Practical cpp
     </h1>
   
 
@@ -229,147 +254,20 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-Cpp记录10.1k" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/07/09/Cpp记录10.1k/" class="article-date">
-  <time datetime="2015-07-09T02:03:28.000Z" itemprop="datePublished">2015-07-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/09/Cpp记录10.1k/">Cpp记录10.1k</a>
-    </h1>
+    <a href="/2015/07/09/Cpp记录10.1k/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Cpp记录10.1k</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="更新于_2015/7/14_21:14:21">更新于 2015/7/14 21:14:21</h3><h4 id="再记录_operator=_重载">再记录 operator= 重载</h4><ul>
-<li>因为在类的设计中 重载 <code>=</code> 可能是在所难免的，如果你的类设计比较复杂。</li>
-<li>之所以需要重载它是为了当类中包含了复杂的关系的时候，提供了一个人为的保证，最典型的莫过于对象的拷贝：<ol>
-<li>假设 类中有一个成员是指针，指向一个对象，这个对象可以是数组，也可以是其他类或者容器。</li>
-<li>当我们执行赋值操作符的时候，假定这里规范的使用赋值运算符，让其一定能调用<strong>赋值拷贝构造函数</strong> <code>=</code> ，此时对于这个指针成员，就有两种情形： <strong>拷贝指针</strong> 或者 <strong>拷贝对象</strong> 。</li>
-</ol>
-</li>
-<li><strong>拷贝指针</strong>，即便不重载运算符 <code>=</code> 编译器也会帮你自动实现，这在国内大概就叫做 <strong>浅拷贝</strong> ，如果仅仅拷贝指针，这就引发了一个问题，多个对象共享一个实际内存，当执行析构函数的时候，会造成多次析构同一个内存块。</li>
-<li><strong>拷贝对象</strong>，这是普遍的解决方法，在拷贝的同时，将指针所指向的对象同样做一份拷贝，似乎也不错，但是如果对象太大，似乎并不是什么很喜人的事 情，但也不失为一种好的解决方案
-        
-          <p class="article-more-link">
-            <a href="/2015/07/09/Cpp记录10.1k/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="//wushxin.top/2015/07/09/Cpp记录10.1k/" data-id="cicd0c1u30018tolttb4kudhk" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
 
-
-  
-    <article id="post-Cpp记录10.4k" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/06/21/Cpp记录10.4k/" class="article-date">
-  <time datetime="2015-06-21T03:38:55.000Z" itemprop="datePublished">2015-06-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/06/21/Cpp记录10.4k/">Cpp记录10.4k</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="更新于_2015/7/9_10:03:12">更新于 2015/7/9 10:03:12</h4><h4 id="名称空间">名称空间</h4><ul>
-<li><p>匿名的名称空间只在本文件中可见。</p>
-<pre><code><span class="comment">//file1.cpp</span>
-<span class="keyword">namespace</span>
-{
-    <span class="keyword">int</span> challenge = <span class="number">0</span>;
-    <span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">()</span>
-    </span>{
-        ...
-}
-</code></pre></li>
-<li><p>名称空间的创建</p>
-</li>
-</ul>
-<p>一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文件中声明它，并在实现文件中定义它们</p>
-<pre><code><span class="comment">// file1.h</span>
-<span class="keyword">namespace</span> <span class="title">mix_define</span>{
-
-        <span class="function"><span class="keyword">void</span> <span class="title">interF</span><span class="params">(<span class="keyword">int</span> args_1)</span></span>;
-        <span class="function"><span class="keyword">double</span> <span class="title">goRound</span><span class="params">(<span class="keyword">int</span> args_1)</span></span>;
-        ...
-}
-
-
-<span class="comment">//file1.cpp</span>
-<span class="keyword">namespace</span> <span class="title">mix_define</span>{
-
-        <span class="function"><span class="keyword">void</span> <span class="title">interF</span><span class="params">(<span class="keyword">int</span> args_1)</span>
-        </span>{
-            <span class="comment">//Something happen...</span>
-        }
-
-        <span class="function"><span class="keyword">double</span> <span class="title">goRound</span><span class="params">(<span class="keyword">int</span> args_1)</span>
-        </span>{
-            <span class="comment">//Something happen...</span>
-        }
-}
-</code></pre><ul>
-<li><p>使用名称空间的时候，最好避免全部倒入，容易造成名称污染。
-        
-          <p class="article-more-link">
-            <a href="/2015/06/21/Cpp记录10.4k/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="//wushxin.top/2015/06/21/Cpp记录10.4k/" data-id="cicd0c1u30015tolt7fi0efhv" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
 </section>
         
           <aside id="sidebar">

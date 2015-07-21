@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Cpp记录12.7k | WuShXin&#39;s fox</title>
+  <title>Cpp记录10.4k | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="更新于 2015/7/9 10:03:12名称空间
 匿名的名称空间只在本文件中可见。
@@ -21,8 +21,8 @@ namespace
 
 一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Cpp记录12.7k">
-<meta property="og:url" content="//wushxin.top/2015/06/21/Cpp记录12.7k/index.html">
+<meta property="og:title" content="Cpp记录10.4k">
+<meta property="og:url" content="//wushxin.top/2015/06/21/Cpp记录10.4k/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
 <meta property="og:description" content="更新于 2015/7/9 10:03:12名称空间
 匿名的名称空间只在本文件中可见。
@@ -40,7 +40,7 @@ namespace
 
 一般来说，声明实现是要分离的，而对于一个名称空间来说，不能再某个名称空间中声明了，却在另一个名称空间里定义，所以我们一般在头文">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Cpp记录12.7k">
+<meta name="twitter:title" content="Cpp记录10.4k">
 <meta name="twitter:description" content="更新于 2015/7/9 10:03:12名称空间
 匿名的名称空间只在本文件中可见。
 //file1.cpp
@@ -108,9 +108,9 @@ namespace
 </header>
 <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       <div class="outer">
-        <section id="main"><article id="post-Cpp记录12.7k" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Cpp记录10.4k" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/06/21/Cpp记录12.7k/" class="article-date">
+    <a href="/2015/06/21/Cpp记录10.4k/" class="article-date">
   <time datetime="2015-06-21T03:38:55.000Z" itemprop="datePublished">2015-06-21</time>
 </a>
     
@@ -122,7 +122,7 @@ namespace
         
   
     <h1 class="article-title" itemprop="name">
-      Cpp记录12.7k
+      Cpp记录10.4k
     </h1>
   
 
@@ -211,99 +211,6 @@ namespace
 ...
 }; 
 </code></pre><p>如此定义一个特殊的转换函数之后，我们就能无错的编译通过并运行上述代码了。</p>
-<h4 id="try-throw-catch_三段式">try-throw-catch 三段式</h4><p>这是异常抛出的方式，简单的用法便是在外部使用的try-catch形式：</p>
-<pre><code><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
-</span>{
-    <span class="keyword">int</span> get_num;
-    <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; get_num;
-    <span class="keyword">try</span>
-    {
-        <span class="keyword">if</span>(get_num &lt; <span class="number">0</span>)
-            <span class="keyword">throw</span> get_num
-        <span class="comment">//Something happen</span>
-    }
-    <span class="keyword">catch</span>(<span class="keyword">int</span> e) <span class="comment">//此处括号内的参数的类型和抛出的类型需要一致</span>
-    {
-        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"The number "</span> &lt;&lt; get_num &lt;&lt; <span class="string">" is negative"</span>
-                  &lt;<span class="built_in">std</span>::endl;
-    }
-    <span class="comment">//...</span>
-}
-</code></pre><p>这是最简单的使用，在三段式中，<code>try</code>充当的是正常代码块，而<code>catch</code>则是对于抛出异常的处理。<code>catch</code> 可以不止一个，但一定要合理，实际来说，三段式能少用尽量少用，我们一般是这么使用三段式的：</p>
-<ul>
-<li>在函数中使用三段式，例如函数调用里<code>throw</code>一个异常</li>
-<li>在调用函数的地方的附近使用三段式获取一个异常</li>
-<li><p>异常被抛出后一定要有接收的<code>catch</code>，否则会默认调用<code>unexcept()</code>，从而紧接着默认调用<code>terminate()</code>终止程序。</p>
-<pre><code><span class="comment">//head.h</span>
-<span class="preprocessor">#<span class="keyword">include</span> &lt;...&gt; <span class="comment">//各种必要的头文件 </span></span>
-<span class="keyword">class</span> ExceptionText{
-<span class="keyword">public</span>:
-        ExceptionTest(){}
-        ExceptionTest(<span class="built_in">std</span>::<span class="built_in">string</span> err_mes): message(err_mes){}
-        <span class="comment">//调用接口</span>
-        <span class="built_in">std</span>::<span class="function"><span class="built_in">string</span> <span class="title">show_message</span><span class="params">()</span></span>{
-            <span class="keyword">return</span> message;
-        }
-<span class="keyword">private</span>:
-        <span class="built_in">std</span>::<span class="built_in">string</span> message;
-};
-
-<span class="keyword">class</span> ExceptionNumber{
-};
-</code></pre><p>这个类的作用在于抛出异常的时候，使用该类作为抛出对象的类型，<code>throw</code>可以抛出任意类型的异常。</p>
-<pre><code><span class="comment">//run.cpp</span>
-<span class="preprocessor">#<span class="keyword">include</span> &lt;...&gt;</span>
-<span class="function"><span class="keyword">void</span> <span class="title">AddFunction</span><span class="params">()</span></span>;
-<span class="function"><span class="keyword">void</span> <span class="title">TheMainFunction</span><span class="params">(<span class="keyword">double</span> args)</span></span>;
-
-<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
-</span>{
-    <span class="keyword">int</span> SomeThingYouWant = <span class="number">0</span>;
-    <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; SomeThingYouWant; 
-    <span class="keyword">try</span>
-    {
-        TheMainFunction(SomeThingYouWant);
-    }
-    <span class="keyword">catch</span>(ExceptionText t)
-    {
-        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; e.show_message();
-        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="built_in">std</span>::endl;
-    }
-    <span class="keyword">catch</span>(ExceptionNumber n) <span class="comment">// 抛出类型可以只定义类型，而不加任何具体实现</span>
-    {
-        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"The number is not match the logic"</span>
-                  &lt;&lt; <span class="built_in">std</span>::endl;
-    }
-    <span class="keyword">catch</span>(...) <span class="comment">//这是默认的catch，...并不代表无限的参数，而是默认的意思，就像switch中的default.</span>
-    {
-        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"There has some thing bad happen to us"</span>;
-    }
-    <span class="keyword">return</span> <span class="number">0</span>;
-}
-</code></pre><p>在三段式中，可以有很多个<code>catch</code>，并且可以拥有一个默认的<code>catch</code>，在上述代码中，只要抛出类型不是<code>ExceptionText</code>和<code>ExceptionNumber</code>,抛出就会被默认<code>catch</code>所获取。</p>
-<pre><code><span class="type">void</span> <span class="type">TheMainFunction</span>(double args) 
-{
-    double <span class="literal">result</span>;
-    <span class="keyword">if</span>(args &lt; <span class="number">0</span>)
-        throw <span class="type">ExceptionText</span>(<span class="string">"The number is negative"</span>);
-    <span class="keyword">else</span> <span class="keyword">if</span>(args == <span class="number">0</span>)
-        throw <span class="type">ExceptionText</span>(<span class="string">"The number is Zero"</span>);
-    <span class="literal">result</span> = (args-<span class="number">1</span>) / args;
-
-    <span class="keyword">while</span>(<span class="literal">result</span> &gt; <span class="number">0</span>)
-        <span class="literal">result</span> -= <span class="number">0</span>.<span class="number">01</span>;
-    <span class="keyword">if</span>(<span class="literal">result</span> &lt; <span class="number">0</span>)
-        throw <span class="type">ExceptionNumber</span>;
-    <span class="keyword">else</span>
-        throw <span class="number">0</span>; //只要是<span class="type">ExceptionText</span>和<span class="type">ExceptionNumber</span>之外的任意类型都可以。    
-}
-</code></pre></li>
-</ul>
-<p>在TheMainFunction的定义里，可以添加一些限制条件，来限制抛出的类型：</p>
-<pre><code>void <span class="function"><span class="title">TheMainFunction</span><span class="params">(double)</span></span> <span class="function"><span class="title">throw</span><span class="params">(ExceptionText, ExceptionNumber)</span></span>
-<span class="comment">//...</span>
-</code></pre><p>这样抛出类型就只有<code>ExceptionText</code>和<code>ExceptionNumber</code>两种了。</p>
-<p>虽然三段式看起来十分实用，但是我们依然应该尽可能的减少他们的使用频率。</p>
 <h4 id="const">const</h4><ul>
 <li><p>在C++中，<code>const</code>默认是内部链接，即只能在本文件中可见，如果想让其他文件也能使用，则应该添加<code>extern</code>说明符</p>
 <pre><code><span class="keyword">extern</span> <span class="keyword">const</span> <span class="keyword">int</span> sizes = <span class="number">100</span>;
@@ -633,7 +540,7 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
       
     </div>
     <footer class="article-footer">
-      <a data-url="//wushxin.top/2015/06/21/Cpp记录12.7k/" data-id="cic3d3mdc0012mglt6n1h5o4m" class="article-share-link">Share</a>
+      <a data-url="//wushxin.top/2015/06/21/Cpp记录10.4k/" data-id="cicd0c1u30015tolt7fi0efhv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li></ul>
@@ -644,11 +551,11 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
     
 <nav id="article-nav">
   
-    <a href="/2015/07/09/Cpp记录/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/07/09/Cpp记录10.1k/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Cpp记录
+          Cpp记录10.1k
         
       </div>
     </a>
@@ -674,7 +581,7 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -683,7 +590,7 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/C/" style="font-size: 20px;">C</a><a href="/tags/Cpp/" style="font-size: 20px;">Cpp</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 13.33px;">Python</a><a href="/tags/Qt/" style="font-size: 13.33px;">Qt</a><a href="/tags/杂货居/" style="font-size: 16.67px;">杂货居</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
+      <a href="/tags/C/" style="font-size: 16.67px;">C</a><a href="/tags/Cpp/" style="font-size: 20px;">Cpp</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 13.33px;">Python</a><a href="/tags/Qt/" style="font-size: 13.33px;">Qt</a><a href="/tags/杂货居/" style="font-size: 16.67px;">杂货居</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
     </div>
   </div>
 
@@ -692,7 +599,7 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">12</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">12</span></li></ul>
     </div>
   </div>
 
@@ -704,11 +611,15 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
       <ul>
         
           <li>
-            <a href="/2015/07/09/Cpp记录/">Cpp记录</a>
+            <a href="/2015/07/21/Practical-cpp/">Practical cpp</a>
           </li>
         
           <li>
-            <a href="/2015/06/21/Cpp记录12.7k/">Cpp记录12.7k</a>
+            <a href="/2015/07/09/Cpp记录10.1k/">Cpp记录10.1k</a>
+          </li>
+        
+          <li>
+            <a href="/2015/06/21/Cpp记录10.4k/">Cpp记录10.4k</a>
           </li>
         
           <li>
@@ -717,10 +628,6 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
         
           <li>
             <a href="/2015/06/08/Opencv3配置/">Opencv3.0.0配置</a>
-          </li>
-        
-          <li>
-            <a href="/2015/05/29/我为什么学C-5/">我为什么学C(5)---效率(下)</a>
           </li>
         
       </ul>
