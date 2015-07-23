@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-07-23T12:29:02.967Z</updated>
+  <updated>2015-07-23T12:57:03.660Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/07/21/Practical-cpp/"/>
     <id>//wushxin.top/2015/07/21/Practical-cpp/</id>
     <published>2015-07-21T03:08:13.000Z</published>
-    <updated>2015-07-23T12:29:02.967Z</updated>
+    <updated>2015-07-23T12:57:03.660Z</updated>
     <content type="html"><![CDATA[<h4 id="try-throw-catch_三段式">try-throw-catch 三段式</h4><p>这是异常抛出的方式，简单的用法便是在外部使用的try-catch形式：</p>
 <pre><code><span class="comment">//Code-1</span>
 <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
@@ -315,13 +315,24 @@ tmp.show();
 </code></pre></li>
 </ul>
 </li>
-<li><p>但是，模板成员函数不可是 <strong>虚函数</strong> <strong>(virtual)</strong> ，不过能够重载。</p>
+<li><p>但是，模板成员函数不可是 <strong>虚函数</strong> <strong>(virtual)</strong> ，不过能够重载，重载的时候，可以让常规函数和模板函数混搭(即不一定需要模板重载模板，普通重载普通)。</p>
+<ul>
+<li>在选择哪个版本的函数方面，优先选择非模板函数，可以显式地强制调用模板函数版本通过在调用函数名后面，括号的前面，添加空参数的模板尖括号。</li>
+</ul>
 </li>
 <li><p>模板函数常常可以省略模板参数，而交由编译器来推断所使用的参数类型，也可以自己显式传递。 </p>
 <ul>
 <li>例如上方的 <strong>Code-9</strong> 中的模板函数 <code>bitsetToString</code> 的定义可以改成： <code>return bs.to_string();</code> 产生的效果与此前代码一致。</li>
 <li>这种有编译器干的事情里，如果出现了需要类型转换的情况，则会失败。 </li>
 <li>在操作数组的时候，不妨使用 <strong>数组的引用</strong> 来代替单一指针，因为这样可以让编译器帮我们推断数组的维数，而不自自己显式传递，例如( <code>arrType (&amp;arr)[9][10]</code> ) </li>
+<li><p>如果需要传递一个模板函数的地址，也可以借助编译器自动推断来省略显式的模板参数传递：</p>
+<pre><code><span class="type">void</span> knowType(<span class="type">void</span> (*innerFunp)(<span class="type">int</span> *)) {}
+<span class="keyword">template</span>&lt;typename T&gt;
+    <span class="type">void</span> unkwType(T *) {} //一个返回值类型为 <span class="type">void</span>, 参数为 T* 的函数
+//使用
+knowType(&amp;unkwType&lt;<span class="type">int</span>&gt;); //显式
+knowType(&amp;unkwType); //编译器推断
+</code></pre></li>
 </ul>
 </li>
 </ul>
