@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-07-21T13:14:13.220Z</updated>
+  <updated>2015-07-23T12:29:02.967Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,9 +20,10 @@
     <link href="//wushxin.top/2015/07/21/Practical-cpp/"/>
     <id>//wushxin.top/2015/07/21/Practical-cpp/</id>
     <published>2015-07-21T03:08:13.000Z</published>
-    <updated>2015-07-21T13:14:13.220Z</updated>
+    <updated>2015-07-23T12:29:02.967Z</updated>
     <content type="html"><![CDATA[<h4 id="try-throw-catch_三段式">try-throw-catch 三段式</h4><p>这是异常抛出的方式，简单的用法便是在外部使用的try-catch形式：</p>
-<pre><code><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
+<pre><code><span class="comment">//Code-1</span>
+<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
 </span>{
     <span class="keyword">int</span> get_num;
     <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; get_num;
@@ -45,7 +46,8 @@
 <li>在函数中使用三段式，例如函数调用里<code>throw</code>一个异常</li>
 <li>在调用函数的地方的附近使用三段式获取一个异常</li>
 <li><p>异常被抛出后一定要有接收的<code>catch</code>，否则会默认调用<code>unexcept()</code>，从而紧接着默认调用<code>terminate()</code>终止程序。</p>
-<pre><code><span class="comment">//head.h</span>
+<pre><code><span class="comment">//Code-2</span>
+<span class="comment">//head.h</span>
 <span class="preprocessor">#<span class="keyword">include</span> &lt;...&gt; <span class="comment">//各种必要的头文件 </span></span>
 <span class="keyword">class</span> ExceptionText{
 <span class="keyword">public</span>:
@@ -62,7 +64,8 @@
 <span class="keyword">class</span> ExceptionNumber{
 };
 </code></pre><p>这个类的作用在于抛出异常的时候，使用该类作为抛出对象的类型，<code>throw</code>可以抛出任意类型的异常。</p>
-<pre><code><span class="comment">//run.cpp</span>
+<pre><code><span class="comment">//Code-3</span>
+<span class="comment">//run.cpp</span>
 <span class="preprocessor">#<span class="keyword">include</span> &lt;...&gt;</span>
 <span class="function"><span class="keyword">void</span> <span class="title">AddFunction</span><span class="params">()</span></span>;
 <span class="function"><span class="keyword">void</span> <span class="title">TheMainFunction</span><span class="params">(<span class="keyword">double</span> args)</span></span>;
@@ -95,7 +98,8 @@
 </ul>
 </li>
 <li><p>在三段式中，可以有很多个<code>catch</code>，并且可以拥有一个默认的<code>catch</code>，在上述代码中，只要抛出类型不是<code>ExceptionText</code>和<code>ExceptionNumber</code>,抛出就会被默认<code>catch</code>所获取。</p>
-<pre><code><span class="type">void</span> <span class="type">TheMainFunction</span>(double args) 
+<pre><code>//<span class="type">Code</span>-<span class="number">4</span>
+<span class="type">void</span> <span class="type">TheMainFunction</span>(double args)
 {
     double <span class="literal">result</span>;
     <span class="keyword">if</span>(args &lt; <span class="number">0</span>)
@@ -119,7 +123,8 @@
 <li><p>函数的级别的 <code>try-catch</code></p>
 <ul>
 <li><p>所谓函数级别就是，使用在函数身上的 <code>try</code></p>
-<pre><code><span class="keyword">class</span> BaseText{
+<pre><code><span class="comment">//Code-5</span>
+<span class="keyword">class</span> BaseText{
     <span class="built_in">string</span> plantText;
 <span class="keyword">public</span>:
     <span class="keyword">class</span> BaseException{}; <span class="comment">//定义一个空类，来定义抛出类型</span>
@@ -128,7 +133,8 @@
 <span class="comment">//...</span>
 <span class="keyword">class</span> ExceptionText : <span class="keyword">public</span> BaseText{
 <span class="keyword">public</span>:
-    ExceptionText(<span class="keyword">const</span> <span class="keyword">char</span>* msgError = <span class="keyword">nullptr</span>)
+    ExceptionText(<span class="keyword">const</span> <span class="keyword">char</span>* msgError = <span class="keyword">nullptr</span>) 
+    <span class="keyword">throw</span>(BaseException) <span class="comment">//限定抛出类型只能是BaseException</span>
     <span class="keyword">try</span> : BaseText(msgError)
     {
         <span class="comment">//这里是正常的构造函数的函数体</span>
@@ -142,6 +148,20 @@
 </li>
 </ul>
 </li>
+<li><p>对于抛出类型的限定，尽量使用它。并且在获取异常的时候，使用引用接收它。这不仅考虑到效率，而且是因为考虑到了继承类的上切问题(例如一个继承了 logic_error 的异常类对象，使用 logic_error 进行按值传递，会导致信息丢失)。</p>
+</li>
+<li>可以在构造函数中抛出异常(<strong>移动构造函数</strong>不要)，并额外设置一个标志去检查它，但不要再析构函数中抛出异常！</li>
+<li><p>但是在 <strong>C++11</strong>之后，一个函数如果要限定其没有抛出，则不再使用 <code>throw()</code>，而使用新关键字 <code>noexcept</code></p>
+<pre><code><span class="comment">//Code-6</span>
+<span class="comment">//void noException() throw() { //C++98以前</span>
+<span class="function"><span class="keyword">void</span> <span class="title">noException</span><span class="params">()</span> <span class="title">noexcept</span><span class="params">(<span class="keyword">true</span>)</span></span>{ <span class="comment">//C++11以后</span>
+                                   <span class="comment">//此时 noexcept作为一个操作符存在</span>
+    <span class="keyword">for</span>(<span class="keyword">volatile</span> <span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">3</span>;++i)
+        <span class="keyword">if</span>(i == <span class="number">2</span>)
+            <span class="keyword">throw</span> <span class="string">"Thorw!But You will Never See those"</span>;
+}
+</code></pre><p>可以将该操作符用于模板，以此来决定一个函数是否为一个可抛出异常 的函数</p>
+</li>
 </ul>
 <p>虽然三段式看起来十分实用，但是我们依然应该尽可能的减少他们的使用频率。</p>
 <h4 id="标准_C++_异常">标准 C++ 异常</h4><ul>
@@ -150,28 +170,166 @@
 <li>异常类 <code>exception</code> &lt;- <code>logic_error</code>，<code>runtime_error</code><ul>
 <li>后两者继承自前者，通常用法是构造后两者的对象，设置错误信息，并调用其接口 <code>what()</code>，其中 <strong>what()</strong> 接口继承自类 <code>exception</code>， 但是由于 <code>exception</code> 的构造函数并没有提供接口让用户设置错误信息，故总是用其两个继承类</li>
 <li>具体用法有两种：<ol>
-<li>继承法，通过让自己的类继承类 <code>logic_error</code> 或者 <code>runtime_error</code> 来实现使用它们的目的</li>
-<li>成员法，通过让自己的类拥有一个嵌套类，专门用来抛出错误信息，类中拥有 <code>logic_error</code> 或者 <code>runtime_error</code>的成员，并在必要时设置构造这个类对象</li>
+<li>继承法，通过让自己的类继承类 <code>logic_error</code> 或者 <code>runtime_error</code>(或者其派生类) 来实现使用它们的目的</li>
+<li>成员法，通过让自己的类拥有一个嵌套类，专门用来抛出错误信息，类中拥有 <code>logic_error</code> 或者 <code>runtime_error</code>(或者其派生类)的成员，并在必要时设置构造这个类对象</li>
 </ol>
 </li>
-<li><a href="zh.cppreference.com/w/cpp/error">异常处理参考网址</a></li>
-<li>补充上述 <code>logic_error</code> 的 子类<ol>
+<li><a href="http://zh.cppreference.com/w/cpp/error" target="_blank" rel="external">异常处理参考网址，维基百科(无须翻墙)</a></li>
+<li>补充上述 <code>logic_error</code> 的 派生类<ol>
 <li><code>bad_cast</code> 是 <strong>dynamic_cast</strong> 失败之后，抛出的异常，与(RTTI机制有关) -&gt; <code>#include &lt;typeinfo&gt;</code></li>
 <li><code>bad_typeid</code> 也与 RTTI 机制有关 -&gt; <code>#include &lt;typeinfo&gt;</code></li>
 </ol>
 </li>
-<li>补充 <code>runtime_error</code> 的 子类<ol>
+<li>补充 <code>runtime_error</code> 的 派生类<ol>
 <li><code>bad_alloc</code> 如果 <strong>new</strong> 分配内存失败，则会抛出这个异常 -&gt; <code>#include &lt;new&gt;</code></li>
 </ol>
 </li>
+<li><a href="http://zh.cppreference.com/w/cpp/error/exception" target="_blank" rel="external">其余补充</a></li>
 <li>补充的继承类不再 <code>&lt;stdexcept&gt;</code> 中声明定义而在各自的头文件中声明定义。</li>
+<li><strong>C++11</strong> 之后的标准弃用了许多异常类，也重新有了许多的类。</li>
+</ul>
+</li>
+</ul>
+<h4 id="模板">模板</h4><ul>
+<li><p>模板的三种用法：</p>
+<ol>
+<li>用于待定类型的占位：</li>
+<li>用于定义维数</li>
+<li><p>将模板类当成模板参数进行传递</p>
+<pre><code><span class="comment">//Code-7</span>
+<span class="keyword">template</span>&lt;<span class="keyword">typename</span> tpOfPara, <span class="comment">//通常的用法</span>
+         <span class="keyword">typename</span>&lt;<span class="keyword">typename</span> secT, 
+                  <span class="keyword">typename</span> = <span class="built_in">std</span>::allocator&lt;secT&gt;&gt; <span class="keyword">class</span> tpClName, <span class="comment">//传递模板类作为模板参数</span>
+         <span class="built_in">std</span>::size_t consDim = <span class="number">100</span>&gt; <span class="comment">//使用无类型的模板参数，且使用了默认参数</span>
+    <span class="keyword">class</span> ClDefByMe{
+        tpClName&lt;tpOfPara&gt; priMem_1;
+        tpOfPara            priMem_2;
+        <span class="keyword">int</span>                testMem[consDim];
+    pubic:
+        <span class="function">explict <span class="title">ClDefByMe</span><span class="params">(<span class="keyword">const</span> tpClName&lt;tpOfPara&gt;&amp;, 
+                          <span class="keyword">const</span> tpOfPara&amp;)</span></span>;
+<span class="comment">//...</span>
+ClDefByMe&lt;<span class="built_in">std</span>::<span class="built_in">string</span>, <span class="built_in">std</span>::<span class="built_in">vector</span>&gt; tmp1;
+</code></pre></li>
+</ol>
+<ul>
+<li>用于类的时候，模板可以使用默认参数，但是用在函数的时候却不行。</li>
+<li>在第二句中，为了传递特定的模板容器 <strong>vector</strong>，其声明中包含了一个默认模板参数，在此处需要显式的写出，否则无法编译通过，<strong>allocator</strong> 在 <code>&lt;memory&gt;</code> 中声明定义</li>
+</ul>
+</li>
+<li><p>关键字 <strong>typename</strong></p>
+<ul>
+<li>在 <strong>C++11</strong>之后， <strong>typename</strong> 也可以用在模板参数中，之前只能使用 <strong>class</strong> 关键字，这两个关键字的效果一致</li>
+<li><p>在模板类的定义中，我们可以使用 <code>typename</code> 关键字来获取模板参数中的<strong>内嵌类型</strong></p>
+<pre><code><span class="comment">//Code-8</span>
+<span class="keyword">class</span> clFirst{
+    <span class="keyword">int</span> mem1;
+<span class="keyword">public</span>:
+    <span class="keyword">class</span> nestcl{
+        <span class="keyword">int</span> mem2;
+    <span class="keyword">public</span>:
+        <span class="function"><span class="keyword">void</span> <span class="title">showMem</span><span class="params">()</span> </span>{<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"mem2 = "</span> &lt;&lt; <span class="built_in">std</span>::endl;}
+    };
+}; <span class="comment">//用于传递的类</span>
+<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;
+    <span class="keyword">class</span> ClDefByMe{
+        <span class="keyword">typename</span> T::nestcl tmpMem;
+    <span class="keyword">public</span>:
+        <span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">()</span></span>{ tmpMem.showMem(); }
+    };
+<span class="comment">//...</span>
+ClDefByMe&lt;clFirst&gt; tmp;
+tmp.show();
+</code></pre><ul>
+<li>此时如果引用过来的不是内嵌类型，而是别名(typedef)的话，亦是可以。</li>
+<li>如果<code>T::nestcl</code>是类型 T的静态类型成员 就无需添加关键字 <code>typename</code>    </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>template</code> 关键字的另类用处    </p>
+<ul>
+<li><p>当在模板函数中调用一个模板类的成员函数，且该成员函数亦是模板的时候，需要使用<code>template</code> 关键字消除编译器的判定错误(将模板参数的左尖括号 &lt; 当成小于运算符)。</p>
+<pre><code>//<span class="type">Code</span>-<span class="number">9</span>
+//引用<span class="type">Thinking</span> <span class="keyword">in</span> C++ 例子
+//bitset例子
+<span class="keyword">template</span>&lt;typename charT, size_t N&gt;
+    basic_string&lt;charT&gt; bitsetToString(<span class="keyword">const</span> bitset&lt;N&gt;&amp; bs)
+    {    
+        <span class="keyword">return</span> bs. <span class="keyword">template</span> to_string&lt;charT, 
+                                      char_traits&lt;charT&gt;,
+                                      allocator&lt;charT&gt;&gt;();
+    }
+//此时<span class="keyword">template</span>关键字必不可少， -&gt; 操作符也是如此
+//bitset
+</code></pre></li>
+<li><code>template</code> 关键字不可少的原因在于，当模板函数被解析(parsed)之后，编译器会认为 <code>to_string</code> 右边的尖括号 <code>&lt;</code> 是小于运算符，我们需要这个关键字来告诉编译器这是模板的语法。</li>
+</ul>
+</li>
+<li><p>模板成员函数</p>
+<ul>
+<li><p>在模板类中声明定义模板成员函数，相当于嵌套。</p>
+<pre><code>//<span class="type">Code</span>-<span class="number">10</span>
+<span class="keyword">template</span>&lt;typename typOne&gt;
+    class <span class="type">ClDefByMe</span>{
+    //...
+    public:
+        <span class="keyword">template</span>&lt;typename typTwo&gt; 
+            <span class="type">ClDefByMe</span>(<span class="keyword">const</span> <span class="type">ClDefByMe</span>&lt;typTwo&gt; &amp;);
+    ...
+//如果类外定义
+<span class="keyword">template</span> &lt;typename typOne&gt;
+    <span class="keyword">template</span>&lt;typename typTwo&gt;
+        <span class="type">ClDefByMe</span>&lt;typOne&gt;::<span class="type">ClDefByMe</span>(<span class="keyword">const</span> <span class="type">ClDefByMe</span>&lt;typTwo&gt; &amp;)
+        {
+            //...定义
+        }
+</code></pre></li>
+<li>模板类中的模板成员函数的模板参数不必和类一样。</li>
+<li><p>模板成员可以用在嵌套类上。</p>
+<pre><code>//<span class="type">Code</span>-<span class="number">11</span>
+<span class="keyword">template</span>&lt;typename typOne&gt;
+    class <span class="type">ClDefByMe</span>{
+    //...
+    public:
+        <span class="keyword">template</span>&lt;typename typThr&gt;
+            class inner{
+            //...
+            public:
+                <span class="type">void</span> lookFunc();
+            };
+    ...
+<span class="keyword">template</span>&lt;typename typOne&gt; //定义 lookFunc
+    <span class="keyword">template</span>&lt;typename typThr&gt;
+        <span class="type">ClDefByMe</span>&lt;typOne&gt;::inner&lt;typThr&gt;::lookFunc()
+        {
+            //...函数体
+        }
+...
+<span class="type">int</span> main()
+{
+    clDefByMe&lt;<span class="type">int</span>&gt;::inner&lt;long&gt; tmpObj;
+    tmpObj.lookFunc();
+    <span class="keyword">return</span> <span class="number">0</span>;
+}    
+</code></pre></li>
+</ul>
+</li>
+<li><p>但是，模板成员函数不可是 <strong>虚函数</strong> <strong>(virtual)</strong> ，不过能够重载。</p>
+</li>
+<li><p>模板函数常常可以省略模板参数，而交由编译器来推断所使用的参数类型，也可以自己显式传递。 </p>
+<ul>
+<li>例如上方的 <strong>Code-9</strong> 中的模板函数 <code>bitsetToString</code> 的定义可以改成： <code>return bs.to_string();</code> 产生的效果与此前代码一致。</li>
+<li>这种有编译器干的事情里，如果出现了需要类型转换的情况，则会失败。 </li>
+<li>在操作数组的时候，不妨使用 <strong>数组的引用</strong> 来代替单一指针，因为这样可以让编译器帮我们推断数组的维数，而不自自己显式传递，例如( <code>arrType (&amp;arr)[9][10]</code> ) </li>
 </ul>
 </li>
 </ul>
 ]]></content>
     <summary type="html">
     <![CDATA[<h4 id="try-throw-catch_三段式">try-throw-catch 三段式</h4><p>这是异常抛出的方式，简单的用法便是在外部使用的try-catch形式：</p>
-<pre><code><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
+<pre><code><span class="comment">//Code-1</span>
+<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
 </span>{
     <span class="keyword">int</span> get_num;
     <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; get_num;
