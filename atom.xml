@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-07-23T12:57:03.660Z</updated>
+  <updated>2015-07-24T12:32:49.427Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/07/21/Practical-cpp/"/>
     <id>//wushxin.top/2015/07/21/Practical-cpp/</id>
     <published>2015-07-21T03:08:13.000Z</published>
-    <updated>2015-07-23T12:57:03.660Z</updated>
+    <updated>2015-07-24T12:32:49.427Z</updated>
     <content type="html"><![CDATA[<h4 id="try-throw-catch_三段式">try-throw-catch 三段式</h4><p>这是异常抛出的方式，简单的用法便是在外部使用的try-catch形式：</p>
 <pre><code><span class="comment">//Code-1</span>
 <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
@@ -242,7 +242,8 @@ ClDefByMe&lt;clFirst&gt; tmp;
 tmp.show();
 </code></pre><ul>
 <li>此时如果引用过来的不是内嵌类型，而是别名(typedef)的话，亦是可以。</li>
-<li>如果<code>T::nestcl</code>是类型 T的静态类型成员 就无需添加关键字 <code>typename</code>    </li>
+<li>如果<code>T::nestcl</code>是类型 T的静态类型成员 就无需添加关键字 <code>typename</code></li>
+<li>对于 模板函数 而言,这一性质同样起作用,常用来声明定义某种类型(STL容器)的 <strong>迭代器(Iterator)</strong>,方便使用.    </li>
 </ul>
 </li>
 </ul>
@@ -326,12 +327,42 @@ tmp.show();
 <li>这种有编译器干的事情里，如果出现了需要类型转换的情况，则会失败。 </li>
 <li>在操作数组的时候，不妨使用 <strong>数组的引用</strong> 来代替单一指针，因为这样可以让编译器帮我们推断数组的维数，而不自自己显式传递，例如( <code>arrType (&amp;arr)[9][10]</code> ) </li>
 <li><p>如果需要传递一个模板函数的地址，也可以借助编译器自动推断来省略显式的模板参数传递：</p>
-<pre><code><span class="type">void</span> knowType(<span class="type">void</span> (*innerFunp)(<span class="type">int</span> *)) {}
+<pre><code>//<span class="type">Code</span>-<span class="number">12</span>
+<span class="type">void</span> knowType(<span class="type">void</span> (*innerFunp)(<span class="type">int</span> *)) {}
 <span class="keyword">template</span>&lt;typename T&gt;
     <span class="type">void</span> unkwType(T *) {} //一个返回值类型为 <span class="type">void</span>, 参数为 T* 的函数
 //使用
 knowType(&amp;unkwType&lt;<span class="type">int</span>&gt;); //显式
 knowType(&amp;unkwType); //编译器推断
+</code></pre><p>但是这种情况下在使用模板推断的时候,需要注意,如果该函数有重载版本的情况下,需要显式的指明需要哪个函数,否则会发生 <strong>推断错误</strong> ,因为编译器没办法知道需要选择哪个版本的函数,即使明显是需要选择某个版本.</p>
+<p>  解决方法可以是,类型转换(<code>static_cast</code>),或者重新写一个函数将某个特定的重载版本包裹起来.</p>
+</li>
+</ul>
+</li>
+<li><p>对于一个模板而言，它能够为不同类型生成不同的代码，同样，也可以人为先预设一些样板，就像一个建设网页的框架，总有人做好了模板，你可以使用别人的模板，也可以选择使用自己做模板</p>
+<ul>
+<li>比如 <strong>STL容器 vector</strong> 有一个生成好的特殊的版本 <code>vector&lt;bool&gt;</code>，优化了其的空间利用率。</li>
+<li><p>生成显式特殊化(<strong>Explicit Specialization</strong>)的方法是，在定义好基本模板之后</p>
+<pre><code>//<span class="type">Code</span>-<span class="number">13</span>
+<span class="keyword">template</span>&lt;typename T, typename U&gt;
+    class tmplClass{
+        T memOne;
+        U memTwo;
+    public:
+        T getFstMem() <span class="keyword">const</span> { <span class="keyword">return</span> memOne; }
+    };
+<span class="keyword">template</span>&lt;&gt; //完全特殊化的语法
+    class tmplClass&lt;<span class="type">int</span>, long&gt;{ //显式的定义了一个 &lt;<span class="type">int</span>, long&gt; 的版本
+        <span class="type">int</span> memOne;
+        long memTwo
+    public:
+        <span class="type">int</span> getFstMem() <span class="keyword">const</span> { <span class="keyword">return</span> memOne; }
+    };
+</code></pre><p>  同样也支持有局部特殊化</p>
+<pre><code>//<span class="type">Code</span>-<span class="number">14</span>
+<span class="keyword">template</span>&lt;typename U&gt; // 部分特殊化的语法
+    class tmplClass&lt;<span class="type">float</span>, U&gt;{ //只给了第一个参数的类型
+    ...                           //给的参数可以随意调整顺序。    
 </code></pre></li>
 </ul>
 </li>
