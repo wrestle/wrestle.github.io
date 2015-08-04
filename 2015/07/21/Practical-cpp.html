@@ -17,7 +17,7 @@ int main()
             throw get_num">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Practical cpp">
-<meta property="og:url" content="//wushxin.top/2015/07/21/Practical-cpp/index.html">
+<meta property="og:url" content="//wushxin.top/2015/07/21/Practical-cpp.html">
 <meta property="og:site_name" content="WuShXin's fox">
 <meta property="og:description" content="try-throw-catch 三段式这是异常抛出的方式，简单的用法便是在外部使用的try-catch形式：
 //Code-1
@@ -95,7 +95,7 @@ int main()
       <div class="outer">
         <section id="main"><article id="post-Practical-cpp" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/07/21/Practical-cpp/" class="article-date">
+    <a href="/2015/07/21/Practical-cpp.html" class="article-date">
   <time datetime="2015-07-21T03:08:13.000Z" itemprop="datePublished">2015-07-21</time>
 </a>
     
@@ -448,7 +448,7 @@ knowType(&amp;unkwType); //编译器推断
 <span class="keyword">template</span>&lt;&gt; //完全特殊化的语法
     class tmplClass&lt;<span class="type">int</span>, long&gt;{ //显式的定义了一个 &lt;<span class="type">int</span>, long&gt; 的版本
         <span class="type">int</span> memOne;
-        long memTwo
+        long memTwo;
     public:
         <span class="type">int</span> getFstMem() <span class="keyword">const</span> { <span class="keyword">return</span> memOne; }
     };
@@ -456,8 +456,96 @@ knowType(&amp;unkwType); //编译器推断
 <pre><code>//<span class="type">Code</span>-<span class="number">14</span>
 <span class="keyword">template</span>&lt;typename U&gt; // 部分特殊化的语法
     class tmplClass&lt;<span class="type">float</span>, U&gt;{ //只给了第一个参数的类型
-    ...                           //给的参数可以随意调整顺序。    
+    ...                           //给的参数可以随意调整顺序。
+<span class="keyword">template</span>&lt;typename T, typename U&gt;
+    class tmplClass&lt;T, U*&gt; { //这也是局部特殊化
+</code></pre><p>  此时，如果是在类外定义接口函数，那么需要注意的是，完全特殊化情况下，如果已经完全特殊化一个模板类，则在实现其特殊化类的接口函数时，不需要重新再写一遍 <code>template&lt;&gt;</code> 但是情况就需要：</p>
+<pre><code>//<span class="type">Code</span>-<span class="number">15</span>
+//假设只有普通模板类
+<span class="keyword">template</span>&lt;typename T, typename U&gt;
+    class tmplClass{
+        T memOne;
+        U memTwo;
+    public:
+        T getFstMem() <span class="keyword">const</span>; //想要类外实现一个特殊化的这个接口函数
+    };
+//实现：
+<span class="keyword">template</span>&lt;&gt;
+    <span class="type">int</span> tmplClass&lt;<span class="type">int</span>, long&gt;::getFstMem() <span class="keyword">const</span>
+    {
+        <span class="keyword">return</span> memOne;
+    }
+</code></pre><p>  如果此时已经存在一个完全特殊化的模板类的时候：</p>
+<pre><code><span class="comment">//Code-16</span>
+<span class="comment">//这个假设在已有一个普通的模板类为前提之上。</span>
+<span class="keyword">template</span>&lt;&gt; <span class="comment">//完全特殊化的语法</span>
+    <span class="keyword">class</span> tmplClass&lt;<span class="keyword">int</span>, <span class="keyword">long</span>&gt;{ <span class="comment">//显式的定义了一个 &lt;int, long&gt; 的版本</span>
+        <span class="keyword">int</span> memOne;
+        <span class="keyword">long</span> memTwo;
+    <span class="keyword">public</span>:
+        <span class="function"><span class="keyword">int</span> <span class="title">getFstMem</span><span class="params">()</span> <span class="keyword">const</span></span>; <span class="comment">//定义它，只需要和普通类一样即可</span>
+    };
+<span class="comment">//实现：</span>
+<span class="keyword">int</span> tmplClass&lt;<span class="keyword">int</span>, <span class="keyword">long</span>&gt;::getFstMem() <span class="keyword">const</span>
+{
+    <span class="keyword">return</span> memOne;
+}
 </code></pre></li>
+</ul>
+</li>
+<li><p>使用模板会导致一个问题，就是 <strong>代码膨胀</strong>，对于每一个具体类型的实现都会有一段新的代码产生，而编译器对此的措施就是，只有用到的才会生成对应的代码，否则就不生成。</p>
+<ul>
+<li>例如，对于一个模板类而言，其成员函数只有被使用了，才会产生相应的代码，否则就当成摆设。</li>
+<li>其次，可以人为的避免过大的代码膨胀，例如使用之前提到的，完全/部分特殊化的方法。<ol>
+<li>当拥有一个基本的模板类时，我们可以在考虑后续使用的基础上，为其生成一个 <strong>完全特殊化</strong> 的类</li>
+<li>使用这个类作为一个基类，产生一个继承体系，继承体系中的各个派生类便是我们真正会生成的类，派生类使用 部分特殊化 实现，继承之前的 完全特殊化 生的类</li>
+<li>如此能够利用已经生成的代码，而不需要反复生成同样的代码。</li>
+<li>继承 完全特殊化 类的 部分特殊化 类，需要对每一个接口函数重新定义（可以直接调用基类定义好的函数，通过域解析作用符<code>::</code>），因为继承的时候采用的是 <code>private</code> 继承。</li>
+<li>最明显的用处便是当不同的类型是指针的时候，用 <code>void*</code> 生成完全特殊化基类，其他类型指针做派生类的对象。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>模板中的友元</p>
+<ul>
+<li><p>在模板类中使用友元函数</p>
+<ol>
+<li>最简洁的写法便是将友元函数作为类内(in-class)函数声明且定义</li>
+<li><p>否则，对于需要在类外进行定义的友元函数，只有将其声明为模板，且需要声明两次，定义一次，才能生效：顺序（1.模板类声明，2.模板友元函数声明，3.模板类定义，4.类定义的同时使用友元修饰符<code>friend</code> 重新声明该函数，5.类外定义该友元函数）</p>
+<pre><code>//<span class="type">Code</span>-<span class="number">17</span>
+//非类内(<span class="keyword">in</span>-class)写法
+<span class="keyword">template</span>&lt;typename T&gt; class templClass;// <span class="number">1</span>.
+<span class="keyword">template</span>&lt;typename T&gt; <span class="type">void</span> show(<span class="keyword">const</span> templClass&lt;T&gt;&amp;);// <span class="number">2</span>.
+
+<span class="keyword">template</span>&lt;typename T&gt; // <span class="number">3</span>。
+    class templClass{
+         T x;
+      public:
+        templClass&lt;T&gt;(<span class="keyword">const</span> T&amp; para):x(para){}
+        friend <span class="type">void</span> show&lt;&gt;(<span class="keyword">const</span> templClass&lt;T&gt; &amp; fo); //<span class="number">4</span>.
+    };
+//类外定义友元函数
+<span class="keyword">template</span>&lt;typename T&gt; // <span class="number">5</span>.
+    <span class="type">void</span> show(<span class="keyword">const</span> templClass&lt;T&gt; &amp; fo)
+    {
+        cout &lt;&lt; fo.x &lt;&lt; endl;
+    }
+</code></pre><p> .</p>
+<pre><code>//<span class="type">Code</span>-<span class="number">18</span>
+//类内(<span class="keyword">in</span>-class)写法
+<span class="keyword">template</span>&lt;typename T&gt; 
+    class templClass{
+         T x;
+      public:
+        templClass&lt;T&gt;(<span class="keyword">const</span> T&amp; para):x(para){}
+        friend <span class="type">void</span> show&lt;&gt;(<span class="keyword">const</span> templClass&lt;T&gt; &amp; fo)
+        {
+            cout &lt;&lt; fo.x &lt;&lt; endl;
+        }
+    };
+</code></pre></li>
+</ol>
+</li>
 </ul>
 </li>
 </ul>
@@ -465,7 +553,7 @@ knowType(&amp;unkwType); //编译器推断
       
     </div>
     <footer class="article-footer">
-      <a data-url="//wushxin.top/2015/07/21/Practical-cpp/" data-id="cicg7efry000q04lt3b6yq54u" class="article-share-link">Share</a>
+      <a data-url="//wushxin.top/2015/07/21/Practical-cpp.html" data-id="cicg7efry000q04lt3b6yq54u" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li></ul>
@@ -477,7 +565,7 @@ knowType(&amp;unkwType); //编译器推断
 <nav id="article-nav">
   
   
-    <a href="/2015/07/09/Cpp记录10.1k/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/07/09/Cpp记录10.1k.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">Cpp记录10.1k</div>
     </a>
@@ -527,23 +615,23 @@ knowType(&amp;unkwType); //编译器推断
       <ul>
         
           <li>
-            <a href="/2015/07/21/Practical-cpp/">Practical cpp</a>
+            <a href="/2015/07/21/Practical-cpp.html">Practical cpp</a>
           </li>
         
           <li>
-            <a href="/2015/07/09/Cpp记录10.1k/">Cpp记录10.1k</a>
+            <a href="/2015/07/09/Cpp记录10.1k.html">Cpp记录10.1k</a>
           </li>
         
           <li>
-            <a href="/2015/06/21/Cpp记录10.4k/">Cpp记录10.4k</a>
+            <a href="/2015/06/21/Cpp记录10.4k.html">Cpp记录10.4k</a>
           </li>
         
           <li>
-            <a href="/2015/06/12/Qt记录/">Qt记录</a>
+            <a href="/2015/06/12/Qt记录.html">Qt记录</a>
           </li>
         
           <li>
-            <a href="/2015/06/08/Opencv3配置/">Opencv3.0.0配置</a>
+            <a href="/2015/06/08/Opencv3配置.html">Opencv3.0.0配置</a>
           </li>
         
       </ul>

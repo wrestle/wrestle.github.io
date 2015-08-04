@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-07-24T12:32:49.427Z</updated>
+  <updated>2015-07-25T07:01:01.609Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -17,10 +17,10 @@
   
   <entry>
     <title><![CDATA[Practical cpp]]></title>
-    <link href="//wushxin.top/2015/07/21/Practical-cpp/"/>
-    <id>//wushxin.top/2015/07/21/Practical-cpp/</id>
+    <link href="//wushxin.top/2015/07/21/Practical-cpp.html"/>
+    <id>//wushxin.top/2015/07/21/Practical-cpp.html</id>
     <published>2015-07-21T03:08:13.000Z</published>
-    <updated>2015-07-24T12:32:49.427Z</updated>
+    <updated>2015-07-25T07:01:01.609Z</updated>
     <content type="html"><![CDATA[<h4 id="try-throw-catch_三段式">try-throw-catch 三段式</h4><p>这是异常抛出的方式，简单的用法便是在外部使用的try-catch形式：</p>
 <pre><code><span class="comment">//Code-1</span>
 <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
@@ -354,7 +354,7 @@ knowType(&amp;unkwType); //编译器推断
 <span class="keyword">template</span>&lt;&gt; //完全特殊化的语法
     class tmplClass&lt;<span class="type">int</span>, long&gt;{ //显式的定义了一个 &lt;<span class="type">int</span>, long&gt; 的版本
         <span class="type">int</span> memOne;
-        long memTwo
+        long memTwo;
     public:
         <span class="type">int</span> getFstMem() <span class="keyword">const</span> { <span class="keyword">return</span> memOne; }
     };
@@ -362,8 +362,96 @@ knowType(&amp;unkwType); //编译器推断
 <pre><code>//<span class="type">Code</span>-<span class="number">14</span>
 <span class="keyword">template</span>&lt;typename U&gt; // 部分特殊化的语法
     class tmplClass&lt;<span class="type">float</span>, U&gt;{ //只给了第一个参数的类型
-    ...                           //给的参数可以随意调整顺序。    
+    ...                           //给的参数可以随意调整顺序。
+<span class="keyword">template</span>&lt;typename T, typename U&gt;
+    class tmplClass&lt;T, U*&gt; { //这也是局部特殊化
+</code></pre><p>  此时，如果是在类外定义接口函数，那么需要注意的是，完全特殊化情况下，如果已经完全特殊化一个模板类，则在实现其特殊化类的接口函数时，不需要重新再写一遍 <code>template&lt;&gt;</code> 但是情况就需要：</p>
+<pre><code>//<span class="type">Code</span>-<span class="number">15</span>
+//假设只有普通模板类
+<span class="keyword">template</span>&lt;typename T, typename U&gt;
+    class tmplClass{
+        T memOne;
+        U memTwo;
+    public:
+        T getFstMem() <span class="keyword">const</span>; //想要类外实现一个特殊化的这个接口函数
+    };
+//实现：
+<span class="keyword">template</span>&lt;&gt;
+    <span class="type">int</span> tmplClass&lt;<span class="type">int</span>, long&gt;::getFstMem() <span class="keyword">const</span>
+    {
+        <span class="keyword">return</span> memOne;
+    }
+</code></pre><p>  如果此时已经存在一个完全特殊化的模板类的时候：</p>
+<pre><code><span class="comment">//Code-16</span>
+<span class="comment">//这个假设在已有一个普通的模板类为前提之上。</span>
+<span class="keyword">template</span>&lt;&gt; <span class="comment">//完全特殊化的语法</span>
+    <span class="keyword">class</span> tmplClass&lt;<span class="keyword">int</span>, <span class="keyword">long</span>&gt;{ <span class="comment">//显式的定义了一个 &lt;int, long&gt; 的版本</span>
+        <span class="keyword">int</span> memOne;
+        <span class="keyword">long</span> memTwo;
+    <span class="keyword">public</span>:
+        <span class="function"><span class="keyword">int</span> <span class="title">getFstMem</span><span class="params">()</span> <span class="keyword">const</span></span>; <span class="comment">//定义它，只需要和普通类一样即可</span>
+    };
+<span class="comment">//实现：</span>
+<span class="keyword">int</span> tmplClass&lt;<span class="keyword">int</span>, <span class="keyword">long</span>&gt;::getFstMem() <span class="keyword">const</span>
+{
+    <span class="keyword">return</span> memOne;
+}
 </code></pre></li>
+</ul>
+</li>
+<li><p>使用模板会导致一个问题，就是 <strong>代码膨胀</strong>，对于每一个具体类型的实现都会有一段新的代码产生，而编译器对此的措施就是，只有用到的才会生成对应的代码，否则就不生成。</p>
+<ul>
+<li>例如，对于一个模板类而言，其成员函数只有被使用了，才会产生相应的代码，否则就当成摆设。</li>
+<li>其次，可以人为的避免过大的代码膨胀，例如使用之前提到的，完全/部分特殊化的方法。<ol>
+<li>当拥有一个基本的模板类时，我们可以在考虑后续使用的基础上，为其生成一个 <strong>完全特殊化</strong> 的类</li>
+<li>使用这个类作为一个基类，产生一个继承体系，继承体系中的各个派生类便是我们真正会生成的类，派生类使用 部分特殊化 实现，继承之前的 完全特殊化 生的类</li>
+<li>如此能够利用已经生成的代码，而不需要反复生成同样的代码。</li>
+<li>继承 完全特殊化 类的 部分特殊化 类，需要对每一个接口函数重新定义（可以直接调用基类定义好的函数，通过域解析作用符<code>::</code>），因为继承的时候采用的是 <code>private</code> 继承。</li>
+<li>最明显的用处便是当不同的类型是指针的时候，用 <code>void*</code> 生成完全特殊化基类，其他类型指针做派生类的对象。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>模板中的友元</p>
+<ul>
+<li><p>在模板类中使用友元函数</p>
+<ol>
+<li>最简洁的写法便是将友元函数作为类内(in-class)函数声明且定义</li>
+<li><p>否则，对于需要在类外进行定义的友元函数，只有将其声明为模板，且需要声明两次，定义一次，才能生效：顺序（1.模板类声明，2.模板友元函数声明，3.模板类定义，4.类定义的同时使用友元修饰符<code>friend</code> 重新声明该函数，5.类外定义该友元函数）</p>
+<pre><code>//<span class="type">Code</span>-<span class="number">17</span>
+//非类内(<span class="keyword">in</span>-class)写法
+<span class="keyword">template</span>&lt;typename T&gt; class templClass;// <span class="number">1</span>.
+<span class="keyword">template</span>&lt;typename T&gt; <span class="type">void</span> show(<span class="keyword">const</span> templClass&lt;T&gt;&amp;);// <span class="number">2</span>.
+
+<span class="keyword">template</span>&lt;typename T&gt; // <span class="number">3</span>。
+    class templClass{
+         T x;
+      public:
+        templClass&lt;T&gt;(<span class="keyword">const</span> T&amp; para):x(para){}
+        friend <span class="type">void</span> show&lt;&gt;(<span class="keyword">const</span> templClass&lt;T&gt; &amp; fo); //<span class="number">4</span>.
+    };
+//类外定义友元函数
+<span class="keyword">template</span>&lt;typename T&gt; // <span class="number">5</span>.
+    <span class="type">void</span> show(<span class="keyword">const</span> templClass&lt;T&gt; &amp; fo)
+    {
+        cout &lt;&lt; fo.x &lt;&lt; endl;
+    }
+</code></pre><p> .</p>
+<pre><code>//<span class="type">Code</span>-<span class="number">18</span>
+//类内(<span class="keyword">in</span>-class)写法
+<span class="keyword">template</span>&lt;typename T&gt; 
+    class templClass{
+         T x;
+      public:
+        templClass&lt;T&gt;(<span class="keyword">const</span> T&amp; para):x(para){}
+        friend <span class="type">void</span> show&lt;&gt;(<span class="keyword">const</span> templClass&lt;T&gt; &amp; fo)
+        {
+            cout &lt;&lt; fo.x &lt;&lt; endl;
+        }
+    };
+</code></pre></li>
+</ol>
+</li>
 </ul>
 </li>
 </ul>
@@ -401,8 +489,8 @@ knowType(&amp;unkwType); //编译器推断
   
   <entry>
     <title><![CDATA[Cpp记录10.1k]]></title>
-    <link href="//wushxin.top/2015/07/09/Cpp%E8%AE%B0%E5%BD%9510.1k/"/>
-    <id>//wushxin.top/2015/07/09/Cpp记录10.1k/</id>
+    <link href="//wushxin.top/2015/07/09/Cpp%E8%AE%B0%E5%BD%9510.1k.html"/>
+    <id>//wushxin.top/2015/07/09/Cpp记录10.1k.html</id>
     <published>2015-07-09T02:03:28.000Z</published>
     <updated>2015-07-21T03:07:14.481Z</updated>
     <content type="html"><![CDATA[<h3 id="更新于_2015/7/14_21:14:21">更新于 2015/7/14 21:14:21</h3><h4 id="再记录_operator=_重载">再记录 operator= 重载</h4><ul>
@@ -744,8 +832,8 @@ j = <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>
   
   <entry>
     <title><![CDATA[Cpp记录10.4k]]></title>
-    <link href="//wushxin.top/2015/06/21/Cpp%E8%AE%B0%E5%BD%9510.4k/"/>
-    <id>//wushxin.top/2015/06/21/Cpp记录10.4k/</id>
+    <link href="//wushxin.top/2015/06/21/Cpp%E8%AE%B0%E5%BD%9510.4k.html"/>
+    <id>//wushxin.top/2015/06/21/Cpp记录10.4k.html</id>
     <published>2015-06-21T03:38:55.000Z</published>
     <updated>2015-07-21T06:50:05.692Z</updated>
     <content type="html"><![CDATA[<h4 id="更新于_2015/7/9_10:03:12">更新于 2015/7/9 10:03:12</h4><h4 id="名称空间">名称空间</h4><ul>
@@ -1206,8 +1294,8 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
   
   <entry>
     <title><![CDATA[Qt记录]]></title>
-    <link href="//wushxin.top/2015/06/12/Qt%E8%AE%B0%E5%BD%95/"/>
-    <id>//wushxin.top/2015/06/12/Qt记录/</id>
+    <link href="//wushxin.top/2015/06/12/Qt%E8%AE%B0%E5%BD%95.html"/>
+    <id>//wushxin.top/2015/06/12/Qt记录.html</id>
     <published>2015-06-12T00:42:47.000Z</published>
     <updated>2015-06-13T03:51:56.420Z</updated>
     <content type="html"><![CDATA[<h4 id="开启C++11支持">开启C++11支持</h4><ol>
@@ -1320,8 +1408,8 @@ test_sig.Q_SendSignal(); <span class="comment">//发射信号</span>
   
   <entry>
     <title><![CDATA[Opencv3.0.0配置]]></title>
-    <link href="//wushxin.top/2015/06/08/Opencv3%E9%85%8D%E7%BD%AE/"/>
-    <id>//wushxin.top/2015/06/08/Opencv3配置/</id>
+    <link href="//wushxin.top/2015/06/08/Opencv3%E9%85%8D%E7%BD%AE.html"/>
+    <id>//wushxin.top/2015/06/08/Opencv3配置.html</id>
     <published>2015-06-08T08:26:15.000Z</published>
     <updated>2015-06-10T08:21:31.798Z</updated>
     <content type="html"><![CDATA[<h4 id="配置Opencv3-0-0">配置Opencv3.0.0</h4><p>前天，Opencv3.0.0的正式版本发布，不再有奇怪的缺少文件之类的错误，正好最近需要使用它来完成一些神经网络上的辅助，也就尝试了配置，下面记录配置的过程。</p>
@@ -1558,8 +1646,8 @@ test_sig.Q_SendSignal(); <span class="comment">//发射信号</span>
   
   <entry>
     <title><![CDATA[我为什么学C(5)---效率(下)]]></title>
-    <link href="//wushxin.top/2015/05/29/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C-5/"/>
-    <id>//wushxin.top/2015/05/29/我为什么学C-5/</id>
+    <link href="//wushxin.top/2015/05/29/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C-5.html"/>
+    <id>//wushxin.top/2015/05/29/我为什么学C-5.html</id>
     <published>2015-05-29T13:19:50.000Z</published>
     <updated>2015-06-06T14:46:48.104Z</updated>
     <content type="html"><![CDATA[<h4 id="更新于_2015/6/3_19:19:13">更新于 2015/6/3 19:19:13</h4><h4 id="0x08-C语言效率(下)">0x08-C语言效率(下)</h4><h4 id="注：存储器山就是对于不同步长不同大小文件的读取速率的三维坐标图，形似一座山，z轴为速率，x轴为步长，y轴为文件大小（字节），某些主流的测评软件便是这个原理(将存储器山的图像进行一下简单的变换，就能得到哪些软件呈现的效果图像)。">注：存储器山就是对于不同步长不同大小文件的读取速率的三维坐标图，形似一座山，<code>z</code>轴为速率，<code>x</code>轴为步长，<code>y</code>轴为文件大小（字节），某些主流的测评软件便是这个原理(将存储器山的图像进行一下简单的变换，就能得到哪些软件呈现的效果图像)。</h4><p>上文提到过，任何一点小改动，都有可能让程序的性能发生很大的变动，这是为什么？</p>
@@ -1758,8 +1846,8 @@ test_sig.Q_SendSignal(); <span class="comment">//发射信号</span>
   
   <entry>
     <title><![CDATA[我为什么学C(4)---效率(上)]]></title>
-    <link href="//wushxin.top/2015/05/20/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(4)/"/>
-    <id>//wushxin.top/2015/05/20/我为什么学C(4)/</id>
+    <link href="//wushxin.top/2015/05/20/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(4).html"/>
+    <id>//wushxin.top/2015/05/20/我为什么学C(4).html</id>
     <published>2015-05-20T03:06:38.000Z</published>
     <updated>2015-06-03T11:50:43.786Z</updated>
     <content type="html"><![CDATA[<h4 id="0x07-C语言效率(上)">0x07-C语言效率(上)</h4><h4 id="更新于_2015-05-23">更新于 2015-05-23</h4><p>大概所有学习C语言的初学者，都被前辈说过，C语言是世界上接近最速的编程语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 </p>
@@ -2000,8 +2088,8 @@ local_result = local_result + local_data[i] + local_data[i+<span class="number">
   
   <entry>
     <title><![CDATA[可视化Qt信号与槽]]></title>
-    <link href="//wushxin.top/2015/05/19/%E5%8F%AF%E8%A7%86%E5%8C%96Qt%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD/"/>
-    <id>//wushxin.top/2015/05/19/可视化Qt信号与槽/</id>
+    <link href="//wushxin.top/2015/05/19/%E5%8F%AF%E8%A7%86%E5%8C%96Qt%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD.html"/>
+    <id>//wushxin.top/2015/05/19/可视化Qt信号与槽.html</id>
     <published>2015-05-19T01:38:38.000Z</published>
     <updated>2015-06-12T12:52:32.538Z</updated>
     <content type="html"><![CDATA[<h2 id="Qt5_中的信号与槽">Qt5 中的信号与槽</h2><p>对于已经有了IDE的Qt而言，我们拥有更多的建立<strong>信号-槽</strong>方法的选择，但是作为一名自然人类，我们最喜欢的还是眼见为实，既然Qt为我们设计了 <strong>Qt Creator</strong>，那么我们就应该充分利用它，然而国内的教程大都停留在非可视化操作下，这里记录在 <strong>Qt Creator</strong> 下我们该如何设计一个<strong>信号-槽</strong>机制</p>
@@ -2102,8 +2190,8 @@ ui<span class="subst">-&gt;</span>button_name<span class="subst">-&gt;</span>set
   
   <entry>
     <title><![CDATA[我为什么学C(3)---预处理器]]></title>
-    <link href="//wushxin.top/2015/05/13/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(3)/"/>
-    <id>//wushxin.top/2015/05/13/我为什么学C(3)/</id>
+    <link href="//wushxin.top/2015/05/13/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(3).html"/>
+    <id>//wushxin.top/2015/05/13/我为什么学C(3).html</id>
     <published>2015-05-13T09:17:49.000Z</published>
     <updated>2015-06-03T11:50:20.405Z</updated>
     <content type="html"><![CDATA[<h2 id="本章更新于_2015-05-16">本章更新于 2015-05-16</h2><h4 id="0x06-C语言预处理器">0x06-C语言预处理器</h4><p><strong>预处理最大的标志便是大写，虽然这不是标准，但请你在使用的时候大写，为了自己，也为了后人。</strong></p>
@@ -2282,8 +2370,8 @@ puts(WHERE(x, <span class="keyword">__LINE__</span>)); <span class="comment">//x
   
   <entry>
     <title><![CDATA[我为什么学C(2)---指针]]></title>
-    <link href="//wushxin.top/2015/05/13/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(2)/"/>
-    <id>//wushxin.top/2015/05/13/我为什么学C(2)/</id>
+    <link href="//wushxin.top/2015/05/13/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(2).html"/>
+    <id>//wushxin.top/2015/05/13/我为什么学C(2).html</id>
     <published>2015-05-13T04:17:12.000Z</published>
     <updated>2015-06-22T01:46:39.833Z</updated>
     <content type="html"><![CDATA[<h2 id="本章更新于_2015-05-16">本章更新于 2015-05-16</h2><h4 id="0x05-C语言指针:(Volume-1)">0x05-C语言指针:(Volume-1)</h4><p>这似乎是一个很凝重的话题，但是它真的很有趣。</p>
@@ -2539,8 +2627,8 @@ vari_struct* vari_p_3 = <span class="built_in">malloc</span>(<span class="keywor
   
   <entry>
     <title><![CDATA[我为什么学C(1)---开篇]]></title>
-    <link href="//wushxin.top/2015/05/12/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(1)/"/>
-    <id>//wushxin.top/2015/05/12/我为什么学C(1)/</id>
+    <link href="//wushxin.top/2015/05/12/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(1).html"/>
+    <id>//wushxin.top/2015/05/12/我为什么学C(1).html</id>
     <published>2015-05-12T14:22:23.000Z</published>
     <updated>2015-06-22T01:33:14.181Z</updated>
     <content type="html"><![CDATA[<h1 id="我的C语言">我的C语言</h1><h2 id="本章更新于_2015/6/21_11:36:01">本章更新于 2015/6/21 11:36:01</h2><p><strong>正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域</strong></p>
@@ -2883,8 +2971,8 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
   
   <entry>
     <title><![CDATA[Linux下Qt5配置]]></title>
-    <link href="//wushxin.top/2015/05/10/Linux%E4%B8%8BQt5%E9%85%8D%E7%BD%AE/"/>
-    <id>//wushxin.top/2015/05/10/Linux下Qt5配置/</id>
+    <link href="//wushxin.top/2015/05/10/Linux%E4%B8%8BQt5%E9%85%8D%E7%BD%AE.html"/>
+    <id>//wushxin.top/2015/05/10/Linux下Qt5配置.html</id>
     <published>2015-05-09T23:48:55.000Z</published>
     <updated>2015-05-09T23:53:42.972Z</updated>
     <content type="html"><![CDATA[<h2 id="Linux_of_Qt5">Linux of Qt5</h2><p></p><p>在Ubuntu编译Qt5工程时出现了<br><br><code>can not find -lGL</code><br></p>
@@ -2904,8 +2992,8 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
   
   <entry>
     <title><![CDATA[Python-lib安装]]></title>
-    <link href="//wushxin.top/2015/05/10/Python-lib%E5%AE%89%E8%A3%85/"/>
-    <id>//wushxin.top/2015/05/10/Python-lib安装/</id>
+    <link href="//wushxin.top/2015/05/10/Python-lib%E5%AE%89%E8%A3%85.html"/>
+    <id>//wushxin.top/2015/05/10/Python-lib安装.html</id>
     <published>2015-05-09T23:48:28.000Z</published>
     <updated>2015-05-10T14:22:44.480Z</updated>
     <content type="html"><![CDATA[<h1 id="Python">Python</h1><h2 id="安装第三方库(Linux::Ubuntu_14-04_LTS)">安装第三方库(Linux::Ubuntu 14.04 LTS)</h2><p>   关于一个gui的库 SimpleGUICS2Pygame <br><br>   所有的命令均在 root 权限下执行 <br></p>
@@ -2939,8 +3027,8 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
   
   <entry>
     <title><![CDATA[Python学习笔记]]></title>
-    <link href="//wushxin.top/2015/05/10/Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    <id>//wushxin.top/2015/05/10/Python学习笔记/</id>
+    <link href="//wushxin.top/2015/05/10/Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html"/>
+    <id>//wushxin.top/2015/05/10/Python学习笔记.html</id>
     <published>2015-05-09T23:48:13.000Z</published>
     <updated>2015-05-10T14:17:51.926Z</updated>
     <content type="html"><![CDATA[<h2 id="Python学习笔记之基础">Python学习笔记之基础</h2><h3 id="Python缩进">Python缩进</h3><p>1. Python用相同缩进来代表同一个代码块，而某2些语言则是用花括号</p><br><p>2. 缩进最好使用四个空格，不要混用和使用Tab</p><br><p>3. 退出缩进多敲一个回车</p>
@@ -3083,8 +3171,8 @@ elif statemen<span class="variable">t:</span>
   
   <entry>
     <title><![CDATA[C++流操作(续)]]></title>
-    <link href="//wushxin.top/2015/05/10/C-%E6%B5%81%E6%93%8D%E4%BD%9C-%E7%BB%AD/"/>
-    <id>//wushxin.top/2015/05/10/C-流操作-续/</id>
+    <link href="//wushxin.top/2015/05/10/C-%E6%B5%81%E6%93%8D%E4%BD%9C-%E7%BB%AD.html"/>
+    <id>//wushxin.top/2015/05/10/C-流操作-续.html</id>
     <published>2015-05-09T23:47:59.000Z</published>
     <updated>2015-05-25T02:45:41.840Z</updated>
     <content type="html"><![CDATA[<h3 id="Ｃ++流的使用(续)">Ｃ++流的使用(续)</h3><h2 id="文件I/O">文件I/O</h2>   <p> 常用的基本方法是 <code>open()</code>,<code>c_str()</code>,<code>is_open()</code> 分别时连接文件,转为Ｃ风格字符串,是否连接文件成功 </p>
@@ -3163,8 +3251,8 @@ fout<span class="built_in">.</span>open();
   
   <entry>
     <title><![CDATA[C++流操作]]></title>
-    <link href="//wushxin.top/2015/05/10/C-%E6%B5%81%E6%93%8D%E4%BD%9C/"/>
-    <id>//wushxin.top/2015/05/10/C-流操作/</id>
+    <link href="//wushxin.top/2015/05/10/C-%E6%B5%81%E6%93%8D%E4%BD%9C.html"/>
+    <id>//wushxin.top/2015/05/10/C-流操作.html</id>
     <published>2015-05-09T23:47:37.000Z</published>
     <updated>2015-05-25T02:45:34.540Z</updated>
     <content type="html"><![CDATA[<h1 id="C++流的使用">C++流的使用</h1><h2 id="每次使用完流,记得要关闭,虽然有时候并不是必须的-">每次使用完流,记得要关闭,虽然有时候并不是必须的.</h2><p><code>streamname.close();</code></p>
@@ -3223,8 +3311,8 @@ fout<span class="built_in">.</span>open();
   
   <entry>
     <title><![CDATA[Hexo网站布置错误解决]]></title>
-    <link href="//wushxin.top/2015/05/09/Hexo%E7%BD%91%E7%AB%99%E5%B8%83%E7%BD%AE%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3/"/>
-    <id>//wushxin.top/2015/05/09/Hexo网站布置错误解决/</id>
+    <link href="//wushxin.top/2015/05/09/Hexo%E7%BD%91%E7%AB%99%E5%B8%83%E7%BD%AE%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3.html"/>
+    <id>//wushxin.top/2015/05/09/Hexo网站布置错误解决.html</id>
     <published>2015-05-09T12:10:30.000Z</published>
     <updated>2015-06-12T01:27:05.988Z</updated>
     <content type="html"><![CDATA[<h2 id="布置Hexo博客">布置Hexo博客</h2><h4 id="发布于Github_pages时的错误总结">发布于Github pages时的错误总结</h4><p>在布置一个个人博客的时候，我们总会遇到各种各样的错误，这里来总结一下，不记录那些常规步骤，因为网上特别多，搜集常见错误。</p>
