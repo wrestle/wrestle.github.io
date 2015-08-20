@@ -2373,7 +2373,7 @@ puts(WHERE(x, <span class="keyword">__LINE__</span>)); <span class="comment">//x
     <link href="//wushxin.top/2015/05/13/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(2).html"/>
     <id>//wushxin.top/2015/05/13/我为什么学C(2).html</id>
     <published>2015-05-13T04:17:12.000Z</published>
-    <updated>2015-06-22T01:46:39.833Z</updated>
+    <updated>2015-08-19T05:44:15.244Z</updated>
     <content type="html"><![CDATA[<h2 id="本章更新于_2015-05-16">本章更新于 2015-05-16</h2><h4 id="0x05-C语言指针:(Volume-1)">0x05-C语言指针:(Volume-1)</h4><p>这似乎是一个很凝重的话题，但是它真的很有趣。</p>
 <p><strong><em>1. 指针是指向某一类型的东西，任何一个整体，只要能称为整体就能拥有它自己的独一无二的指针类型，所以指针的类型其实是近似无穷无尽的</em></strong></p>
 <p><strong><em>2. 函数名在表达式中总是以函数指针的身份呈现，除了取地址运算符以及<code>sizeof</code></em></strong></p>
@@ -2444,7 +2444,7 @@ $: <span class="built_in">Now</span> the test_1 <span class="keyword">is</span> 
     *dest = <span class="number">2</span>* (*<span class="built_in">add</span>);<span class="comment">//在不确定优先级时用括号是一个明智的选择</span>
     <span class="keyword">return</span> *dest;
 }
-</code></pre><p>上述两个函数的功能一样吗？恩看起来是一昂的</p>
+</code></pre><p>上述两个函数的功能一样吗？恩看起来是一样的</p>
 <pre><code>int <span class="built_in">test</span>_3 = <span class="number">10</span>, <span class="built_in">test</span>_4 = <span class="number">100</span>;
 
 combine_1(&amp;<span class="built_in">test</span>_3, &amp;<span class="built_in">test</span>_4);
@@ -2452,7 +2452,9 @@ combine_1(&amp;<span class="built_in">test</span>_3, &amp;<span class="built_in"
 .../*恢复原值*/
 combine_2(&amp;<span class="built_in">test</span>_3, &amp;<span class="built_in">test</span>_4);
 <span class="built_in">printf</span>(<span class="string">"After combine_2, test_3 = %d\n"</span>,<span class="built_in">test</span>_3);
-</code></pre><p>输出<br><code>$: After combine_1, test_3 = 210</code><br><code>$: After combine_2, test_3 = 210</code></p>
+</code></pre><p>输出</p>
+<p><code>$: After combine_1, test_3 = 210</code></p>
+<p><code>$: After combine_2, test_3 = 210</code></p>
 <p>如果两数相等呢？</p>
 <pre><code>... /*恢复<span class="built_in">test</span>_3原值*/
 combine_1(&amp;<span class="built_in">test</span>_3, &amp;<span class="built_in">test</span>_3);
@@ -2460,8 +2462,13 @@ combine_1(&amp;<span class="built_in">test</span>_3, &amp;<span class="built_in"
 ...
 combine_2(&amp;<span class="built_in">test</span>_3, &amp;<span class="built_in">test</span>_3);
 <span class="built_in">printf</span>(<span class="string">"After second times combine_2, test_3 = %d\n"</span>,<span class="built_in">test</span>_3);
-</code></pre><p>输出<br><code>$: After second times combine_1, test_3 = 30</code><br><code>$: After second times combine_2, test_3 = 20</code><br>知道真相总是令人吃惊，指针也是那么令人又爱又恨。</p>
-<h5 id="关于数组的那些事">关于数组的那些事</h5><p>数组和指针一样吗？<br><br><strong>不一样</strong><br><br>要时刻记住，数组与指针是不同的东西。但是为什么下面代码是正确的？</p>
+</code></pre><p>输出</p>
+<p><code>$: After second times combine_1, test_3 = 30</code></p>
+<p><code>$: After second times combine_2, test_3 = 20</code></p>
+<p>知道真相总是令人吃惊，指针也是那么令人又爱又恨。</p>
+<h5 id="关于数组的那些事">关于数组的那些事</h5><p>数组和指针一样吗？</p>
+<p><strong>不一样</strong></p>
+<p>要时刻记住，数组与指针是不同的东西。但是为什么下面代码是正确的？</p>
 <pre><code><span class="keyword">int</span> arr[<span class="number">10</span>] = {<span class="number">10</span>, <span class="number">9</span>, <span class="number">8</span>, <span class="number">7</span>};
 <span class="keyword">int</span>* parr  = arr;
 </code></pre><p>我们还是那句话，结合上下文，编译器推出 ‘arr’处于赋值操作符的右侧，默默的将他转换为对应类型的指针，而我们在使用’arr’时也总是将其当成是指向该数组内存块首位的指针。</p>
