@@ -4,35 +4,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Python-lib安装 | WuShXin&#39;s fox</title>
+  <title>Archives: 2015/8 | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Python安装第三方库(Linux::Ubuntu 14.04 LTS)   关于一个gui的库 SimpleGUICS2Pygame    所有的命令均在 root 权限下执行 
-安装前提:
-使用easy_install 工具 apt-get install easy_install
-安装pip easy_install pip
-
-开始安装
-在 https://pypi.python.org/">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Python-lib安装">
-<meta property="og:url" content="//wushxin.top/2015/05/10/Python-lib安装.html">
+  <meta name="description" content="编程带来的不是回报而是心满意足">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WuShXin's fox">
+<meta property="og:url" content="//wushxin.top/archives/2015/08/index.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="Python安装第三方库(Linux::Ubuntu 14.04 LTS)   关于一个gui的库 SimpleGUICS2Pygame    所有的命令均在 root 权限下执行 
-安装前提:
-使用easy_install 工具 apt-get install easy_install
-安装pip easy_install pip
-
-开始安装
-在 https://pypi.python.org/">
+<meta property="og:description" content="编程带来的不是回报而是心满意足">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python-lib安装">
-<meta name="twitter:description" content="Python安装第三方库(Linux::Ubuntu 14.04 LTS)   关于一个gui的库 SimpleGUICS2Pygame    所有的命令均在 root 权限下执行 
-安装前提:
-使用easy_install 工具 apt-get install easy_install
-安装pip easy_install pip
-
-开始安装
-在 https://pypi.python.org/">
+<meta name="twitter:title" content="WuShXin's fox">
+<meta name="twitter:description" content="编程带来的不是回报而是心满意足">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -89,87 +71,39 @@
   </div>
 </header>
     <div class="outer">
-      <section id="main"><article id="post-Python-lib安装" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/05/10/Python-lib安装.html" class="article-date">
-  <time datetime="2015-05-09T23:48:28.000Z" itemprop="datePublished">2015-05-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+      <section id="main">
   
-    <h1 class="article-title" itemprop="name">
-      Python-lib安装
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2015" class="archive-year">2015</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2015/08/31/《我为什么学C》.html" class="archive-article-date">
+  <time datetime="2015-08-31T13:56:34.000Z" itemprop="datePublished">8月 31</time>
+</a>
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2015/08/31/《我为什么学C》.html">《我为什么学C》</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Python">Python</h1><h2 id="安装第三方库(Linux::Ubuntu_14-04_LTS)">安装第三方库(Linux::Ubuntu 14.04 LTS)</h2><p>   关于一个gui的库 SimpleGUICS2Pygame <br><br>   所有的命令均在 root 权限下执行 <br></p>
-<h3 id="安装前提:">安装前提:</h3><ol>
-<li>使用easy_install 工具 <code>apt-get install easy_install</code></li>
-<li>安装pip <code>easy_install pip</code></li>
-</ol>
-<h3 id="开始安装">开始安装</h3><ol>
-<li>在 <a href="https://pypi.python.org/pypi/SimpleGUICS2Pygame" target="_blank" rel="external">https://pypi.python.org/pypi/SimpleGUICS2Pygame</a> 下载.egg格式的安装包 <br></li>
-<li>使用命令 <code>easy_install name.egg #name.egg 为下载的第三方库的egg包名称</code></li>
-<li>我们这里可以使用 <code>easy_install *.egg #代表安装所有的egg包,方便快捷,不用输入完整的名字</code></li>
-<li>我们可以通过 <code>pip freeze</code> 查看所安装的包</li>
-</ol>
-<h3 id="使用错误">使用错误</h3><ul>
-<li><p>当我们 <code>import simplegui</code>时,却出现 <code>...importError: No module named simplegui</code> <br><br>此时,我们应该使用这个语句块替换: <br></p>
-<pre><code><span class="string">try:</span>
-    <span class="keyword">import</span> simplegui 
-<span class="string">except:</span>
-    <span class="keyword">import</span> SimpleGUICS2Pygame.simpleGUICS2Pygame <span class="keyword">as</span> simplegui
-</code></pre></li>
-</ul>
-<p>· 作者给出的解释是由于内部冲突所以会导致这种现象的产生</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="//wushxin.top/2015/05/10/Python-lib安装.html" data-id="cidzzzc8v000r80ltp1u6k72r" class="article-share-link" data-share="baidu" data-title="Python-lib安装">分享到</a>
-      
-
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2015/05/10/Linux下Qt5配置.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">
-        
-          Linux下Qt5配置
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2015/05/10/Python学习笔记.html" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">Python学习笔记</div>
-    </a>
-  
-</nav>
-
-  
 </article>
-
+  
+  
+    </div></section>
+  
 </section>
       
       <aside id="sidebar">

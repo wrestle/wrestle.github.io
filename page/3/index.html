@@ -73,6 +73,53 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-Linux下Qt5配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/10/Linux下Qt5配置.html" class="article-date">
+  <time datetime="2015-05-09T23:48:55.000Z" itemprop="datePublished">2015-05-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/10/Linux下Qt5配置.html">Linux下Qt5配置</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Linux_of_Qt5">Linux of Qt5</h2><p></p><p>在Ubuntu编译Qt5工程时出现了<br><br><code>can not find -lGL</code><br></p>
+<p></p><p>这是为什么?在Qt4时代并没有这种情况<br></p>
+<p></p><p>经过查找,发现Qt5在这个版本自动加入了openGL的支持,而有的平台并没有默认拥有<br><br><strong>(Windows默认有openGL,Linux却没有完全)<strong></strong></strong></p>
+<p></p><p>那么我们可以通过安装 <code>libglut-dev</code> 来进行修复<br><br><code>sudo apt-get install libglut-dev</code><br><br></p>
+<p></p><p>稍微解读一下也能知道-lGL==&gt;-linkopenGL的意思</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="//wushxin.top/2015/05/10/Linux下Qt5配置.html" data-id="cidzzzc9b001180lt75oabh35" class="article-share-link" data-share="baidu" data-title="Linux下Qt5配置">分享到</a>
+      
+
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Liunx/">Liunx</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Python-lib安装" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/05/10/Python-lib安装.html" class="article-date">
@@ -120,7 +167,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="//wushxin.top/2015/05/10/Python-lib安装.html" data-id="cidjv8rsb000or4ltoho69x83" class="article-share-link" data-share="baidu" data-title="Python-lib安装">分享到</a>
+        <a data-url="//wushxin.top/2015/05/10/Python-lib安装.html" data-id="cidzzzc8v000r80ltp1u6k72r" class="article-share-link" data-share="baidu" data-title="Python-lib安装">分享到</a>
       
 
       
@@ -177,7 +224,7 @@ elif statemen<span class="variable">t:</span>
     </div>
     <footer class="article-footer">
       
-        <a data-url="//wushxin.top/2015/05/10/Python学习笔记.html" data-id="cidjv8rs7000lr4ltjcn8b950" class="article-share-link" data-share="baidu" data-title="Python学习笔记">分享到</a>
+        <a data-url="//wushxin.top/2015/05/10/Python学习笔记.html" data-id="cidzzzc8v000o80lt0oj4sbib" class="article-share-link" data-share="baidu" data-title="Python学习笔记">分享到</a>
       
 
       
@@ -240,7 +287,7 @@ fout<span class="built_in">.</span>open();
     </div>
     <footer class="article-footer">
       
-        <a data-url="//wushxin.top/2015/05/10/C-流操作-续.html" data-id="cidjv8rt3001dr4lt1phtwynn" class="article-share-link" data-share="baidu" data-title="C++流操作(续)">分享到</a>
+        <a data-url="//wushxin.top/2015/05/10/C-流操作-续.html" data-id="cidzzzc9q001g80ltxl0fjiec" class="article-share-link" data-share="baidu" data-title="C++流操作(续)">分享到</a>
       
 
       
@@ -295,7 +342,7 @@ fout<span class="built_in">.</span>open();
     </div>
     <footer class="article-footer">
       
-        <a data-url="//wushxin.top/2015/05/10/C-流操作.html" data-id="cidjv8rt1001br4lte0eisjlx" class="article-share-link" data-share="baidu" data-title="C++流操作">分享到</a>
+        <a data-url="//wushxin.top/2015/05/10/C-流操作.html" data-id="cidzzzc9q001e80lttxyvrppa" class="article-share-link" data-share="baidu" data-title="C++流操作">分享到</a>
       
 
       
@@ -349,7 +396,7 @@ fout<span class="built_in">.</span>open();
     </div>
     <footer class="article-footer">
       
-        <a data-url="//wushxin.top/2015/05/09/Hexo网站布置错误解决.html" data-id="cidjv8rst0011r4lta1hbro6k" class="article-share-link" data-share="baidu" data-title="Hexo网站布置错误解决">分享到</a>
+        <a data-url="//wushxin.top/2015/05/09/Hexo网站布置错误解决.html" data-id="cidzzzc9b001480lti2u0i2sy" class="article-share-link" data-share="baidu" data-title="Hexo网站布置错误解决">分享到</a>
       
 
       
@@ -379,7 +426,7 @@ fout<span class="built_in">.</span>open();
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -388,7 +435,7 @@ fout<span class="built_in">.</span>open();
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/C/" style="font-size: 16.67px;">C</a><a href="/tags/Cpp/" style="font-size: 20px;">Cpp</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 13.33px;">Python</a><a href="/tags/Qt/" style="font-size: 13.33px;">Qt</a><a href="/tags/杂货居/" style="font-size: 16.67px;">杂货居</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
+      <a href="/tags/C/" style="font-size: 20px;">C</a><a href="/tags/Cpp/" style="font-size: 20px;">Cpp</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 15px;">Python</a><a href="/tags/Qt/" style="font-size: 15px;">Qt</a><a href="/tags/杂货居/" style="font-size: 20px;">杂货居</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
     </div>
   </div>
 
@@ -397,7 +444,7 @@ fout<span class="built_in">.</span>open();
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">12</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">12</span></li></ul>
     </div>
   </div>
 
@@ -407,6 +454,10 @@ fout<span class="built_in">.</span>open();
     <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/08/31/《我为什么学C》.html">《我为什么学C》</a>
+          </li>
         
           <li>
             <a href="/2015/07/21/Practical-cpp.html">Practical cpp</a>
@@ -422,10 +473,6 @@ fout<span class="built_in">.</span>open();
         
           <li>
             <a href="/2015/06/12/Qt记录.html">Qt记录</a>
-          </li>
-        
-          <li>
-            <a href="/2015/06/08/Opencv3配置.html">Opencv3.0.0配置</a>
           </li>
         
       </ul>

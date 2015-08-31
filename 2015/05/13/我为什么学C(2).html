@@ -194,6 +194,14 @@ combine_2(&amp;<span class="built_in">test</span>_3, &amp;<span class="built_in"
 <p><code>$: After second times combine_1, test_3 = 30</code></p>
 <p><code>$: After second times combine_2, test_3 = 20</code></p>
 <p>知道真相总是令人吃惊，指针也是那么令人又爱又恨。</p>
+<ul>
+<li><strong>C99</strong> 标准之后出现了一个新的关键字， <code>restrict</code>，被用于修饰指针，它并没有太多的显式作用，甚至加与不加，在 <strong>你自己</strong> 看来，效果毫无区别。但是反观标准库的代码中，许多地方都使用了该关键字，这是为何<ul>
+<li>首先这个关键字是写给编译器看的</li>
+<li>其次这个关键字的作用在于辅助编译器更好的优化该程序(后方文章会有介绍)</li>
+<li>最后，如果不熟悉，还是不要乱用。</li>
+</ul>
+</li>
+</ul>
 <h5 id="关于数组的那些事">关于数组的那些事</h5><p>数组和指针一样吗？</p>
 <p><strong>不一样</strong></p>
 <p>要时刻记住，数组与指针是不同的东西。但是为什么下面代码是正确的？</p>
@@ -230,7 +238,7 @@ int size_<span class="keyword">in</span>  = <span class="keyword">function</span
 <p>  <code>int dou_arr[5][3];</code><br>就这个二维数组而言，将5个每个为3个<code>int</code>类型的数组组合在一起，要想指向这个数组该怎么做？</p>
 <pre><code><span class="atom">int</span> (*<span class="atom">p</span>)[<span class="number">3</span>]        = &amp;<span class="atom">dou_arr</span>[<span class="number">0</span>];
 <span class="atom">int</span> (*<span class="atom">dou_p</span>)[<span class="number">5</span>][<span class="number">3</span>] = &amp;<span class="atom">dou_arr</span>;
-<span class="atom">int</span> (*<span class="atom">what_p</span>)[<span class="number">3</span>]  = <span class="atom">dou_arr</span>;
+<span class="atom">int</span> (*<span class="atom">what_p</span>)[<span class="number">3</span>]   = <span class="atom">dou_arr</span>;
 </code></pre><p>实际上多维数组只是将多个降一维的数组组合在一起，令索引时比较直观而已。当真正理解了内存的使用，反而会觉得多维数组带给自己更多限制<br>对于第三句的解释，当数组名出现在赋值号右侧时，它将是一个指针，类型则是 <strong>指向该数组元素的类型</strong>，而对于一个多维数组来说，其元素类型则是其降一维数组，即指向该降一维数组的指针类型。这个解释有点绕，自己动手写一写就好很多。</p>
 </li>
 </ul>
@@ -330,7 +338,7 @@ vari_struct* vari_p_3 = <span class="built_in">malloc</span>(<span class="keywor
     </div>
     <footer class="article-footer">
       
-        <a data-url="//wushxin.top/2015/05/13/我为什么学C(2).html" data-id="cidjv8rrx000ar4ltk1si29yb" class="article-share-link" data-share="baidu" data-title="我为什么学C(2)---指针">分享到</a>
+        <a data-url="//wushxin.top/2015/05/13/我为什么学C(2).html" data-id="cidzzzc8f000a80lted6u8gj5" class="article-share-link" data-share="baidu" data-title="我为什么学C(2)---指针">分享到</a>
       
 
       
@@ -374,7 +382,7 @@ vari_struct* vari_p_3 = <span class="built_in">malloc</span>(<span class="keywor
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -383,7 +391,7 @@ vari_struct* vari_p_3 = <span class="built_in">malloc</span>(<span class="keywor
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/C/" style="font-size: 16.67px;">C</a><a href="/tags/Cpp/" style="font-size: 20px;">Cpp</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 13.33px;">Python</a><a href="/tags/Qt/" style="font-size: 13.33px;">Qt</a><a href="/tags/杂货居/" style="font-size: 16.67px;">杂货居</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
+      <a href="/tags/C/" style="font-size: 20px;">C</a><a href="/tags/Cpp/" style="font-size: 20px;">Cpp</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 15px;">Python</a><a href="/tags/Qt/" style="font-size: 15px;">Qt</a><a href="/tags/杂货居/" style="font-size: 20px;">杂货居</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
     </div>
   </div>
 
@@ -392,7 +400,7 @@ vari_struct* vari_p_3 = <span class="built_in">malloc</span>(<span class="keywor
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">12</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">12</span></li></ul>
     </div>
   </div>
 
@@ -402,6 +410,10 @@ vari_struct* vari_p_3 = <span class="built_in">malloc</span>(<span class="keywor
     <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/08/31/《我为什么学C》.html">《我为什么学C》</a>
+          </li>
         
           <li>
             <a href="/2015/07/21/Practical-cpp.html">Practical cpp</a>
@@ -417,10 +429,6 @@ vari_struct* vari_p_3 = <span class="built_in">malloc</span>(<span class="keywor
         
           <li>
             <a href="/2015/06/12/Qt记录.html">Qt记录</a>
-          </li>
-        
-          <li>
-            <a href="/2015/06/08/Opencv3配置.html">Opencv3.0.0配置</a>
           </li>
         
       </ul>

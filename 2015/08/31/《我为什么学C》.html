@@ -4,35 +4,74 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Python-lib安装 | WuShXin&#39;s fox</title>
+  <title>《我为什么学C》 | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Python安装第三方库(Linux::Ubuntu 14.04 LTS)   关于一个gui的库 SimpleGUICS2Pygame    所有的命令均在 root 权限下执行 
-安装前提:
-使用easy_install 工具 apt-get install easy_install
-安装pip easy_install pip
+  <meta name="description" content="集结成电子书 《Real C》目录
+介绍
+第一部分
+前序
+序
+C代码风格
+C代码规范
+变量
 
-开始安装
-在 https://pypi.python.org/">
+
+第二部分
+指针(上)
+指针(下)
+预处理器
+效率至上(上)
+效率至上(下)
+
+
+第三部分(待续)
+实用C语言技巧">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python-lib安装">
-<meta property="og:url" content="//wushxin.top/2015/05/10/Python-lib安装.html">
+<meta property="og:title" content="《我为什么学C》">
+<meta property="og:url" content="//wushxin.top/2015/08/31/《我为什么学C》.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="Python安装第三方库(Linux::Ubuntu 14.04 LTS)   关于一个gui的库 SimpleGUICS2Pygame    所有的命令均在 root 权限下执行 
-安装前提:
-使用easy_install 工具 apt-get install easy_install
-安装pip easy_install pip
+<meta property="og:description" content="集结成电子书 《Real C》目录
+介绍
+第一部分
+前序
+序
+C代码风格
+C代码规范
+变量
 
-开始安装
-在 https://pypi.python.org/">
+
+第二部分
+指针(上)
+指针(下)
+预处理器
+效率至上(上)
+效率至上(下)
+
+
+第三部分(待续)
+实用C语言技巧">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python-lib安装">
-<meta name="twitter:description" content="Python安装第三方库(Linux::Ubuntu 14.04 LTS)   关于一个gui的库 SimpleGUICS2Pygame    所有的命令均在 root 权限下执行 
-安装前提:
-使用easy_install 工具 apt-get install easy_install
-安装pip easy_install pip
+<meta name="twitter:title" content="《我为什么学C》">
+<meta name="twitter:description" content="集结成电子书 《Real C》目录
+介绍
+第一部分
+前序
+序
+C代码风格
+C代码规范
+变量
 
-开始安装
-在 https://pypi.python.org/">
+
+第二部分
+指针(上)
+指针(下)
+预处理器
+效率至上(上)
+效率至上(下)
+
+
+第三部分(待续)
+实用C语言技巧">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -89,10 +128,10 @@
   </div>
 </header>
     <div class="outer">
-      <section id="main"><article id="post-Python-lib安装" class="article article-type-post" itemscope itemprop="blogPost">
+      <section id="main"><article id="post-《我为什么学C》" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/05/10/Python-lib安装.html" class="article-date">
-  <time datetime="2015-05-09T23:48:28.000Z" itemprop="datePublished">2015-05-10</time>
+    <a href="/2015/08/31/《我为什么学C》.html" class="article-date">
+  <time datetime="2015-08-31T13:56:34.000Z" itemprop="datePublished">2015-08-31</time>
 </a>
     
   </div>
@@ -103,7 +142,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Python-lib安装
+      《我为什么学C》
     </h1>
   
 
@@ -111,38 +150,41 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Python">Python</h1><h2 id="安装第三方库(Linux::Ubuntu_14-04_LTS)">安装第三方库(Linux::Ubuntu 14.04 LTS)</h2><p>   关于一个gui的库 SimpleGUICS2Pygame <br><br>   所有的命令均在 root 权限下执行 <br></p>
-<h3 id="安装前提:">安装前提:</h3><ol>
-<li>使用easy_install 工具 <code>apt-get install easy_install</code></li>
-<li>安装pip <code>easy_install pip</code></li>
-</ol>
-<h3 id="开始安装">开始安装</h3><ol>
-<li>在 <a href="https://pypi.python.org/pypi/SimpleGUICS2Pygame" target="_blank" rel="external">https://pypi.python.org/pypi/SimpleGUICS2Pygame</a> 下载.egg格式的安装包 <br></li>
-<li>使用命令 <code>easy_install name.egg #name.egg 为下载的第三方库的egg包名称</code></li>
-<li>我们这里可以使用 <code>easy_install *.egg #代表安装所有的egg包,方便快捷,不用输入完整的名字</code></li>
-<li>我们可以通过 <code>pip freeze</code> 查看所安装的包</li>
-</ol>
-<h3 id="使用错误">使用错误</h3><ul>
-<li><p>当我们 <code>import simplegui</code>时,却出现 <code>...importError: No module named simplegui</code> <br><br>此时,我们应该使用这个语句块替换: <br></p>
-<pre><code><span class="string">try:</span>
-    <span class="keyword">import</span> simplegui 
-<span class="string">except:</span>
-    <span class="keyword">import</span> SimpleGUICS2Pygame.simpleGUICS2Pygame <span class="keyword">as</span> simplegui
-</code></pre></li>
+        <h4 id="集结成电子书_《Real_C》">集结成电子书 《<a href="http://wrestle.gitbooks.io/whyilearnc/" target="_blank" rel="external">Real C</a>》</h4><h4 id="目录">目录</h4><ul>
+<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/" target="_blank" rel="external">介绍</a></li>
+<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-0/Seperate-0.html" target="_blank" rel="external">第一部分</a><ul>
+<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-0/00.html" target="_blank" rel="external">前序</a></li>
+<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-0/01.html" target="_blank" rel="external">序</a></li>
+<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-0/02.html" target="_blank" rel="external">C代码风格</a></li>
+<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-0/04.html" target="_blank" rel="external">C代码规范</a></li>
+<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-0/03.html" target="_blank" rel="external">变量</a></li>
 </ul>
-<p>· 作者给出的解释是由于内部冲突所以会导致这种现象的产生</p>
+</li>
+<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-1/Seperate-1.html" target="_blank" rel="external">第二部分</a><ul>
+<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-1/10.html" target="_blank" rel="external">指针(上)</a></li>
+<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-1/11.html" target="_blank" rel="external">指针(下)</a></li>
+<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-1/12.html" target="_blank" rel="external">预处理器</a></li>
+<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-1/13.html" target="_blank" rel="external">效率至上(上)</a></li>
+<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-1/14.html" target="_blank" rel="external">效率至上(下)</a></li>
+</ul>
+</li>
+<li><a href="#">第三部分(待续)</a><ul>
+<li>实用C语言技巧 </li>
+</ul>
+</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="//wushxin.top/2015/05/10/Python-lib安装.html" data-id="cidzzzc8v000r80ltp1u6k72r" class="article-share-link" data-share="baidu" data-title="Python-lib安装">分享到</a>
+        <a data-url="//wushxin.top/2015/08/31/《我为什么学C》.html" data-id="cidzzzc8f000h80ltwcq2xra5" class="article-share-link" data-share="baidu" data-title="《我为什么学C》">分享到</a>
       
 
       
 
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li></ul>
 
     </footer>
   </div>
@@ -150,19 +192,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/05/10/Linux下Qt5配置.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">
-        
-          Linux下Qt5配置
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/05/10/Python学习笔记.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/07/21/Practical-cpp.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">Python学习笔记</div>
+      <div class="article-nav-title">Practical cpp</div>
     </a>
   
 </nav>
