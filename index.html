@@ -110,52 +110,12 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
 deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse</span>
 deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse</span>
 </code></pre></li>
-<li><p><strong>Ubuntu 15.04</strong> 的163源应该是：</p>
-<pre><code>deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid main restricted universe multiverse</span>
-deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-security main restricted universe multiverse</span>
-deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-updates main restricted universe multiverse</span>
-eb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-proposed main restricted universe multiverse</span>
-deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-backports main restricted universe multiverse</span>
-deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid main restricted universe multiverse</span>
-deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-security main restricted universe multiverse</span>
-deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-updates main restricted universe multiverse</span>
-deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-proposed main restricted universe multiverse</span>
-deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-backports main restricted universe multiverse</span>
-</code></pre><p>区别就在于源中的 <strong>vivid 和 trusty</strong><br>相应的其他版本亦有自己的代号，详情<a href="http://wiki.ubuntu.org.cn/Qref/Source" target="_blank" rel="external">请见此处</a></p>
-</li>
-<li><p>根据中文 <a href="http://wiki.ubuntu.org.cn" target="_blank" rel="external">Ubuntu官网</a> 提供的信息，有些源已经无法被公众使用。(本文此处更新于2015/09/20)</p>
-<ul>
-<li><p>完全失效的服务器：      </p>
-<ul>
-<li>青岛大学更新服务器（教育网/山东青岛移动专线双线服务器），由 OSQDU维护，位于青岛大学。包含开源镜像和Opera、马克思主义文库等其他镜像。<ul>
-<li>Geekbone.org更新服务器（上海电信服务器，由 SHLUG /上海Linux用户群维护）,现跳转至搜狐服务器。</li>
-<li>由Love4Taylor维护的开源镜像站，位于香港新世界电讯有限公司CDN节点上，包含Deepin 镜像，可能包含其它开源镜像。 </li>
-<li>上述服务器部分可能改为校内/地区访问。 </li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>部分失效的服务器</li>
-<li>西南大学开源社区维护的西南大学镜像中已经取消了主要发行版镜像，但有一些学习资源。</li>
-<li>由电子科技大学Linux 用户组维护的UESTC LUG软件源中包含其它发行版的镜像。</li>
-<li>由电子科技大学学生之家维护的电子科大星辰工作室镜像中已经取消了 Ubuntu 镜像，但有其它发行版的镜像。</li>
-<li>由We·Cloud云技术小组维护的大连东软信息学院的We - 开源镜像站中已经取消了 Ubuntu 镜像，但有Ubuntu 光盘镜像和其它发行版。</li>
-<li>由西南林业大学计信学院维护的西南林大镜像中已经取消了 Ubuntu 镜像，但有其它发行版的镜像。</li>
-<li>由LUPA开源社区维护的LupaWorld更新服务器（浙江杭州电信/联通双线服务器）中已经取消了 Ubuntu 镜像，但有其它发行版的镜像。 </li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Linux_of_Qt5">Linux of Qt5</h2><p>在Ubuntu编译Qt5工程时出现了 </p>
-<p><code>can not find -lGL</code></p>
-<p>这是为什么?在Qt4时代并没有这种情况</p>
-<p>经过查找,发现<strong>Qt5在这个版本自动加入了openGL的支持</strong>,而有的平台并没有默认拥有</p>
-<p><strong>(Windows默认有openGL,Linux却没有完全)</strong></p>
-<p>可以通过安装 <code>libglut-dev</code> 来进行修复</p>
-<p><code>sudo apt-get install libglut-dev</code></p>
-<p>稍微解读一下也能知道<code>-lGL==&gt;-linkopenGL</code>的意思</p>
-
+<li><p><strong>Ubuntu 15.04</strong> 的163源应该是：
+        
+          <p class="article-more-link">
+            <a href="/2015/09/20/Linux记录.html#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">

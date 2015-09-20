@@ -7,17 +7,23 @@
   <title>C++流操作 | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="C++流的使用每次使用完流,记得要关闭,虽然有时候并不是必须的.streamname.close();
-重定向   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源       ~$ program ‘&amp;lt;’input.filetype &amp;gt;output.filetype #去掉多余的’’       在Linux和Unix下,’&amp;gt;’ ‘&amp;lt;’">
+重定向   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源
+   ~$ program &amp;lt;input.filetype&amp;gt;output.filetype 
+   在Linux和Unix下, &amp;gt; &amp;lt; 默认是标准输出和标准输入, 2&amp;gt;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++流操作">
 <meta property="og:url" content="//wushxin.top/2015/05/10/C-流操作.html">
 <meta property="og:site_name" content="WuShXin's fox">
 <meta property="og:description" content="C++流的使用每次使用完流,记得要关闭,虽然有时候并不是必须的.streamname.close();
-重定向   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源       ~$ program ‘&amp;lt;’input.filetype &amp;gt;output.filetype #去掉多余的’’       在Linux和Unix下,’&amp;gt;’ ‘&amp;lt;’">
+重定向   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源
+   ~$ program &amp;lt;input.filetype&amp;gt;output.filetype 
+   在Linux和Unix下, &amp;gt; &amp;lt; 默认是标准输出和标准输入, 2&amp;gt;">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++流操作">
 <meta name="twitter:description" content="C++流的使用每次使用完流,记得要关闭,虽然有时候并不是必须的.streamname.close();
-重定向   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源       ~$ program ‘&amp;lt;’input.filetype &amp;gt;output.filetype #去掉多余的’’       在Linux和Unix下,’&amp;gt;’ ‘&amp;lt;’">
+重定向   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源
+   ~$ program &amp;lt;input.filetype&amp;gt;output.filetype 
+   在Linux和Unix下, &amp;gt; &amp;lt; 默认是标准输出和标准输入, 2&amp;gt;">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -97,41 +103,72 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="C++流的使用">C++流的使用</h1><h2 id="每次使用完流,记得要关闭,虽然有时候并不是必须的-">每次使用完流,记得要关闭,虽然有时候并不是必须的.</h2><p><code>streamname.close();</code></p>
-<h2 id="重定向">重定向</h2><p>   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源 <br><br>   <pre><code><br>   ~$ program ‘&lt;’input.filetype &gt;output.filetype #去掉多余的’’<br>   </code></pre><br>   <br> 在Linux和Unix下,’&gt;’ ‘&lt;’默认是标准输出和标准输入,’2&gt;’则是标准错误(即std::cerr)</p>
-<h2 id="输出流">输出流</h2><p>   <br>1. ostream类提供了 put() 和 write() 方法用来输出 <br></p>
+<h2 id="重定向">重定向</h2><p>   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源</p>
+<p>   <code>~$ program &lt;input.filetype&gt;output.filetype</code> </p>
+<p>   在Linux和Unix下, <code>&gt;</code> <code>&lt;</code> 默认是标准输出和标准输入, <code>2&gt;</code> 则是标准错误(即<code>std::cerr</code>)</p>
+<h2 id="输出流">输出流</h2><ol>
+<li><p><code>ostream</code> 类提供了 <code>put()</code> 和 <code>write()</code> 方法用来输出 </p>
 <pre><code><span class="built_in">cout</span>.put(<span class="string">'W'</span>); <span class="comment">//输出字符Ｗ,可以拼接使用就像重载之后的 '&lt;&lt;'</span>
 <span class="built_in">cout</span>.write(<span class="string">"Candy Bob"</span>,<span class="number">5</span>); <span class="comment">//输出第一个参数的第二个参数个长度</span>
-</code></pre><p>   <br>2. 刷新输出缓冲区可以有两种方法,原理都是重载 ‘&lt;&lt;’ <br><br>   <br>   前者与后者的差别就在与后者刷新缓冲区后多了一个换行操作 <br></p>
+</code></pre></li>
+<li><p>刷新输出缓冲区可以有两种方法,原理都是重载 <code>&lt;&lt;</code> </p>
+<ul>
+<li><p>前者与后者的差别就在与后者刷新缓冲区后多了一个换行操作</p>
 <pre><code><span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; flush; <span class="comment">//相当于flush(cout);</span>
 <span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; endl;  
-</code></pre><p>   <br>3. 可以通过流操作修改现实的进制, 默认十进制,十六进制,八进制 <br><br><a id="more"></a><br>      int n = 100;<br>      cout &lt;&lt; n &lt;&lt; endl;<br>      //八进制<br>      cout &lt;&lt; oct &lt;&lt; n &lt;&lt; endl;<br>      //十六进制<br>      cout &lt;&lt; hex &lt;&lt; n &lt;&lt; endl;<br>      //这种作用是持久的,在不用的时候记得转换回来<br>      dec(cout); //代表转换为十进制 cout &lt;&lt; dec;同样适用  </p>
-<p>   <br>4. 我们可以调整字段宽度来达到美观,但Ｃ++有一种数据完整大于美观的理念,所以即使你设置了字段宽度,一旦超过还是会<br>        打乱阵型,以保证数据的完整性.<br>   <br></p>
+</code></pre></li>
+</ul>
+</li>
+<li><p>可以通过流操作修改现实的进制, 默认十进制,十六进制,八进制 <br></p>
+<a id="more"></a>
+<pre><code><span class="keyword">int</span> n = <span class="number">100</span>;
+<span class="built_in">cout</span> &lt;&lt; n &lt;&lt; endl;
+<span class="comment">//八进制</span>
+<span class="built_in">cout</span> &lt;&lt; oct &lt;&lt; n &lt;&lt; endl;
+<span class="comment">//十六进制</span>
+<span class="built_in">cout</span> &lt;&lt; hex &lt;&lt; n &lt;&lt; endl;
+<span class="comment">//这种作用是持久的,在不用的时候记得转换回来</span>
+dec(<span class="built_in">cout</span>); <span class="comment">//代表转换为十进制 cout &lt;&lt; dec;同样适用  </span>
+</code></pre></li>
+<li><p>我们可以调整字段宽度来达到美观,但Ｃ++有一种数据完整大于美观的理念,所以即使你设置了字段宽度,一旦超过还是会打乱阵型,以保证数据的完整性.</p>
 <pre><code><span class="built_in">cout</span>.fill(<span class="string">'*'</span>);<span class="comment">//使用'*'填充空白,注意此为持久的.</span>
 <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">100</span>;i*=<span class="number">10</span>)
 {
-  <span class="built_in">cout</span>.width(<span class="number">5</span>);
-  <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">":"</span>;
-  <span class="built_in">cout</span>.width(<span class="number">8</span>);
-  <span class="built_in">cout</span> &lt;&lt; i * i &lt;&lt; endl;
+<span class="built_in">cout</span>.width(<span class="number">5</span>);
+<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">":"</span>;
+<span class="built_in">cout</span>.width(<span class="number">8</span>);
+<span class="built_in">cout</span> &lt;&lt; i * i &lt;&lt; endl;
 }<span class="comment">//注意，width()方法并不是持久的,也就是说每次排版都需要使用一次该方法.</span>
-</code></pre><p>   <br>5. 浮点数的使用 <br></p>
+</code></pre></li>
+<li><p>浮点数的使用 <br></p>
 <pre><code><span class="built_in">cout</span>.precision(<span class="number">2</span>);<span class="comment">//设置浮点数的精度为2,Ｃ++默认六位精度,但不显示末尾的0.</span>
 <span class="built_in">cout</span>.setf(ios_base::showpoint);<span class="comment">//显示末尾的零</span>
-</code></pre><h2 id="输入流">输入流</h2><p>   <br> cin检查输入: 当读取到的流和指定的类型不符合的时候,不符合的流中的数据被保留,留待下一次读取.并返回flase<br>       可以使用while语句进行判断 <br></p>
+</code></pre><h2 id="输入流">输入流</h2></li>
+</ol>
+<ul>
+<li><p><code>cin</code> 检查输入: 当读取到的流和指定的类型不符合的时候,不符合的流中的数据被保留,留待下一次读取.并返回<code>flase</code>, 可以使用 <code>while</code> 语句进行判断 <br></p>
 <pre><code>int <span class="keyword">input</span>, <span class="keyword">sum</span>;
 <span class="keyword">while</span>(cin &gt;&gt; <span class="keyword">input</span>)
 <span class="keyword">sum</span> += <span class="keyword">input</span>;
-</code></pre><p>   <br> 当流由于输入不匹配失败时,发生的问题十分复杂,简述为位设置问题,使用下列代码恢复 <br></p>
+</code></pre></li>
+<li><p>当流由于输入不匹配失败时,发生的问题十分复杂,简述为位设置问题,使用下列代码恢复</p>
 <pre><code><span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; input)
-   sum += input;
+    sum += input;
 <span class="keyword">if</span>(<span class="built_in">cin</span>.fail() &amp;&amp; !<span class="built_in">cin</span>.eof())
 {
-   <span class="built_in">cin</span>.clear();              <span class="comment">//重置流状态,但此时还是有残余留在流中</span>
-   <span class="keyword">while</span>(!<span class="built_in">isspace</span>(<span class="built_in">cin</span>.get()))<span class="comment">//丢弃那些残留在流中妨碍下一次输入的不符合的输入</span>
-         <span class="keyword">continue</span>;           <span class="comment">//头文件 cctype</span>
+<span class="built_in">cin</span>.clear();              <span class="comment">//重置流状态,但此时还是有残余留在流中</span>
+<span class="keyword">while</span>(!<span class="built_in">isspace</span>(<span class="built_in">cin</span>.get()))<span class="comment">//丢弃那些残留在流中妨碍下一次输入的不符合的输入</span>
+    <span class="keyword">continue</span>;           <span class="comment">//头文件 cctype</span>
 }
 <span class="built_in">cin</span> &gt;&gt; input; <span class="comment">//现在可以继续输入了</span>
-</code></pre><p>   <br> 字符串的输入:<code>get(char*, int)</code> 和 <code>getline(char*, int)</code> <br><br>   <br> get读取少于第二个参数减1个或遇见换行符,并将换行符留在流中,getline则将换行符抽取并丢弃<br><br>   <br> <code>get(char*, int, char)</code> 和 <code>getline(char*, int, char)</code> <br><br>   <br> 第三个参数则是分界符,读取到分界符号时停止读取. <br></p>
+</code></pre></li>
+<li><p>字符串的输入: <code>get(char*, int)</code> 和 <code>getline(char*, int)</code> </p>
+<pre><code>- get读取少于第二个参数减<span class="number">1</span>个或遇见换行符,并将换行符留在流中,<span class="escape">`g</span>etline<span class="escape">`则</span>将换行符抽取并丢弃
+</code></pre></li>
+<li><p><code>get(char*, int, char)</code> 和 <code>getline(char*, int, char)</code> </p>
+<pre><code><span class="bullet">- </span>第三个参数则是分界符,读取到分界符号时停止读取. 
+</code></pre></li>
+</ul>
 
       
     </div>

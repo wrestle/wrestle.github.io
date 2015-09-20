@@ -120,7 +120,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
 deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse</span>
 deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse</span>
 </code></pre></li>
-<li><p><strong>Ubuntu 15.04</strong> 的163源应该是：</p>
+<li><p><strong>Ubuntu 15.04</strong> 的163源应该是：<a id="more"></a></p>
 <pre><code>deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid main restricted universe multiverse</span>
 deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-security main restricted universe multiverse</span>
 deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-updates main restricted universe multiverse</span>
@@ -151,10 +151,14 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
 <li>由电子科技大学学生之家维护的电子科大星辰工作室镜像中已经取消了 Ubuntu 镜像，但有其它发行版的镜像。</li>
 <li>由We·Cloud云技术小组维护的大连东软信息学院的We - 开源镜像站中已经取消了 Ubuntu 镜像，但有Ubuntu 光盘镜像和其它发行版。</li>
 <li>由西南林业大学计信学院维护的西南林大镜像中已经取消了 Ubuntu 镜像，但有其它发行版的镜像。</li>
-<li>由LUPA开源社区维护的LupaWorld更新服务器（浙江杭州电信/联通双线服务器）中已经取消了 Ubuntu 镜像，但有其它发行版的镜像。 </li>
+<li>由LUPA开源社区维护的LupaWorld更新服务器（浙江杭州电信/联通双线服务器）中已经取消了 Ubuntu 镜像，但有其它发行版的镜像。 <h2 id="update_&amp;&amp;_upgrade">update &amp;&amp; upgrade</h2></li>
 </ul>
 </li>
 </ul>
+</li>
+<li><p>这大概是最熟悉的两个参数之一，但是经常看见类似如此错误：<br><code>0 upgraded, 0 newly installed, 0 to remove and 3 not upgraded</code></p>
+</li>
+<li><p><code>not upgraded</code> 的解决办法是: ·<br><code>$ sudo apt-get -u dist-upgrade</code></p>
 </li>
 </ul>
 <h2 id="Linux_of_Qt5">Linux of Qt5</h2><p>在Ubuntu编译Qt5工程时出现了 </p>

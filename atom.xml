@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-09-20T01:04:44.152Z</updated>
+  <updated>2015-09-20T01:23:19.132Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/09/20/Linux%E8%AE%B0%E5%BD%95.html"/>
     <id>//wushxin.top/2015/09/20/Linux记录.html</id>
     <published>2015-09-20T00:33:33.000Z</published>
-    <updated>2015-09-20T01:04:44.152Z</updated>
+    <updated>2015-09-20T01:23:19.132Z</updated>
     <content type="html"><![CDATA[<h2 id="源">源</h2><ul>
 <li>因为国内的原因，没有办法直接使用官方的源，速度有时候会过慢，在高校内部的人可以回比外边更好一些</li>
 <li>而经常出现是根据网上搜索(百度)，出来的结果，大都是直接换源，导致很多错误例如 <code>Some Index fail to ...</code> 之类的错误，这是由于每个版本的 Linux 的源都有细微的差别。以最有名的基于 <strong>Debian</strong> 的 <code>Ubuntu</code> 为例子</li>
@@ -36,7 +36,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
 deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse</span>
 deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse</span>
 </code></pre></li>
-<li><p><strong>Ubuntu 15.04</strong> 的163源应该是：</p>
+<li><p><strong>Ubuntu 15.04</strong> 的163源应该是：<a id="more"></a></p>
 <pre><code>deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid main restricted universe multiverse</span>
 deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-security main restricted universe multiverse</span>
 deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-updates main restricted universe multiverse</span>
@@ -67,10 +67,14 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
 <li>由电子科技大学学生之家维护的电子科大星辰工作室镜像中已经取消了 Ubuntu 镜像，但有其它发行版的镜像。</li>
 <li>由We·Cloud云技术小组维护的大连东软信息学院的We - 开源镜像站中已经取消了 Ubuntu 镜像，但有Ubuntu 光盘镜像和其它发行版。</li>
 <li>由西南林业大学计信学院维护的西南林大镜像中已经取消了 Ubuntu 镜像，但有其它发行版的镜像。</li>
-<li>由LUPA开源社区维护的LupaWorld更新服务器（浙江杭州电信/联通双线服务器）中已经取消了 Ubuntu 镜像，但有其它发行版的镜像。 </li>
+<li>由LUPA开源社区维护的LupaWorld更新服务器（浙江杭州电信/联通双线服务器）中已经取消了 Ubuntu 镜像，但有其它发行版的镜像。 <h2 id="update_&amp;&amp;_upgrade">update &amp;&amp; upgrade</h2></li>
 </ul>
 </li>
 </ul>
+</li>
+<li><p>这大概是最熟悉的两个参数之一，但是经常看见类似如此错误：<br><code>0 upgraded, 0 newly installed, 0 to remove and 3 not upgraded</code></p>
+</li>
+<li><p><code>not upgraded</code> 的解决办法是: ·<br><code>$ sudo apt-get -u dist-upgrade</code></p>
 </li>
 </ul>
 <h2 id="Linux_of_Qt5">Linux of Qt5</h2><p>在Ubuntu编译Qt5工程时出现了 </p>
@@ -85,7 +89,21 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
     <summary type="html">
     <![CDATA[<h2 id="源">源</h2><ul>
 <li>因为国内的原因，没有办法直接使用官方的源，速度有时候会过慢，在高校内部的人可以回比外边更好一些</li>
-<li>而经常出现是根据网上搜索(百度)，出来的结果，大都是直接换源，导致很多错误例如 <code>Some Index ]]>
+<li>而经常出现是根据网上搜索(百度)，出来的结果，大都是直接换源，导致很多错误例如 <code>Some Index fail to ...</code> 之类的错误，这是由于每个版本的 Linux 的源都有细微的差别。以最有名的基于 <strong>Debian</strong> 的 <code>Ubuntu</code> 为例子</li>
+<li><p>例如<strong>Ubuntu 14.04</strong> 的163源应该是：</p>
+<pre><code>deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty main restricted universe multiverse</span>
+deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse</span>
+deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse</span>
+deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse</span>
+deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse</span>
+deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty main restricted universe multiverse</span>
+deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse</span>
+deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse</span>
+deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse</span>
+deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse</span>
+</code></pre></li>
+<li><p><strong>Ubuntu 15.04</strong> 的163源应该是：]]>
+    
     </summary>
     
       <category term="Linux" scheme="//wushxin.top/tags/Linux/"/>
@@ -3296,74 +3314,111 @@ elif statemen<span class="variable">t:</span>
     <link href="//wushxin.top/2015/05/10/C-%E6%B5%81%E6%93%8D%E4%BD%9C-%E7%BB%AD.html"/>
     <id>//wushxin.top/2015/05/10/C-流操作-续.html</id>
     <published>2015-05-09T23:47:59.000Z</published>
-    <updated>2015-05-25T02:45:41.840Z</updated>
-    <content type="html"><![CDATA[<h3 id="Ｃ++流的使用(续)">Ｃ++流的使用(续)</h3><h2 id="文件I/O">文件I/O</h2>   <p> 常用的基本方法是 <code>open()</code>,<code>c_str()</code>,<code>is_open()</code> 分别时连接文件,转为Ｃ风格字符串,是否连接文件成功 </p>
-
-<pre><code><span class="variable">#include</span> <span class="string">`&lt;fstream&gt;`</span> <span class="comment">//此头文件已经包含了iostream</span>
-<span class="attribute">...</span>
-<span class="built_in">string</span> cppstr1 <span class="subst">=</span> <span class="string">"input.txt"</span>, cppstr2 <span class="subst">=</span> <span class="string">"output.txt"</span>;
-<span class="attribute">...</span>
+    <updated>2015-09-20T02:43:04.458Z</updated>
+    <content type="html"><![CDATA[<h3 id="Ｃ++流的使用(续)">Ｃ++流的使用(续)</h3><h2 id="文件I/O">文件I/O</h2><ul>
+<li><p>常用的基本方法是 <code>open()</code>,<code>c_str()</code>,<code>is_open()</code> 分别时连接文件,转为Ｃ风格字符串,是否连接文件成功 </p><p></p>
+<pre><code><span class="preprocessor">#<span class="keyword">include</span> &lt;fstream&gt; <span class="comment">//此头文件已经包含了iostream</span></span>
+...
+<span class="built_in">string</span> cppstr1 = <span class="string">"input.txt"</span>, cppstr2 = <span class="string">"output.txt"</span>;
+...
 ifstream fin;      <span class="comment">//任意命名</span>
 ofstream fout;
-fin<span class="built_in">.</span>open(cppstr1<span class="built_in">.</span><span class="string">`c_str()`</span>);
-<span class="keyword">if</span>(<span class="subst">!</span>fin<span class="built_in">.</span><span class="string">`is_open()`</span>)
+fin.open(cppstr1.c_str());
+<span class="keyword">if</span>(!fin.is_open())
 {
-cerr <span class="subst">&lt;&lt;</span> <span class="string">"..."</span>;
-<span class="keyword">return</span> <span class="subst">-</span><span class="number">1</span>;
+<span class="built_in">cerr</span> &lt;&lt; <span class="string">"..."</span>;
+<span class="keyword">return</span> -<span class="number">1</span>;
 }
-fout<span class="built_in">.</span>open();
-<span class="attribute">...</span>
-</code></pre>   <p> 使用命令行参数的使用 </p> <a id="more"></a><br>   <p><code>int main(int argc, char* argv[])</code> 式中的参数很多人既熟悉又陌生,第一个参数代表参数个数(包括自身)</p><br>   <p> 第二个参数argv的意义在于使用某个参数的名字,以字符串的形式,举个栗子 </p>
-
+fout.open();
+...
+</code></pre></li>
+<li><p>使用命令行参数的使用  <a id="more"></a></p>
+<ol>
+<li><code>int main(int argc, char* argv[])</code> 式中的参数很多人既熟悉又陌生,第一个参数代表参数个数(包括自身)<p></p></li>
+<li><p>第二个参数argv的意义在于使用某个参数的名字,以字符串的形式,举个栗子 </p><p></p>
 <pre><code>#<span class="keyword">include</span> ...
 <span class="comment">//...</span>
 <span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])
 {
-<span class="keyword">for</span>(<span class="keyword">int</span> <span class="keyword">file</span> = <span class="number">1</span>;<span class="keyword">file</span> &lt; argc;++<span class="keyword">file</span>) <span class="comment">//file为 0 时输出的是该命令或者可执行文件的名称</span>
-      cout &lt;&lt; argv[<span class="keyword">file</span>];              <span class="comment">//argv[file]的类型为char*, 即为一个字符串,内容</span>
-                                       <span class="comment">//为参数的名字,argc代表总参数个数+1</span>
+    <span class="keyword">for</span>(<span class="keyword">int</span> <span class="keyword">file</span> = <span class="number">1</span>;<span class="keyword">file</span> &lt; argc;++<span class="keyword">file</span>)   <span class="comment">//file为 0 时输出的是该命令或者可执行文件的名称</span>
+        cout &lt;&lt; argv[<span class="keyword">file</span>];                <span class="comment">//argv[file]的类型为char*, 即为一个字符串,内容</span>
+                                          <span class="comment">//为参数的名字,argc代表总参数个数+1</span>
 }
-</code></pre>   <p> 假设上面的程序经过编译,在Liunx下实验则为(Windows下请打开命令提示符模式(Win+R,输入cmd,回车后打开),后续操作相同) </p><br>   <code>~$ a.out file1 file2</code><br><br>   <strong> 其中 argv[1] == “file1”, argv[2] == “file2” argv[0] == “a.out” </strong><br><br>   <p> 文件I/O的模式 mode </p><br>   <pre><code><br>   //接上上个程序<br>   fin.open(cppstr1.<code>c_str()</code>,mode);//mode代表模式,后面介绍<br>   ifstream fin2(cppstr2.<code>c_str()</code>,mode);//也可以使用构造函数的方式<br>   ofstream fout2(…);//ofstream的模式多于ifstream<br>   </code></pre><br>   <p><br>   <strong>下面模式可以与Ｃ中的I/O模式对应</strong><br><br>   <code>ios_base::in</code>   //此mode适用于ifstream类型,用于打开并读取文件<br><br>   <code>ios_base::out</code>  //打开文件,并写入<br><br>   <code>ios_base::trunc</code>//如果文件存在则,截断文件,ofstream的构造函数默认使用 <code>ios_base::out|ios_base::turnc</code><br><br>   <code>ios_base::app</code>  //打开文件,追加到文件尾写入<br><br>   <code>ios_base::ate</code>  //打开文件,并移动到文件尾<br><br>   <code>ios_base::binary</code> //使用二进制文件模式.对于数字十分迅捷,但也有不足,即兼容性.<br><br>   <strong> 符号<code>|</code>,代表或,该运算符两端的操作都使用 </strong><br>   </p><br>## 文件I/O之二进制文件<br>   <p> 此后的代码都必须建立在同一种类型的系统甚至同一种类型的编译器中,即产生或使用的文件的使用的范围. </p>
-
+</code></pre></li>
+<li><p>假设上面的程序经过编译,在<strong>Liunx</strong>下实验则为(Windows下请打开命令提示符模式(Win+R,输入cmd,回车后打开),后续操作大致相同) </p>
+<ul>
+<li><code>$ a.out file1 file2</code></li>
+<li><strong>其中 argv[1] == “file1”, argv[2] == “file2” argv[0] == “a.out”</strong>  </li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>文件I/O的模式 mode </p>
+<pre><code><span class="comment">//接上上个程序</span>
+fin.open(cppstr1.c_str(),mode);     <span class="comment">//mode代表模式,后面介绍</span>
+<span class="function">ifstream <span class="title">fin2</span><span class="params">(cppstr2.c_str()</span>,mode)</span>;<span class="comment">//也可以使用构造函数的方式</span>
+<span class="function">ofstream <span class="title">fout2</span><span class="params">(...)</span></span>;                <span class="comment">//ofstream的模式多于ifstream</span>
+</code></pre></li>
+</ul>
+<ul>
+<li><p><strong>下面模式可以与Ｃ中的I/O模式对应</strong></p>
+<pre><code>using <span class="symbol">std:</span><span class="symbol">:ios_base</span>;
+<span class="symbol">ios_base:</span><span class="symbol">:in</span>   /<span class="regexp">/此mode适用于ifstream类型,用于打开并读取文件&lt;/br</span>&gt;
+<span class="symbol">ios_base:</span><span class="symbol">:out</span>  /<span class="regexp">/打开文件,并写入&lt;/br</span>&gt;
+<span class="symbol">ios_base:</span><span class="symbol">:trunc//</span>如果文件存在则,截断文件,ofstream的构造函数默认使用 <span class="symbol">ios_base:</span><span class="symbol">:out|ios_base</span><span class="symbol">:</span><span class="symbol">:turnc`&lt;/br&gt;</span>
+<span class="symbol">ios_base:</span><span class="symbol">:app</span>  /<span class="regexp">/打开文件,追加到文件尾写入&lt;/br</span>&gt;
+<span class="symbol">ios_base:</span><span class="symbol">:ate</span>  /<span class="regexp">/打开文件,并移动到文件尾&lt;/br</span>&gt;
+<span class="symbol">ios_base:</span><span class="symbol">:binary</span> /<span class="regexp">/使用二进制文件模式.对于数字十分迅捷,但也有不足,即兼容性.&lt;/br</span>&gt;
+</code></pre><p><strong>符号<code>|</code>,代表或,该运算符两端的操作都使用</strong>   </p>
+</li>
+</ul>
+<h2 id="文件I/O之二进制文件">文件I/O之二进制文件</h2><ul>
+<li><p>此后的代码都必须建立在同一种类型的系统甚至同一种类型的编译器中,即产生或使用的文件的使用的范围. </p>
 <pre><code><span class="preprocessor">#include `&lt;fstream&gt;`</span>
 <span class="keyword">const</span> <span class="keyword">char</span>* filename = <span class="string">"test.txt"</span>;
 <span class="keyword">struct</span> test{
-      <span class="keyword">char</span>   name[<span class="number">10</span>];
-      <span class="keyword">double</span> popu;
-      <span class="keyword">double</span> g;
+    <span class="keyword">char</span>   name[<span class="number">10</span>];
+    <span class="keyword">double</span> popu;
+    <span class="keyword">double</span> g;
 };<span class="comment">//定义一个结构体,用来展示二进制的读以及写</span>
 <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>{
 ...<span class="comment">//创建一个test类型的结构体对象,并填入值,对象名为 bintest</span>
 <span class="function">ofstream <span class="title">fout</span><span class="params">(filename, `ios_base::<span class="keyword">in</span>`|`ios_base::binary`)</span></span>;
 ...<span class="comment">//检查是否打开成功</span>
 fout.write((`<span class="keyword">char</span>*`)&amp;bintest, <span class="keyword">sizeof</span> bintest); 
-`<span class="comment">//使用write函数来写入,char*代表逐个字符的从内存写入到文件,而不考虑存储类型`</span>
+<span class="comment">//使用write函数来写入,char*代表逐个字符的从内存写入到文件,而不考虑存储类型`</span>
 <span class="function">ofstream <span class="title">fin</span><span class="params">(filename, `ios_base::<span class="keyword">in</span>`|`ios_base::binary`)</span></span>;
 ...<span class="comment">//检查是否打开成功</span>
 fin.read((<span class="keyword">char</span>*)&amp;bintest, <span class="keyword">sizeof</span> bintest);<span class="comment">//使用read函数来恢复使用write函数写入的二进制数据</span>
 ...<span class="comment">//验证是否操作有误</span>
 <span class="keyword">return</span> <span class="number">0</span>;
 }
-</code></pre><p>   <strong>科普:由于三大类操作系统对于换行有不同定义,导致了第一句话:</strong><br><br>   </p><p>Windows使用换行加回车表示 换行符</p><br>   <p>Unix/Liunx使用换行来表示  换行符</p><br>   <p>Macintosh使用回车来表示   换行符(即苹果电脑)</p><p></p>
+</code></pre></li>
+</ul>
+<p><strong>科普:由于三大类操作系统对于换行有不同定义,导致了第一句话</strong>:</p>
+<p><strong>Windows</strong>使用换行加回车表示 换行符</p><p></p>
+<p><strong>Unix/Liunx</strong>使用换行来表示  换行符</p><p></p>
+<p><strong>Mac</strong>使用回车来表示   换行符(即苹果电脑)</p><p></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h3 id="Ｃ++流的使用(续)">Ｃ++流的使用(续)</h3><h2 id="文件I/O">文件I/O</h2>   <P> 常用的基本方法是 <code>open()</code>,<code>c_str()</code>,<code>is_open()</code> 分别时连接文件,转为Ｃ风格字符串,是否连接文件成功 </P>
-
-<pre><code><span class="variable">#include</span> <span class="string">`&lt;fstream&gt;`</span> <span class="comment">//此头文件已经包含了iostream</span>
-<span class="attribute">...</span>
-<span class="built_in">string</span> cppstr1 <span class="subst">=</span> <span class="string">"input.txt"</span>, cppstr2 <span class="subst">=</span> <span class="string">"output.txt"</span>;
-<span class="attribute">...</span>
+    <![CDATA[<h3 id="Ｃ++流的使用(续)">Ｃ++流的使用(续)</h3><h2 id="文件I/O">文件I/O</h2><ul>
+<li><p>常用的基本方法是 <code>open()</code>,<code>c_str()</code>,<code>is_open()</code> 分别时连接文件,转为Ｃ风格字符串,是否连接文件成功 </P></p>
+<pre><code><span class="preprocessor">#<span class="keyword">include</span> &lt;fstream&gt; <span class="comment">//此头文件已经包含了iostream</span></span>
+...
+<span class="built_in">string</span> cppstr1 = <span class="string">"input.txt"</span>, cppstr2 = <span class="string">"output.txt"</span>;
+...
 ifstream fin;      <span class="comment">//任意命名</span>
 ofstream fout;
-fin<span class="built_in">.</span>open(cppstr1<span class="built_in">.</span><span class="string">`c_str()`</span>);
-<span class="keyword">if</span>(<span class="subst">!</span>fin<span class="built_in">.</span><span class="string">`is_open()`</span>)
+fin.open(cppstr1.c_str());
+<span class="keyword">if</span>(!fin.is_open())
 {
-cerr <span class="subst">&lt;&lt;</span> <span class="string">"..."</span>;
-<span class="keyword">return</span> <span class="subst">-</span><span class="number">1</span>;
+<span class="built_in">cerr</span> &lt;&lt; <span class="string">"..."</span>;
+<span class="keyword">return</span> -<span class="number">1</span>;
 }
-fout<span class="built_in">.</span>open();
-<span class="attribute">...</span>
-</code></pre>   <p> 使用命令行参数的使用 </p>]]>
+fout.open();
+...
+</code></pre></li>
+<li><p>使用命令行参数的使用]]>
     
     </summary>
     
@@ -3376,54 +3431,94 @@ fout<span class="built_in">.</span>open();
     <link href="//wushxin.top/2015/05/10/C-%E6%B5%81%E6%93%8D%E4%BD%9C.html"/>
     <id>//wushxin.top/2015/05/10/C-流操作.html</id>
     <published>2015-05-09T23:47:37.000Z</published>
-    <updated>2015-05-25T02:45:34.540Z</updated>
+    <updated>2015-09-20T02:32:19.353Z</updated>
     <content type="html"><![CDATA[<h1 id="C++流的使用">C++流的使用</h1><h2 id="每次使用完流,记得要关闭,虽然有时候并不是必须的-">每次使用完流,记得要关闭,虽然有时候并不是必须的.</h2><p><code>streamname.close();</code></p>
-<h2 id="重定向">重定向</h2><p>   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源 <br><br>   <pre><code><br>   ~$ program ‘&lt;’input.filetype &gt;output.filetype #去掉多余的’’<br>   </code></pre><br>   <br> 在Linux和Unix下,’&gt;’ ‘&lt;’默认是标准输出和标准输入,’2&gt;’则是标准错误(即std::cerr)</p>
-<h2 id="输出流">输出流</h2><p>   <br>1. ostream类提供了 put() 和 write() 方法用来输出 <br></p>
+<h2 id="重定向">重定向</h2><p>   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源</p>
+<p>   <code>~$ program &lt;input.filetype&gt;output.filetype</code> </p>
+<p>   在Linux和Unix下, <code>&gt;</code> <code>&lt;</code> 默认是标准输出和标准输入, <code>2&gt;</code> 则是标准错误(即<code>std::cerr</code>)</p>
+<h2 id="输出流">输出流</h2><ol>
+<li><p><code>ostream</code> 类提供了 <code>put()</code> 和 <code>write()</code> 方法用来输出 </p>
 <pre><code><span class="built_in">cout</span>.put(<span class="string">'W'</span>); <span class="comment">//输出字符Ｗ,可以拼接使用就像重载之后的 '&lt;&lt;'</span>
 <span class="built_in">cout</span>.write(<span class="string">"Candy Bob"</span>,<span class="number">5</span>); <span class="comment">//输出第一个参数的第二个参数个长度</span>
-</code></pre><p>   <br>2. 刷新输出缓冲区可以有两种方法,原理都是重载 ‘&lt;&lt;’ <br><br>   <br>   前者与后者的差别就在与后者刷新缓冲区后多了一个换行操作 <br></p>
+</code></pre></li>
+<li><p>刷新输出缓冲区可以有两种方法,原理都是重载 <code>&lt;&lt;</code> </p>
+<ul>
+<li><p>前者与后者的差别就在与后者刷新缓冲区后多了一个换行操作</p>
 <pre><code><span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; flush; <span class="comment">//相当于flush(cout);</span>
 <span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; endl;  
-</code></pre><p>   <br>3. 可以通过流操作修改现实的进制, 默认十进制,十六进制,八进制 <br><br><a id="more"></a><br>      int n = 100;<br>      cout &lt;&lt; n &lt;&lt; endl;<br>      //八进制<br>      cout &lt;&lt; oct &lt;&lt; n &lt;&lt; endl;<br>      //十六进制<br>      cout &lt;&lt; hex &lt;&lt; n &lt;&lt; endl;<br>      //这种作用是持久的,在不用的时候记得转换回来<br>      dec(cout); //代表转换为十进制 cout &lt;&lt; dec;同样适用  </p>
-<p>   <br>4. 我们可以调整字段宽度来达到美观,但Ｃ++有一种数据完整大于美观的理念,所以即使你设置了字段宽度,一旦超过还是会<br>        打乱阵型,以保证数据的完整性.<br>   <br></p>
+</code></pre></li>
+</ul>
+</li>
+<li><p>可以通过流操作修改现实的进制, 默认十进制,十六进制,八进制 <br></p>
+<a id="more"></a>
+<pre><code><span class="keyword">int</span> n = <span class="number">100</span>;
+<span class="built_in">cout</span> &lt;&lt; n &lt;&lt; endl;
+<span class="comment">//八进制</span>
+<span class="built_in">cout</span> &lt;&lt; oct &lt;&lt; n &lt;&lt; endl;
+<span class="comment">//十六进制</span>
+<span class="built_in">cout</span> &lt;&lt; hex &lt;&lt; n &lt;&lt; endl;
+<span class="comment">//这种作用是持久的,在不用的时候记得转换回来</span>
+dec(<span class="built_in">cout</span>); <span class="comment">//代表转换为十进制 cout &lt;&lt; dec;同样适用  </span>
+</code></pre></li>
+<li><p>我们可以调整字段宽度来达到美观,但Ｃ++有一种数据完整大于美观的理念,所以即使你设置了字段宽度,一旦超过还是会打乱阵型,以保证数据的完整性.</p>
 <pre><code><span class="built_in">cout</span>.fill(<span class="string">'*'</span>);<span class="comment">//使用'*'填充空白,注意此为持久的.</span>
 <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">100</span>;i*=<span class="number">10</span>)
 {
-  <span class="built_in">cout</span>.width(<span class="number">5</span>);
-  <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">":"</span>;
-  <span class="built_in">cout</span>.width(<span class="number">8</span>);
-  <span class="built_in">cout</span> &lt;&lt; i * i &lt;&lt; endl;
+<span class="built_in">cout</span>.width(<span class="number">5</span>);
+<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">":"</span>;
+<span class="built_in">cout</span>.width(<span class="number">8</span>);
+<span class="built_in">cout</span> &lt;&lt; i * i &lt;&lt; endl;
 }<span class="comment">//注意，width()方法并不是持久的,也就是说每次排版都需要使用一次该方法.</span>
-</code></pre><p>   <br>5. 浮点数的使用 <br></p>
+</code></pre></li>
+<li><p>浮点数的使用 <br></p>
 <pre><code><span class="built_in">cout</span>.precision(<span class="number">2</span>);<span class="comment">//设置浮点数的精度为2,Ｃ++默认六位精度,但不显示末尾的0.</span>
 <span class="built_in">cout</span>.setf(ios_base::showpoint);<span class="comment">//显示末尾的零</span>
-</code></pre><h2 id="输入流">输入流</h2><p>   <br> cin检查输入: 当读取到的流和指定的类型不符合的时候,不符合的流中的数据被保留,留待下一次读取.并返回flase<br>       可以使用while语句进行判断 <br></p>
+</code></pre><h2 id="输入流">输入流</h2></li>
+</ol>
+<ul>
+<li><p><code>cin</code> 检查输入: 当读取到的流和指定的类型不符合的时候,不符合的流中的数据被保留,留待下一次读取.并返回<code>flase</code>, 可以使用 <code>while</code> 语句进行判断 <br></p>
 <pre><code>int <span class="keyword">input</span>, <span class="keyword">sum</span>;
 <span class="keyword">while</span>(cin &gt;&gt; <span class="keyword">input</span>)
 <span class="keyword">sum</span> += <span class="keyword">input</span>;
-</code></pre><p>   <br> 当流由于输入不匹配失败时,发生的问题十分复杂,简述为位设置问题,使用下列代码恢复 <br></p>
+</code></pre></li>
+<li><p>当流由于输入不匹配失败时,发生的问题十分复杂,简述为位设置问题,使用下列代码恢复</p>
 <pre><code><span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; input)
-   sum += input;
+    sum += input;
 <span class="keyword">if</span>(<span class="built_in">cin</span>.fail() &amp;&amp; !<span class="built_in">cin</span>.eof())
 {
-   <span class="built_in">cin</span>.clear();              <span class="comment">//重置流状态,但此时还是有残余留在流中</span>
-   <span class="keyword">while</span>(!<span class="built_in">isspace</span>(<span class="built_in">cin</span>.get()))<span class="comment">//丢弃那些残留在流中妨碍下一次输入的不符合的输入</span>
-         <span class="keyword">continue</span>;           <span class="comment">//头文件 cctype</span>
+<span class="built_in">cin</span>.clear();              <span class="comment">//重置流状态,但此时还是有残余留在流中</span>
+<span class="keyword">while</span>(!<span class="built_in">isspace</span>(<span class="built_in">cin</span>.get()))<span class="comment">//丢弃那些残留在流中妨碍下一次输入的不符合的输入</span>
+    <span class="keyword">continue</span>;           <span class="comment">//头文件 cctype</span>
 }
 <span class="built_in">cin</span> &gt;&gt; input; <span class="comment">//现在可以继续输入了</span>
-</code></pre><p>   <br> 字符串的输入:<code>get(char*, int)</code> 和 <code>getline(char*, int)</code> <br><br>   <br> get读取少于第二个参数减1个或遇见换行符,并将换行符留在流中,getline则将换行符抽取并丢弃<br><br>   <br> <code>get(char*, int, char)</code> 和 <code>getline(char*, int, char)</code> <br><br>   <br> 第三个参数则是分界符,读取到分界符号时停止读取. <br></p>
+</code></pre></li>
+<li><p>字符串的输入: <code>get(char*, int)</code> 和 <code>getline(char*, int)</code> </p>
+<pre><code>- get读取少于第二个参数减<span class="number">1</span>个或遇见换行符,并将换行符留在流中,<span class="escape">`g</span>etline<span class="escape">`则</span>将换行符抽取并丢弃
+</code></pre></li>
+<li><p><code>get(char*, int, char)</code> 和 <code>getline(char*, int, char)</code> </p>
+<pre><code><span class="bullet">- </span>第三个参数则是分界符,读取到分界符号时停止读取. 
+</code></pre></li>
+</ul>
 ]]></content>
     <summary type="html">
     <![CDATA[<h1 id="C++流的使用">C++流的使用</h1><h2 id="每次使用完流,记得要关闭,虽然有时候并不是必须的-">每次使用完流,记得要关闭,虽然有时候并不是必须的.</h2><p><code>streamname.close();</code></p>
-<h2 id="重定向">重定向</h2><p>   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源 </br><br>   <pre><code><br>   ~$ program ‘&lt;’input.filetype &gt;output.filetype #去掉多余的’’<br>   </code></pre><br>   <br> 在Linux和Unix下,’&gt;’ ‘&lt;’默认是标准输出和标准输入,’2&gt;’则是标准错误(即std::cerr)</p>
-<h2 id="输出流">输出流</h2><p>   <br>1. ostream类提供了 put() 和 write() 方法用来输出 </br></p>
+<h2 id="重定向">重定向</h2><p>   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源</p>
+<p>   <code>~$ program &lt;input.filetype&gt;output.filetype</code> </p>
+<p>   在Linux和Unix下, <code>&gt;</code> <code>&lt;</code> 默认是标准输出和标准输入, <code>2&gt;</code> 则是标准错误(即<code>std::cerr</code>)</p>
+<h2 id="输出流">输出流</h2><ol>
+<li><p><code>ostream</code> 类提供了 <code>put()</code> 和 <code>write()</code> 方法用来输出 </p>
 <pre><code><span class="built_in">cout</span>.put(<span class="string">'W'</span>); <span class="comment">//输出字符Ｗ,可以拼接使用就像重载之后的 '&lt;&lt;'</span>
 <span class="built_in">cout</span>.write(<span class="string">"Candy Bob"</span>,<span class="number">5</span>); <span class="comment">//输出第一个参数的第二个参数个长度</span>
-</code></pre><p>   <br>2. 刷新输出缓冲区可以有两种方法,原理都是重载 ‘&lt;&lt;’ </br><br>   <br>   前者与后者的差别就在与后者刷新缓冲区后多了一个换行操作 </br></p>
+</code></pre></li>
+<li><p>刷新输出缓冲区可以有两种方法,原理都是重载 <code>&lt;&lt;</code> </p>
+<ul>
+<li><p>前者与后者的差别就在与后者刷新缓冲区后多了一个换行操作</p>
 <pre><code><span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; flush; <span class="comment">//相当于flush(cout);</span>
 <span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; endl;  
-</code></pre><p>   <br>3. 可以通过流操作修改现实的进制, 默认十进制,十六进制,八进制 </br><br>]]>
+</code></pre></li>
+</ul>
+</li>
+<li><p>可以通过流操作修改现实的进制, 默认十进制,十六进制,八进制 </br></p>]]>
     
     </summary>
     
