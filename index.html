@@ -73,6 +73,108 @@
     <div class="outer">
       <section id="main">
   
+    <article id="post-Linux记录" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/20/Linux记录.html" class="article-date">
+  <time datetime="2015-09-20T00:33:33.000Z" itemprop="datePublished">2015-09-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/09/20/Linux记录.html">Linux记录</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="源">源</h2><ul>
+<li>因为国内的原因，没有办法直接使用官方的源，速度有时候会过慢，在高校内部的人可以回比外边更好一些</li>
+<li>而经常出现是根据网上搜索(百度)，出来的结果，大都是直接换源，导致很多错误例如 <code>Some Index fail to ...</code> 之类的错误，这是由于每个版本的 Linux 的源都有细微的差别。以最有名的基于 <strong>Debian</strong> 的 <code>Ubuntu</code> 为例子</li>
+<li><p>例如<strong>Ubuntu 14.04</strong> 的163源应该是：</p>
+<pre><code>deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty main restricted universe multiverse</span>
+deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse</span>
+deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse</span>
+deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse</span>
+deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse</span>
+deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty main restricted universe multiverse</span>
+deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse</span>
+deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse</span>
+deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse</span>
+deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse</span>
+</code></pre></li>
+<li><p><strong>Ubuntu 15.04</strong> 的163源应该是：</p>
+<pre><code>deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid main restricted universe multiverse</span>
+deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-security main restricted universe multiverse</span>
+deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-updates main restricted universe multiverse</span>
+eb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-proposed main restricted universe multiverse</span>
+deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-backports main restricted universe multiverse</span>
+deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid main restricted universe multiverse</span>
+deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-security main restricted universe multiverse</span>
+deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-updates main restricted universe multiverse</span>
+deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-proposed main restricted universe multiverse</span>
+deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-backports main restricted universe multiverse</span>
+</code></pre><p>区别就在于源中的 <strong>vivid 和 trusty</strong><br>相应的其他版本亦有自己的代号，详情<a href="http://wiki.ubuntu.org.cn/Qref/Source" target="_blank" rel="external">请见此处</a></p>
+</li>
+<li><p>根据中文 <a href="http://wiki.ubuntu.org.cn" target="_blank" rel="external">Ubuntu官网</a> 提供的信息，有些源已经无法被公众使用。(本文此处更新于2015/09/20)</p>
+<ul>
+<li><p>完全失效的服务器：      </p>
+<ul>
+<li>青岛大学更新服务器（教育网/山东青岛移动专线双线服务器），由 OSQDU维护，位于青岛大学。包含开源镜像和Opera、马克思主义文库等其他镜像。<ul>
+<li>Geekbone.org更新服务器（上海电信服务器，由 SHLUG /上海Linux用户群维护）,现跳转至搜狐服务器。</li>
+<li>由Love4Taylor维护的开源镜像站，位于香港新世界电讯有限公司CDN节点上，包含Deepin 镜像，可能包含其它开源镜像。 </li>
+<li>上述服务器部分可能改为校内/地区访问。 </li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>部分失效的服务器</li>
+<li>西南大学开源社区维护的西南大学镜像中已经取消了主要发行版镜像，但有一些学习资源。</li>
+<li>由电子科技大学Linux 用户组维护的UESTC LUG软件源中包含其它发行版的镜像。</li>
+<li>由电子科技大学学生之家维护的电子科大星辰工作室镜像中已经取消了 Ubuntu 镜像，但有其它发行版的镜像。</li>
+<li>由We·Cloud云技术小组维护的大连东软信息学院的We - 开源镜像站中已经取消了 Ubuntu 镜像，但有Ubuntu 光盘镜像和其它发行版。</li>
+<li>由西南林业大学计信学院维护的西南林大镜像中已经取消了 Ubuntu 镜像，但有其它发行版的镜像。</li>
+<li>由LUPA开源社区维护的LupaWorld更新服务器（浙江杭州电信/联通双线服务器）中已经取消了 Ubuntu 镜像，但有其它发行版的镜像。 </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Linux_of_Qt5">Linux of Qt5</h2><p>在Ubuntu编译Qt5工程时出现了 </p>
+<p><code>can not find -lGL</code></p>
+<p>这是为什么?在Qt4时代并没有这种情况</p>
+<p>经过查找,发现<strong>Qt5在这个版本自动加入了openGL的支持</strong>,而有的平台并没有默认拥有</p>
+<p><strong>(Windows默认有openGL,Linux却没有完全)</strong></p>
+<p>可以通过安装 <code>libglut-dev</code> 来进行修复</p>
+<p><code>sudo apt-get install libglut-dev</code></p>
+<p>稍微解读一下也能知道<code>-lGL==&gt;-linkopenGL</code>的意思</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="//wushxin.top/2015/09/20/Linux记录.html" data-id="ciersyi5b00119slti83z2sfs" class="article-share-link" data-share="baidu" data-title="Linux记录">分享到</a>
+      
+
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-《我为什么学C》" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/08/31/《我为什么学C》.html" class="article-date">
@@ -123,7 +225,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="//wushxin.top/2015/08/31/《我为什么学C》.html" data-id="cidzzzc8f000h80ltwcq2xra5" class="article-share-link" data-share="baidu" data-title="《我为什么学C》">分享到</a>
+        <a data-url="//wushxin.top/2015/08/31/《我为什么学C》.html" data-id="ciersyi4n000h9sltfce9jw57" class="article-share-link" data-share="baidu" data-title="《我为什么学C》">分享到</a>
       
 
       
@@ -190,7 +292,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="//wushxin.top/2015/07/21/Practical-cpp.html" data-id="cidzzzc8v000t80lt6nc2c3ho" class="article-share-link" data-share="baidu" data-title="Practical cpp">分享到</a>
+        <a data-url="//wushxin.top/2015/07/21/Practical-cpp.html" data-id="ciersyi51000t9slt1otslmbb" class="article-share-link" data-share="baidu" data-title="Practical cpp">分享到</a>
       
 
       
@@ -245,7 +347,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="//wushxin.top/2015/07/09/Cpp记录10.1k.html" data-id="cidzzzc9b001b80ltjnzbdac0" class="article-share-link" data-share="baidu" data-title="Cpp记录10.1k">分享到</a>
+        <a data-url="//wushxin.top/2015/07/09/Cpp记录10.1k.html" data-id="ciersyi5k001c9sltjkq77co6" class="article-share-link" data-share="baidu" data-title="Cpp记录10.1k">分享到</a>
       
 
       
@@ -330,7 +432,7 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="//wushxin.top/2015/06/21/Cpp记录10.4k.html" data-id="cidzzzc9b001880lt7dbowy13" class="article-share-link" data-share="baidu" data-title="Cpp记录10.4k">分享到</a>
+        <a data-url="//wushxin.top/2015/06/21/Cpp记录10.4k.html" data-id="ciersyi5g00199sltprnpliaz" class="article-share-link" data-share="baidu" data-title="Cpp记录10.4k">分享到</a>
       
 
       
@@ -385,91 +487,13 @@
     </div>
     <footer class="article-footer">
       
-        <a data-url="//wushxin.top/2015/06/12/Qt记录.html" data-id="cidzzzc8f000l80lt8vbb89gv" class="article-share-link" data-share="baidu" data-title="Qt记录">分享到</a>
+        <a data-url="//wushxin.top/2015/06/12/Qt记录.html" data-id="ciersyi4t000l9sltzjbdvz7p" class="article-share-link" data-share="baidu" data-title="Qt记录">分享到</a>
       
 
       
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/">Qt</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Opencv3配置" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/06/08/Opencv3配置.html" class="article-date">
-  <time datetime="2015-06-08T08:26:15.000Z" itemprop="datePublished">2015-06-08</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/06/08/Opencv3配置.html">Opencv3.0.0配置</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="配置Opencv3-0-0">配置Opencv3.0.0</h4><p>前天，Opencv3.0.0的正式版本发布，不再有奇怪的缺少文件之类的错误，正好最近需要使用它来完成一些神经网络上的辅助，也就尝试了配置，下面记录配置的过程。</p>
-<h4 id="准备">准备</h4><ol>
-<li><a href="https://www.visualstudio.com/">Visual Studio 2013</a></li>
-<li><a href="http://www.codeblocks.org/downloads/26">Code::Blocks 13.12</a></li>
-<li><a href="http://opencv.org/downloads.html">Opencv-3.0.0</a></li>
-<li><a href="http://www.cmake.org/download/">CMake3.3.0-rc1-win32-x86</a></li>
-</ol>
-<h4 id="声明">声明</h4><ul>
-<li><p>按照自己的喜好来选择第一部分或者第二部分</p>
-</li>
-<li><p>第一部分 ： Visual Studio 2013 配置 Opencv3.0.0</p>
-</li>
-</ul>
-<ol>
-<li>Windows8.1 + 64位</li>
-<li>Opencv-3.0.0 的放置路径为 <strong>C:\opencv</strong></li>
-<li>Visual Studio 工程存放位置为 <strong>C:\VSProject</strong> 目录下<ul>
-<li>在此处建议，无论什么路径，都是用英文，并且不要使用空格，如果是操作系统自带的文件路径请看准是否有空格，否则配置这opencv会让你疯狂。</li>
-</ul>
-</li>
-<li>对于 <strong>Visual Studio 2013</strong> 来说，我们使用的官方编译好的文件夹所在位置是 <strong>vc12</strong>，我也不懂为什么，总之就是这样。</li>
-</ol>
-<ul>
-<li>第二部分 ： Code::Blocks 13.12 配置 Opencv3.0.0</li>
-</ul>
-<ol>
-<li>Windows8.1 + 64位</li>
-<li>Opencv-3.0.0待编译的源代码路径为 <strong>C:\opencv3</strong>（由Github上下载）</li>
-<li>Opencv编译完成的所有文件放于 <strong>C:\opencv\mybuild</strong>，即待会使用CMake输出的文件夹。</li>
-<li><strong>include</strong> 和第一部分相同，不同的只是 <strong>lib</strong> 和 <strong>bin</strong> 目录，我选择把<strong>bin</strong>目录全部拷贝到Debug文件夹里。</li>
-</ol>
-<h4 id="1_配置_Visual_Studio_2013">1 配置 Visual Studio 2013</h4>
-        
-          <p class="article-more-link">
-            <a href="/2015/06/08/Opencv3配置.html#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="//wushxin.top/2015/06/08/Opencv3配置.html" data-id="cidzzzc9b000x80ltddfz4ak6" class="article-share-link" data-share="baidu" data-title="Opencv3.0.0配置">分享到</a>
-      
-
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Opencv/">Opencv</a></li></ul>
 
     </footer>
   </div>
@@ -493,7 +517,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Liunx/">Liunx</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -502,7 +526,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/C/" style="font-size: 20px;">C</a><a href="/tags/Cpp/" style="font-size: 20px;">Cpp</a><a href="/tags/Liunx/" style="font-size: 10px;">Liunx</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 15px;">Python</a><a href="/tags/Qt/" style="font-size: 15px;">Qt</a><a href="/tags/杂货居/" style="font-size: 20px;">杂货居</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
+      <a href="/tags/C/" style="font-size: 16.67px;">C</a><a href="/tags/Cpp/" style="font-size: 16.67px;">Cpp</a><a href="/tags/Linux/" style="font-size: 10px;">Linux</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 13.33px;">Python</a><a href="/tags/Qt/" style="font-size: 13.33px;">Qt</a><a href="/tags/杂货居/" style="font-size: 20px;">杂货居</a><a href="/tags/网站/" style="font-size: 10px;">网站</a>
     </div>
   </div>
 
@@ -511,7 +535,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">12</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -521,6 +545,10 @@
     <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/09/20/Linux记录.html">Linux记录</a>
+          </li>
         
           <li>
             <a href="/2015/08/31/《我为什么学C》.html">《我为什么学C》</a>
@@ -536,10 +564,6 @@
         
           <li>
             <a href="/2015/06/21/Cpp记录10.4k.html">Cpp记录10.4k</a>
-          </li>
-        
-          <li>
-            <a href="/2015/06/12/Qt记录.html">Qt记录</a>
           </li>
         
       </ul>
