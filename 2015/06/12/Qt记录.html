@@ -210,10 +210,27 @@ test_sig.Q_SendSignal(); <span class="comment">//发射信号</span>
 <li>再实在没有办法用其他方法实现两个窗口或者不同对象之间的<strong>直接对话</strong>时候，可以考虑使用信号槽来间接实现</li>
 <li><strong>Lambda</strong> 扮演的角色是让类更加简洁，语法更加简单。</li>
 <li><p>到了 <strong>Qt5</strong> 时代，在使用信号槽语法的时候，更多的是用函数指针地址，而不是之前的<code>SIGNAL</code> 和 <code>SLOT</code> 宏，这样更能充分的发挥 <strong>Lambda</strong> 的性质。</p>
-<pre><code><span class="class"><span class="keyword">class</span> <span class="title">MainWindows</span></span>
-</code></pre></li>
+<pre><code>class MainWindows::MainWindow():
+<span class="comment">//... 一些自动生成的初始化</span>
+{
+    <span class="comment">//...setup Ui</span>
+    connect(ui-&gt;pushButton, &amp;QPushButton::clicked, [=](){
+       ui-&gt;browser_show-&gt;setText(QStringLiteral(<span class="string">"成功使用Lambda语法设置文本显示"</span>))；<span class="comment">//一个槽</span>
+    ui-&gt;pushButton-&gt;setEnable(<span class="keyword">false</span>);<span class="comment">// 另一个槽</span>
+    qDebug &lt;&lt; QStringLiteral(<span class="string">"成功使用Lambda语法！"</span>);
+
+    }
+    ...
+}
+</code></pre><p>这是基本使用方式，好处就是可以一次性的调用多个槽，而不是一个connect只能对应一对信号槽链接。</p>
+</li>
 </ul>
 </li>
+</ul>
+<h4 id="老生常谈的_中文显示">老生常谈的 中文显示</h4><ul>
+<li>使用 <strong>UTF-8</strong> 模式存储源文件（借助其他编辑器，例如 <strong>NotePad++</strong>, <strong>Sublime Text</strong> 等）</li>
+<li>使用 <code>QStringLiteral 包裹中文</code></li>
+<li>行了。</li>
 </ul>
 
       
