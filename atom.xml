@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-09-20T01:23:19.132Z</updated>
+  <updated>2015-10-31T03:40:57.331Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -14,6 +14,163 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[TCP/IP网络编程]]></title>
+    <link href="//wushxin.top/2015/10/30/TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B.html"/>
+    <id>//wushxin.top/2015/10/30/TCP-IP网络编程.html</id>
+    <published>2015-10-30T10:16:53.000Z</published>
+    <updated>2015-10-31T03:40:57.331Z</updated>
+    <content type="html"><![CDATA[<h1 id="概念">概念</h1><ul>
+<li>最具误导性的当属于 <code>TCP/IP</code> 协议了<ul>
+<li>所谓 <code>TCP/IP</code> 协议指的并不是一个协议，往往在生活中听见的术语如：<strong>IP地址</strong>， <strong>TCP连接</strong> 等，总会被误导，以为就是一个东西</li>
+<li>实际上它们都是彼此独立的 <strong>协议</strong> ，只不过会相互合作罢了</li>
+<li><code>TCP/IP</code>说的是一个 <strong>协议族</strong> ，也就是说是一堆协议的统称</li>
+</ul>
+</li>
+<li>对比 <strong>OSI</strong> 和 <strong>TCP/IP</strong> 参考模型：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>OSI</th>
+<th>TCP/IP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>应用层 表示层 会话层</td>
+<td>应用层</td>
+</tr>
+<tr>
+<td>传输层</td>
+<td>传输层</td>
+</tr>
+<tr>
+<td>网络层</td>
+<td>网络层</td>
+</tr>
+<tr>
+<td>链路层 物理层</td>
+<td>网络接口层</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>其中最常接触的<ul>
+<li>位于 <strong>网络层</strong> 的 <strong>IP</strong> 协议，大家所熟知的 <code>IP地址</code> 就是由它进行封装并传往下一层</li>
+<li>位于 <strong>传输层</strong> 的 <strong>TCP/UDP</strong> 两个协议， 一个是面向连接(STREAM), 一个是面向数据(DGRAM)的</li>
+<li>查看自身 网络信息的办法<ul>
+<li><code>*nix</code>: 在 <strong>Terminal</strong> 中输入 <code>ifconfig -a</code></li>
+<li><code>Windows</code>: 在 <strong>PowerShell</strong> 中输入 <code>ipconfig</code><a id="more"></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>概念模糊的 <strong>DNS</strong><ul>
+<li>其实很简单，它的作用就是用来找到域名所对应的 <strong>IP地址</strong></li>
+<li>为什么？因为 <strong>IP地址</strong> 太难记了！如果你觉得 <strong>IPv4</strong> 地址还难不倒你，那请你试试 <strong>IPv6</strong></li>
+<li>怎么查看域名对应的 <strong>IP地址</strong>，当然先不考虑 <strong>CDN</strong><ul>
+<li><code>*nix</code> 和 <code>Windows</code> 都可以通过 <code>ping &lt;domain name&gt;</code> 命令进行查询</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>MAC地址</strong> 和 <strong>端口号</strong><ul>
+<li>对于前者，实际上应该是最熟悉不过的，对于网络上的主机而言，每一台主机就有一个专属的 <strong>MAC地址</strong></li>
+<li>后者则是相当于一个房子的门，这个比喻在各大教材中广泛引用，但也的确贴切，假设 <strong>IP地址</strong> 是房子的地址，那么到了别人家要知道门在哪才行。</li>
+</ul>
+</li>
+</ul>
+<p>一个完整的应用程序传输数据时候 <strong>封装</strong> 的过程(<strong>从右二向左依次封装</strong>)：</p>
+<table>
+<thead>
+<tr>
+<th>以太网首部</th>
+<th>IP</th>
+<th>TCP/UDP</th>
+<th>真实数据</th>
+<th>尾部</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MAC地址</td>
+<td>IP地址</td>
+<td>TCP或者UDP协议</td>
+<td>应用程序数据</td>
+<td>效验码</td>
+</tr>
+<tr>
+<td>源和目的MAC地址以及前层协议类型</td>
+<td>源和目的IP及前层协议类型</td>
+<td>源和目的端口号及前层应用程序首部信息</td>
+<td>应用软件信息和真正的数据</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>其中端口号实际上就是 <strong>应用程序的信息</strong></p>
+<p>接收数据时的 <strong>拆解</strong> 顺序与 <strong>封装</strong> 正好相反。</p>
+<ul>
+<li>其中在传输过程中，作为接收方最开始使用的是 <strong>网络接口层/数据链路层</strong> 的驱动程序(即操作系统自带或另行安装，总之不用使用的程序员写就对了)，来判断这个包是否属于我，判断的依据就是 <strong>MAC地址</strong>，如果是再判断什么协议<ul>
+<li>在此处的协议可不止 <strong>IP协议</strong>， 也可能是 <strong>ARP协议</strong> 等。之后就是就事论事交给相应的处理软件去处理(拆解)就行</li>
+<li>科普： MAC地址是 <code>48bit</code> 的， <code>22bit</code>由 <strong>IEEE</strong> 分配， <code>24bit</code> 由厂商分配。原则上是唯一的。</li>
+</ul>
+</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="概念">概念</h1><ul>
+<li>最具误导性的当属于 <code>TCP/IP</code> 协议了<ul>
+<li>所谓 <code>TCP/IP</code> 协议指的并不是一个协议，往往在生活中听见的术语如：<strong>IP地址</strong>， <strong>TCP连接</strong> 等，总会被误导，以为就是一个东西</li>
+<li>实际上它们都是彼此独立的 <strong>协议</strong> ，只不过会相互合作罢了</li>
+<li><code>TCP/IP</code>说的是一个 <strong>协议族</strong> ，也就是说是一堆协议的统称</li>
+</ul>
+</li>
+<li>对比 <strong>OSI</strong> 和 <strong>TCP/IP</strong> 参考模型：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>OSI</th>
+<th>TCP/IP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>应用层 表示层 会话层</td>
+<td>应用层</td>
+</tr>
+<tr>
+<td>传输层</td>
+<td>传输层</td>
+</tr>
+<tr>
+<td>网络层</td>
+<td>网络层</td>
+</tr>
+<tr>
+<td>链路层 物理层</td>
+<td>网络接口层</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>其中最常接触的<ul>
+<li>位于 <strong>网络层</strong> 的 <strong>IP</strong> 协议，大家所熟知的 <code>IP地址</code> 就是由它进行封装并传往下一层</li>
+<li>位于 <strong>传输层</strong> 的 <strong>TCP/UDP</strong> 两个协议， 一个是面向连接(STREAM), 一个是面向数据(DGRAM)的</li>
+<li>查看自身 网络信息的办法<ul>
+<li><code>*nix</code>: 在 <strong>Terminal</strong> 中输入 <code>ifconfig -a</code></li>
+<li><code>Windows</code>: 在 <strong>PowerShell</strong> 中输入 <code>ipconfig</code>]]>
+    
+    </summary>
+    
+      <category term="C" scheme="//wushxin.top/tags/C/"/>
+    
+      <category term="网络编程" scheme="//wushxin.top/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Linux记录]]></title>
@@ -117,7 +274,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
     <link href="//wushxin.top/2015/08/31/%E3%80%8A%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C%E3%80%8B.html"/>
     <id>//wushxin.top/2015/08/31/《我为什么学C》.html</id>
     <published>2015-08-31T13:56:34.000Z</published>
-    <updated>2015-10-04T10:44:38.053Z</updated>
+    <updated>2015-10-07T02:07:15.018Z</updated>
     <content type="html"><![CDATA[<h4 id="集结成电子书_《Real_C》">集结成电子书 《<a href="http://wrestle.gitbooks.io/whyilearnc/" target="_blank" rel="external">Real C</a>》</h4><h4 id="目录">目录</h4><ul>
 <li><a href="http://wrestle.gitbooks.io/whyilearnc/content/" target="_blank" rel="external">介绍</a></li>
 <li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-0/Seperate-0.html" target="_blank" rel="external">第一部分</a><ul>
@@ -144,6 +301,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
 <li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-2/22.html" target="_blank" rel="external">单线程备份(上)</a></li>
 <li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-2/23.html" target="_blank" rel="external">单线程备份(下)</a></li>
 <li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-2/24.html" target="_blank" rel="external">多线程备份</a></li>
+<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-2/25.html" target="_blank" rel="external">总结</a></li>
 </ul>
 </li>
 <li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-3/Seperate-3.html" target="_blank" rel="external">第四部分</a> </li>
