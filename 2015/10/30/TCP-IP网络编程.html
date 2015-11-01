@@ -260,7 +260,7 @@ TCP/IP
 <li><p>实际上，在进行网络编程的时候，以上细节几乎都被隐藏起来，留给我们的只是可供使用的接口。</p>
 </li>
 </ul>
-<h2 id="套接字网络编程">套接字网络编程</h2><blockquote>
+<h2 id="套接字网络编程初始">套接字网络编程初始</h2><blockquote>
 <p>选择使用 C 语言进行编程</p>
 </blockquote>
 <ul>
@@ -350,6 +350,10 @@ TCP/IP
 <td>bind()</td>
 </tr>
 <tr>
+<td>connect()</td>
+<td>connect()</td>
+</tr>
+<tr>
 <td>listen()</td>
 <td>listen()</td>
 </tr>
@@ -359,10 +363,125 @@ TCP/IP
 </tr>
 <tr>
 <td>close()</td>
-<td>closesock()</td>
+<td>closesocket()</td>
+</tr>
+<tr>
+<td>sendto()</td>
+<td>sendto()</td>
+</tr>
+<tr>
+<td>recvfrom()</td>
+<td>recvfrom()</td>
 </tr>
 </tbody>
 </table>
+<p>不仅仅是接口名字相同，参数个数以及功能也是一致，即使有一个例外，其参数以及使用方法也相同。</p>
+<blockquote>
+<p>那岂不是可以直接移植了？</p>
+<p>并不！</p>
+</blockquote>
+<p>在 <strong> Windows 套接字编程时</strong>， 由于 <code>Windows</code> 将其实现为动态库，所以在使用时需要将其加载进程序。</p>
+<p>故而多加了加载操作。</p>
+<pre><code><span class="function"><span class="keyword">int</span> <span class="title">WSAStartup</span><span class="params">(
+  WORD      wVersionRequested,
+  LPWSADATA lpWSAData  <span class="comment">/* 这是一个结构体， 传入类型为WSADATA*  */</span>
+)</span></span>;
+<span class="function"><span class="keyword">int</span> <span class="title">WSACleanup</span><span class="params">(<span class="keyword">void</span>)</span></span>;
+</code></pre><p>每当在 <strong>Windows</strong> 上进行套接字编程时，总要指定某个版本的套接字库：</p>
+<pre><code>WSADATA wsaData;
+int err_code;
+/<span class="keyword">*</span>
+<span class="keyword">*</span> MAKEWORD()的作用在于将版本号转为指定格式传入
+<span class="keyword">*</span> 当下(2015-10)套接字库的版本号最高是 2.2
+<span class="keyword">*</span>/
+err_code = WSAStartup(MAKEWORD(2, 2), &amp;wsaData);
+/<span class="keyword">*</span> TODO Something <span class="keyword">*</span>/
+WSACleanup();
+</code></pre><p>这是最基本的在 <strong>Windows</strong> 上使用 <strong>套接字</strong> 编程的流程，但是如果本平台的套接字库最高版本并不符合当前要求呢？</p>
+<p>那么首先会将套接字版本库尽可能设置到平台的 <strong>最高版本</strong> ，可以通过结构体 <code>WSADATA</code> 进行查询</p>
+<pre><code><span class="keyword">if</span> (LOBYTE(wsaData.wVersion) != <span class="number">2</span> || HIBYTE(wsaData.wVersion) != <span class="number">2</span>)
+{
+  <span class="built_in">printf</span>(<span class="string">"Could not find a usable version of Winsock.dll\n"</span>);
+  WSACleanup();
+  <span class="built_in">return</span> <span class="number">1</span>;
+}
+</code></pre><blockquote>
+<p>总体而言， Windows平台 和 *uix平台 的区别在于，前者使用时需要 加载和清除 套接字库<br>其余逻辑流程一致，毕竟只有统一才能越利于编程世界的发展。</p>
+</blockquote>
+<h2 id="套接字编程">套接字编程</h2><ul>
+<li>两种协议 <code>TCP</code> 和 <code>UDP</code><ul>
+<li>前者可以理解为有保证的连接，后者是追求快速的连接</li>
+<li>当然最后一点有些太过绝对，但是现在不需熬考虑太多，因为初入套接字编程，一切从简</li>
+<li>稍微试想便能够大致理解， <code>TCP</code> 追求的是可靠的传输数据， <code>UDP</code> 追求的则是快速的传输数据</li>
+<li>前者有繁琐的连接过程，后者则是根本不建立可靠连接(不是绝对)，只是将数据发送而不考虑是否到达。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>以下例子以 *nix 平台的便准为例，因为 Windows平台需要考虑额外的加载问题。</p>
+</blockquote>
+<ul>
+<li><p><code>UDP</code></p>
+<ul>
+<li>这是一个十分简洁的连接方式</li>
+<li><p>接收端：</p>
+<pre><code>int sock; /<span class="keyword">*</span> 套接字 <span class="keyword">*</span>/
+socklen_t addr_len; /<span class="keyword">*</span> 发送端的地址长度，用于 recvfrom <span class="keyword">*</span>/
+char mess[15];
+struct sockaddr_in recv_host, send_host;
+
+/<span class="keyword">*</span> 创建套接字 <span class="keyword">*</span>/
+sock = socket(PF_INET, SOCK_DGRAM, 0);
+
+/<span class="keyword">*</span> 把IP 和 端口号信息绑定在套接字上 <span class="keyword">*</span>/
+memset(&amp;recv_host, 0, sizeof(recv_host));
+recv_host.sin_family = AF_INET;
+recv_host.sin_addr.s_addr = htonl(INADDR_ANY);/<span class="keyword">*</span> 接收任意的IP <span class="keyword">*</span>/
+recv_host.sin_port = htons(6000); /<span class="keyword">*</span> 使用6000 端口号 <span class="keyword">*</span>/
+bind(sock, (struct sockaddr <span class="keyword">*</span>)&amp;recv_host, sizeof(recv_host));
+
+/<span class="keyword">*</span> 进入接收信息的状态 <span class="keyword">*</span>/
+recvfrom(sock, mess, 15, 0, (struct sockaddr <span class="keyword">*</span>)&amp;send_host, &amp;addr_len);
+
+/<span class="keyword">*</span> 接收完成，关闭套接字 <span class="keyword">*</span>/
+close(sock);
+</code></pre><p>上述代码省略了许多必要的 <strong>错误检查</strong> ，在实际编写时要添加</p>
+</li>
+<li>代码解释：<ol>
+<li><strong>PF_INET</strong> 代表协议的类型，此处代表 <strong>IPv4</strong> 网络协议族， 同样 <strong>PF_INET6</strong> 代表 <strong>IPv6</strong> 网络协议族，这个范围在后方单独记录，不与IPv4混在一起。</li>
+<li><strong>AF_INET</strong> 代表地址的类型，此处代表 <strong>IPv4</strong> 网络协议使用的地址族， 同样有 <strong>AF_INET6</strong></li>
+<li><code>htonl</code> 和 <code>htons</code> 两个函数的使用涉及到 <strong>大端小端问题</strong>， 这里不叙述，需要记住的是在网络编程时一定要使用这种函数将必要信息转为 <strong>大端表示法</strong> 。</li>
+<li><code>(struct sockaddr *)</code> 这个强制转换是为了参数的必须，但不会出错，因为 <code>sizeof(struct sockaddr_in) == sizeof(struct sockaddr)</code> 具体可以查询相关信息，之所以这么做是为了方便编写套接字程序的程序员。</li>
+</ol>
+</li>
+<li>发送端：<pre><code><span class="keyword">int</span> sock;
+<span class="keyword">const</span> <span class="keyword">char</span>* mess = <span class="string">"Hello Server!"</span>;
+<span class="keyword">struct</span> sockaddr_in recv_host;
+socklen_t addr_len;
+<span class="comment">/* 创建套接字 */</span>
+sock = socket(PF_INET, SOCK_DGRAM, <span class="number">0</span>);
+<span class="comment">/* 绑定 */</span>
+<span class="built_in">memset</span>(&amp;recv_host, <span class="number">0</span>, <span class="keyword">sizeof</span>(recv_host));
+recv_host.sin_family = AF_INET;
+recv_host.sin_addr.s_addr = inet_addr(<span class="string">"127.0.0.1"</span>);
+recv_host.sin_port = htons(<span class="number">6000</span>);
+bind(sock, (<span class="keyword">struct</span> sockaddr *)&amp;recv_host, <span class="keyword">sizeof</span>(recv_host));
+<span class="comment">/* 发送信息 */</span>
+sendto(sock, mess, <span class="built_in">strlen</span>(mess), <span class="number">0</span>, (<span class="keyword">struct</span> sockaddr *)&amp;recv_host, <span class="keyword">sizeof</span>(recv_host));
+<span class="comment">/* 完成，关闭 */</span>
+close(sock);
+</code></pre>上述代码是发送端。</li>
+<li>代码解释：<ol>
+<li><code>inet_addr</code> 函数是用于将字符串格式的 <strong>IP地址</strong> 转换为 大端表示法的 地址类型，即 <code>s_addr</code> 的类型 <code>in_addr_t</code></li>
+<li>与之相反，同样也有功能相反的函数 <code>inet_ntoa</code> 用于将 <code>in_addr_t</code> 类型转为字符串，但是使用时一定要记住及时拷贝返回值<pre><code><span class="type">char</span> <span class="keyword">addr</span>[<span class="number">16</span>];
+recv_host.sin_addr.s_addr = inet_addr(<span class="string">"127.0.0.1"</span>);
+strcpy(<span class="keyword">addr</span>, inet_ntoa(recv_host.sin_addr.s_addr));
+</code></pre></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
