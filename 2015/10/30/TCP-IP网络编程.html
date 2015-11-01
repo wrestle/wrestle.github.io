@@ -147,7 +147,7 @@ TCP/IP
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="概念">概念</h1><ul>
+        <h2 id="概念">概念</h2><ul>
 <li>最具误导性的当属于 <code>TCP/IP</code> 协议了<ul>
 <li>所谓 <code>TCP/IP</code> 协议指的并不是一个协议，往往在生活中听见的术语如：<strong>IP地址</strong>， <strong>TCP连接</strong> 等，总会被误导，以为就是一个东西</li>
 <li>实际上它们都是彼此独立的 <strong>协议</strong> ，只不过会相互合作罢了</li>
@@ -228,8 +228,8 @@ TCP/IP
 <td>效验码</td>
 </tr>
 <tr>
-<td>源和目的MAC地址以及前层协议类型</td>
-<td>源和目的IP及前层协议类型</td>
+<td>源和目的MAC地址以及</td>
+<td>及前层协议类型</td>
 <td>源和目的端口号及前层应用程序首部信息</td>
 <td>应用软件信息和真正的数据</td>
 <td></td>
@@ -239,12 +239,130 @@ TCP/IP
 <p>其中端口号实际上就是 <strong>应用程序的信息</strong></p>
 <p>接收数据时的 <strong>拆解</strong> 顺序与 <strong>封装</strong> 正好相反。</p>
 <ul>
-<li>其中在传输过程中，作为接收方最开始使用的是 <strong>网络接口层/数据链路层</strong> 的驱动程序(即操作系统自带或另行安装，总之不用使用的程序员写就对了)，来判断这个包是否属于我，判断的依据就是 <strong>MAC地址</strong>，如果是再判断什么协议<ul>
+<li><p>其中在传输过程中，作为接收方最开始使用的是 <strong>网络接口层/数据链路层</strong> 的驱动程序(即操作系统自带或另行安装，总之不用使用的程序员写就对了)，来判断这个包是否属于我，判断的依据就是 <strong>MAC地址</strong>，如果是再判断什么协议</p>
+<ul>
 <li>在此处的协议可不止 <strong>IP协议</strong>， 也可能是 <strong>ARP协议</strong> 等。之后就是就事论事交给相应的处理软件去处理(拆解)就行</li>
-<li>科普： MAC地址是 <code>48bit</code> 的， <code>22bit</code>由 <strong>IEEE</strong> 分配， <code>24bit</code> 由厂商分配。原则上是唯一的。</li>
+<li>科普： MAC地址是 <code>48bit</code> 的， 前<code>24bit</code>由 <strong>IEEE</strong> 分配， 后<code>24bit</code> 由厂商分配。原则上是唯一的。</li>
+</ul>
+</li>
+<li><p><strong>MAC地址</strong> 和 <strong>IP地址</strong></p>
+<ul>
+<li>既然前方说到 <strong>MAC地址</strong> 和 <strong>IP地址</strong> 都能够作为识别另一个主机的唯一标识，但是为什么需要有两个相同功能的东西？</li>
+<li>是，在一开始，网络很小的情况下，例如我们在同一个局域网中，我们之间需要<strong>通信</strong>的时候，只需要使用ARP协议，进行<strong>广播</strong>，向在一个网络中的所有主机发送消息就行，剩下的就让其他主机去判断(通过<strong>MAC地址</strong>)这个数据是不是发给我的。<ul>
+<li><strong>ARP协议</strong> 的作用就是在同一个网络中，通过 <strong>广播</strong> 找出符合自己要求的主机的 <strong>MAC地址</strong> ，如果不在同一个网络中，又想知道对方的 <strong>MAC地址</strong>， 那只能借助把每个网络链接在一起的 <strong>网关</strong> 来帮助你发送 。 总之进行网络通信时必须知道对方的 <strong>IP地址 和 MAC地址</strong></li>
+</ul>
+</li>
+<li>但是如果是现在整个互联网呢？不算<strong>IPv6</strong>，就算 <strong>IPv4</strong> 也是几十亿的存在，如果我从中国向国外发送信息，广播整个互联网的所有主机，那就炸了！</li>
+<li>所以我们需要对世界网络进行分区，让大区域包含小区域，就像<strong>国家-省-市区…</strong> ， 很遗憾的是 <strong>MAC地址</strong> 是跟计算机相关而不是和位置相关的。所以我们有了 <strong>IP协议</strong></li>
+<li><strong>IP协议</strong> 所附带的产品 <strong>IP地址</strong> 的作用就在帮助计算机识别自己是否在同一个网络中(<strong>这里省略了子网掩码的作用</strong>)。</li>
+</ul>
+</li>
+<li><p>实际上，在进行网络编程的时候，以上细节几乎都被隐藏起来，留给我们的只是可供使用的接口。</p>
+</li>
+</ul>
+<h2 id="套接字网络编程">套接字网络编程</h2><blockquote>
+<p>选择使用 C 语言进行编程</p>
+</blockquote>
+<ul>
+<li>在网络编程中，最常实用的两种连接方式 <code>TCP</code> 和 <code>UDP</code></li>
+<li>最常编程的平台 <code>POSIX 标准-&gt; *nix平台标准</code> 和 <code>Windows 平台标准</code><ul>
+<li>实际上，后者也是参考前者进行一些细微的改变(<strong>指的是接口</strong>)</li>
 </ul>
 </li>
 </ul>
+<blockquote>
+<p>对比两种不同连接方式的不同地位的创建，使用</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>TCP服务器</th>
+<th>TCP客户端</th>
+<th>UDP服务器</th>
+<th>UDP客户端</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>socket()</td>
+<td>socket()</td>
+<td>socket()</td>
+<td>socket()</td>
+<td>创建套接字</td>
+</tr>
+<tr>
+<td>bind()</td>
+<td></td>
+<td>bind()</td>
+<td>bind()</td>
+<td>绑定所分配IP地址和端口号</td>
+</tr>
+<tr>
+<td>listen()</td>
+<td>connect()</td>
+<td></td>
+<td></td>
+<td>客户端则绑定IP地址和端口号，并等待连接；服务器则是等待连接</td>
+</tr>
+<tr>
+<td>accept()</td>
+<td></td>
+<td></td>
+<td></td>
+<td>服务器接受连接</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>sendto/recvfrom</td>
+<td>sendto/recvfrom</td>
+<td>对于UDP即是连接也是操作</td>
+</tr>
+<tr>
+<td>close()</td>
+<td>close()</td>
+<td>close()</td>
+<td>close</td>
+<td>关闭连接</td>
+</tr>
+</tbody>
+</table>
+<p>如此对比虽然有一些小瑕疵，但是能够大体上反映出真个网络编程上不同方式的区别</p>
+<blockquote>
+<p>注： 实际上 UDP 没有所谓的 服务器和和护短，因为本来就是单纯的互相发来发去。<strong>客户端端口</strong>一般是随机的</p>
+<p>以上是 *nix平台下的标准， Windows下的操作方式和 API有细微不同，但大部分是一致的。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Windows</th>
+<th>*nix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>socket()</td>
+<td>socket()</td>
+</tr>
+<tr>
+<td>bind()</td>
+<td>bind()</td>
+</tr>
+<tr>
+<td>listen()</td>
+<td>listen()</td>
+</tr>
+<tr>
+<td>accept()</td>
+<td>accept()</td>
+</tr>
+<tr>
+<td>close()</td>
+<td>closesock()</td>
+</tr>
+</tbody>
+</table>
 
       
     </div>
