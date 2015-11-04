@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-11-01T12:41:49.645Z</updated>
+  <updated>2015-11-04T12:27:03.363Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/10/30/TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B.html"/>
     <id>//wushxin.top/2015/10/30/TCP-IP网络编程.html</id>
     <published>2015-10-30T10:16:53.000Z</published>
-    <updated>2015-11-01T12:41:49.645Z</updated>
+    <updated>2015-11-04T12:27:03.363Z</updated>
     <content type="html"><![CDATA[<h2 id="概念">概念</h2><ul>
 <li>最具误导性的当属于 <code>TCP/IP</code> 协议了<ul>
 <li>所谓 <code>TCP/IP</code> 协议指的并不是一个协议，往往在生活中听见的术语如：<strong>IP地址</strong>， <strong>TCP连接</strong> 等，总会被误导，以为就是一个东西</li>
@@ -134,7 +134,81 @@
 <li><p>实际上，在进行网络编程的时候，以上细节几乎都被隐藏起来，留给我们的只是可供使用的接口。</p>
 </li>
 </ul>
-<h2 id="套接字网络编程初始">套接字网络编程初始</h2><blockquote>
+<h2 id="夹在中间">夹在中间</h2><blockquote>
+<p>事实上有一些实用且挺炫酷的函数，可以先提一下</p>
+</blockquote>
+<ul>
+<li>域名 和 IP地址 的互查<ul>
+<li><code>gethostbyname</code> 用于域名查找 IP信息及各类信息<ul>
+<li><code>struct hostent * gethostbyname(const char * hostname)</code></li>
+<li><code>struct hostent</code> 是存储查找到的各类型信息，后方会有介绍</li>
+<li><code>hostname</code> 即要查询的域名</li>
+</ul>
+</li>
+<li><code>gethostbyaddr</code> 用于IP地址查找 域名及各类信息<ul>
+<li><code>struct hostent * gethostbyaddr(const char * addr, socklen_t len, int family)</code><ul>
+<li><code>addr</code> 是要查询的 IP地址，之所以是 <code>const char *</code> 是因为C语言历史遗留的原因，实际上其类型应为 <code>struct in_addr *</code>(IPv4)</li>
+<li><code>len</code> 地址的长度，即 <strong>IPv4</strong> 为4， <strong>IPv6</strong> 为16</li>
+<li><code>family</code> 即协议的种类， <strong>IPv4</strong> 为 <code>AF_INET</code>, <strong>IPv6</strong> 为 <code>AF_INET6</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>struct hostent 的成员</th>
+<th>.</th>
+<th>类型</th>
+<th>.</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>h_name</td>
+<td></td>
+<td>char *</td>
+<td></td>
+<td>官方名称</td>
+</tr>
+<tr>
+<td>h_aliases</td>
+<td></td>
+<td>char **</td>
+<td></td>
+<td>域名集合，以NULL结尾</td>
+</tr>
+<tr>
+<td>h_addrtype</td>
+<td></td>
+<td>int</td>
+<td></td>
+<td>地址族的类型 AF_INET 或 AF_INET6</td>
+</tr>
+<tr>
+<td>h_length</td>
+<td></td>
+<td>int</td>
+<td></td>
+<td>地址的长度 4 或 16</td>
+</tr>
+<tr>
+<td>h_addr_list</td>
+<td></td>
+<td>char **</td>
+<td></td>
+<td>IP的集合，以NULL结尾, 实际上每个元素的类型为 struct in_addr*</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>其中第二和最后一个是关注的重点所在，可以在调用函数之后，输出信息<h2 id="套接字网络编程初始">套接字网络编程初始</h2></li>
+</ul>
+<blockquote>
 <p>选择使用 C 语言进行编程</p>
 </blockquote>
 <ul>
@@ -189,8 +263,8 @@
 <tr>
 <td>…</td>
 <td>…</td>
-<td>sendto/recvfrom</td>
-<td>sendto/recvfrom</td>
+<td>sendto/recvfrom()</td>
+<td>sendto/recvfrom()</td>
 <td>对于UDP即是连接也是操作</td>
 </tr>
 <tr>
@@ -198,7 +272,14 @@
 <td>close()</td>
 <td>close()</td>
 <td>close</td>
-<td>关闭连接</td>
+<td>双向直接关闭连接</td>
+</tr>
+<tr>
+<td>shutdown()</td>
+<td>shutdown()</td>
+<td>shutdown()</td>
+<td>shutdown()</td>
+<td>可选择方向的关闭连接,即更加灵活</td>
 </tr>
 </tbody>
 </table>
@@ -294,14 +375,15 @@ WSACleanup();
 <blockquote>
 <p>以下例子以 *nix 平台的便准为例，因为 Windows平台需要考虑额外的加载问题。</p>
 </blockquote>
-<ul>
+<h3 id="UDP">UDP</h3><ul>
 <li><p><code>UDP</code></p>
 <ul>
-<li>这是一个十分简洁的连接方式</li>
+<li>这是一个十分简洁的连接方式，假设有两台主机进行通信，一台只发送，一台只接收。</li>
 <li><p>接收端：</p>
 <pre><code>int sock; /<span class="keyword">*</span> 套接字 <span class="keyword">*</span>/
 socklen_t addr_len; /<span class="keyword">*</span> 发送端的地址长度，用于 recvfrom <span class="keyword">*</span>/
 char mess[15];
+char get_mess[GET_MAX]; /<span class="keyword">*</span> 后续版本使用 <span class="keyword">*</span>/
 struct sockaddr_in recv_host, send_host;
 
 /<span class="keyword">*</span> 创建套接字 <span class="keyword">*</span>/
@@ -330,6 +412,7 @@ close(sock);
 </li>
 <li>发送端：<pre><code><span class="keyword">int</span> sock;
 <span class="keyword">const</span> <span class="keyword">char</span>* mess = <span class="string">"Hello Server!"</span>;
+<span class="keyword">char</span> get_mess[GET_MAX]; <span class="comment">/* 后续版本使用 */</span>
 <span class="keyword">struct</span> sockaddr_in recv_host;
 socklen_t addr_len;
 <span class="comment">/* 创建套接字 */</span>
@@ -341,6 +424,7 @@ recv_host.sin_addr.s_addr = inet_addr(<span class="string">"127.0.0.1"</span>);
 recv_host.sin_port = htons(<span class="number">6000</span>);
 bind(sock, (<span class="keyword">struct</span> sockaddr *)&amp;recv_host, <span class="keyword">sizeof</span>(recv_host));
 <span class="comment">/* 发送信息 */</span>
+<span class="comment">/* 在此处，发送端的IP地址和端口号等各类信息，随着这个函数的调用，自动绑定在了套接字上 */</span>
 sendto(sock, mess, <span class="built_in">strlen</span>(mess), <span class="number">0</span>, (<span class="keyword">struct</span> sockaddr *)&amp;recv_host, <span class="keyword">sizeof</span>(recv_host));
 <span class="comment">/* 完成，关闭 */</span>
 close(sock);
@@ -353,10 +437,95 @@ strcpy(<span class="keyword">addr</span>, inet_ntoa(recv_host.sin_addr.s_addr));
 </code></pre></li>
 </ol>
 </li>
+<li>从上述代码看出， <code>UDP</code> 协议的使用十分简洁，几乎就是 <strong>创建套接字-&gt;准备数据-&gt;装备套接字-&gt;发送/接收-&gt;结束</strong></li>
+<li>其中，都没有连接的操作，但是实际上这是为了方便 <code>UDP</code> 随时和 <strong>不同的主机</strong> 进行通信所默认的设置，如果需要和相同主机一直通信呢？</li>
+<li>此中的原由暂时不需要知道，记录方法，即长时间使用 <code>UDP</code> 和同一主机通信时，可以使用 <code>connect</code> 函数来进行优化自身。此时 <strong>假设两台主机的实际功能一致，既接收也发送</strong></li>
+<li>发送端：<pre><code><span class="comment">/* 前方高度一致，将 bind函数替换为 */</span>
+connect(sock, (<span class="keyword">struct</span> sockaddr *)&amp;recv_host, <span class="keyword">sizeof</span>(recv_host); <span class="comment">// 将对方的 IP地址和 端口号信息 注册进UDP的套接字中)</span>
+<span class="keyword">while</span>(<span class="number">1</span>) <span class="comment">/* 循环的发送和接收信息 */</span>
+{
+  size_t read_len = <span class="number">0</span>;
+  <span class="comment">/* 原先使用的 sendto 函数，先择改为使用 write 函数， Windows平台为 send 函数 */</span>
+  write(sock, mess, <span class="built_in">strlen</span>(mess));            <span class="comment">/* send(sock, mess, strlen(mess), 0) FOR Windows Platform */</span>
+  read_len = read(sock, get_mess, GET_MAX-<span class="number">1</span>); <span class="comment">/* recv(sock, mess, strlen(mess)-1, 0) FOR Windows Platform */</span>
+  get_mess[read_len] = <span class="string">'\0'</span>;
+  <span class="built_in">printf</span>(<span class="string">"In Client like Host Recvive From Other Host : %s\n"</span>, get_mess);
+}
+<span class="comment">/* 后方高度一致 */</span>
+</code></pre></li>
+<li>接收端：<pre><code>/<span class="keyword">*</span> 前方一致， 添加额外的 struct sockaddr_in send_host; 并添加循环，构造收发的现象<span class="keyword">*</span>/
+while(1)
+{
+  size_t read_len = 0;
+  char sent_mess[15] = <span class="string">"Hello Sender!"</span>; /<span class="keyword">*</span> 用于发送的信息 <span class="keyword">*</span>/
+  sendto(sock, mess, strlen(sent_mess), 0, (struct sockaddr <span class="keyword">*</span>)&amp;recv_host, sizeof(recv_host));
+  read_len = recvfrom(sock, mess, 15, 0, (struct sockaddr <span class="keyword">*</span>)&amp;send_host, &amp;addr_len)
+  printf(<span class="string">"In Sever like Host Recvive From other Host : %s\n"</span>, mess);
+}
+/<span class="keyword">*</span> 后方高度一致 <span class="keyword">*</span>/
+/<span class="keyword">*</span>
+<span class="keyword">*</span> 之所以只在接收端使用 connect 的原因，便在于我们模拟的是 客户端-服务器 的模型，而服务器的各项信息是不会随意变更的
+<span class="keyword">*</span> 但是 客户端就不同了，可能由于 ISP(Internet Server Provider) 的原因，你的IP地址不可能总是固定的，所以只能
+<span class="keyword">*</span> 保证 在客户端 部分注册了 服务器 的各类信息，而不能在 服务器端 注册 客户端 的信息。
+<span class="keyword">*</span> 当然也有例外，例如你就想这个软件作为私密软件，仅供两个人使用， 且你有固定的 IP地址，那么你可以两边都connect，但是
+<span class="keyword">*</span> 一定要注意，只要有一点信息变动，这个软件就可能无法正常的收发信息了。
+<span class="keyword">*</span>/
+</code></pre></li>
+<li>代码解释<ul>
+<li>故而实际上，虽然前方的表格显示，<code>UDP</code> 似乎并没有 <code>connect</code> 的使用必要，但是实际上还是有用到的地方。</li>
+<li>就 <code>*nix</code> 的 <strong>API</strong> 来说，<code>sendto</code> 和  <code>write</code> 的区别十分明显，便是一个需要在参数中提供目标主机的各类信息，而后者则不需要提供。同样的道理<code>recvfrom</code>和<code>read</code>也是如此。</li>
+<li>这个代码只是做演示而已，所以将代码置于无限循环当中，现实中可以自行定义出口条件。</li>
 </ul>
 </li>
 </ul>
-]]></content>
+</li>
+</ul>
+<blockquote>
+<p>以上是 UDP 的一些简单说明，入门足矣，并未详细叙述某些 函数 的具体用法，而是用实际例子来体现。<br>在 记录 TCP 之前，还是需要讲一个函数 shutdown</p>
+</blockquote>
+<ul>
+<li><code>shutdown</code> 与 <code>close(closesocket)</code><ul>
+<li>首先要知道，网络通信一般而言是双方的共同进行的，换而言之就是双向的，一个方向只用来发送消息，一个方向只用来读取消息。</li>
+<li>这就导致了，在结束套接字通信的时候，需要关闭两个方向的通道(暂时叫它们通道)，那同时关闭不行吗？可以啊<ul>
+<li><code>close(sock); // closesocket(sock); FOR Windows PlatForm</code> 就是这么干的，同时断开两个方向的连接。</li>
+<li>简单的通信程序或者单向通信程序这么做的确无甚大碍，但是万一在结束通信的时候需要接收最后一个信息那该怎么办？<ul>
+<li>假设通信结束，客户端向服务器发送 “Thank you”</li>
+<li>服务器需要接收这个信息，之后才能关闭通信</li>
+<li>问题就在这之间，服务器并不知道客户端会在通信结束后的什么时刻传来信息</li>
+<li>所以我们选择在通信完成后先关闭 服务器的 发送通道(写流)，等待客户端发来消息后，关闭剩下的 接收通道(读流)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>发送端：<pre><code><span class="comment">/* 假设有一个 TCP 的连接，此为客户端 */</span>
+write<span class="comment">(sock, "Thank you", 10)</span>;
+close<span class="comment">(sock)</span>; <span class="comment">// 写完直接关闭通信</span>
+</code></pre></li>
+<li>接收端：<pre><code><span class="comment">/* 此为服务器 */</span>
+<span class="comment">/* 首先关闭写流 */</span>
+shutdown(sock_c, SHUT_WR);
+<span class="keyword">read</span>(sock_c, get_mess, GET_MAX);
+printf(<span class="string">"Message : %s\n"</span>, get_mess);
+<span class="keyword">close</span>(sock_c);
+<span class="keyword">close</span>(sock_s); <span class="comment">// 关闭两个套接字是因为 TCP 服务器端的需要，后续会记录</span>
+</code></pre></li>
+<li>代码解释<ul>
+<li><code>shutdown</code> 函数的作用就是 可选择的关闭那个方向的输出<ul>
+<li><code>int shutdown(int sock, int howto);</code></li>
+<li><code>sock</code> 代表要操作的套接字</li>
+<li><code>howto</code>有几个选择  <ul>
+<li><strong> *nix </strong> : <code>SHUT_RD</code> <code>SHUT_WR</code> <code>SHUT_RDWR</code></li>
+<li><strong> Windows </strong> : <code>SD_RECEIVE</code> <code>SD_SEND</code> <code>SD_BOTH</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="TCP">TCP</h3>]]></content>
     <summary type="html">
     <![CDATA[<h2 id="概念">概念</h2><ul>
 <li>最具误导性的当属于 <code>TCP/IP</code> 协议了<ul>
