@@ -101,7 +101,7 @@ var _hmt = _hmt || [];
       </h1>
       
         <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">喜欢编程带来的快乐</a>
+          <a href="/" id="subtitle">喜欢编程带来的快感</a>
         </h2>
       
     </div>
@@ -261,14 +261,19 @@ var _hmt = _hmt || [];
 <li><strong>ARP协议</strong> 的作用就是在同一个网络中，通过 <strong>广播</strong> 找出符合自己要求的主机的 <strong>MAC地址</strong> ，如果不在同一个网络中，又想知道对方的 <strong>MAC地址</strong>， 那只能借助把每个网络链接在一起的 <strong>网关</strong> 来帮助你发送 。 总之进行网络通信时必须知道对方的 <strong>IP地址 和 MAC地址</strong></li>
 </ul>
 </li>
-<li>但是如果是现在整个互联网呢？不算<strong>IPv6</strong>，就算 <strong>IPv4</strong> 也是几十亿的存在，如果我从中国向国外发送信息，广播整个互联网的所有主机，那就炸了！</li>
+<li>但是如果是现在整个互联网呢？不算 <strong>IPv6</strong> ，就算 <strong>IPv4</strong> 也是几十亿的存在，如果我从中国向国外发送信息，广播整个互联网的所有主机，那就炸了！</li>
 <li>所以我们需要对世界网络进行分区，让大区域包含小区域，就像<strong>国家-省-市区…</strong> ， 很遗憾的是 <strong>MAC地址</strong> 是跟计算机相关而不是和位置相关的。所以我们有了 <strong>IP协议</strong></li>
-<li><strong>IP协议</strong> 所附带的产品 <strong>IP地址</strong> 的作用就在帮助计算机识别自己是否在同一个网络中(<strong>这里省略了子网掩码的作用</strong>)。</li>
+<li><strong>IP协议</strong> 所附带的产品 <strong>IP地址</strong> 的作用就在帮助计算机识别自己是否在同一个网络中( <strong>这里省略了子网掩码的作用</strong> )。</li>
 </ul>
 </li>
 <li><p>实际上，在进行网络编程的时候，以上细节几乎都被隐藏起来，留给我们的只是可供使用的接口。</p>
 </li>
 </ul>
+<blockquote>
+<p>也许，许多大学计算机基础课程，会讲到 IP地址 有种类，分为 A,B,C…类，老师还介绍了各种类型的地址范围。</p>
+<p>但是在现代，这种分类早已经失效，或者说正在逐渐消失，因为当下的 IP 地址的 子网掩码 可以是任意位，并以反斜杠跟在 IP地址后方。</p>
+<p>现代的 IP地址 形式一般如此 1.185.223.1/24 代表着子网掩码是由 24个 从左至右连续的的二进制1 组合而成，其余位为0。</p>
+</blockquote>
 <h2 id="夹在中间">夹在中间</h2><blockquote>
 <p>事实上有一些实用且挺炫酷的函数，可以先提一下</p>
 </blockquote>
@@ -351,7 +356,7 @@ var _hmt = _hmt || [];
 </blockquote>
 <ul>
 <li>在网络编程中，最常实用的两种连接方式 <code>TCP</code> 和 <code>UDP</code></li>
-<li>最常编程的平台 <code>POSIX 标准-&gt; *nix平台标准</code> 和 <code>Windows 平台标准</code><ul>
+<li>最常编程的平台 <code>POSIX 标准-&gt;*nix平台标准</code> 和 <code>Windows 平台标准</code><ul>
 <li>实际上，后者也是参考前者进行一些细微的改变(<strong>指的是接口</strong>)</li>
 </ul>
 </li>
@@ -423,7 +428,7 @@ var _hmt = _hmt || [];
 </table>
 <p>如此对比虽然有一些小瑕疵，但是能够大体上反映出真个网络编程上不同方式的区别</p>
 <blockquote>
-<p>注： 实际上 UDP 没有所谓的 服务器和和护短，因为本来就是单纯的互相发来发去。<strong>客户端端口</strong>一般是随机的</p>
+<p>注： 实际上 UDP 没有所谓的 服务器和和护短，因为本来就是单纯的互相发来发去。<strong>客户端端口</strong> 一般是随机的</p>
 <p>以上是 *nix平台下的标准， Windows下的操作方式和 API有细微不同，但大部分是一致的。</p>
 </blockquote>
 <table>
@@ -481,7 +486,7 @@ var _hmt = _hmt || [];
 <p>那岂不是可以直接移植了？</p>
 <p>并不！</p>
 </blockquote>
-<p>在 <strong> Windows 套接字编程时</strong>， 由于 <code>Windows</code> 将其实现为动态库，所以在使用时需要将其加载进程序。</p>
+<p>在 <strong> Windows 套接字编程时</strong> ， 由于 <code>Windows</code> 将其实现为动态库，所以在使用时需要将其加载进程序。</p>
 <p>故而多加了加载操作。</p>
 <pre><code><span class="function"><span class="keyword">int</span> <span class="title">WSAStartup</span><span class="params">(
   WORD      wVersionRequested,
@@ -507,19 +512,19 @@ WSACleanup();
   <span class="built_in">return</span> <span class="number">1</span>;
 }
 </code></pre><blockquote>
-<p>总体而言， Windows平台 和 *uix平台 的区别在于，前者使用时需要 加载和清除 套接字库<br>其余逻辑流程一致，毕竟只有统一才能越利于编程世界的发展。</p>
+<p>总体而言， <code>Windows平台</code> 和 <code>*uix平台</code> 的区别在于，前者使用时需要 加载和清除 套接字库<br>其余逻辑流程一致，毕竟只有统一才能越利于编程世界的发展。</p>
 </blockquote>
 <h2 id="套接字编程">套接字编程</h2><ul>
 <li>两种协议 <code>TCP</code> 和 <code>UDP</code><ul>
 <li>前者可以理解为有保证的连接，后者是追求快速的连接</li>
-<li>当然最后一点有些<strong>太过绝对</strong>，但是现在不需熬考虑太多，因为初入套接字编程，一切从简</li>
+<li>当然最后一点有些 <strong>太过绝对</strong> ，但是现在不需熬考虑太多，因为初入套接字编程，一切从简</li>
 <li>稍微试想便能够大致理解， <code>TCP</code> 追求的是可靠的传输数据， <code>UDP</code> 追求的则是快速的传输数据</li>
 <li>前者有繁琐的连接过程，后者则是根本不建立可靠连接(不是绝对)，只是将数据发送而不考虑是否到达。</li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<p>以下例子以 *nix 平台的便准为例，因为 Windows平台需要考虑额外的加载问题，稍作添加就能在 Windows 平台上运行</p>
+<p>以下例子以 <code>*nix</code> 平台的便准为例，因为 <code>Windows</code>平台需要考虑额外的加载问题，稍作添加就能在 Windows 平台上运行</p>
 </blockquote>
 <h3 id="UDP">UDP</h3><ul>
 <li><p><code>UDP</code></p>
@@ -568,7 +573,6 @@ sock = socket(PF_INET, SOCK_DGRAM, <span class="number">0</span>);
 recv_host.sin_family = AF_INET;
 recv_host.sin_addr.s_addr = inet_addr(<span class="string">"127.0.0.1"</span>);
 recv_host.sin_port = htons(<span class="number">6000</span>);
-bind(sock, (<span class="keyword">struct</span> sockaddr *)&amp;recv_host, <span class="keyword">sizeof</span>(recv_host));
 <span class="comment">/* 发送信息 */</span>
 <span class="comment">/* 在此处，发送端的IP地址和端口号等各类信息，随着这个函数的调用，自动绑定在了套接字上 */</span>
 sendto(sock, mess, <span class="built_in">strlen</span>(mess), <span class="number">0</span>, (<span class="keyword">struct</span> sockaddr *)&amp;recv_host, <span class="keyword">sizeof</span>(recv_host));
@@ -781,7 +785,7 @@ close(sock);
                   <span class="keyword">const</span> <span class="keyword">struct</span> addrinfo * hints, <span class="keyword">struct</span> addrinfo ** res)</span></span>;
 </code></pre></li>
 <li>通俗的说这几个参数的作用</li>
-<li><code>node</code> 便是待获取或者待绑定的 <strong>域名</strong> 或是 <strong>IP</strong>，也就是说，这里可以直接填写域名，由操作系统来转换成 <strong>IP</strong>信息，或者直接填写<strong>IP</strong>亦可，是以字符串的形式</li>
+<li><code>node</code> 便是待获取或者待绑定的 <strong>域名</strong> 或是 <strong>IP</strong>，也就是说，这里可以直接填写域名，由操作系统来转换成 <strong>IP</strong> 信息，或者直接填写<strong>IP</strong>亦可，是以字符串的形式</li>
 <li><code>service</code> 便是端口号的意思，也是字符串形式</li>
 <li><code>hints</code> 通俗的来说就是告诉接口，我需要你反馈哪些信息给我(第四个参数)，并将这些信息填写到第四个参数里。</li>
 <li><code>res</code> 便是保存结果的地方，需要注意的是，这个结果在API内部是动态分配内存了，所以使用完之后需要调用另一个接口(<code>freeaddrinfo</code>)将其释放</li>
@@ -804,19 +808,63 @@ close(sock);
   <span class="keyword">char</span> __ss_pad1[_SS_PAD1SIZE]; <span class="comment">/* 从此处开始，不是实现者几乎是没办法理解 */</span>
   <span class="keyword">int64_t</span> __ss_align;           <span class="comment">/* 从名字上可以看出大概是为了兼容两个不同 IP 类型而做出的妥协 */</span>
   <span class="keyword">char</span> __ss_pad2[_SS_PAD2SIZE]; <span class="comment">/* 隐藏了实际内容，除了 IP 的种类以外，无法直接获取其他的任何信息。 */</span>
+  <span class="comment">/* 在各个*nix 的具体实现中， 可能有不同的实现，例如 `__ss_pad1` ， `__ss_pad2` , 可能合并成一个 `pad` 。 */</span>
 };
 </code></pre><p>在实际中，我们往往不需要为不同的IP类型声明不同的存储类型，直接使用 <code>struct sockaddr_storage</code> 就可以，使用时直接<strong>强制转换类型</strong>即可</p>
 </li>
 </ul>
 </li>
-<li><p>改写上方  <strong>接收端</strong>例子中，<code>进入接收信息的状态部分</code></p>
+<li><p>改写上方  <strong>接收端</strong> 例子中，进入接收信息的状态部分</p>
 <pre><code>/<span class="keyword">*</span> 首先将多于的变量化简 <span class="keyword">*</span>/
 // - struct sockaddr_in host_v4; /<span class="keyword">*</span> IPv4 地址 <span class="keyword">*</span>/
 // - struct sockaddr_in6 host_v6; /<span class="keyword">*</span> IPv6 地址
-struct sockaddr_storage host_ver_any; /<span class="keyword">*</span> 任意类型的 IP 地址 <span class="keyword">*</span>/
+struct sockaddr_storage host_ver_any; /<span class="keyword">*</span> + 任意类型的 IP 地址 <span class="keyword">*</span>/
 ...
 /<span class="keyword">*</span> 进入接收信息的状态部分 <span class="keyword">*</span>/
 recvfrom(sock, mess, 15, 0, (struct sockaddr <span class="keyword">*</span>)&amp;host_ver_any, &amp;addr_len); /<span class="keyword">*</span> 像是又回到了只有 IPv4 的年代<span class="keyword">*</span>/
+</code></pre></li>
+<li><p>补充完整上方对应的 <strong>发送端</strong> 代码</p>
+<pre><code><span class="type">int</span> sock;
+<span class="keyword">const</span> <span class="type">char</span>* mess = <span class="string">"Hello Server!"</span>;
+<span class="type">char</span> get_mess[<span class="type">GET_MAX</span>]; /* 后续版本使用 */
+struct sockaddr_storage recv_host; /* - struct sockaddr_in recv_host; */
+struct addrinfo tmp, *<span class="literal">result</span>;
+struct addrinfo *p;
+socklen_t addr_len;
+
+/* 获取对端的信息 */
+memset(&amp;tmp, <span class="number">0</span>, sizeof tmp);
+tmp.ai_family = <span class="type">AF_UNSPEC</span>;
+tmp.ai_flags = <span class="type">AI_PASSIVE</span>;
+tmp.ai_socktype = <span class="type">SOCK_DGRAM</span>;
+getaddrinfo(argv[<span class="number">1</span>], argv[<span class="number">2</span>], &amp;tmp, &amp;<span class="literal">result</span>); /* argv[<span class="number">1</span>] 代表对端的 <span class="type">IP</span>地址， argv[<span class="number">2</span>] 代表对端的 端口号 */
+
+/* 创建套接字 加 绑定*/
+<span class="keyword">for</span>(p = <span class="literal">result</span>; p != <span class="type">NULL</span>; p = p-&gt;ai_next)
+{
+  sock = socket(p-&gt;ai_family, p-&gt;ai_socktype, p-&gt;ai_protocol);  /* - sock = socket(<span class="type">PF_INET</span>, <span class="type">SOCK_DGRAM</span>, <span class="number">0</span>); */
+  <span class="keyword">if</span>(sock == -<span class="number">1</span>)
+    <span class="keyword">continue</span>;
+  /* 此处少了绑定 <span class="keyword">bind</span> 函数，因为作为发送端不需要讲对端的信息 绑定 到创建的套接字上。 */  
+  <span class="keyword">break</span>; /* 找到就可以退出了，当然也有可能没找到，那么此时 p 的值一定是 <span class="type">NULL</span> */
+}
+<span class="keyword">if</span>(p == <span class="type">NULL</span>)
+{
+  /* 错误处理 */
+}
+/* -// 绑定  
+memset(&amp;recv_host, <span class="number">0</span>, sizeof(recv_host));
+recv_host.sin_family = <span class="type">AF_INET</span>;
+recv_host.sin_addr.s_addr = inet_addr(<span class="string">"127.0.0.1"</span>);
+recv_host.sin_port = htons(<span class="number">6000</span>);
+*/
+
+/* 发送信息 */
+/* 在此处，发送端的<span class="type">IP</span>地址和端口号等各类信息，随着这个函数的调用，自动绑定在了套接字上 */
+sendto(sock, mess, strlen(mess), <span class="number">0</span>, p-&gt;ai_addr, p-&gt;ai_addrlen);
+/* 完成，关闭 */
+freeaddrinfo(<span class="literal">result</span>); /* 实际上这个函数应该在使用完 <span class="literal">result</span> 的地方就予以调用 */
+close(sock);                
 </code></pre></li>
 </ol>
 </li>
