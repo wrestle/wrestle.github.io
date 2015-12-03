@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快感]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-12-03T13:01:25.142Z</updated>
+  <updated>2015-12-03T13:13:25.827Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/10/30/TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B.html"/>
     <id>//wushxin.top/2015/10/30/TCP-IP网络编程.html</id>
     <published>2015-10-30T10:16:53.000Z</published>
-    <updated>2015-12-03T13:01:25.142Z</updated>
+    <updated>2015-12-03T13:13:25.827Z</updated>
     <content type="html"><![CDATA[<h2 id="概念">概念</h2><ul>
 <li>最具误导性的当属于 <code>TCP/IP</code> 协议了<ul>
 <li>所谓 <code>TCP/IP</code> 协议指的并不是一个协议，往往在生活中听见的术语如：<strong>IP地址</strong>， <strong>TCP连接</strong> 等，总会被误导，以为就是一个东西</li>
@@ -704,7 +704,7 @@ tmp.ai_flags = <span class="type">AI_PASSIVE</span>;
 tmp.ai_socktype = <span class="type">SOCK_DGRAM</span>;
 getaddrinfo(argv[<span class="number">1</span>], argv[<span class="number">2</span>], &amp;tmp, &amp;<span class="literal">result</span>); /* argv[<span class="number">1</span>] 代表对端的 <span class="type">IP</span>地址， argv[<span class="number">2</span>] 代表对端的 端口号 */
 
-/* 创建套接字 加 绑定*/
+/* 创建套接字 */
 <span class="keyword">for</span>(p = <span class="literal">result</span>; p != <span class="type">NULL</span>; p = p-&gt;ai_next)
 {
   sock = socket(p-&gt;ai_family, p-&gt;ai_socktype, p-&gt;ai_protocol);  /* - sock = socket(<span class="type">PF_INET</span>, <span class="type">SOCK_DGRAM</span>, <span class="number">0</span>); */
@@ -717,7 +717,7 @@ getaddrinfo(argv[<span class="number">1</span>], argv[<span class="number">2</sp
 {
   /* 错误处理 */
 }
-/* -// 绑定  
+/* -// 设定对端信息 
 memset(&amp;recv_host, <span class="number">0</span>, sizeof(recv_host));
 recv_host.sin_family = <span class="type">AF_INET</span>;
 recv_host.sin_addr.s_addr = inet_addr(<span class="string">"127.0.0.1"</span>);

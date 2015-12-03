@@ -839,7 +839,7 @@ tmp.ai_flags = <span class="type">AI_PASSIVE</span>;
 tmp.ai_socktype = <span class="type">SOCK_DGRAM</span>;
 getaddrinfo(argv[<span class="number">1</span>], argv[<span class="number">2</span>], &amp;tmp, &amp;<span class="literal">result</span>); /* argv[<span class="number">1</span>] 代表对端的 <span class="type">IP</span>地址， argv[<span class="number">2</span>] 代表对端的 端口号 */
 
-/* 创建套接字 加 绑定*/
+/* 创建套接字 */
 <span class="keyword">for</span>(p = <span class="literal">result</span>; p != <span class="type">NULL</span>; p = p-&gt;ai_next)
 {
   sock = socket(p-&gt;ai_family, p-&gt;ai_socktype, p-&gt;ai_protocol);  /* - sock = socket(<span class="type">PF_INET</span>, <span class="type">SOCK_DGRAM</span>, <span class="number">0</span>); */
@@ -852,7 +852,7 @@ getaddrinfo(argv[<span class="number">1</span>], argv[<span class="number">2</sp
 {
   /* 错误处理 */
 }
-/* -// 绑定  
+/* -// 设定对端信息 
 memset(&amp;recv_host, <span class="number">0</span>, sizeof(recv_host));
 recv_host.sin_family = <span class="type">AF_INET</span>;
 recv_host.sin_addr.s_addr = inet_addr(<span class="string">"127.0.0.1"</span>);
@@ -880,7 +880,7 @@ close(sock);
     </div>
     <footer class="article-footer">
       
-        <a data-url="//wushxin.top/2015/10/30/TCP-IP网络编程.html" data-id="ciggj33zi000l1wltl7qd6t79" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程">分享到</a>
+        <a data-url="//wushxin.top/2015/10/30/TCP-IP网络编程.html" data-id="cihq9k9hb000lx4ltqkdvl5n2" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程">分享到</a>
       
 
       
