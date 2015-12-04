@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快感]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-12-03T13:13:25.827Z</updated>
+  <updated>2015-12-04T13:05:32.100Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -16,11 +16,61 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[现代TCP/IP网络编程]]></title>
-    <link href="//wushxin.top/2015/10/30/TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B.html"/>
-    <id>//wushxin.top/2015/10/30/TCP-IP网络编程.html</id>
+    <title><![CDATA[现代TCP/IP网络编程-UDP]]></title>
+    <link href="//wushxin.top/2015/12/04/%E7%8E%B0%E4%BB%A3TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-UDP.html"/>
+    <id>//wushxin.top/2015/12/04/现代TCP-IP网络编程-UDP.html</id>
+    <published>2015-12-04T10:23:45.000Z</published>
+    <updated>2015-12-04T13:05:32.100Z</updated>
+    <content type="html"><![CDATA[<h4 id="UDP_的_connect()">UDP 的 connect()</h4><ul>
+<li>前方提到，如果使用的是 UDP 套接字进行通信的话，可以采取 <code>connect</code> 来进行优化，但是却不知原因。</li>
+<li>首先 <strong>UDP</strong> 的别称叫做 <strong>不可靠连接</strong>， 也就是说它可以不需要对发送出去的数据负责任，在默认情况下这是对的，因为效率。</li>
+<li>但是如果一个 <strong>UDP</strong> 套接字端 需要与另一个端进行多于一次的通信的时候，就会出现性能问题：<ul>
+<li>具体是： <code>连接两端通信 -&gt; 发送数据 -&gt; 断开连接 -&gt; 连接两端通信 -&gt; 发送数据 -&gt; 断开连接 ......</code></li>
+<li>可以看出，需要重复的进行 连接和断开， 且这两个操作都是涉及 <strong>内核</strong> 操作，耗费的资源不可忽略</li>
+<li>所以在必要时对 <strong>UDP</strong> 套接字调用 <code>connect</code>，是有必要的(并不硬性要求两端同时都要调用 <code>connect</code>)</li>
+<li>需要注意的是 <strong>TCP</strong>套接字 同样需要调用(必须调用) <code>connect</code>，虽然调用的函数接口一样，但是意义却是不相同的，前者是为了三次握手建立连接，而 <strong>UDP</strong>却只是为了能够省去 不必要的断开连接 以及接收到 <strong>ICMP错误报文</strong>。</li>
+</ul>
+</li>
+<li><strong>ICMP</strong>错误报文，指的是如果对端没办法接收到本端发送的信息的话，会返回一个错误，这个错误使用的就是<strong>ICMP</strong>(ICMPv4和ICMPv6两种)<ul>
+<li>如果 <strong>UDP</strong> 套接字通信时采用的是 未连接(unconnected) 的形式，那么在调用 <code>sendto</code> 接口之后，不管对端有没有收到信息，都会立即返回成功的信息，而即使对端没办法收到信息，且向本端发送了 <strong>ICMP</strong> 报文，我们也是无法检测到的。</li>
+<li>但是如果 <strong>UDP</strong> 套接字通信时采用的是 连接(connected) 的形式，那么就会接收到一个 <code>EHOSTUNREACH</code> 的错误，我们就能够捕捉到(这点与TCP的处理方式一样)。</li>
+</ul>
+</li>
+<li>假设我们想要断开连接 或者 重新选择一个对端进行通信，也是可以的<ul>
+<li>所需要做的也仅仅是在此调用一下 <code>connect</code> 接口函数<pre><code><span class="keyword">struct</span> sockaddr_storage unconnect;
+<span class="built_in">memset</span>(&amp;unconnect, <span class="number">0</span>, <span class="keyword">sizeof</span> unconnect);
+unconnect.ss_family = AF_UNSPEC; <span class="comment">/* 将 xxx_family 位置为 AF_UNSPEC 就表明要断开连接 */</span>
+connect(udp_sock, (<span class="keyword">struct</span> sockaddr *)&amp;unconnect, <span class="keyword">sizeof</span> unconnect); <span class="comment">/* 断开连接 */</span>
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>注： 断开连接或者重新对套接字建连接是 UDP 才可以使用的，千万不要用在 TCP套接字上面！</p>
+</blockquote>
+<ul>
+<li>和 <strong>TCP</strong> 这种面向连接的方式不同， <strong>UDP</strong> 不管是否是连接的(connected)，它依旧是一种不可靠的传输方式，所以当它调用 <code>connect</code> 时，即使对端没有运行，这个函数也不会有任何错误，知道发送第一条信息时才能知道对端到底可不可达。</li>
+<li></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h4 id="UDP_的_connect()">UDP 的 connect()</h4><ul>
+<li>前方提到，如果使用的是 UDP 套接字进行通信的话，可以采取 <code>connect</code> 来进行优化，但是却不知原因。</li>
+<li>首先 <strong]]>
+    </summary>
+    
+      <category term="杂货居" scheme="//wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
+    
+      <category term="网络编程" scheme="//wushxin.top/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[现代TCP/IP网络编程-启航]]></title>
+    <link href="//wushxin.top/2015/10/30/%E7%8E%B0%E4%BB%A3TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-%E5%90%AF%E8%88%AA.html"/>
+    <id>//wushxin.top/2015/10/30/现代TCP-IP网络编程-启航.html</id>
     <published>2015-10-30T10:16:53.000Z</published>
-    <updated>2015-12-03T13:13:25.827Z</updated>
+    <updated>2015-12-04T10:30:46.960Z</updated>
     <content type="html"><![CDATA[<h2 id="概念">概念</h2><ul>
 <li>最具误导性的当属于 <code>TCP/IP</code> 协议了<ul>
 <li>所谓 <code>TCP/IP</code> 协议指的并不是一个协议，往往在生活中听见的术语如：<strong>IP地址</strong>， <strong>TCP连接</strong> 等，总会被误导，以为就是一个东西</li>
@@ -212,10 +262,13 @@
 </table>
 <ul>
 <li>其中第二和最后一个是关注的重点所在，可以在调用函数之后，输出信息<blockquote>
-<p>实际上，这并不是一个好的方法，在后方将记录 现代人的我们 该如何做到这些事情，以上只是以前的TCP/IP 编程<br>只适用于 IPv4</p>
+<p>实际上，这并不是一个好的方法，在后方将记录 现代人的我们 该如何做到这些事情，以上只是以前的TCP/IP 编程</p>
 </blockquote>
 </li>
 </ul>
+<blockquote>
+<p>只适用于 IPv4</p>
+</blockquote>
 <h2 id="套接字网络编程初始">套接字网络编程初始</h2><blockquote>
 <p>选择使用 C 语言进行编程</p>
 </blockquote>
@@ -293,7 +346,8 @@
 </table>
 <p>如此对比虽然有一些小瑕疵，但是能够大体上反映出真个网络编程上不同方式的区别</p>
 <blockquote>
-<p>注： 实际上 UDP 没有所谓的 服务器和和护短，因为本来就是单纯的互相发来发去。<strong>客户端端口</strong> 一般是随机的</p>
+<p>注1： 对于  sendto recvfrom 这两个接口函数，并不一定是只能用在 UDP类型的 套接字上，同样 TCP类型的 套接字也能使用，但是这么做并没有什么意义。</p>
+<p>注2： 实际上 UDP 没有所谓的 服务器和和护短，因为本来就是单纯的互相发来发去。<strong>客户端端口</strong> 一般是随机的</p>
 <p>以上是 *nix平台下的标准， Windows下的操作方式和 API有细微不同，但大部分是一致的。</p>
 </blockquote>
 <table>
@@ -454,7 +508,7 @@ strcpy(<span class="keyword">addr</span>, inet_ntoa(recv_host.sin_addr.s_addr));
 </li>
 <li>从上述代码看出， <code>UDP</code> 协议的使用十分简洁，几乎就是 <strong>创建套接字-&gt;准备数据-&gt;装备套接字-&gt;发送/接收-&gt;结束</strong></li>
 <li>其中，都没有连接的操作，但是实际上这是为了方便 <code>UDP</code> 随时和 <strong>不同的主机</strong> 进行通信所默认的设置，如果需要和相同主机一直通信呢？</li>
-<li>此中的原由暂时不需要知道，记录方法，即长时间使用 <code>UDP</code> 和同一主机通信时，可以使用 <code>connect</code> 函数来进行优化自身。此时 <strong>假设两台主机的实际功能一致，既接收也发送</strong></li>
+<li>此中的原由<strong>暂时不需要</strong>知道，记录方法，即长时间使用 <code>UDP</code> 和同一主机通信时，可以使用 <code>connect</code> 函数来进行优化自身。此时 <strong>假设两台主机的实际功能一致，既接收也发送</strong></li>
 <li>发送端：<pre><code><span class="comment">/* 前方高度一致，将 bind函数替换为 */</span>
 connect(sock, (<span class="keyword">struct</span> sockaddr *)&amp;recv_host, <span class="keyword">sizeof</span>(recv_host); <span class="comment">// 将对方的 IP地址和 端口号信息 注册进UDP的套接字中)</span>
 <span class="keyword">while</span>(<span class="number">1</span>) <span class="comment">/* 循环的发送和接收信息 */</span>
@@ -717,7 +771,7 @@ getaddrinfo(argv[<span class="number">1</span>], argv[<span class="number">2</sp
 {
   /* 错误处理 */
 }
-/* -// 设定对端信息 
+/* -// 设定对端信息
 memset(&amp;recv_host, <span class="number">0</span>, sizeof(recv_host));
 recv_host.sin_family = <span class="type">AF_INET</span>;
 recv_host.sin_addr.s_addr = inet_addr(<span class="string">"127.0.0.1"</span>);
@@ -731,6 +785,7 @@ sendto(sock, mess, strlen(mess), <span class="number">0</span>, p-&gt;ai_addr, p
 freeaddrinfo(<span class="literal">result</span>); /* 实际上这个函数应该在使用完 <span class="literal">result</span> 的地方就予以调用 */
 close(sock);                
 </code></pre></li>
+<li>到了此处，实际上是开了网络编程的一个初始，解除了现代的 UDP 最简单的用法(<strong>甚至还算不上完整的使用</strong>)，但是确实是进行了交互。<h3 id="#">#</h3></li>
 </ol>
 </li>
 </ul>
@@ -740,6 +795,9 @@ close(sock);
 </ul>
 </li>
 </ol>
+<ul>
+<li>下一篇将详细记录 <strong>UDP</strong> 的编程</li>
+</ul>
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="概念">概念</h2><ul>

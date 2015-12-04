@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>现代TCP/IP网络编程 | WuShXin&#39;s fox</title>
+  <title>现代TCP/IP网络编程-启航 | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="概念
 最具误导性的当属于 TCP/IP 协议了
@@ -26,8 +26,8 @@ TCP/IP
 
 应用层 表示层 会话层">
 <meta property="og:type" content="article">
-<meta property="og:title" content="现代TCP/IP网络编程">
-<meta property="og:url" content="//wushxin.top/2015/10/30/TCP-IP网络编程.html">
+<meta property="og:title" content="现代TCP/IP网络编程-启航">
+<meta property="og:url" content="//wushxin.top/2015/10/30/现代TCP-IP网络编程-启航.html">
 <meta property="og:site_name" content="WuShXin's fox">
 <meta property="og:description" content="概念
 最具误导性的当属于 TCP/IP 协议了
@@ -49,7 +49,7 @@ TCP/IP
 
 应用层 表示层 会话层">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="现代TCP/IP网络编程">
+<meta name="twitter:title" content="现代TCP/IP网络编程-启航">
 <meta name="twitter:description" content="概念
 最具误导性的当属于 TCP/IP 协议了
 所谓 TCP/IP 协议指的并不是一个协议，往往在生活中听见的术语如：IP地址， TCP连接 等，总会被误导，以为就是一个东西
@@ -134,9 +134,9 @@ var _hmt = _hmt || [];
   </div>
 </header>
     <div class="outer">
-      <section id="main"><article id="post-TCP-IP网络编程" class="article article-type-post" itemscope itemprop="blogPost">
+      <section id="main"><article id="post-现代TCP-IP网络编程-启航" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/10/30/TCP-IP网络编程.html" class="article-date">
+    <a href="/2015/10/30/现代TCP-IP网络编程-启航.html" class="article-date">
   <time datetime="2015-10-30T10:16:53.000Z" itemprop="datePublished">2015-10-30</time>
 </a>
     
@@ -148,7 +148,7 @@ var _hmt = _hmt || [];
         
   
     <h1 class="article-title" itemprop="name">
-      现代TCP/IP网络编程
+      现代TCP/IP网络编程-启航
     </h1>
   
 
@@ -347,10 +347,13 @@ var _hmt = _hmt || [];
 </table>
 <ul>
 <li>其中第二和最后一个是关注的重点所在，可以在调用函数之后，输出信息<blockquote>
-<p>实际上，这并不是一个好的方法，在后方将记录 现代人的我们 该如何做到这些事情，以上只是以前的TCP/IP 编程<br>只适用于 IPv4</p>
+<p>实际上，这并不是一个好的方法，在后方将记录 现代人的我们 该如何做到这些事情，以上只是以前的TCP/IP 编程</p>
 </blockquote>
 </li>
 </ul>
+<blockquote>
+<p>只适用于 IPv4</p>
+</blockquote>
 <h2 id="套接字网络编程初始">套接字网络编程初始</h2><blockquote>
 <p>选择使用 C 语言进行编程</p>
 </blockquote>
@@ -428,7 +431,8 @@ var _hmt = _hmt || [];
 </table>
 <p>如此对比虽然有一些小瑕疵，但是能够大体上反映出真个网络编程上不同方式的区别</p>
 <blockquote>
-<p>注： 实际上 UDP 没有所谓的 服务器和和护短，因为本来就是单纯的互相发来发去。<strong>客户端端口</strong> 一般是随机的</p>
+<p>注1： 对于  sendto recvfrom 这两个接口函数，并不一定是只能用在 UDP类型的 套接字上，同样 TCP类型的 套接字也能使用，但是这么做并没有什么意义。</p>
+<p>注2： 实际上 UDP 没有所谓的 服务器和和护短，因为本来就是单纯的互相发来发去。<strong>客户端端口</strong> 一般是随机的</p>
 <p>以上是 *nix平台下的标准， Windows下的操作方式和 API有细微不同，但大部分是一致的。</p>
 </blockquote>
 <table>
@@ -589,7 +593,7 @@ strcpy(<span class="keyword">addr</span>, inet_ntoa(recv_host.sin_addr.s_addr));
 </li>
 <li>从上述代码看出， <code>UDP</code> 协议的使用十分简洁，几乎就是 <strong>创建套接字-&gt;准备数据-&gt;装备套接字-&gt;发送/接收-&gt;结束</strong></li>
 <li>其中，都没有连接的操作，但是实际上这是为了方便 <code>UDP</code> 随时和 <strong>不同的主机</strong> 进行通信所默认的设置，如果需要和相同主机一直通信呢？</li>
-<li>此中的原由暂时不需要知道，记录方法，即长时间使用 <code>UDP</code> 和同一主机通信时，可以使用 <code>connect</code> 函数来进行优化自身。此时 <strong>假设两台主机的实际功能一致，既接收也发送</strong></li>
+<li>此中的原由<strong>暂时不需要</strong>知道，记录方法，即长时间使用 <code>UDP</code> 和同一主机通信时，可以使用 <code>connect</code> 函数来进行优化自身。此时 <strong>假设两台主机的实际功能一致，既接收也发送</strong></li>
 <li>发送端：<pre><code><span class="comment">/* 前方高度一致，将 bind函数替换为 */</span>
 connect(sock, (<span class="keyword">struct</span> sockaddr *)&amp;recv_host, <span class="keyword">sizeof</span>(recv_host); <span class="comment">// 将对方的 IP地址和 端口号信息 注册进UDP的套接字中)</span>
 <span class="keyword">while</span>(<span class="number">1</span>) <span class="comment">/* 循环的发送和接收信息 */</span>
@@ -852,7 +856,7 @@ getaddrinfo(argv[<span class="number">1</span>], argv[<span class="number">2</sp
 {
   /* 错误处理 */
 }
-/* -// 设定对端信息 
+/* -// 设定对端信息
 memset(&amp;recv_host, <span class="number">0</span>, sizeof(recv_host));
 recv_host.sin_family = <span class="type">AF_INET</span>;
 recv_host.sin_addr.s_addr = inet_addr(<span class="string">"127.0.0.1"</span>);
@@ -866,6 +870,7 @@ sendto(sock, mess, strlen(mess), <span class="number">0</span>, p-&gt;ai_addr, p
 freeaddrinfo(<span class="literal">result</span>); /* 实际上这个函数应该在使用完 <span class="literal">result</span> 的地方就予以调用 */
 close(sock);                
 </code></pre></li>
+<li>到了此处，实际上是开了网络编程的一个初始，解除了现代的 UDP 最简单的用法(<strong>甚至还算不上完整的使用</strong>)，但是确实是进行了交互。<h3 id="#">#</h3></li>
 </ol>
 </li>
 </ul>
@@ -875,12 +880,15 @@ close(sock);
 </ul>
 </li>
 </ol>
+<ul>
+<li>下一篇将详细记录 <strong>UDP</strong> 的编程</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="//wushxin.top/2015/10/30/TCP-IP网络编程.html" data-id="cihq9k9hb000lx4ltqkdvl5n2" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程">分享到</a>
+        <a data-url="//wushxin.top/2015/10/30/现代TCP-IP网络编程-启航.html" data-id="cihropszv00039wlti0k5buvw" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-启航">分享到</a>
       
 
       
@@ -893,6 +901,15 @@ close(sock);
   
     
 <nav id="article-nav">
+  
+    <a href="/2015/12/04/现代TCP-IP网络编程-UDP.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          现代TCP/IP网络编程-UDP
+        
+      </div>
+    </a>
   
   
     <a href="/2015/09/20/Linux记录.html" id="article-nav-older" class="article-nav-link-wrap">
@@ -915,7 +932,7 @@ close(sock);
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络编程/">网络编程</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络编程/">网络编程</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -924,7 +941,7 @@ close(sock);
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/C/" style="font-size: 20px;">C</a><a href="/tags/Cpp/" style="font-size: 16.67px;">Cpp</a><a href="/tags/Linux/" style="font-size: 10px;">Linux</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 13.33px;">Python</a><a href="/tags/Qt/" style="font-size: 13.33px;">Qt</a><a href="/tags/杂货居/" style="font-size: 20px;">杂货居</a><a href="/tags/网站/" style="font-size: 10px;">网站</a><a href="/tags/网络编程/" style="font-size: 10px;">网络编程</a>
+      <a href="/tags/C/" style="font-size: 17.5px;">C</a><a href="/tags/Cpp/" style="font-size: 15px;">Cpp</a><a href="/tags/Linux/" style="font-size: 10px;">Linux</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 12.5px;">Python</a><a href="/tags/Qt/" style="font-size: 12.5px;">Qt</a><a href="/tags/杂货居/" style="font-size: 20px;">杂货居</a><a href="/tags/网站/" style="font-size: 10px;">网站</a><a href="/tags/网络编程/" style="font-size: 12.5px;">网络编程</a>
     </div>
   </div>
 
@@ -933,7 +950,7 @@ close(sock);
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -945,7 +962,11 @@ close(sock);
       <ul>
         
           <li>
-            <a href="/2015/10/30/TCP-IP网络编程.html">现代TCP/IP网络编程</a>
+            <a href="/2015/12/04/现代TCP-IP网络编程-UDP.html">现代TCP/IP网络编程-UDP</a>
+          </li>
+        
+          <li>
+            <a href="/2015/10/30/现代TCP-IP网络编程-启航.html">现代TCP/IP网络编程-启航</a>
           </li>
         
           <li>
@@ -958,10 +979,6 @@ close(sock);
         
           <li>
             <a href="/2015/07/21/Practical-cpp.html">Practical cpp</a>
-          </li>
-        
-          <li>
-            <a href="/2015/07/09/Cpp记录10.1k.html">Cpp记录10.1k</a>
           </li>
         
       </ul>
