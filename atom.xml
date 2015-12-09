@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快感]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-12-09T03:09:54.320Z</updated>
+  <updated>2015-12-09T03:12:40.855Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/12/04/%E7%8E%B0%E4%BB%A3TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-UDP.html"/>
     <id>//wushxin.top/2015/12/04/现代TCP-IP网络编程-UDP.html</id>
     <published>2015-12-04T10:23:45.000Z</published>
-    <updated>2015-12-09T03:09:54.320Z</updated>
+    <updated>2015-12-09T03:12:40.855Z</updated>
     <content type="html"><![CDATA[<h4 id="UDP_的_connect()">UDP 的 connect()</h4><ul>
 <li>前方提到，如果使用的是 UDP 套接字进行通信的话，可以采取 <code>connect</code> 来进行优化，但是却不知原因。</li>
 <li>首先 <strong>UDP</strong> 的别称叫做 <strong>不可靠连接</strong>， 也就是说它可以不需要对发送出去的数据负责任，在默认情况下这是对的，因为效率。</li>
@@ -50,9 +50,8 @@ connect(udp_sock, (<span class="keyword">struct</span> sockaddr *)&amp;unconnect
 <p>不要疑惑，每次发送的时候只指定了对端的 IP 和 端口，那我们自己的 IP 和端口呢？这个是由内核为我们完成，自动化就是这么方便</p>
 </blockquote>
 <ul>
-<li>和 <strong>TCP</strong> 这种面向连接的方式不同， <strong>UDP</strong> 不管是否是连接的(connected)，它依旧是一种不可靠的传输方式，所以当它调用 <code>connect</code> 时，即使对端没有运行，这个函数也不会有任何错误，知道发送第一条信息时才能知道对端到底可不可达。</li>
-</ul>
-<h4 id="那些通用的操作">那些通用的操作</h4><ul>
+<li>和 <strong>TCP</strong> 这种面向连接的方式不同， <strong>UDP</strong> 不管是否是连接的(connected)，它依旧是一种不可靠的传输方式，所以当它调用 <code>connect</code> 时，即使对端没有运行，这个函数也不会有任何错误，知道发送第一条信息时才能知道对端到底可不可达。<a id="more"></a>
+<h4 id="那些通用的操作">那些通用的操作</h4></li>
 <li><p>在上述记录的代码中，最主要的过程莫过于，<strong>创建套接字</strong>， <strong>绑定</strong>， <strong>连接</strong>， <strong>发送/接收</strong>， <strong>关闭</strong>， 这过程中使用的都是由操作系统提供给程序员的接口，但前方并未详细记录。此处给出</p>
 </li>
 <li><p><code>socket()</code></p>
@@ -166,7 +165,35 @@ recv_host.sin6_addr = in6addr_any; /<span class="keyword">*</span> 接收任意�
     <summary type="html">
     <![CDATA[<h4 id="UDP_的_connect()">UDP 的 connect()</h4><ul>
 <li>前方提到，如果使用的是 UDP 套接字进行通信的话，可以采取 <code>connect</code> 来进行优化，但是却不知原因。</li>
-<li>首先 <strong]]>
+<li>首先 <strong>UDP</strong> 的别称叫做 <strong>不可靠连接</strong>， 也就是说它可以不需要对发送出去的数据负责任，在默认情况下这是对的，因为效率。</li>
+<li>但是如果一个 <strong>UDP</strong> 套接字端 需要与另一个端进行多于一次的通信的时候，就会出现性能问题：<ul>
+<li>具体是： <code>连接两端通信 -&gt; 发送数据 -&gt; 断开连接 -&gt; 连接两端通信 -&gt; 发送数据 -&gt; 断开连接 ......</code></li>
+<li>可以看出，需要重复的进行 连接和断开， 且这两个操作都是涉及 <strong>内核</strong> 操作，耗费的资源不可忽略</li>
+<li>所以在必要时对 <strong>UDP</strong> 套接字调用 <code>connect</code>，是有必要的(并不硬性要求两端同时都要调用 <code>connect</code>)</li>
+<li>需要注意的是 <strong>TCP</strong>套接字 同样需要调用(必须调用) <code>connect</code>，虽然调用的函数接口一样，但是意义却是不相同的，前者是为了三次握手建立连接，而 <strong>UDP</strong>却只是为了能够省去 不必要的断开连接 以及接收到 <strong>ICMP错误报文</strong>。</li>
+</ul>
+</li>
+<li><strong>ICMP</strong>错误报文，指的是如果对端没办法接收到本端发送的信息的话，会返回一个错误，这个错误使用的就是<strong>ICMP</strong>(ICMPv4和ICMPv6两种)<ul>
+<li>如果 <strong>UDP</strong> 套接字通信时采用的是 未连接(unconnected) 的形式，那么在调用 <code>sendto</code> 接口之后，不管对端有没有收到信息，都会立即返回成功的信息，而即使对端没办法收到信息，且向本端发送了 <strong>ICMP</strong> 报文，我们也是无法检测到的。</li>
+<li>但是如果 <strong>UDP</strong> 套接字通信时采用的是 连接(connected) 的形式，那么就会接收到一个 <code>EHOSTUNREACH</code> 的错误，我们就能够捕捉到(这点与TCP的处理方式一样)。</li>
+</ul>
+</li>
+<li>假设我们想要断开连接 或者 重新选择一个对端进行通信，也是可以的<ul>
+<li>所需要做的也仅仅是在此调用一下 <code>connect</code> 接口函数<pre><code><span class="keyword">struct</span> sockaddr_storage unconnect;
+<span class="built_in">memset</span>(&amp;unconnect, <span class="number">0</span>, <span class="keyword">sizeof</span> unconnect);
+unconnect.ss_family = AF_UNSPEC; <span class="comment">/* 将 xxx_family 位置为 AF_UNSPEC 就表明要断开连接 */</span>
+connect(udp_sock, (<span class="keyword">struct</span> sockaddr *)&amp;unconnect, <span class="keyword">sizeof</span> unconnect); <span class="comment">/* 断开连接 */</span>
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>注： 断开连接或者重新对套接字建连接是 UDP 才可以使用的，千万不要用在 TCP套接字上面！</p>
+<p>不要疑惑，每次发送的时候只指定了对端的 IP 和 端口，那我们自己的 IP 和端口呢？这个是由内核为我们完成，自动化就是这么方便</p>
+</blockquote>
+<ul>
+<li>和 <strong>TCP</strong> 这种面向连接的方式不同， <strong>UDP</strong> 不管是否是连接的(connected)，它依旧是一种不可靠的传输方式，所以当它调用 <code>connect</code> 时，即使对端没有运行，这个函数也不会有任何错误，知道发送第一条信息时才能知道对端到底可不可达。]]>
+    
     </summary>
     
       <category term="杂货居" scheme="//wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>

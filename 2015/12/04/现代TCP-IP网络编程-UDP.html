@@ -143,9 +143,8 @@ connect(udp_sock, (<span class="keyword">struct</span> sockaddr *)&amp;unconnect
 <p>不要疑惑，每次发送的时候只指定了对端的 IP 和 端口，那我们自己的 IP 和端口呢？这个是由内核为我们完成，自动化就是这么方便</p>
 </blockquote>
 <ul>
-<li>和 <strong>TCP</strong> 这种面向连接的方式不同， <strong>UDP</strong> 不管是否是连接的(connected)，它依旧是一种不可靠的传输方式，所以当它调用 <code>connect</code> 时，即使对端没有运行，这个函数也不会有任何错误，知道发送第一条信息时才能知道对端到底可不可达。</li>
-</ul>
-<h4 id="那些通用的操作">那些通用的操作</h4><ul>
+<li>和 <strong>TCP</strong> 这种面向连接的方式不同， <strong>UDP</strong> 不管是否是连接的(connected)，它依旧是一种不可靠的传输方式，所以当它调用 <code>connect</code> 时，即使对端没有运行，这个函数也不会有任何错误，知道发送第一条信息时才能知道对端到底可不可达。<a id="more"></a>
+<h4 id="那些通用的操作">那些通用的操作</h4></li>
 <li><p>在上述记录的代码中，最主要的过程莫过于，<strong>创建套接字</strong>， <strong>绑定</strong>， <strong>连接</strong>， <strong>发送/接收</strong>， <strong>关闭</strong>， 这过程中使用的都是由操作系统提供给程序员的接口，但前方并未详细记录。此处给出</p>
 </li>
 <li><p><code>socket()</code></p>
