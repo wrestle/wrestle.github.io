@@ -697,68 +697,69 @@ printf(<span class="string">"Message : %s\n"</span>, get_mess);
 <li><p>改写一下上方的例子：</p>
 <ul>
 <li><p>接收端：</p>
-<pre><code><span class="type">int</span> sock; /* 套接字 */
-socklen_t addr_len; /* 发送端的地址长度，用于 recvfrom */
-<span class="type">char</span> mess[<span class="number">15</span>];
-<span class="type">char</span> get_mess[<span class="type">GET_MAX</span>]; /* 后续版本使用 */
-struct sockaddr_in host_v4; /* <span class="type">IPv4</span> 地址 */
-struct sockaddr_in6 host_v6; /* <span class="type">IPv6</span> 地址 */
-struct addrinfo easy_to_use; /* 用于设定要获取的信息以及如何获取信息 */
-struct addrinfo *<span class="literal">result</span>;    /* 用于存储得到的信息(需要注意内存泄露) */
+<pre><code>int sock; /<span class="keyword">*</span> 套接字 <span class="keyword">*</span>/
+socklen_t addr_len; /<span class="keyword">*</span> 发送端的地址长度，用于 recvfrom <span class="keyword">*</span>/
+char mess[15];
+char get_mess[GET_MAX]; /<span class="keyword">*</span> 后续版本使用 <span class="keyword">*</span>/
+struct sockaddr_in host_v4; /<span class="keyword">*</span> IPv4 地址 <span class="keyword">*</span>/
+struct sockaddr_in6 host_v6; /<span class="keyword">*</span> IPv6 地址 <span class="keyword">*</span>/
+struct addrinfo easy_to_use; /<span class="keyword">*</span> 用于设定要获取的信息以及如何获取信息 <span class="keyword">*</span>/
+struct addrinfo <span class="keyword">*</span>result;    /<span class="keyword">*</span> 用于存储得到的信息(需要注意内存泄露) <span class="keyword">*</span>/
+struct addrinfo <span class="keyword">*</span> p;
 
-/* 准备信息 */
-memset(&amp;easy_to_use, <span class="number">0</span>, sizeof easy_to_use);
-easy_to_use.ai_family = <span class="type">AF_UNSPEC</span>; /* 告诉接口，我现在还不知道地址类型 */
-easy_to_use.ai_flags = <span class="type">AI_PASSIVE</span>; /* 告诉接口，稍后“你”帮我填写我没明确指定的信息 */
-easy_to_use.ai_socktype = <span class="type">SOCK_DGRAM</span>; /* <span class="type">UDP</span> 的套接字 */
-/* 其余位都为 <span class="number">0</span> */
+/<span class="keyword">*</span> 准备信息 <span class="keyword">*</span>/
+memset(&amp;easy_to_use, 0, sizeof easy_to_use);
+easy_to_use.ai_family = AF_UNSPEC; /<span class="keyword">*</span> 告诉接口，我现在还不知道地址类型 <span class="keyword">*</span>/
+easy_to_use.ai_flags = AI_PASSIVE; /<span class="keyword">*</span> 告诉接口，稍后“你”帮我填写我没明确指定的信息 <span class="keyword">*</span>/
+easy_to_use.ai_socktype = SOCK_DGRAM; /<span class="keyword">*</span> UDP 的套接字 <span class="keyword">*</span>/
+/<span class="keyword">*</span> 其余位都为 0 <span class="keyword">*</span>/
 
-/* 使用 getaddrinfo 接口 */
-getaddrinfo(<span class="type">NULL</span>, argv[<span class="number">1</span>], &amp;easy_to_use, &amp;<span class="literal">result</span>); /* argv[<span class="number">1</span>] 中存放字符串形式的 端口号 */
+/<span class="keyword">*</span> 使用 getaddrinfo 接口 <span class="keyword">*</span>/
+getaddrinfo(NULL, argv[1], &amp;easy_to_use, &amp;result); /<span class="keyword">*</span> argv[1] 中存放字符串形式的 端口号 <span class="keyword">*</span>/
 
-/* 创建套接字，此处会产生两种写法，但更保险，可靠的写法是如此 */
-/* 旧式方法
-*  sock = socket(<span class="type">PF_INET</span>, <span class="type">SOCK_DGRAM</span>, <span class="number">0</span>);
-*/
-/* 把<span class="type">IP</span> 和 端口号信息绑定在套接字上 */
-/* 旧式方法
-*  memset(&amp;recv_host, <span class="number">0</span>, sizeof(recv_host));
-*  recv_host.sin_family = <span class="type">AF_INET</span>;
-*  recv_host.sin_addr.s_addr = htonl(<span class="type">INADDR_ANY</span>);/* 接收任意的<span class="type">IP</span> */
-*  recv_host.sin_port = htons(<span class="number">6000</span>); /* 使用<span class="number">6000</span> 端口号 */
-*  <span class="keyword">bind</span>(sock, (struct sockaddr *)&amp;recv_host, sizeof(recv_host));
-*/
+/<span class="keyword">*</span> 创建套接字，此处会产生两种写法，但更保险，可靠的写法是如此 <span class="keyword">*</span>/
+/<span class="keyword">*</span> 旧式方法
+<span class="keyword">*</span>  sock = socket(PF_INET, SOCK_DGRAM, 0);
+<span class="keyword">*</span>/
+/<span class="keyword">*</span> 把IP 和 端口号信息绑定在套接字上 <span class="keyword">*</span>/
+/<span class="keyword">*</span> 旧式方法
+<span class="keyword">*</span>  memset(&amp;recv_host, 0, sizeof(recv_host));
+<span class="keyword">*</span>  recv_host.sin_family = AF_INET;
+<span class="keyword">*</span>  recv_host.sin_addr.s_addr = htonl(INADDR_ANY);/<span class="keyword">*</span> 接收任意的IP <span class="keyword">*</span>/
+<span class="keyword">*</span>  recv_host.sin_port = htons(6000); /<span class="keyword">*</span> 使用6000 端口号 <span class="keyword">*</span>/
+<span class="keyword">*</span>  bind(sock, (struct sockaddr <span class="keyword">*</span>)&amp;recv_host, sizeof(recv_host));
+<span class="keyword">*</span>/
 
-<span class="keyword">for</span>(struct addrinfo * p = <span class="literal">result</span>; p != <span class="type">NULL</span>; p = p-&gt;ai_next) /* 该语法需要开启 -std=gnu99 标准*/
+for(p = result; p != NULL; p = p-&gt;ai_next) /<span class="keyword">*</span> 该语法需要开启 -std=gnu99 标准<span class="keyword">*</span>/
 {
-  sock = socket(<span class="literal">result</span>-&gt;ai_family, <span class="literal">result</span>-&gt;ai_socktype, <span class="literal">result</span>-&gt;ai_protocol);
-  <span class="keyword">if</span>(sock == -<span class="number">1</span>)
-    <span class="keyword">continue</span>;
-  <span class="keyword">if</span>(<span class="keyword">bind</span>(sock, p-&gt;ai_addr, p-&gt;ai_addrlen) == -<span class="number">1</span>)
+  sock = socket(p-&gt;ai_family, p-&gt;ai_socktype, p-&gt;ai_protocol);
+  if(sock == -1)
+    continue;
+  if(bind(sock, p-&gt;ai_addr, p-&gt;ai_addrlen) == -1)
   {
     close(sock);
-    <span class="keyword">continue</span>;
+    continue;
   }
-  <span class="keyword">break</span>; /* 如果能执行到此，证明建立套接字成功，套接字绑定成功，故不必再尝试。 */
+  break; /<span class="keyword">*</span> 如果能执行到此，证明建立套接字成功，套接字绑定成功，故不必再尝试。 <span class="keyword">*</span>/
 }
 
-/* 进入接收信息的状态 */
-//recvfrom(sock, mess, <span class="number">15</span>, <span class="number">0</span>, (struct sockaddr *)&amp;send_host, &amp;addr_len);
-switch(<span class="literal">result</span>-&gt;ai_socktype)
+/<span class="keyword">*</span> 进入接收信息的状态 <span class="keyword">*</span>/
+//recvfrom(sock, mess, 15, 0, (struct sockaddr <span class="keyword">*</span>)&amp;send_host, &amp;addr_len);
+switch(p-&gt;ai_socktype)
 {
-  <span class="keyword">case</span> <span class="type">AF_INET</span> :
+  case AF_INET :
     addr_len = sizeof host_v4;
-    recvfrom(sock, mess, <span class="number">15</span>, <span class="number">0</span>, (struct sockaddr *)&amp;host_v4, &amp;addr_len);
-    <span class="keyword">break</span>;
-  <span class="keyword">case</span> <span class="type">AF_INET6</span>:
+    recvfrom(sock, mess, 15, 0, (struct sockaddr <span class="keyword">*</span>)&amp;host_v4, &amp;addr_len);
+    break;
+  case AF_INET6:
     addr_len = sizeof host_v6
-    recvfrom(sock, mess, <span class="number">15</span>, <span class="number">0</span>, (struct sockaddr *)&amp;host_v6, &amp;addr_len);
-    <span class="keyword">break</span>;
+    recvfrom(sock, mess, 15, 0, (struct sockaddr <span class="keyword">*</span>)&amp;host_v6, &amp;addr_len);
+    break;
   default:
-    <span class="keyword">break</span>;
+    break;
 }
-freeaddrinfo(<span class="literal">result</span>); /* 释放这个空间，由getaddrinfo分配的 */
-/* 接收完成，关闭套接字 */
+freeaddrinfo(result); /<span class="keyword">*</span> 释放这个空间，由getaddrinfo分配的 <span class="keyword">*</span>/
+/<span class="keyword">*</span> 接收完成，关闭套接字 <span class="keyword">*</span>/
 close(sock);
 </code></pre><ul>
 <li><p>代码解释：</p>

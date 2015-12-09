@@ -130,10 +130,120 @@ connect(udp_sock, (<span class="keyword">struct</span> sockaddr *)&amp;unconnect
 </ul>
 <blockquote>
 <p>注： 断开连接或者重新对套接字建连接是 UDP 才可以使用的，千万不要用在 TCP套接字上面！</p>
+<p>不要疑惑，每次发送的时候只指定了对端的 IP 和 端口，那我们自己的 IP 和端口呢？这个是由内核为我们完成，自动化就是这么方便</p>
 </blockquote>
 <ul>
 <li>和 <strong>TCP</strong> 这种面向连接的方式不同， <strong>UDP</strong> 不管是否是连接的(connected)，它依旧是一种不可靠的传输方式，所以当它调用 <code>connect</code> 时，即使对端没有运行，这个函数也不会有任何错误，知道发送第一条信息时才能知道对端到底可不可达。</li>
-<li></li>
+</ul>
+<h4 id="那些通用的操作">那些通用的操作</h4><ul>
+<li><p>在上述记录的代码中，最主要的过程莫过于，<strong>创建套接字</strong>， <strong>绑定</strong>， <strong>连接</strong>， <strong>发送/接收</strong>， <strong>关闭</strong>， 这过程中使用的都是由操作系统提供给程序员的接口，但前方并未详细记录。此处给出</p>
+</li>
+<li><p><code>socket()</code></p>
+<pre><code>/<span class="keyword">*</span> 此处，该接口调用成功则返回 描述符(<span class="keyword">*</span>nix 下的概念), 否则错误的话返回 -1 <span class="keyword">*</span>/
+/<span class="keyword">*</span>
+<span class="keyword">*</span> <span class="comment">@param family   用来指定IP的协议族 也就是IP地址的类型</span>
+<span class="keyword">*</span> <span class="comment">@param type     调用该接口想要创建什么类型的套接字，例如是 TCP 的还是 UDP 的，等等？</span>
+<span class="keyword">*</span> <span class="comment">@param protocol 一般传入0作为参数，代表任意都接受的意思，实际上有三个选择。</span>
+<span class="keyword">*</span>/
+int socket(int family, int type, int protocol);
+</code></pre></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>family</th>
+<th>选择</th>
+<th>type</th>
+<th>选择</th>
+<th>protocol</th>
+<th>选择</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>  AF_INET</td>
+<td>IPv4地址族</td>
+<td>SOCK_STRAAM</td>
+<td>代表TCP</td>
+<td>IPPROTO_TCP</td>
+<td>TCP的协议</td>
+</tr>
+<tr>
+<td>  AF_INET6</td>
+<td>IPv6地址族</td>
+<td>SOCK_DGRAM</td>
+<td>代表UDP</td>
+<td>IPPROTO_UDP</td>
+<td>UDP的协议</td>
+</tr>
+<tr>
+<td>  …</td>
+<td>剩下的暂时不记录</td>
+<td>SOCK_RAW</td>
+<td>用于更底层的实现</td>
+<td>…</td>
+<td></td>
+</tr>
+<tr>
+<td>  …</td>
+<td></td>
+<td>..</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>  注</td>
+<td>…代表还有可用选项，但不予记录</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>这里引出了 <strong>Windows</strong> 和 <strong>*nix</strong> 的一点小差异，那就是 <code>socket</code>的返回值问题</li>
+<li><p>如果正确且成功的调用了这个函数，其会返回一个 句柄(Windows) 或者 文件描述符(*nix)</p>
+<ul>
+<li>我们知道，在 <strong> *nix </strong> 操作系统中，任何的一切都被视为文件，包括套接字，所以由 <code>socket</code>调用后返回的<strong>文件描述符的值</strong>也遵循着这个规则： <code>从 0 开始依次递增的一个整形值</code> ，所以当我们使用 <code>select(后续会提到的一个重要概念)</code>，可以很方便的将最后得到的文件描述符的值，当成搜索范围。</li>
+<li><strong>Windows</strong>下，句柄实质是也是一种整形，但是其值就不是程序员想象中的<strong>从零有序的向前递增</strong>了，而是由操作系统来自行决定，程序员无法预测，所以在 调用 <code>select</code> 的时候，会稍微有一些差异。</li>
+</ul>
+</li>
+<li><p><code>connect</code></p>
+<ul>
+<li>在此处不详细记录，因为在 TCP 中，其作用更加重要<pre><code><span class="comment">/* UDP 中该函数的作用十分单一，就是将IP和端口注册进套接字，且可对同一个套接字重复调用 */</span>
+<span class="function"><span class="keyword">int</span> <span class="title">connect</span><span class="params">(<span class="keyword">int</span> sockfd,  
+          <span class="keyword">const</span> <span class="keyword">struct</span> sockaddr * servaddr,
+                        socklen_t addrlen)</span></span>;
+</code></pre></li>
+</ul>
+</li>
+<li><p><code>bind</code></p>
+<ul>
+<li>这个接口一般用于 接收端 或者 称为服务端 的地方，具体作用在一般情况下是为制定一个<strong>具体的监听端口</strong>， 当然也可以指定具体的 IP地址，但是一般不这么做(并非绝对)，因为我们大部分时候是想要接收来自四面八方的各地IP主机的访问。<pre><code>/<span class="keyword">*</span> 通过在 myaddr指向的结构体中 填入 端口号 和 IP地址来达到 绑定的目的 <span class="keyword">*</span>/
+/<span class="keyword">*</span>
+<span class="keyword">*</span> <span class="comment">@param sockfd 用于绑定的套接字</span>
+<span class="keyword">*</span> <span class="comment">@param myaddr 在前方准备好的信息地址结构体</span>
+<span class="keyword">*</span> <span class="comment">@param len    这个结构体的长度</span>
+<span class="keyword">*</span> 实际上，信息地址结构体在 getaddrinfo 这个接口没有出现之前是需要自己填写的，但是现在却省去很多工作
+<span class="keyword">*</span>/
+int bind(int sockfd, const struct sockaddr <span class="keyword">*</span> myaddr, socklen_t len);
+/<span class="keyword">*</span>
+<span class="keyword">*</span> 提到的省去的工作就是对 信息结构体的填入工作
+<span class="keyword">*</span> 在最原始操作中有一个操作是 让该监听套接字 接收来自任意 IP 的访问
+<span class="keyword">*</span>/
+...
+recv_host.sin_addr.s_addr = htonl(INADDR_ANY);/<span class="keyword">*</span> 接收任意的IPv4 类型的 IP <span class="keyword">*</span>/
+recv_host.sin6_addr = in6addr_any; /<span class="keyword">*</span> 接收任意的IPv6 类型的 IP <span class="keyword">*</span>/
+...
+/<span class="keyword">*</span> 上述操作需要自行填写，十分不便，但是在调用getaddrinfo接口，且设置了相应的 flags以后，其会自动帮你设置这个选项，也就不需要程序员操心 <span class="keyword">*</span>/
+/<span class="keyword">*</span> 直接使用 bind(sockfd, result-&gt;ai_addr, result-&gt;ai_addrlen); <span class="keyword">*</span>/
+</code></pre></li>
+</ul>
+</li>
+<li><p><code>sendto</code></p>
+</li>
 </ul>
 
       
