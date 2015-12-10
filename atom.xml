@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快感]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-12-09T03:12:40.855Z</updated>
+  <updated>2015-12-10T13:11:41.041Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/12/04/%E7%8E%B0%E4%BB%A3TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-UDP.html"/>
     <id>//wushxin.top/2015/12/04/现代TCP-IP网络编程-UDP.html</id>
     <published>2015-12-04T10:23:45.000Z</published>
-    <updated>2015-12-09T03:12:40.855Z</updated>
+    <updated>2015-12-10T13:11:41.041Z</updated>
     <content type="html"><![CDATA[<h4 id="UDP_的_connect()">UDP 的 connect()</h4><ul>
 <li>前方提到，如果使用的是 UDP 套接字进行通信的话，可以采取 <code>connect</code> 来进行优化，但是却不知原因。</li>
 <li>首先 <strong>UDP</strong> 的别称叫做 <strong>不可靠连接</strong>， 也就是说它可以不需要对发送出去的数据负责任，在默认情况下这是对的，因为效率。</li>
@@ -122,7 +122,7 @@ int socket(int family, int type, int protocol);
 <li>这里引出了 <strong>Windows</strong> 和 <strong>*nix</strong> 的一点小差异，那就是 <code>socket</code>的返回值问题</li>
 <li><p>如果正确且成功的调用了这个函数，其会返回一个 句柄(Windows) 或者 文件描述符(*nix)</p>
 <ul>
-<li>我们知道，在 <strong> *nix </strong> 操作系统中，任何的一切都被视为文件，包括套接字，所以由 <code>socket</code>调用后返回的<strong>文件描述符的值</strong>也遵循着这个规则： <code>从 0 开始依次递增的一个整形值</code> ，所以当我们使用 <code>select(后续会提到的一个重要概念)</code>，可以很方便的将最后得到的文件描述符的值，当成搜索范围。</li>
+<li>我们知道，在 <strong> *nix </strong> 操作系统中，任何的一切都被视为文件，包括套接字，所以由 <code>socket()</code>调用后返回的<strong>文件描述符的值</strong>也遵循着这个规则： <code>从 0 开始依次递增的一个整形值</code> ，所以当我们使用 <code>select(后续会提到的一个重要概念)</code>，可以很方便的将最后得到的文件描述符的值，当成搜索范围。</li>
 <li><strong>Windows</strong>下，句柄实质是也是一种整形，但是其值就不是程序员想象中的<strong>从零有序的向前递增</strong>了，而是由操作系统来自行决定，程序员无法预测，所以在 调用 <code>select</code> 的时候，会稍微有一些差异。</li>
 </ul>
 </li>
@@ -159,7 +159,10 @@ recv_host.sin6_addr = in6addr_any; /<span class="keyword">*</span> 接收任意�
 </ul>
 </li>
 <li><p><code>sendto</code></p>
-</li>
+<pre><code><span class="function"><span class="keyword">int</span> <span class="title">sendto</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> <span class="keyword">void</span> * buff, size_t nbytes,  <span class="comment">/*  */</span>
+              <span class="keyword">int</span> flags,
+              <span class="keyword">struct</span> sockaddr * to, socklen_t addrlen)</span></span>;
+</code></pre></li>
 </ul>
 ]]></content>
     <summary type="html">
@@ -207,7 +210,7 @@ connect(udp_sock, (<span class="keyword">struct</span> sockaddr *)&amp;unconnect
     <link href="//wushxin.top/2015/10/30/%E7%8E%B0%E4%BB%A3TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-%E5%90%AF%E8%88%AA.html"/>
     <id>//wushxin.top/2015/10/30/现代TCP-IP网络编程-启航.html</id>
     <published>2015-10-30T10:16:53.000Z</published>
-    <updated>2015-12-09T03:08:32.126Z</updated>
+    <updated>2015-12-10T12:41:12.738Z</updated>
     <content type="html"><![CDATA[<h2 id="概念">概念</h2><ul>
 <li>最具误导性的当属于 <code>TCP/IP</code> 协议了<ul>
 <li>所谓 <code>TCP/IP</code> 协议指的并不是一个协议，往往在生活中听见的术语如：<strong>IP地址</strong>， <strong>TCP连接</strong> 等，总会被误导，以为就是一个东西</li>
@@ -923,7 +926,7 @@ sendto(sock, mess, strlen(mess), <span class="number">0</span>, p-&gt;ai_addr, p
 freeaddrinfo(<span class="literal">result</span>); /* 实际上这个函数应该在使用完 <span class="literal">result</span> 的地方就予以调用 */
 close(sock);                
 </code></pre></li>
-<li>到了此处，实际上是开了网络编程的一个初始，解除了现代的 UDP 最简单的用法(<strong>甚至还算不上完整的使用</strong>)，但是确实是进行了交互。<h3 id="#">#</h3></li>
+<li>到了此处，实际上是开了网络编程的一个初始，解除了现代的 UDP 最简单的用法(<strong>甚至还算不上完整的使用</strong>)，但是确实是进行了交互。</li>
 </ol>
 </li>
 </ul>
@@ -933,8 +936,10 @@ close(sock);
 </ul>
 </li>
 </ol>
-<ul>
-<li>下一篇将详细记录 <strong>UDP</strong> 的编程</li>
+<h3 id="#">#</h3><ul>
+<li>首先介绍 UDP 并不是因为它简单，而是因为他简洁，也不是因为它不重要，相反他其实很强大。</li>
+<li>永远不要小看一个简洁的东西，就像 <strong>C语言</strong></li>
+<li>下一篇将详细记录 <strong>UDP</strong> 的相关记录</li>
 </ul>
 ]]></content>
     <summary type="html">

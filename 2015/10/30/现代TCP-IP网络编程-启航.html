@@ -871,7 +871,7 @@ sendto(sock, mess, strlen(mess), <span class="number">0</span>, p-&gt;ai_addr, p
 freeaddrinfo(<span class="literal">result</span>); /* 实际上这个函数应该在使用完 <span class="literal">result</span> 的地方就予以调用 */
 close(sock);                
 </code></pre></li>
-<li>到了此处，实际上是开了网络编程的一个初始，解除了现代的 UDP 最简单的用法(<strong>甚至还算不上完整的使用</strong>)，但是确实是进行了交互。<h3 id="#">#</h3></li>
+<li>到了此处，实际上是开了网络编程的一个初始，解除了现代的 UDP 最简单的用法(<strong>甚至还算不上完整的使用</strong>)，但是确实是进行了交互。</li>
 </ol>
 </li>
 </ul>
@@ -881,8 +881,10 @@ close(sock);
 </ul>
 </li>
 </ol>
-<ul>
-<li>下一篇将详细记录 <strong>UDP</strong> 的编程</li>
+<h3 id="#">#</h3><ul>
+<li>首先介绍 UDP 并不是因为它简单，而是因为他简洁，也不是因为它不重要，相反他其实很强大。</li>
+<li>永远不要小看一个简洁的东西，就像 <strong>C语言</strong></li>
+<li>下一篇将详细记录 <strong>UDP</strong> 的相关记录</li>
 </ul>
 
       

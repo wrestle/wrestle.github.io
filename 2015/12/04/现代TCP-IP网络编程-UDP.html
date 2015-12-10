@@ -215,7 +215,7 @@ int socket(int family, int type, int protocol);
 <li>这里引出了 <strong>Windows</strong> 和 <strong>*nix</strong> 的一点小差异，那就是 <code>socket</code>的返回值问题</li>
 <li><p>如果正确且成功的调用了这个函数，其会返回一个 句柄(Windows) 或者 文件描述符(*nix)</p>
 <ul>
-<li>我们知道，在 <strong> *nix </strong> 操作系统中，任何的一切都被视为文件，包括套接字，所以由 <code>socket</code>调用后返回的<strong>文件描述符的值</strong>也遵循着这个规则： <code>从 0 开始依次递增的一个整形值</code> ，所以当我们使用 <code>select(后续会提到的一个重要概念)</code>，可以很方便的将最后得到的文件描述符的值，当成搜索范围。</li>
+<li>我们知道，在 <strong> *nix </strong> 操作系统中，任何的一切都被视为文件，包括套接字，所以由 <code>socket()</code>调用后返回的<strong>文件描述符的值</strong>也遵循着这个规则： <code>从 0 开始依次递增的一个整形值</code> ，所以当我们使用 <code>select(后续会提到的一个重要概念)</code>，可以很方便的将最后得到的文件描述符的值，当成搜索范围。</li>
 <li><strong>Windows</strong>下，句柄实质是也是一种整形，但是其值就不是程序员想象中的<strong>从零有序的向前递增</strong>了，而是由操作系统来自行决定，程序员无法预测，所以在 调用 <code>select</code> 的时候，会稍微有一些差异。</li>
 </ul>
 </li>
@@ -252,7 +252,10 @@ recv_host.sin6_addr = in6addr_any; /<span class="keyword">*</span> 接收任意�
 </ul>
 </li>
 <li><p><code>sendto</code></p>
-</li>
+<pre><code><span class="function"><span class="keyword">int</span> <span class="title">sendto</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> <span class="keyword">void</span> * buff, size_t nbytes,  <span class="comment">/*  */</span>
+              <span class="keyword">int</span> flags,
+              <span class="keyword">struct</span> sockaddr * to, socklen_t addrlen)</span></span>;
+</code></pre></li>
 </ul>
 
       
