@@ -252,11 +252,34 @@ recv_host.sin6_addr = in6addr_any; /<span class="keyword">*</span> 接收任意�
 </ul>
 </li>
 <li><p><code>sendto</code></p>
-<pre><code><span class="function"><span class="keyword">int</span> <span class="title">sendto</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> <span class="keyword">void</span> * buff, size_t nbytes,  <span class="comment">/*  */</span>
-              <span class="keyword">int</span> flags,
-              <span class="keyword">struct</span> sockaddr * to, socklen_t addrlen)</span></span>;
-</code></pre></li>
+<pre><code><span class="function"><span class="keyword">int</span> <span class="title">sendto</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> <span class="keyword">void</span> * buff, size_t nbytes,  <span class="comment">/* 用于"监听"的套接字，将要发送的信息存储首地址，信息的长度 */</span>
+              <span class="keyword">int</span> flags, <span class="comment">/* 暂时忽略 */</span>
+              <span class="keyword">const</span> <span class="keyword">struct</span> sockaddr * to, socklen_t addrlen)</span></span>; <span class="comment">/* 目的段的地址信息， 这个结构体的长度 */</span>
+</code></pre><ul>
+<li><p>一般而言，对于服务端(接收端)的UDP而言，会显式的调用 bind 函数，进行绑定一个地址(通配地址或者指定一个地址，这对于一台由多个网卡组成的主机有意义)以及端口号<br>对于普通的服务器而言，直接设定 统配地址( <code>INADDR_ANY</code>或<code>in6addr_any</code> ) 即可，系统会自动帮你选择有效的 地址端口绑定到 套接字上。</p>
+</li>
+<li><p>但，对于没有显式调用 <code>bind</code> 函数的UDP 客户端(发送端)而言，在创建了套接字(调用<code>socket()</code>)之后，得到的套接字是没有地址和端口信息的，其真正获得这些信息的时候就是在 <code>sendto</code>函数调用的时候，它会隐式的为 <code>sockfd</code> 绑定上 <strong>通配地址</strong>，并选择一个临时端口。</p>
+</li>
+<li><p><code>flags</code></p>
+<ul>
+<li><code>MSG_DONTWAIT</code>, <code>MSG_OOB</code>, <code>MSG_PEEK</code>, ‘MSG_ERRQUEUE’, <code>MSG_TRUNC</code>, <code>MSG_WAITALL</code></li>
 </ul>
+</li>
+</ul>
+</li>
+<li><p><code>recvfrom</code></p>
+<pre><code><span class="function"><span class="keyword">int</span> <span class="title">recvfrom</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">void</span> * buff, size_t nbytes,
+            <span class="keyword">int</span> flags
+            <span class="keyword">struct</span> sockaddr * <span class="keyword">from</span>, socklen_t * len)</span></span>; <span class="comment">/* 另一端的地址信息，以及长度 */</span>
+</code></pre><ul>
+<li>用于接收信息，如果最后两个参数为 <code>NULL</code>，就代表不想要知道对端的信息。也就没有办法回复信息给对方。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>注： sendto / recvfrom 并不是 UDP 专用，而是协议无关的函数接口，也就是说同样可以将这两个接口用于 TCP 套接字，只需要将最后两个参数设置为 NULL即可</p>
+<p>至于有没有必要，就仁者见仁智者见智了。</p>
+</blockquote>
 
       
     </div>
