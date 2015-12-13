@@ -233,7 +233,7 @@ connect(udp_sock, (<span class="keyword">struct</span> sockaddr *)&amp;unconnect
     <link href="//wushxin.top/2015/10/30/%E7%8E%B0%E4%BB%A3TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-%E5%90%AF%E8%88%AA.html"/>
     <id>//wushxin.top/2015/10/30/现代TCP-IP网络编程-启航.html</id>
     <published>2015-10-30T10:16:53.000Z</published>
-    <updated>2015-12-10T12:41:12.738Z</updated>
+    <updated>2015-12-13T02:28:44.820Z</updated>
     <content type="html"><![CDATA[<h2 id="概念">概念</h2><ul>
 <li>最具误导性的当属于 <code>TCP/IP</code> 协议了<ul>
 <li>所谓 <code>TCP/IP</code> 协议指的并不是一个协议，往往在生活中听见的术语如：<strong>IP地址</strong>， <strong>TCP连接</strong> 等，总会被误导，以为就是一个东西</li>
@@ -963,6 +963,36 @@ close(sock);
 <li>首先介绍 UDP 并不是因为它简单，而是因为他简洁，也不是因为它不重要，相反他其实很强大。</li>
 <li>永远不要小看一个简洁的东西，就像 <strong>C语言</strong></li>
 <li>下一篇将详细记录 <strong>UDP</strong> 的相关记录</li>
+</ul>
+<h4 id="在这之前">　在这之前</h4><ul>
+<li>首先还是科普记录一下协议的知识。</li>
+<li><a href="http://www.ruanyifeng.com/blog/2012/05/internet_protocol_suite_part_i.html" target="_blank" rel="external">阮一峰的博客 ： 互联网协议入门(一)</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2012/06/internet_protocol_suite_part_ii.html" target="_blank" rel="external">阮一峰的比克 :  互联网协议入门(二)</a></li>
+<li>上述两篇文章十分浅显易懂，十分符合科普二字，下方将对上述两个文章进行适当的补充。</li>
+</ul>
+<h4 id="ARP_协议">ARP 协议</h4><ul>
+<li>最简便的方法就是找一个有 WireShark 软件或者 <code>tcpdump</code> 的 <code>*nix</code> 平台，前者你可以选择随意监听一个机器，不多时就能看见 <strong>ARP</strong><br>协议的使用，因为它使用的太频繁了。</li>
+<li>对于 ARP 协议而言，首先对于一台机器 A，想与 机器B 通信，(假设此时 机器A 的<strong>高速缓存区(操作系统一定时间更新一次)</strong>中 没有 机器B的缓存)，<ul>
+<li>那么机器A就向广播地址发出 <strong>ARP请求</strong>，如果 机器B 收到了这个请求，就将自己的信息(IP地址，MAC地址)填入 <strong>ARP应答</strong> 中，再发送回去就行。</li>
+<li>上述中， <strong>ARP请求</strong> 和 <strong>ARP应答</strong> 是一种报文形式的信息，是 ARP协议 所附带的实现产品，也是用于两台主机之间进行通信。</li>
+<li>这是当 机器A 和 机器B 同处于一个网络的情况下，可以借由本网络段的广播地址 发送请求报文。</li>
+</ul>
+</li>
+<li>对于不同网络段的 机器A 与 机器B 而言，想要通过 <strong>ARP协议</strong> 获取 <strong>MAC地址</strong> ，就需要借助路由器的帮助了，可以想象一下，路由器(可以不止一个)在中间，机器A 和 机器B 分别在这些路由器的两边(即在不同子网)<ul>
+<li>由于 A 和 B 不在同一个子网内，所以没办法通过通过直接通过广播到达，但是有了路由器，就能进行 <strong>ARP代理</strong> 的操作，大概就是将路由器当成机器B， A向自己的本地路由器发送 <strong>ARP请求</strong></li>
+<li>之后路由器判断出是发送给B的ARP请求，又正好 B 在自己的管辖范围之内，就把自己的硬件地址 写入 <strong>ARP应答</strong> 中发回去，之后再有A向B 的数据，就都是A先发送给路由器，再经由路由器发往B了</li>
+<li>一篇比较好的资源是 <a href="www.cisco.com/c/en/us/support/docs/ip/dynamic-address-allocation-resolution/13718-5.html">Proxy ARP</a><h4 id="ICMP">ICMP</h4></li>
+</ul>
+</li>
+<li>这个协议比较重要，后方的概念也会涉及。<ul>
+<li><strong>请求应答报文</strong> 和 <strong>差错报文</strong> ，重点在于差错报文。</li>
+<li>请求应答报文在 <code>ICMP</code> 的应用中可以拿来查询本机的子网掩码之类的信息，大致通过向本子网内的所有主机发送该请求报文(包括自己，实际上就是广播)，后接收应答，得到信息</li>
+<li>差错报文在后续中会有提到，这里需要科普一二。</li>
+<li>首先对于差错报文的一大部分是关于 <strong>xxx不可达</strong> 的类型，例如主机不可达，端口不可达等等，每次出现错误的时候，ICMP报文总是第一时间返回给对端，(它一次只会出现一份，否则会造成网络风暴)，但是对端是否能够接收到，就不是发送端的问题了。</li>
+<li>这点上 套接字的类型 有着一定的联系，例如 UDP 在 <code>unconnected</code> 状态下是会忽略 ICMP报文的。而 TCP 因为总是 <code>connected</code> 的，所以对于 ICMP报文能很好的捕捉。</li>
+<li>ICMP差错报文中总是带着 <strong>出错数据报中的一部分真实数据</strong>，用于配对。</li>
+</ul>
+</li>
 </ul>
 ]]></content>
     <summary type="html">
