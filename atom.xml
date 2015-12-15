@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快感]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-12-12T03:28:17.990Z</updated>
+  <updated>2015-12-15T12:03:39.636Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -16,14 +16,135 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[Effective Modern C++概述]]></title>
+    <link href="//wushxin.top/2015/12/15/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0.html"/>
+    <id>//wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html</id>
+    <published>2015-12-15T08:40:14.000Z</published>
+    <updated>2015-12-15T12:03:39.636Z</updated>
+    <content type="html"><![CDATA[<h2 id="更新">更新</h2><ul>
+<li><p>Iterm 1</p>
+<h2 id="《Effective_Modern_C++》概要">《Effective Modern C++》概要</h2></li>
+<li><p>因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。</p>
+</li>
+<li>记录自己阅读这本书的过程，以及一些细节，知道自己不可能读一遍就能将所有信息记下，故写成博文，方便自己及需要者查阅</li>
+<li>本文是我自己的感受，如果有想要体会完整的思想请自行查阅原书，最好配一本完备的C++的语法工具书（例如<code>The C++ Programming Languag, 4th Edition--Bjarne Stroustrup</code>），以便随时查询，当然还需要一个可编程平台。</li>
+</ul>
+<blockquote>
+<p>代码尽量和原书相同，除非是想更详细的解释才会自行修改</p>
+</blockquote>
+<h3 id="Iterm_1_-_Understand_template_type_dedution">Iterm 1 - Understand template type dedution</h3><ul>
+<li>这节讲述了C++有两种类型推断(不许程序员介入)， <strong>自动类型推断(auto type dedution)</strong> 和 <strong>模板类型推断(template type dedution)</strong>， 两者的联系以及唯一的区别。</li>
+<li>首先介绍的是模板类型推断，这是来自(C++98)的特性了，现在以及在沿用，是最成功的特性之一。</li>
+<li><p>对于模板类型推断，一般形式可归纳为：</p>
+<pre><code><span class="keyword">template</span>&lt;typename T&gt;
+<span class="type">void</span> f(<span class="type">ParamType</span> param);
+// 调用
+f(exor); // <span class="type">expr</span> 可能是一条语句
+</code></pre><p>  <code>ParamType</code> 是一种缩写，用来表示 可能 类型<code>T</code>会有一些限定词来修饰，例如<code>const</code>, <code>&amp;</code> 之类的。</p>
+<p>  例如 把<code>ParamType</code> 可以代表 <code>const T &amp;</code></p>
+</li>
+<li>而此时，编译器在进行 模板类型推断 的时候会做两件事(两个推断的结果)，它会判断 <code>T</code> 和 <code>ParamType</code>的类型分别是什么。当然，如果 <code>ParamType</code> 就是 <code>T</code> 那自然就相同了。</li>
+<li>因为 <code>T</code> 究竟是什么，取决于 <code>ParamType</code>。</li>
+<li>进行推断的过程中，有三条编译器遵循的判断情况：<ol>
+<li><code>ParamType</code> 是一个指针或者引用，但不是一个 通用引用(Universal reference 不知道怎么翻译)。</li>
+<li><code>ParamType</code> 是一个 Universal reference</li>
+<li><code>ParamType</code>·不是一个指针也不是一个引用· </li>
+<li>所以将模板类型推断分为三种情况。</li>
+</ol>
+</li>
+<li><p>第一种情况比较简单</p>
+<ul>
+<li><p>如果此时 <code>expr</code>是一个引用，那就把引用去掉，剩下的就是 <code>T</code></p>
+<pre><code><span class="keyword">template</span>&lt;typename T&gt;
+<span class="type">void</span> f(T &amp; param);
+// 调用
+<span class="type">int</span>         x  = <span class="number">0</span>;
+<span class="keyword">const</span> <span class="type">int</span>     cx = x;
+<span class="keyword">const</span> <span class="type">int</span> &amp; rx = x;
+<span class="type">char</span> strings[] = <span class="string">"Hello World!"</span> // 原书没有
+f(x);  // T: <span class="type">int</span> ; <span class="type">ParamType</span>: <span class="type">int</span> &amp;
+f(cx); // T: <span class="keyword">const</span> <span class="type">int</span>; <span class="type">ParamType</span>: <span class="keyword">const</span> <span class="type">int</span> &amp;
+f(rx); // T: <span class="keyword">const</span> <span class="type">int</span>; <span class="type">ParamType</span>: <span class="keyword">const</span> <span class="type">int</span> &amp;
+f(strings); // 原书没有 T: <span class="type">char</span> [<span class="number">13</span>] ; <span class="type">ParamType</span>: <span class="type">char</span>(&amp;)[<span class="number">13</span>]
+</code></pre><p>  如果是 <code>void f(const T &amp; param)</code>呢，结果并没有什么太大的差别，只是该额外多加一个 <code>const</code> 限定符而已。</p>
+<pre><code>f<span class="comment">(x)</span>;  <span class="comment">// T: const int ; ParamType: const int &amp;;</span>
+f<span class="comment">(cx)</span>; <span class="comment">// 同上</span>
+f<span class="comment">(rx)</span>; <span class="comment">// 同上</span>
+</code></pre><p>  如果是指针 <code>void f(T * param)</code></p>
+<pre><code>const <span class="built_in">int</span> * px = &amp;x;
+f(&amp;x); // T: <span class="built_in">int</span> ; ParamType: <span class="built_in">int</span> *
+f(px); // T: const <span class="built_in">int</span>; ParamType: const <span class="built_in">int</span> *
+</code></pre><p>  以上为第一种情形</p>
+</li>
+</ul>
+</li>
+<li><p>第二种情况</p>
+<ul>
+<li>当参数类型设置为 <code>Universal reference</code>时比较奇怪，不可以常理推断。</li>
+<li><p>具体是，当传入参数为 <code>lvalue</code> 时，两个类型都为 <code>lvalue reference</code>, 否则如果传入一个 <code>rvalue</code>， 则用常规方法(第一种情况)处理。</p>
+<pre><code><span class="keyword">template</span>&lt;typename T&gt;
+<span class="type">void</span> f(T &amp;&amp; param); // 这就是所谓的 <span class="type">Universal</span> reference
+// 调用
+<span class="type">int</span> x = <span class="number">0</span>;
+<span class="keyword">const</span> <span class="type">int</span> cx = x;
+<span class="keyword">const</span> <span class="type">int</span> &amp; rx = x;
+f(x);  // T: <span class="type">int</span> &amp; ; <span class="type">ParamType</span>: <span class="type">int</span> &amp;
+f(cx); // T: <span class="keyword">const</span> <span class="type">int</span> &amp;; <span class="type">ParamType</span>: <span class="keyword">const</span> <span class="type">int</span> &amp;
+f(rx); // T: <span class="keyword">const</span> <span class="type">int</span> &amp;; <span class="type">ParamType</span>: <span class="keyword">const</span> <span class="type">int</span> &amp;
+// 特别处, 此时传入一个 rvalue
+f(<span class="number">0</span>); // T: <span class="type">int</span> ; <span class="type">ParamType</span>: <span class="type">int</span> &amp;&amp;
+      // 此时和第一种情况一致，由于传入的非引用，则 T 为 <span class="type">int</span>，<span class="type">ParamType</span>直接是 <span class="type">int</span> &amp;&amp;
+</code></pre></li>
+</ul>
+</li>
+<li><p>第三种情况</p>
+<ul>
+<li><p>当参数类型既不是指针也不是引用时，此时就是所谓的 <strong>按值传参</strong></p>
+<pre><code><span class="keyword">template</span>&lt;typename T&gt;
+<span class="type">void</span> f(T param);
+// 调用，参数和第一种情况一样
+f(x);  // T: <span class="type">int</span> ; <span class="type">ParamType</span>: <span class="type">int</span>
+f(cx); // 同上
+f(rx); // 同上
+</code></pre><p>  似乎很奇怪，但是实际上可以这么理解：既然都按值传递了，自然是拷贝一个副本了，既然是副本，那怎么操作都不会影响原来的对象(函数栈外的对象)，所以直接用最简单的最普通的，不带任何限定符的方式就行。</p>
+<p>  从此处以及前方所述，<strong>可以看出</strong> ，在进行类型推断的时候，所有的 <strong>限定符(const, volatile)</strong> 都会被忽略。</p>
+<p>  还有一些情况，例如传入指针</p>
+<pre><code>f<span class="comment">(&amp;x)</span>; <span class="comment">// 原书没有，原书使用的是字符串的首地址，并讲了一遍指针和数组的差异。</span>
+       <span class="comment">// T: int * ; Param: int *</span>
+</code></pre></li>
+</ul>
+</li>
+<li><p>在篇末，作者提到，如果想要在 <strong>编译期</strong> 得到一个数组的长度，并且使这个得到的长度可以用在其他数组的声明上，可以如此：</p>
+<pre><code><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="built_in">std</span>::size_t N&gt;
+<span class="keyword">constexpr</span> <span class="built_in">std</span>::<span class="function">size_t <span class="title">arraySize</span><span class="params">(T (&amp;)</span>[N]) <span class="keyword">noexcept</span> <span class="comment">// noexcept 可以帮助编译器更少的顾虑，也就是把优化策略更好的用在这个函数上。</span>
+</span>{
+    <span class="keyword">return</span> N;
+}
+</code></pre><p>  其中 <code>constexpr</code> 是让返回值可以当成常量使用。所传的参数类型指的就是 某大小的数组引用，这个大小可以由 模板类型推断 来自动取得。</p>
+</li>
+<li>结束</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="更新">更新</h2><ul>
+<li><p>Iterm 1</p>
+<h2 id="《Effective_Modern_C++》概要">《Effective Modern C++》概要</h2></li>
+<li><p>因为 Scott 大大的这本新书迟迟没有中]]>
+    </summary>
+    
+      <category term="Cpp" scheme="//wushxin.top/tags/Cpp/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[现代TCP/IP网络编程-UDP]]></title>
     <link href="//wushxin.top/2015/12/04/%E7%8E%B0%E4%BB%A3TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-UDP.html"/>
     <id>//wushxin.top/2015/12/04/现代TCP-IP网络编程-UDP.html</id>
     <published>2015-12-04T10:23:45.000Z</published>
-    <updated>2015-12-12T03:28:17.990Z</updated>
+    <updated>2015-12-13T02:36:49.271Z</updated>
     <content type="html"><![CDATA[<h4 id="UDP_的_connect()">UDP 的 connect()</h4><ul>
 <li>前方提到，如果使用的是 UDP 套接字进行通信的话，可以采取 <code>connect</code> 来进行优化，但是却不知原因。</li>
-<li>首先 <strong>UDP</strong> 的别称叫做 <strong>不可靠连接</strong>， 也就是说它可以不需要对发送出去的数据负责任，在默认情况下这是对的，因为效率。</li>
+<li>首先 <strong>UDP</strong> 的别称叫做 <strong>不可靠连接</strong>， 也就是说它可以不需要对发送出去的数据负责任，在默认情况下这是对的，因为“效率”。</li>
 <li>但是如果一个 <strong>UDP</strong> 套接字端 需要与另一个端进行多于一次的通信的时候，就会出现性能问题：<ul>
 <li>具体是： <code>连接两端通信 -&gt; 发送数据 -&gt; 断开连接 -&gt; 连接两端通信 -&gt; 发送数据 -&gt; 断开连接 ......</code></li>
 <li>可以看出，需要重复的进行 连接和断开， 且这两个操作都是涉及 <strong>内核</strong> 操作，耗费的资源不可忽略</li>
@@ -191,7 +312,7 @@ recv_host.sin6_addr = in6addr_any; /<span class="keyword">*</span> 接收任意�
     <summary type="html">
     <![CDATA[<h4 id="UDP_的_connect()">UDP 的 connect()</h4><ul>
 <li>前方提到，如果使用的是 UDP 套接字进行通信的话，可以采取 <code>connect</code> 来进行优化，但是却不知原因。</li>
-<li>首先 <strong>UDP</strong> 的别称叫做 <strong>不可靠连接</strong>， 也就是说它可以不需要对发送出去的数据负责任，在默认情况下这是对的，因为效率。</li>
+<li>首先 <strong>UDP</strong> 的别称叫做 <strong>不可靠连接</strong>， 也就是说它可以不需要对发送出去的数据负责任，在默认情况下这是对的，因为“效率”。</li>
 <li>但是如果一个 <strong>UDP</strong> 套接字端 需要与另一个端进行多于一次的通信的时候，就会出现性能问题：<ul>
 <li>具体是： <code>连接两端通信 -&gt; 发送数据 -&gt; 断开连接 -&gt; 连接两端通信 -&gt; 发送数据 -&gt; 断开连接 ......</code></li>
 <li>可以看出，需要重复的进行 连接和断开， 且这两个操作都是涉及 <strong>内核</strong> 操作，耗费的资源不可忽略</li>
@@ -4580,64 +4701,6 @@ dec(<span class="built_in">cout</span>); <span class="comment">//代表转换为
     </summary>
     
       <category term="Cpp" scheme="//wushxin.top/tags/Cpp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Hexo网站布置错误解决]]></title>
-    <link href="//wushxin.top/2015/05/09/Hexo%E7%BD%91%E7%AB%99%E5%B8%83%E7%BD%AE%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3.html"/>
-    <id>//wushxin.top/2015/05/09/Hexo网站布置错误解决.html</id>
-    <published>2015-05-09T12:10:30.000Z</published>
-    <updated>2015-06-12T01:27:05.988Z</updated>
-    <content type="html"><![CDATA[<h2 id="布置Hexo博客">布置Hexo博客</h2><h4 id="发布于Github_pages时的错误总结">发布于Github pages时的错误总结</h4><p>在布置一个个人博客的时候，我们总会遇到各种各样的错误，这里来总结一下，不记录那些常规步骤，因为网上特别多，搜集常见错误。</p>
-<ul>
-<li>本人布置建设并布置该网站在2015.5.9日，Hexo的版本已经到3了，并且在这个版本出现了一个和以前不同的配置，所以导致许多后来者按照前人的脚步跳进了深坑，当然你降至版本2也是可以使用前人的设置的。<br>首先是在你配置好本地之后，验证可行了，那么你就可以选择发布到Github Pages上了，这个时候，在<strong>_config.yml</strong>文件中修改末尾项为:<pre><code><span class="attribute">deploy</span>:
-    <span class="attribute">type</span>: git #此处在版本<span class="number">2</span>时为github
-    <span class="attribute">repository</span>: <span class="attribute">https</span>:<span class="comment">//github.com/......</span>
-    ...
-</code></pre>在这个地方容易出错的是<strong>type:</strong>后方容易被误导，版本2请填写github，版本3除了填写git以外，还需要在外头<strong>Git bash</strong>里使用命令:<pre><code>npm <span class="operator"><span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></span>
-</code></pre>有了这个命令就能分分钟解决你的问题。<a id="more"></a></li>
-<li><p>还有一个问题，在我们使用命令:</p>
-<pre><code><span class="title">hexo</span> init <span class="string">"Blog_name"</span>
-</code></pre><p>初始化建立一个博客之后，我们需要使用命令:</p>
-<pre><code>npm <span class="keyword">install</span>
-</code></pre><p>来下载依赖包，可是这个命令中需要下载的某些东西是从Google下载的，所以很多人在搭建的时候卡在这一步一动不动，原因是中国屏蔽了谷歌，然后就没有然后了，我建议使用VPN直接连接外网后重新使用该命令，而不要像网上那样自行下载某些部分。</p>
-</li>
-<li><p>偶尔在最后一步使用:</p>
-<pre><code><span class="title">hexo</span> deploy
-</code></pre><p>进行上传布局的时候，会在输入完用户名密码以后出现错误，请你按照这个格式进行(_config.yml中):</p>
-<pre><code><span class="string">repository:</span> <span class="string">https:</span><span class="comment">//github.com/yourname/yourname.github.io.git</span>
-</code></pre><p>如此就行了</p>
-</li>
-<li><p>有时候会遇到，标签失效，或者说两个标签指向了同一个路径，那么你可以看看自己的标签是否有符号例如<code>C</code>和<code>C++</code>，那么就会导致两个都指向同一个路径，这时候只需要把<code>C++</code>改成<code>Cpp</code>即可。</p>
-</li>
-</ul>
-<h4 id="这就是我今天遇到的所有问题，建设虽难，可不要放弃啊。">这就是我今天遇到的所有问题，建设虽难，可不要放弃啊。</h4><h3 id="技巧">技巧</h3><ul>
-<li><p>对于那些使用googleapi站点的链接来说，由于国内把谷歌墙了，所以可改用百度静态CDN库，在目录文件：</p>
-<pre><code><span class="command">\themes</span><span class="command">\landscape</span><span class="command">\layout</span><span class="command">\_</span>partial<span class="command">\after</span>-footer.ejs
-</code></pre><p>  中修改jQuery的引用网址为百度cdn的地址即可。</p>
-</li>
-<li><p>对于<strong>RSS</strong>功能，请使用如下命令：</p>
-<pre><code>npm <span class="operator"><span class="keyword">install</span> hexo-generator-feed <span class="comment">--save</span></span>
-</code></pre><p>  亲测，如果不加<strong>- -save</strong>参数有的环境下这个插件无法正常的工作。</p>
-</li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="布置Hexo博客">布置Hexo博客</h2><h4 id="发布于Github_pages时的错误总结">发布于Github pages时的错误总结</h4><p>在布置一个个人博客的时候，我们总会遇到各种各样的错误，这里来总结一下，不记录那些常规步骤，因为网上特别多，搜集常见错误。</p>
-<ul>
-<li>本人布置建设并布置该网站在2015.5.9日，Hexo的版本已经到3了，并且在这个版本出现了一个和以前不同的配置，所以导致许多后来者按照前人的脚步跳进了深坑，当然你降至版本2也是可以使用前人的设置的。<br>首先是在你配置好本地之后，验证可行了，那么你就可以选择发布到Github Pages上了，这个时候，在<strong>_config.yml</strong>文件中修改末尾项为:<pre><code><span class="attribute">deploy</span>:
-    <span class="attribute">type</span>: git #此处在版本<span class="number">2</span>时为github
-    <span class="attribute">repository</span>: <span class="attribute">https</span>:<span class="comment">//github.com/......</span>
-    ...
-</code></pre>在这个地方容易出错的是<strong>type:</strong>后方容易被误导，版本2请填写github，版本3除了填写git以外，还需要在外头<strong>Git bash</strong>里使用命令:<pre><code>npm <span class="operator"><span class="keyword">install</span> hexo-deployer-git <span class="comment">--save</span></span>
-</code></pre>有了这个命令就能分分钟解决你的问题。]]>
-    
-    </summary>
-    
-      <category term="杂货居" scheme="//wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
-    
-      <category term="网站" scheme="//wushxin.top/tags/%E7%BD%91%E7%AB%99/"/>
     
   </entry>
   

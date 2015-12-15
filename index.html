@@ -82,6 +82,151 @@ var _hmt = _hmt || [];
     <div class="outer">
       <section id="main">
   
+    <article id="post-Effective-Modern-Cpp-概述" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/15/Effective-Modern-Cpp-概述.html" class="article-date">
+  <time datetime="2015-12-15T08:40:14.000Z" itemprop="datePublished">2015-12-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/15/Effective-Modern-Cpp-概述.html">Effective Modern C++概述</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="更新">更新</h2><ul>
+<li><p>Iterm 1</p>
+<h2 id="《Effective_Modern_C++》概要">《Effective Modern C++》概要</h2></li>
+<li><p>因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。</p>
+</li>
+<li>记录自己阅读这本书的过程，以及一些细节，知道自己不可能读一遍就能将所有信息记下，故写成博文，方便自己及需要者查阅</li>
+<li>本文是我自己的感受，如果有想要体会完整的思想请自行查阅原书，最好配一本完备的C++的语法工具书（例如<code>The C++ Programming Languag, 4th Edition--Bjarne Stroustrup</code>），以便随时查询，当然还需要一个可编程平台。</li>
+</ul>
+<blockquote>
+<p>代码尽量和原书相同，除非是想更详细的解释才会自行修改</p>
+</blockquote>
+<h3 id="Iterm_1_-_Understand_template_type_dedution">Iterm 1 - Understand template type dedution</h3><ul>
+<li>这节讲述了C++有两种类型推断(不许程序员介入)， <strong>自动类型推断(auto type dedution)</strong> 和 <strong>模板类型推断(template type dedution)</strong>， 两者的联系以及唯一的区别。</li>
+<li>首先介绍的是模板类型推断，这是来自(C++98)的特性了，现在以及在沿用，是最成功的特性之一。</li>
+<li><p>对于模板类型推断，一般形式可归纳为：</p>
+<pre><code><span class="keyword">template</span>&lt;typename T&gt;
+<span class="type">void</span> f(<span class="type">ParamType</span> param);
+// 调用
+f(exor); // <span class="type">expr</span> 可能是一条语句
+</code></pre><p>  <code>ParamType</code> 是一种缩写，用来表示 可能 类型<code>T</code>会有一些限定词来修饰，例如<code>const</code>, <code>&amp;</code> 之类的。</p>
+<p>  例如 把<code>ParamType</code> 可以代表 <code>const T &amp;</code></p>
+</li>
+<li>而此时，编译器在进行 模板类型推断 的时候会做两件事(两个推断的结果)，它会判断 <code>T</code> 和 <code>ParamType</code>的类型分别是什么。当然，如果 <code>ParamType</code> 就是 <code>T</code> 那自然就相同了。</li>
+<li>因为 <code>T</code> 究竟是什么，取决于 <code>ParamType</code>。</li>
+<li>进行推断的过程中，有三条编译器遵循的判断情况：<ol>
+<li><code>ParamType</code> 是一个指针或者引用，但不是一个 通用引用(Universal reference 不知道怎么翻译)。</li>
+<li><code>ParamType</code> 是一个 Universal reference</li>
+<li><code>ParamType</code>·不是一个指针也不是一个引用· </li>
+<li>所以将模板类型推断分为三种情况。</li>
+</ol>
+</li>
+<li><p>第一种情况比较简单</p>
+<ul>
+<li><p>如果此时 <code>expr</code>是一个引用，那就把引用去掉，剩下的就是 <code>T</code></p>
+<pre><code><span class="keyword">template</span>&lt;typename T&gt;
+<span class="type">void</span> f(T &amp; param);
+// 调用
+<span class="type">int</span>         x  = <span class="number">0</span>;
+<span class="keyword">const</span> <span class="type">int</span>     cx = x;
+<span class="keyword">const</span> <span class="type">int</span> &amp; rx = x;
+<span class="type">char</span> strings[] = <span class="string">"Hello World!"</span> // 原书没有
+f(x);  // T: <span class="type">int</span> ; <span class="type">ParamType</span>: <span class="type">int</span> &amp;
+f(cx); // T: <span class="keyword">const</span> <span class="type">int</span>; <span class="type">ParamType</span>: <span class="keyword">const</span> <span class="type">int</span> &amp;
+f(rx); // T: <span class="keyword">const</span> <span class="type">int</span>; <span class="type">ParamType</span>: <span class="keyword">const</span> <span class="type">int</span> &amp;
+f(strings); // 原书没有 T: <span class="type">char</span> [<span class="number">13</span>] ; <span class="type">ParamType</span>: <span class="type">char</span>(&amp;)[<span class="number">13</span>]
+</code></pre><p>  如果是 <code>void f(const T &amp; param)</code>呢，结果并没有什么太大的差别，只是该额外多加一个 <code>const</code> 限定符而已。</p>
+<pre><code>f<span class="comment">(x)</span>;  <span class="comment">// T: const int ; ParamType: const int &amp;;</span>
+f<span class="comment">(cx)</span>; <span class="comment">// 同上</span>
+f<span class="comment">(rx)</span>; <span class="comment">// 同上</span>
+</code></pre><p>  如果是指针 <code>void f(T * param)</code></p>
+<pre><code>const <span class="built_in">int</span> * px = &amp;x;
+f(&amp;x); // T: <span class="built_in">int</span> ; ParamType: <span class="built_in">int</span> *
+f(px); // T: const <span class="built_in">int</span>; ParamType: const <span class="built_in">int</span> *
+</code></pre><p>  以上为第一种情形</p>
+</li>
+</ul>
+</li>
+<li><p>第二种情况</p>
+<ul>
+<li>当参数类型设置为 <code>Universal reference</code>时比较奇怪，不可以常理推断。</li>
+<li><p>具体是，当传入参数为 <code>lvalue</code> 时，两个类型都为 <code>lvalue reference</code>, 否则如果传入一个 <code>rvalue</code>， 则用常规方法(第一种情况)处理。</p>
+<pre><code><span class="keyword">template</span>&lt;typename T&gt;
+<span class="type">void</span> f(T &amp;&amp; param); // 这就是所谓的 <span class="type">Universal</span> reference
+// 调用
+<span class="type">int</span> x = <span class="number">0</span>;
+<span class="keyword">const</span> <span class="type">int</span> cx = x;
+<span class="keyword">const</span> <span class="type">int</span> &amp; rx = x;
+f(x);  // T: <span class="type">int</span> &amp; ; <span class="type">ParamType</span>: <span class="type">int</span> &amp;
+f(cx); // T: <span class="keyword">const</span> <span class="type">int</span> &amp;; <span class="type">ParamType</span>: <span class="keyword">const</span> <span class="type">int</span> &amp;
+f(rx); // T: <span class="keyword">const</span> <span class="type">int</span> &amp;; <span class="type">ParamType</span>: <span class="keyword">const</span> <span class="type">int</span> &amp;
+// 特别处, 此时传入一个 rvalue
+f(<span class="number">0</span>); // T: <span class="type">int</span> ; <span class="type">ParamType</span>: <span class="type">int</span> &amp;&amp;
+      // 此时和第一种情况一致，由于传入的非引用，则 T 为 <span class="type">int</span>，<span class="type">ParamType</span>直接是 <span class="type">int</span> &amp;&amp;
+</code></pre></li>
+</ul>
+</li>
+<li><p>第三种情况</p>
+<ul>
+<li><p>当参数类型既不是指针也不是引用时，此时就是所谓的 <strong>按值传参</strong></p>
+<pre><code><span class="keyword">template</span>&lt;typename T&gt;
+<span class="type">void</span> f(T param);
+// 调用，参数和第一种情况一样
+f(x);  // T: <span class="type">int</span> ; <span class="type">ParamType</span>: <span class="type">int</span>
+f(cx); // 同上
+f(rx); // 同上
+</code></pre><p>  似乎很奇怪，但是实际上可以这么理解：既然都按值传递了，自然是拷贝一个副本了，既然是副本，那怎么操作都不会影响原来的对象(函数栈外的对象)，所以直接用最简单的最普通的，不带任何限定符的方式就行。</p>
+<p>  从此处以及前方所述，<strong>可以看出</strong> ，在进行类型推断的时候，所有的 <strong>限定符(const, volatile)</strong> 都会被忽略。</p>
+<p>  还有一些情况，例如传入指针</p>
+<pre><code>f<span class="comment">(&amp;x)</span>; <span class="comment">// 原书没有，原书使用的是字符串的首地址，并讲了一遍指针和数组的差异。</span>
+       <span class="comment">// T: int * ; Param: int *</span>
+</code></pre></li>
+</ul>
+</li>
+<li><p>在篇末，作者提到，如果想要在 <strong>编译期</strong> 得到一个数组的长度，并且使这个得到的长度可以用在其他数组的声明上，可以如此：</p>
+<pre><code><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="built_in">std</span>::size_t N&gt;
+<span class="keyword">constexpr</span> <span class="built_in">std</span>::<span class="function">size_t <span class="title">arraySize</span><span class="params">(T (&amp;)</span>[N]) <span class="keyword">noexcept</span> <span class="comment">// noexcept 可以帮助编译器更少的顾虑，也就是把优化策略更好的用在这个函数上。</span>
+</span>{
+    <span class="keyword">return</span> N;
+}
+</code></pre><p>  其中 <code>constexpr</code> 是让返回值可以当成常量使用。所传的参数类型指的就是 某大小的数组引用，这个大小可以由 模板类型推断 来自动取得。</p>
+</li>
+<li>结束</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="//wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html" data-id="cii7ckhx8001gl0ltsob0xs9u" class="article-share-link" data-share="baidu" data-title="Effective Modern C++概述">分享到</a>
+      
+
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-现代TCP-IP网络编程-UDP" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/12/04/现代TCP-IP网络编程-UDP.html" class="article-date">
@@ -106,7 +251,7 @@ var _hmt = _hmt || [];
       
         <h4 id="UDP_的_connect()">UDP 的 connect()</h4><ul>
 <li>前方提到，如果使用的是 UDP 套接字进行通信的话，可以采取 <code>connect</code> 来进行优化，但是却不知原因。</li>
-<li>首先 <strong>UDP</strong> 的别称叫做 <strong>不可靠连接</strong>， 也就是说它可以不需要对发送出去的数据负责任，在默认情况下这是对的，因为效率。</li>
+<li>首先 <strong>UDP</strong> 的别称叫做 <strong>不可靠连接</strong>， 也就是说它可以不需要对发送出去的数据负责任，在默认情况下这是对的，因为“效率”。</li>
 <li>但是如果一个 <strong>UDP</strong> 套接字端 需要与另一个端进行多于一次的通信的时候，就会出现性能问题：<ul>
 <li>具体是： <code>连接两端通信 -&gt; 发送数据 -&gt; 断开连接 -&gt; 连接两端通信 -&gt; 发送数据 -&gt; 断开连接 ......</code></li>
 <li>可以看出，需要重复的进行 连接和断开， 且这两个操作都是涉及 <strong>内核</strong> 操作，耗费的资源不可忽略</li>
@@ -143,7 +288,7 @@ connect(udp_sock, (<span class="keyword">struct</span> sockaddr *)&amp;unconnect
     </div>
     <footer class="article-footer">
       
-        <a data-url="//wushxin.top/2015/12/04/现代TCP-IP网络编程-UDP.html" data-id="cihropt0h00089wltxc3ovu2m" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-UDP">分享到</a>
+        <a data-url="//wushxin.top/2015/12/04/现代TCP-IP网络编程-UDP.html" data-id="cii7ckhvy0008l0ltzd0t6fk7" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-UDP">分享到</a>
       
 
       
@@ -231,7 +376,7 @@ connect(udp_sock, (<span class="keyword">struct</span> sockaddr *)&amp;unconnect
     </div>
     <footer class="article-footer">
       
-        <a data-url="//wushxin.top/2015/10/30/现代TCP-IP网络编程-启航.html" data-id="cihropszv00039wlti0k5buvw" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-启航">分享到</a>
+        <a data-url="//wushxin.top/2015/10/30/现代TCP-IP网络编程-启航.html" data-id="cii7ckhvr0003l0ltzrgsmu9f" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-启航">分享到</a>
       
 
       
@@ -293,7 +438,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
     </div>
     <footer class="article-footer">
       
-        <a data-url="//wushxin.top/2015/09/20/Linux记录.html" data-id="cihropt1d00189wltsxa6j1to" class="article-share-link" data-share="baidu" data-title="Linux记录">分享到</a>
+        <a data-url="//wushxin.top/2015/09/20/Linux记录.html" data-id="cii7ckhx20018l0ltm3p9s2xb" class="article-share-link" data-share="baidu" data-title="Linux记录">分享到</a>
       
 
       
@@ -366,7 +511,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
     </div>
     <footer class="article-footer">
       
-        <a data-url="//wushxin.top/2015/08/31/《我为什么学C》.html" data-id="cihropt0x000p9wltnazolklg" class="article-share-link" data-share="baidu" data-title="《我为什么学C》">分享到</a>
+        <a data-url="//wushxin.top/2015/08/31/《我为什么学C》.html" data-id="cii7ckhwl000pl0ltrlhanl17" class="article-share-link" data-share="baidu" data-title="《我为什么学C》">分享到</a>
       
 
       
@@ -433,62 +578,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
     </div>
     <footer class="article-footer">
       
-        <a data-url="//wushxin.top/2015/07/21/Practical-cpp.html" data-id="cihropt1d00109wltjeblx2dd" class="article-share-link" data-share="baidu" data-title="Practical cpp">分享到</a>
-      
-
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Cpp记录10.1k" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/07/09/Cpp记录10.1k.html" class="article-date">
-  <time datetime="2015-07-09T02:03:28.000Z" itemprop="datePublished">2015-07-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/09/Cpp记录10.1k.html">Cpp记录10.1k</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="更新于_2015/7/14_21:14:21">更新于 2015/7/14 21:14:21</h3><h4 id="再记录_operator=_重载">再记录 operator= 重载</h4><ul>
-<li>因为在类的设计中 重载 <code>=</code> 可能是在所难免的，如果你的类设计比较复杂。</li>
-<li>之所以需要重载它是为了当类中包含了复杂的关系的时候，提供了一个人为的保证，最典型的莫过于对象的拷贝：<ol>
-<li>假设 类中有一个成员是指针，指向一个对象，这个对象可以是数组，也可以是其他类或者容器。</li>
-<li>当我们执行赋值操作符的时候，假定这里规范的使用赋值运算符，让其一定能调用<strong>赋值拷贝构造函数</strong> <code>=</code> ，此时对于这个指针成员，就有两种情形： <strong>拷贝指针</strong> 或者 <strong>拷贝对象</strong> 。</li>
-</ol>
-</li>
-<li><strong>拷贝指针</strong>，即便不重载运算符 <code>=</code> 编译器也会帮你自动实现，这在国内大概就叫做 <strong>浅拷贝</strong> ，如果仅仅拷贝指针，这就引发了一个问题，多个对象共享一个实际内存，当执行析构函数的时候，会造成多次析构同一个内存块。</li>
-<li><strong>拷贝对象</strong>，这是普遍的解决方法，在拷贝的同时，将指针所指向的对象同样做一份拷贝，似乎也不错，但是如果对象太大，似乎并不是什么很喜人的事 情，但也不失为一种好的解决方案
-        
-          <p class="article-more-link">
-            <a href="/2015/07/09/Cpp记录10.1k.html#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="//wushxin.top/2015/07/09/Cpp记录10.1k.html" data-id="cihropt1s001j9wltp0zvmqp4" class="article-share-link" data-share="baidu" data-title="Cpp记录10.1k">分享到</a>
+        <a data-url="//wushxin.top/2015/07/21/Practical-cpp.html" data-id="cii7ckhwx0010l0ltvvul9un2" class="article-share-link" data-share="baidu" data-title="Practical cpp">分享到</a>
       
 
       
@@ -518,7 +608,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络编程/">网络编程</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络编程/">网络编程</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -527,7 +617,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/C/" style="font-size: 17.5px;">C</a><a href="/tags/Cpp/" style="font-size: 15px;">Cpp</a><a href="/tags/Linux/" style="font-size: 10px;">Linux</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 12.5px;">Python</a><a href="/tags/Qt/" style="font-size: 12.5px;">Qt</a><a href="/tags/杂货居/" style="font-size: 20px;">杂货居</a><a href="/tags/网站/" style="font-size: 10px;">网站</a><a href="/tags/网络编程/" style="font-size: 12.5px;">网络编程</a>
+      <a href="/tags/C/" style="font-size: 16.67px;">C</a><a href="/tags/Cpp/" style="font-size: 16.67px;">Cpp</a><a href="/tags/Linux/" style="font-size: 10px;">Linux</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 13.33px;">Python</a><a href="/tags/Qt/" style="font-size: 13.33px;">Qt</a><a href="/tags/杂货居/" style="font-size: 20px;">杂货居</a><a href="/tags/网站/" style="font-size: 10px;">网站</a><a href="/tags/网络编程/" style="font-size: 13.33px;">网络编程</a>
     </div>
   </div>
 
@@ -536,7 +626,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -546,6 +636,10 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
     <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/12/15/Effective-Modern-Cpp-概述.html">Effective Modern C++概述</a>
+          </li>
         
           <li>
             <a href="/2015/12/04/现代TCP-IP网络编程-UDP.html">现代TCP/IP网络编程-UDP</a>
@@ -561,10 +655,6 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
         
           <li>
             <a href="/2015/08/31/《我为什么学C》.html">《我为什么学C》</a>
-          </li>
-        
-          <li>
-            <a href="/2015/07/21/Practical-cpp.html">Practical cpp</a>
           </li>
         
       </ul>
