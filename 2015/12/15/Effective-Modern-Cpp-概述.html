@@ -6,33 +6,33 @@
   
   <title>Effective Modern C++概述 | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="更新
-Iterm 1
+  <meta name="description" content="每日更新(1-2 Item)
+Item 2
 《Effective Modern C++》概要
 因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。
 
 记录自己阅读这本书的过程，以及一些细节，知道自己不可能读一遍就能将所有信息记下，故写成博文，方便自己及需要者查阅
-本文是我自己的感受，如果有想要体会完整的思想请自行查阅原书，最好配一本完备的C++的语法工具书（例如The C++ Progra">
+本文是我自己的感受，如果有想要体会完整的思想请自行查阅原书，最好配一本完备的C++的语法工具书（例如The">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Effective Modern C++概述">
 <meta property="og:url" content="//wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="更新
-Iterm 1
+<meta property="og:description" content="每日更新(1-2 Item)
+Item 2
 《Effective Modern C++》概要
 因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。
 
 记录自己阅读这本书的过程，以及一些细节，知道自己不可能读一遍就能将所有信息记下，故写成博文，方便自己及需要者查阅
-本文是我自己的感受，如果有想要体会完整的思想请自行查阅原书，最好配一本完备的C++的语法工具书（例如The C++ Progra">
+本文是我自己的感受，如果有想要体会完整的思想请自行查阅原书，最好配一本完备的C++的语法工具书（例如The">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Effective Modern C++概述">
-<meta name="twitter:description" content="更新
-Iterm 1
+<meta name="twitter:description" content="每日更新(1-2 Item)
+Item 2
 《Effective Modern C++》概要
 因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。
 
 记录自己阅读这本书的过程，以及一些细节，知道自己不可能读一遍就能将所有信息记下，故写成博文，方便自己及需要者查阅
-本文是我自己的感受，如果有想要体会完整的思想请自行查阅原书，最好配一本完备的C++的语法工具书（例如The C++ Progra">
+本文是我自己的感受，如果有想要体会完整的思想请自行查阅原书，最好配一本完备的C++的语法工具书（例如The">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -120,8 +120,8 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="更新">更新</h2><ul>
-<li><p>Iterm 1</p>
+        <h2 id="每日更新(1-2_Item)">每日更新(1-2 Item)</h2><ul>
+<li><p>Item 2</p>
 <h2 id="《Effective_Modern_C++》概要">《Effective Modern C++》概要</h2></li>
 <li><p>因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。</p>
 </li>
@@ -131,7 +131,7 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>代码尽量和原书相同，除非是想更详细的解释才会自行修改</p>
 </blockquote>
-<h3 id="Iterm_1_-_Understand_template_type_dedution">Iterm 1 - Understand template type dedution</h3><ul>
+<h3 id="Item_1_-_Understand_template_type_dedution">Item 1 - Understand template type dedution</h3><ul>
 <li>这节讲述了C++有两种类型推断(不许程序员介入)， <strong>自动类型推断(auto type dedution)</strong> 和 <strong>模板类型推断(template type dedution)</strong>， 两者的联系以及唯一的区别。</li>
 <li>首先介绍的是模板类型推断，这是来自(C++98)的特性了，现在以及在沿用，是最成功的特性之一。</li>
 <li><p>对于模板类型推断，一般形式可归纳为：</p>
@@ -148,7 +148,7 @@ f(exor); // <span class="type">expr</span> 可能是一条语句
 <li><code>ParamType</code> 是一个指针或者引用，但不是一个 通用引用(Universal reference 不知道怎么翻译)。</li>
 <li><code>ParamType</code> 是一个 Universal reference</li>
 <li><code>ParamType</code>·不是一个指针也不是一个引用· </li>
-<li>所以将模板类型推断分为三种情况。</li>
+<li>所以将模板类型推断分为三种情况。<a id="more"></a></li>
 </ol>
 </li>
 <li><p>第一种情况比较简单</p>
@@ -165,8 +165,8 @@ f(x);  // T: <span class="type">int</span> ; <span class="type">ParamType</span>
 f(cx); // T: <span class="keyword">const</span> <span class="type">int</span>; <span class="type">ParamType</span>: <span class="keyword">const</span> <span class="type">int</span> &amp;
 f(rx); // T: <span class="keyword">const</span> <span class="type">int</span>; <span class="type">ParamType</span>: <span class="keyword">const</span> <span class="type">int</span> &amp;
 f(strings); // 原书没有 T: <span class="type">char</span> [<span class="number">13</span>] ; <span class="type">ParamType</span>: <span class="type">char</span>(&amp;)[<span class="number">13</span>]
-</code></pre><p>  如果是 <code>void f(const T &amp; param)</code>呢，结果并没有什么太大的差别，只是该额外多加一个 <code>const</code> 限定符而已。</p>
-<pre><code>f<span class="comment">(x)</span>;  <span class="comment">// T: const int ; ParamType: const int &amp;;</span>
+</code></pre><p>  如果是 <code>void f(const T &amp; param)</code>呢，结果并没有什么太大的差别，只是 <code>const</code> 限定符略有不同而已。</p>
+<pre><code>f<span class="comment">(x)</span>;  <span class="comment">// T: int ; ParamType: const int &amp;;</span>
 f<span class="comment">(cx)</span>; <span class="comment">// 同上</span>
 f<span class="comment">(rx)</span>; <span class="comment">// 同上</span>
 </code></pre><p>  如果是指针 <code>void f(T * param)</code></p>
@@ -221,7 +221,97 @@ f(rx); // 同上
 }
 </code></pre><p>  其中 <code>constexpr</code> 是让返回值可以当成常量使用。所传的参数类型指的就是 某大小的数组引用，这个大小可以由 模板类型推断 来自动取得。</p>
 </li>
-<li>结束</li>
+<li>Item 1 结束</li>
+</ul>
+<h3 id="Item_2_-_Understand_auto_type_dedution">Item 2 - Understand auto type dedution</h3><ul>
+<li>这是 C++ 的第二种类型推断，由 C++11 标准引入，也就是关键字 <code>auto</code></li>
+<li><p>前方提到， <strong>模板类型推断</strong> 和 <strong>自动类型推断</strong> 出了一个地方不同，其他处处一致，具体体现在哪里？比如 <code>T</code> 和 <code>ParamType</code> 在 <strong>自动类型推断</strong> 中是怎么体现的？</p>
+<pre><code><span class="keyword">auto</span> x = <span class="number">27</span>; <span class="comment">// 其中 auto 相当于 T</span>
+              <span class="comment">// 而 x 前面的所有相当于 ParamType，可能还不太明显，换一个例子</span>
+<span class="keyword">const</span> <span class="keyword">auto</span> cx = x;  <span class="comment">// T: auto ; ParamType: const auto</span>
+<span class="keyword">const</span> <span class="keyword">auto</span> &amp; rx = x; <span class="comment">// T: auto ; ParamType: const auto &amp;</span>
+</code></pre><p>  注： <code>T</code> 当然不是 <code>auto</code>，只是此处为了体现作用，而故意写成 <code>auto</code>，实际为 <code>int</code></p>
+</li>
+<li><p>有了这种对应关系之后，可以将 <strong>模板类型推断</strong> 的三种情况直接用在 <strong>自动类型推断上</strong></p>
+</li>
+<li><p>第一种情况(是一个指针或引用，但不是 <code>Universal reference</code>)</p>
+<pre><code><span class="type">int</span> x = <span class="number">27</span>;
+<span class="type">auto</span> &amp; rx = x; // T: <span class="type">int</span> ; <span class="type">ParamType</span>: <span class="type">int</span> &amp;
+<span class="keyword">const</span> <span class="type">auto</span> &amp; crx = x; // T: <span class="type">int</span> ; <span class="type">ParamType</span> : <span class="keyword">const</span> <span class="type">int</span> &amp; 
+</code></pre><p>  可以看出这是第一种情况，但是并没有太大的意外</p>
+<pre><code><span class="keyword">const</span> <span class="keyword">int</span> cx = <span class="number">27</span>;
+<span class="keyword">auto</span> &amp; rx = x; <span class="comment">// T: const int ; ParamType: const int &amp;</span>
+</code></pre><p>  结合上述例子看，能够更好理解。<strong>大体就是将等号右端看作是</strong>要传入的对象<strong>，左端则是参数列表</strong>。</p>
+</li>
+<li><p>第二种情况(是 <code>Universal reference</code>)</p>
+<pre><code><span class="type">int</span> x = <span class="number">27</span>;
+<span class="keyword">const</span> <span class="type">int</span> cx = x;
+<span class="type">auto</span> &amp;&amp; uref1 = x; // T: <span class="type">int</span> &amp;; <span class="type">ParamType</span>: <span class="type">int</span> &amp;
+<span class="type">auto</span> &amp;&amp; uref2 = cx; // T: <span class="keyword">const</span> <span class="type">int</span> &amp; ; <span class="type">ParamType</span>: <span class="keyword">const</span> <span class="type">int</span> &amp;
+<span class="type">auto</span> &amp;&amp; uref3 = <span class="number">27</span>; // T: <span class="type">int</span> &amp;&amp; ; <span class="type">ParamType</span>: <span class="type">int</span> &amp;&amp;
+</code></pre><p>  解释和 Item-1 的一样，当<strong>传入</strong>的是 <code>lvalue</code> 时，就是该类型的引用，是<code>rvalue</code>时就是正常的第一种情况，是什么类型推断什么类型。</p>
+</li>
+<li><p>第三种情况(既不是指针也不是引用)</p>
+<ul>
+<li><p>这种情况还是老样子，看作按值传参</p>
+<pre><code><span class="type">auto</span> x = <span class="number">27</span>;   // T: <span class="type">int</span> ; <span class="type">ParamType</span>: <span class="type">int</span> 
+<span class="keyword">const</span> <span class="type">auto</span> cx = x; // T: <span class="type">int</span> ; <span class="type">ParamType</span>: <span class="keyword">const</span> <span class="type">int</span>
+<span class="type">auto</span> atd_x1 = x; // T: <span class="type">int</span> ; <span class="type">ParamType</span>: <span class="type">int</span> 
+<span class="type">auto</span> atd_x2 = cx; // T: <span class="type">int</span> ; <span class="type">ParamType</span>: <span class="type">int</span>
+</code></pre><p>可以看出，忽略了所有的限定符。</p>
+</li>
+</ul>
+</li>
+<li><p>还有一种也是包含在上述三种情况中的情形，单独提出来，便是 <strong>数组和函数</strong> 的推断</p>
+<pre><code>const <span class="built_in">char</span> * <span class="keyword">name</span>[] = <span class="string">"R. N. Briggs"</span>;
+auto arr1 = <span class="keyword">name</span>;  // T: const <span class="built_in">char</span> * ;ParamType: const <span class="built_in">char</span> *
+auto &amp; arr2 = <span class="keyword">name</span>; // T: const <span class="built_in">char</span>[<span class="number">13</span>] ;ParamType: const <span class="built_in">char</span> (&amp;)[<span class="number">13</span>]
+</code></pre><p>  如果是函数</p>
+<pre><code><span class="function"><span class="keyword">void</span> <span class="title">someFunc</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">double</span>)</span></span>;
+<span class="keyword">auto</span> func1 = someFunc; <span class="comment">// func1的类型为 void(*)(int, double)</span>
+<span class="keyword">auto</span> &amp; func2 = someFunc; <span class="comment">// func2的类型为 void(&amp;)(int, double)</span>
+</code></pre></li>
+<li><p><strong>不同点</strong></p>
+<ul>
+<li><p>两种类型推断唯一不同的地方一种新的 <strong>初始化方式</strong>，许多书本译作 <strong>列表初始化</strong>，即用一个花括号，包裹一系列同类型的值，赋给等号左边的对象</p>
+<pre><code><span class="keyword">int</span> x1 = <span class="number">27</span>; <span class="comment">// C++98</span>
+<span class="function"><span class="keyword">int</span> <span class="title">x2</span><span class="params">(<span class="number">27</span>)</span></span>; <span class="comment">// C++98</span>
+<span class="keyword">int</span> x3 = {<span class="number">27</span>}; <span class="comment">// C++11</span>
+<span class="keyword">int</span> x4{<span class="number">27</span>}; <span class="comment">// C++11</span>
+</code></pre><p>  这是我们熟悉的初始化语法，C++提供了这四种方式。如果改成 <code>auto</code> 呢？</p>
+<pre><code>auto x1 = <span class="number">27</span>; <span class="regexp">//</span> <span class="constant">T:</span> int 
+auto x2(<span class="number">27</span>);  <span class="regexp">//</span> <span class="constant">T:</span> int
+auto x3 = {<span class="number">27</span>}; <span class="regexp">//</span> <span class="constant">T:</span> <span class="symbol">std:</span><span class="symbol">:initializer_list&lt;int&gt;</span>
+auto x4{<span class="number">27</span>}; <span class="regexp">//</span> <span class="constant">T:</span> <span class="symbol">std:</span><span class="symbol">:initializer_list&lt;int&gt;</span>
+</code></pre><p>  看起来似乎是一样的，实际上我们在使用的时候，前两者是最常见的，后两者要出现只出现咋需要同时传入多个类型相同的值时才使用。</p>
+<p>  但是，自动类型推断能够<strong>直接接受</strong>这种语法，模板类型推断却不行！</p>
+<pre><code><span class="type">auto</span> x = {<span class="number">11</span>,<span class="number">23</span>,<span class="number">9</span>}; // 可以
+
+<span class="keyword">template</span>&lt;typename T&gt;
+<span class="type">void</span> f(T param);
+//调用
+f({<span class="number">11</span>, <span class="number">23</span>, <span class="number">9</span>}); // 这是错误的！无法通过编译
+</code></pre><p>  这就是两者的区别，当一个类型推断使用的是 <strong>模板类型推断</strong> 时(例如<strong>函数返回值</strong>)，其无法直接推断出<code>std::initializer_list&lt;T&gt;</code>这种列表形式，当然事无绝对</p>
+<pre><code><span class="keyword">template</span>&lt;typename T&gt;
+<span class="type">void</span> f(std::initializer_list&lt;T&gt; param);
+// 调用
+f({<span class="number">11</span>, <span class="number">23</span>, <span class="number">9</span>}); //这样是可以的。每次传入一个初始化列表即可
+</code></pre><p>  就像上面所说，当返回值是一个列表时，<strong>模板类型推断</strong> 是无法工作的，除非显式说明，返回的是一个列表。</p>
+<p>  这里提到了显式说明，自然可以用 类型推断来替代，但是因为此时使用的是 <strong>模板类型推断</strong>，所以除了使用 <code>auto</code>进行<strong>“占位”(占返回值类型的位)</strong>， 还需在后面添上一些东西</p>
+<pre><code>// 原书没有
+<span class="keyword">template</span>&lt;typename T&gt;
+<span class="type">auto</span> f(std::initializer_list&lt;T&gt; param)
+-&gt; decltype(param)
+{
+    <span class="type">auto</span> tmp = param;
+    // <span class="keyword">do</span> some work
+    <span class="keyword">return</span> tmp;
+}
+</code></pre><p>  似乎很奇怪，但是这个语法的确反人类，不过还好在 C++14 中修正过来了。</p>
+</li>
+</ul>
+</li>
+<li>Item 2 结束</li>
 </ul>
 
       

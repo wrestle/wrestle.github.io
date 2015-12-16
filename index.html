@@ -104,8 +104,8 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="更新">更新</h2><ul>
-<li><p>Iterm 1</p>
+        <h2 id="每日更新(1-2_Item)">每日更新(1-2 Item)</h2><ul>
+<li><p>Item 2</p>
 <h2 id="《Effective_Modern_C++》概要">《Effective Modern C++》概要</h2></li>
 <li><p>因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。</p>
 </li>
@@ -115,7 +115,7 @@ var _hmt = _hmt || [];
 <blockquote>
 <p>代码尽量和原书相同，除非是想更详细的解释才会自行修改</p>
 </blockquote>
-<h3 id="Iterm_1_-_Understand_template_type_dedution">Iterm 1 - Understand template type dedution</h3><ul>
+<h3 id="Item_1_-_Understand_template_type_dedution">Item 1 - Understand template type dedution</h3><ul>
 <li>这节讲述了C++有两种类型推断(不许程序员介入)， <strong>自动类型推断(auto type dedution)</strong> 和 <strong>模板类型推断(template type dedution)</strong>， 两者的联系以及唯一的区别。</li>
 <li>首先介绍的是模板类型推断，这是来自(C++98)的特性了，现在以及在沿用，是最成功的特性之一。</li>
 <li><p>对于模板类型推断，一般形式可归纳为：</p>
@@ -132,82 +132,12 @@ f(exor); // <span class="type">expr</span> 可能是一条语句
 <li><code>ParamType</code> 是一个指针或者引用，但不是一个 通用引用(Universal reference 不知道怎么翻译)。</li>
 <li><code>ParamType</code> 是一个 Universal reference</li>
 <li><code>ParamType</code>·不是一个指针也不是一个引用· </li>
-<li>所以将模板类型推断分为三种情况。</li>
-</ol>
-</li>
-<li><p>第一种情况比较简单</p>
-<ul>
-<li><p>如果此时 <code>expr</code>是一个引用，那就把引用去掉，剩下的就是 <code>T</code></p>
-<pre><code><span class="keyword">template</span>&lt;typename T&gt;
-<span class="type">void</span> f(T &amp; param);
-// 调用
-<span class="type">int</span>         x  = <span class="number">0</span>;
-<span class="keyword">const</span> <span class="type">int</span>     cx = x;
-<span class="keyword">const</span> <span class="type">int</span> &amp; rx = x;
-<span class="type">char</span> strings[] = <span class="string">"Hello World!"</span> // 原书没有
-f(x);  // T: <span class="type">int</span> ; <span class="type">ParamType</span>: <span class="type">int</span> &amp;
-f(cx); // T: <span class="keyword">const</span> <span class="type">int</span>; <span class="type">ParamType</span>: <span class="keyword">const</span> <span class="type">int</span> &amp;
-f(rx); // T: <span class="keyword">const</span> <span class="type">int</span>; <span class="type">ParamType</span>: <span class="keyword">const</span> <span class="type">int</span> &amp;
-f(strings); // 原书没有 T: <span class="type">char</span> [<span class="number">13</span>] ; <span class="type">ParamType</span>: <span class="type">char</span>(&amp;)[<span class="number">13</span>]
-</code></pre><p>  如果是 <code>void f(const T &amp; param)</code>呢，结果并没有什么太大的差别，只是该额外多加一个 <code>const</code> 限定符而已。</p>
-<pre><code>f<span class="comment">(x)</span>;  <span class="comment">// T: const int ; ParamType: const int &amp;;</span>
-f<span class="comment">(cx)</span>; <span class="comment">// 同上</span>
-f<span class="comment">(rx)</span>; <span class="comment">// 同上</span>
-</code></pre><p>  如果是指针 <code>void f(T * param)</code></p>
-<pre><code>const <span class="built_in">int</span> * px = &amp;x;
-f(&amp;x); // T: <span class="built_in">int</span> ; ParamType: <span class="built_in">int</span> *
-f(px); // T: const <span class="built_in">int</span>; ParamType: const <span class="built_in">int</span> *
-</code></pre><p>  以上为第一种情形</p>
-</li>
-</ul>
-</li>
-<li><p>第二种情况</p>
-<ul>
-<li>当参数类型设置为 <code>Universal reference</code>时比较奇怪，不可以常理推断。</li>
-<li><p>具体是，当传入参数为 <code>lvalue</code> 时，两个类型都为 <code>lvalue reference</code>, 否则如果传入一个 <code>rvalue</code>， 则用常规方法(第一种情况)处理。</p>
-<pre><code><span class="keyword">template</span>&lt;typename T&gt;
-<span class="type">void</span> f(T &amp;&amp; param); // 这就是所谓的 <span class="type">Universal</span> reference
-// 调用
-<span class="type">int</span> x = <span class="number">0</span>;
-<span class="keyword">const</span> <span class="type">int</span> cx = x;
-<span class="keyword">const</span> <span class="type">int</span> &amp; rx = x;
-f(x);  // T: <span class="type">int</span> &amp; ; <span class="type">ParamType</span>: <span class="type">int</span> &amp;
-f(cx); // T: <span class="keyword">const</span> <span class="type">int</span> &amp;; <span class="type">ParamType</span>: <span class="keyword">const</span> <span class="type">int</span> &amp;
-f(rx); // T: <span class="keyword">const</span> <span class="type">int</span> &amp;; <span class="type">ParamType</span>: <span class="keyword">const</span> <span class="type">int</span> &amp;
-// 特别处, 此时传入一个 rvalue
-f(<span class="number">0</span>); // T: <span class="type">int</span> ; <span class="type">ParamType</span>: <span class="type">int</span> &amp;&amp;
-      // 此时和第一种情况一致，由于传入的非引用，则 T 为 <span class="type">int</span>，<span class="type">ParamType</span>直接是 <span class="type">int</span> &amp;&amp;
-</code></pre></li>
-</ul>
-</li>
-<li><p>第三种情况</p>
-<ul>
-<li><p>当参数类型既不是指针也不是引用时，此时就是所谓的 <strong>按值传参</strong></p>
-<pre><code><span class="keyword">template</span>&lt;typename T&gt;
-<span class="type">void</span> f(T param);
-// 调用，参数和第一种情况一样
-f(x);  // T: <span class="type">int</span> ; <span class="type">ParamType</span>: <span class="type">int</span>
-f(cx); // 同上
-f(rx); // 同上
-</code></pre><p>  似乎很奇怪，但是实际上可以这么理解：既然都按值传递了，自然是拷贝一个副本了，既然是副本，那怎么操作都不会影响原来的对象(函数栈外的对象)，所以直接用最简单的最普通的，不带任何限定符的方式就行。</p>
-<p>  从此处以及前方所述，<strong>可以看出</strong> ，在进行类型推断的时候，所有的 <strong>限定符(const, volatile)</strong> 都会被忽略。</p>
-<p>  还有一些情况，例如传入指针</p>
-<pre><code>f<span class="comment">(&amp;x)</span>; <span class="comment">// 原书没有，原书使用的是字符串的首地址，并讲了一遍指针和数组的差异。</span>
-       <span class="comment">// T: int * ; Param: int *</span>
-</code></pre></li>
-</ul>
-</li>
-<li><p>在篇末，作者提到，如果想要在 <strong>编译期</strong> 得到一个数组的长度，并且使这个得到的长度可以用在其他数组的声明上，可以如此：</p>
-<pre><code><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="built_in">std</span>::size_t N&gt;
-<span class="keyword">constexpr</span> <span class="built_in">std</span>::<span class="function">size_t <span class="title">arraySize</span><span class="params">(T (&amp;)</span>[N]) <span class="keyword">noexcept</span> <span class="comment">// noexcept 可以帮助编译器更少的顾虑，也就是把优化策略更好的用在这个函数上。</span>
-</span>{
-    <span class="keyword">return</span> N;
-}
-</code></pre><p>  其中 <code>constexpr</code> 是让返回值可以当成常量使用。所传的参数类型指的就是 某大小的数组引用，这个大小可以由 模板类型推断 来自动取得。</p>
-</li>
-<li>结束</li>
-</ul>
-
+<li>所以将模板类型推断分为三种情况。
+        
+          <p class="article-more-link">
+            <a href="/2015/12/15/Effective-Modern-Cpp-概述.html#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
