@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快感]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-12-16T03:07:52.909Z</updated>
+  <updated>2015-12-17T12:13:05.739Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="//wushxin.top/2015/12/15/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0.html"/>
     <id>//wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html</id>
     <published>2015-12-15T08:40:14.000Z</published>
-    <updated>2015-12-16T03:07:52.909Z</updated>
+    <updated>2015-12-17T12:13:05.739Z</updated>
     <content type="html"><![CDATA[<h2 id="每日更新(1-2_Item)">每日更新(1-2 Item)</h2><ul>
-<li><p>Item 2</p>
+<li><p>Item 3</p>
 <h2 id="《Effective_Modern_C++》概要">《Effective Modern C++》概要</h2></li>
 <li><p>因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。</p>
 </li>
@@ -107,6 +107,7 @@ f(x);  // T: <span class="type">int</span> ; <span class="type">ParamType</span>
 f(cx); // 同上
 f(rx); // 同上
 </code></pre><p>  似乎很奇怪，但是实际上可以这么理解：既然都按值传递了，自然是拷贝一个副本了，既然是副本，那怎么操作都不会影响原来的对象(函数栈外的对象)，所以直接用最简单的最普通的，不带任何限定符的方式就行。</p>
+<p>  而对于引用而言只需要记住，任何作用在引用”身上”的操作，都会反射(用反射形容比较形象)到源对象上，所以相当于在传递 <code>x</code>。</p>
 <p>  从此处以及前方所述，<strong>可以看出</strong> ，在进行类型推断的时候，所有的 <strong>限定符(const, volatile)</strong> 都会被忽略。</p>
 <p>  还有一些情况，例如传入指针</p>
 <pre><code>f<span class="comment">(&amp;x)</span>; <span class="comment">// 原书没有，原书使用的是字符串的首地址，并讲了一遍指针和数组的差异。</span>
@@ -209,15 +210,118 @@ f({<span class="number">11</span>, <span class="number">23</span>, <span class="
     <span class="keyword">return</span> tmp;
 }
 </code></pre><p>  似乎很奇怪，但是这个语法的确反人类，不过还好在 C++14 中修正过来了。</p>
+<p>  所谓修正就是不需要再参数后面添加这么一个吊车尾的 <code>-&gt; decltype(param)</code>样式，而是直接用 <code>auto</code> 作为返回值即可(因为在C++11中只有 <strong>部分lambda(单个返回语句情况下)</strong> 允许不加 <code>-&gt;</code> 而自动推断返回值类型)。</p>
 </li>
 </ul>
 </li>
 <li>Item 2 结束</li>
+<li>总结<ul>
+<li>自动类型推断 和 模板类型推断 总是相同的，除了前者假设一个 <strong>列表初始化</strong>语法的出现总是代表<code>std::initializer_list&lt;T&gt;</code>的类型，但是后者却不是</li>
+<li>在作返回值类型推断的时候，总是使用 模板类型推断，而不是 自动类型推断。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Item_3_-_Understand_decltype">Item 3 - Understand decltype</h3><ul>
+<li>首先<code>decltype</code>的确是一个很奇怪的东西，但是从种种解释来看，他似乎是C++中一个很中规中矩的一个 <strong>关键字</strong>，因为它总是能够把 <strong>正确的类型不加修改</strong> 的返回给你。</li>
+<li>但是在初试这个关键字的一段时间之后，总能出现让使用者抓狂的现象<blockquote>
+<p>例如：“啊！怎么是引用！我明明返回的是一个对象！”</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>例如：“啊！怎么这回不是引用啦！”</p>
+</blockquote>
+<pre><code><span class="keyword">const</span> <span class="keyword">int</span> i = <span class="number">0</span>; <span class="comment">//decltype(i) 返回的类型是 const int</span>
+
+<span class="function"><span class="keyword">bool</span> <span class="title">f</span><span class="params">(<span class="keyword">const</span> Widget &amp; w)</span> <span class="comment">// decltype(w) 返回 const Widget &amp;</span>
+Widget w</span>; <span class="comment">// decltype(w) 返回 Widget</span>
+f(w);     <span class="comment">// decltype(f(w)) 返回 bool</span>
+
+<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; tmp; tmp.push_back(<span class="number">10</span>); <span class="comment">// 改造一下原文程序</span>
+tmp[<span class="number">0</span>] = <span class="number">20</span>; <span class="comment">// decltype(tmp[0]) 返回 int &amp;</span>
+</code></pre><p>综上而观，并没有什么出乎意料的地方，（最后一个返回 <code>int &amp;</code> 是因为 <code>vector&lt;T&gt;</code>这个容器重载了运算符 <code>[]</code>，其返回值是 <code>T &amp;</code>），所以总的来说还是没有出乎我们意料之外。</p>
+<ul>
+<li>在此处，原作者引出了一个问题，实际上也是 <strong>Item 2</strong> 里提到的，怎样让函数返回值也可以使用 类型推断？里要区分 C++11 和 C++14 标准的区别了，当然前者的方法在后者也可以使用，但是后者的方法却不一定能在前者内使用。</li>
+<li><p>引用 <strong>Item 2</strong> 末尾的例子(自行添加的)，这是 C++11 标准的方法，如果将其改写成 C++14 的形式：</p>
+<pre><code>// C++<span class="number">14</span> 
+<span class="keyword">template</span>&lt;typename T&gt;
+<span class="type">auto</span> f(std::initializer_list&lt;T&gt; param)
+{
+    <span class="type">auto</span> tmp = param;
+    // <span class="keyword">do</span> some work
+    <span class="keyword">return</span> tmp;
+}    
+</code></pre><p>只需要简单的将 “吊车尾” 删掉，这段代码在支持 C++14 标准的编译器的编译下是通过的。</p>
+</li>
+<li><p>那作者提出这个问题是为什么？实际上看到这里，都忽略了一个细节，那就是在 返回值的类型推断中，使用的是模板类型推断，无论什么类型推断，都会有一个事实那就是，将 <strong>限定符</strong> 删除。</p>
+</li>
+<li><p><strong>这会导致什么呢，如果我们返回的是一个简单的对象，自然没有什么问题，如果我们返回的是引用呢？</strong>(实际上这只影响 C++14的写法，对C++11的写法 并没有这种问题，因为我们所讨厌的<strong>“吊车尾</strong>”帮我们避免了这种问题的发生):</p>
+<pre><code>// C++<span class="number">11</span>
+<span class="keyword">template</span>&lt;typename <span class="type">Container</span>, typename <span class="type">Index</span>&gt;
+<span class="type">auto</span> authAndAccess(<span class="type">Container</span> &amp; c, <span class="type">Index</span> i)
+ -&gt; decltype(c[i])
+{
+    authenticateUser(); //做一些事
+    <span class="keyword">return</span> c[i];
+}
+// -----------------------------------------
+// C++<span class="number">14</span>
+<span class="keyword">template</span>&lt;typename <span class="type">Container</span>, typename <span class="type">Index</span>&gt;
+<span class="type">auto</span> authAndAccess(<span class="type">Container</span> &amp; c, <span class="type">Index</span> i)
+{
+    authenticateUser(); //做一些事
+    <span class="keyword">return</span> c[i];
+}            
+</code></pre><p>  诚然第二种写法比较简洁，打呢带来了一些隐患，就是返回值类型没有那么“明确”了，所以此处我们如果向参数 <code>c</code> 传入一个容器对象，例如 <code>vector</code>，那么最后返回的时候，<strong>C++11</strong> 版本返回的是一个引用， <strong>C++14</strong> 版本返回的则是一个 <code>rvalue</code>(类型推断把 <strong>限定符</strong> 给忽略了！)，也就是说我们的原意可能已经被编译器给理解错了！这回导致什么结果呢？</p>
+<pre><code><span class="built_in">std</span>::<span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt; d;
+<span class="comment">//... 加入元素</span>
+<span class="comment">// C++11</span>
+authAndAccess(d, <span class="number">5</span>) = <span class="number">10</span>; <span class="comment">// 可行，因为是引用</span>
+<span class="comment">// C++14</span>
+authAndAccess(d, <span class="number">5</span>) = <span class="number">10</span>; <span class="comment">// 错误！连编译都无法通过</span>
+</code></pre><p>  无法通过编译的理由，上面已经叙述过了，实际上就是 <strong>Item 1/2</strong>的情况。</p>
+<p>  解决的办法，还是要靠 <code>decltype</code></p>
+<pre><code>// C++<span class="number">14</span>
+<span class="keyword">template</span>&lt;typename <span class="type">Container</span>, typename <span class="type">Index</span>&gt;
+decltype(<span class="type">auto</span>) authAndAccess(<span class="type">Container</span> &amp; c, <span class="type">Index</span> i)
+{
+    authenticateUser(); //做一些事
+    <span class="keyword">return</span> c[i];
+}        
+</code></pre><p>  因为 <code>decltype</code> 会如实的将类型返回给使用者，所以这时候，返回值就是 <code>int&amp;</code> 了。</p>
+<p>  这样，C++14的版本就能愉快的工作了。之后原文还介绍了更深入的知识 <code>std::forward</code>，这个不记录，在 <strong>Item 25</strong>有专门讲解。</p>
+<p>  什么时候 <code>decltype</code> 会出乎意料？</p>
+<pre><code><span class="comment">// C++14</span>
+<span class="comment">// 原书的例子不太好，但是用来解释却是最好的</span>
+<span class="keyword">decltype</span>(<span class="keyword">auto</span>) f()
+{
+    <span class="keyword">int</span> x = <span class="number">0</span>;
+    <span class="comment">//...</span>
+    <span class="keyword">return</span> x;
+}
+</code></pre><p>  毫无疑问，返回值类型就是 <code>int</code></p>
+<pre><code><span class="keyword">decltype</span>(<span class="keyword">auto</span>) f()
+{
+    <span class="keyword">int</span> x = <span class="number">0</span>;
+    <span class="comment">//...</span>
+    <span class="keyword">return</span> (x);
+}
+</code></pre><p>  这回返回值类型就是 <code>int &amp;</code></p>
+<p>  原因就是用 <code>()</code> 包裹起来在C++看来，这就不再是一个单纯的对象，所以返回了引用。</p>
+</li>
+<li><p>总结</p>
+<ul>
+<li><code>decltype</code> 几乎总是没有任何修改的返回正确的类型</li>
+<li>如果是一个 <code>lvalue expression</code> 的话，那就返回表达式结果类型的引用。</li>
+<li>C++11写法 在函数返回值类型推断方面不必太在意<code>decltype</code>的这两个规则，因为“吊车尾”帮我们避免了问题，但是 C++14 的写法就必须要注意。</li>
+</ul>
+</li>
+<li>Item 3 结束 </li>
 </ul>
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="每日更新(1-2_Item)">每日更新(1-2 Item)</h2><ul>
-<li><p>Item 2</p>
+<li><p>Item 3</p>
 <h2 id="《Effective_Modern_C++》概要">《Effective Modern C++》概要</h2></li>
 <li><p>因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。</p>
 </li>
