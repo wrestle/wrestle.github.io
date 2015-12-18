@@ -458,7 +458,78 @@ class <span class="type">TD</span>; // 故意不写完整
 <li>所以本节就这么多例子信息，旨在告诉读者，要善用编译器。</li>
 <li>Item 4 结束</li>
 </ul>
-<h2 id="Chapter_2_-_auto">Chapter 2 - auto</h2><h3 id="Item_5_-_Prefer_auto_to_explict_type_declarations">Item 5 - Prefer auto to explict type declarations</h3>
+<h2 id="Chapter_2_-_auto">Chapter 2 - auto</h2><h3 id="Item_5_-_Prefer_auto_to_explict_type_declarations">Item 5 - Prefer auto to explict type declarations</h3><ul>
+<li>用几个例子，讲述 <code>auto</code> 相对于 显式类型声明的 优势</li>
+<li>它能缓解由于错误声明带来的隐性错误。但是由前面可知，有时候 <code>auto</code> 的推断并不一定都如我们所愿，所以<code>auto</code>这个选择只是作为一种推荐，而不是硬性要求我们使用。</li>
+<li><p>例子</p>
+<ul>
+<li><p>在 <strong>C/C++</strong> 中，常常出现声明变量后，忘记初始化的错误，但是用 <code>auto</code> 进行替换的话，可以有效避免这种情况的出现。</p>
+<pre><code><span class="keyword">int</span> x1; <span class="comment">// 未初始化，但编译通过</span>
+<span class="keyword">auto</span> x2; <span class="comment">// 未初始化，编译错误！</span>
+<span class="keyword">auto</span> x3 = <span class="number">0</span>; <span class="comment">// 这样才行</span>
+</code></pre></li>
+<li><p>匿名函数和闭包的例子，在 C++ 中有一个模板，可以用来存储任意类型的 <strong>可调用对象</strong>， 叫做 <code>std::function&lt;T&gt;</code>，这不是唯一的方法，我们可以选择使用　<code>auto</code> 来代替</p>
+<pre><code><span class="comment">// auto 来创建对象存储匿名函数</span>
+<span class="comment">// C++11</span>
+<span class="keyword">auto</span> derefUPLess = 
+    [](<span class="keyword">const</span> <span class="built_in">std</span>::unique_ptr&lt;Widget&gt; &amp; p1,
+      <span class="keyword">const</span> <span class="built_in">std</span>::unique_ptr&lt;Widget&gt; &amp; p2)
+    { <span class="keyword">return</span> *p1 &lt; *p2; };
+<span class="comment">// C++14</span>
+<span class="keyword">auto</span> derefUPLess = 
+    [](<span class="keyword">const</span> <span class="keyword">auto</span> &amp; p1, 
+      <span class="keyword">const</span> <span class="keyword">auto</span> &amp; p2)
+    { <span class="keyword">return</span> *p1 &lt; *p2; };
+
+<span class="comment">// 用 function&lt;&gt; 来声明存储</span>
+function&lt;<span class="keyword">bool</span>(<span class="keyword">const</span> unique_ptr&lt;Widget&gt; &amp;, 
+            <span class="keyword">const</span> unique_ptr&lt;Widget&gt; &amp;)&gt;
+derefUPLess = 
+    [](<span class="keyword">const</span> <span class="built_in">std</span>::unique_ptr&lt;Widget&gt; &amp; p1,
+      <span class="keyword">const</span> <span class="built_in">std</span>::unique_ptr&lt;Widget&gt; &amp; p2)
+    { <span class="keyword">return</span> *p1 &lt; *p2; };
+</code></pre><p>  由 <code>auto</code> 和 <code>function</code> 创建的是完全不同的两个东西，一般而言前者要比后者省一些，后者作为一种通用的”模板”存在，最开始具有一定的大小，如果不足以容纳要接受的对象的话，会在堆上申请空间来存储</p>
+<p>  所以相对而言， <code>auto</code> 的效率会高于 <code>function</code></p>
+</li>
+</ul>
+</li>
+<li><p>例子</p>
+<ul>
+<li><p>有时候不经意的想当然也会导致一些小隐患</p>
+<pre><code><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; Mat;
+...
+<span class="keyword">unsigned</span> size = Mat.size();
+</code></pre><p>  这段小代码，看上去没有什么错误</p>
+<p>  Mat.size()的返回值类型是 <code>vector&lt;int&gt;::size_type</code>，在 <strong>32位</strong> 操作系统下，其大小为 <strong>32位</strong>， 在 <strong>64位</strong> 操作系统下为 <strong>64位</strong>，而 <code>unsigned</code>则都是 <strong>32位</strong>。这会导致如果移植到 <strong>64位</strong>操作系统时，可能在某一时刻出现问题。</p>
+<pre><code>auto <span class="keyword">size</span> = Mat.<span class="keyword">size</span>(); <span class="comment">// 这样做就行了</span>
+</code></pre></li>
+</ul>
+</li>
+<li><p>例子</p>
+<ul>
+<li><p>范围<code>for</code>循环 (<strong>range-for loop</strong>)</p>
+<pre><code><span class="built_in">unordered_map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; m;
+...
+<span class="keyword">for</span>(<span class="keyword">const</span> pair&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; &amp; p : m)
+{
+    <span class="comment">// 做一些事</span>
+}
+</code></pre><p>  这个代码有什么问题？首先，<code>unordered_map</code>的 <strong>Key-Value</strong> 类型并不是<code>string, int</code> 而是 <code>const string, int</code>。这往往会被忽略</p>
+<p>  那忽略了能怎样？首先编译器在此时会尽量满足程序员的要求(尽管此时的要求似乎并不是我们所想要的)，也就是拷贝一个<code>m</code>的副本，供这个新的 <code>pair</code> 使用。</p>
+<p>  当然，此处编译器不会让我们犯下非常大的错误，这里产生的<strong>副作用</strong>就是在每次循环结束的时候，那个拷贝的副本都将被销毁，下一次循环开始后又被创建，如此往复。</p>
+<p>  可以猜得到，如果将 <code>const pair&lt;string, int&gt;</code> 的 <code>const</code> 去掉，编译将不会被通过，因为如果没有了这个<code>const</code>，那么我们就能通过这个<code>pair</code>对象修改这个<code>unordered_map</code> 的 <strong>Key</strong>，这与设计理念相驳，所以除非你这么写</p>
+<pre><code><span class="keyword">for</span>(pair&lt;<span class="keyword">const</span> <span class="built_in">string</span>, <span class="keyword">int</span>&gt; &amp; p : m)
+</code></pre><p>  否则，编译是无法通过的。</p>
+<p>  所以，此时可以选择 <code>auto</code> 来帮助完成这些暗藏陷阱的工作</p>
+<pre><code><span class="keyword">for</span>(<span class="keyword">const</span> <span class="keyword">auto</span> &amp; p : m)
+</code></pre><p>  记住要自己加上<strong>限定符</strong>。</p>
+</li>
+</ul>
+</li>
+<li>但是一定要切记，<code>auto</code> 使用时会发生的事情。</li>
+<li>Item 5 结束</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
