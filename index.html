@@ -104,18 +104,21 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="每日更新(1-2_Item)">每日更新(1-2 Item)</h2><ul>
-<li><p>Item 3</p>
-<h2 id="《Effective_Modern_C++》概要">《Effective Modern C++》概要</h2></li>
-<li><p>因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。</p>
-</li>
+        <blockquote>
+<p>每日更新(1-2 Item)</p>
+</blockquote>
+<ul>
+<li>Item 5</li>
+</ul>
+<h1 id="《Effective_Modern_C++》概要">《Effective Modern C++》概要</h1><ul>
+<li>因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。</li>
 <li>记录自己阅读这本书的过程，以及一些细节，知道自己不可能读一遍就能将所有信息记下，故写成博文，方便自己及需要者查阅</li>
 <li>本文是我自己的感受，如果有想要体会完整的思想请自行查阅原书，最好配一本完备的C++的语法工具书（例如<code>The C++ Programming Languag, 4th Edition--Bjarne Stroustrup</code>），以便随时查询，当然还需要一个可编程平台。</li>
 </ul>
 <blockquote>
 <p>代码尽量和原书相同，除非是想更详细的解释才会自行修改</p>
 </blockquote>
-<h3 id="Item_1_-_Understand_template_type_dedution">Item 1 - Understand template type dedution</h3><ul>
+<h2 id="Chapter_1_-_Deducing_Types">Chapter 1 - Deducing Types</h2><h3 id="Item_1_-_Understand_template_type_dedution">Item 1 - Understand template type dedution</h3><ul>
 <li>这节讲述了C++有两种类型推断(不许程序员介入)， <strong>自动类型推断(auto type dedution)</strong> 和 <strong>模板类型推断(template type dedution)</strong>， 两者的联系以及唯一的区别。</li>
 <li>首先介绍的是模板类型推断，这是来自(C++98)的特性了，现在以及在沿用，是最成功的特性之一。</li>
 <li><p>对于模板类型推断，一般形式可归纳为：</p>

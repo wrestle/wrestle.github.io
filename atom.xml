@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快感]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-12-17T12:13:05.739Z</updated>
+  <updated>2015-12-18T07:38:48.445Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,19 +20,22 @@
     <link href="//wushxin.top/2015/12/15/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0.html"/>
     <id>//wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html</id>
     <published>2015-12-15T08:40:14.000Z</published>
-    <updated>2015-12-17T12:13:05.739Z</updated>
-    <content type="html"><![CDATA[<h2 id="每日更新(1-2_Item)">每日更新(1-2 Item)</h2><ul>
-<li><p>Item 3</p>
-<h2 id="《Effective_Modern_C++》概要">《Effective Modern C++》概要</h2></li>
-<li><p>因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。</p>
-</li>
+    <updated>2015-12-18T07:38:48.445Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>每日更新(1-2 Item)</p>
+</blockquote>
+<ul>
+<li>Item 5</li>
+</ul>
+<h1 id="《Effective_Modern_C++》概要">《Effective Modern C++》概要</h1><ul>
+<li>因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。</li>
 <li>记录自己阅读这本书的过程，以及一些细节，知道自己不可能读一遍就能将所有信息记下，故写成博文，方便自己及需要者查阅</li>
 <li>本文是我自己的感受，如果有想要体会完整的思想请自行查阅原书，最好配一本完备的C++的语法工具书（例如<code>The C++ Programming Languag, 4th Edition--Bjarne Stroustrup</code>），以便随时查询，当然还需要一个可编程平台。</li>
 </ul>
 <blockquote>
 <p>代码尽量和原书相同，除非是想更详细的解释才会自行修改</p>
 </blockquote>
-<h3 id="Item_1_-_Understand_template_type_dedution">Item 1 - Understand template type dedution</h3><ul>
+<h2 id="Chapter_1_-_Deducing_Types">Chapter 1 - Deducing Types</h2><h3 id="Item_1_-_Understand_template_type_dedution">Item 1 - Understand template type dedution</h3><ul>
 <li>这节讲述了C++有两种类型推断(不许程序员介入)， <strong>自动类型推断(auto type dedution)</strong> 和 <strong>模板类型推断(template type dedution)</strong>， 两者的联系以及唯一的区别。</li>
 <li>首先介绍的是模板类型推断，这是来自(C++98)的特性了，现在以及在沿用，是最成功的特性之一。</li>
 <li><p>对于模板类型推断，一般形式可归纳为：</p>
@@ -309,6 +312,12 @@ decltype(<span class="type">auto</span>) authAndAccess(<span class="type">Contai
 </code></pre><p>  这回返回值类型就是 <code>int &amp;</code></p>
 <p>  原因就是用 <code>()</code> 包裹起来在C++看来，这就不再是一个单纯的对象，所以返回了引用。</p>
 </li>
+<li><p>这里需要补充,一旦多加了一层括号</p>
+<ul>
+<li>当括号内是 <code>lvalue</code> 或最终结果是 <code>lvalue</code>时，返回的是<strong>该类型的引用</strong></li>
+<li>当括号内是 <code>rvalue</code> 或最终结果是 <code>rvalue</code>时，返回的是<strong>该类型本身</strong></li>
+</ul>
+</li>
 <li><p>总结</p>
 <ul>
 <li><code>decltype</code> 几乎总是没有任何修改的返回正确的类型</li>
@@ -318,20 +327,49 @@ decltype(<span class="type">auto</span>) authAndAccess(<span class="type">Contai
 </li>
 <li>Item 3 结束 </li>
 </ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h2 id="每日更新(1-2_Item)">每日更新(1-2 Item)</h2><ul>
-<li><p>Item 3</p>
-<h2 id="《Effective_Modern_C++》概要">《Effective Modern C++》概要</h2></li>
-<li><p>因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。</p>
+<h3 id="Item_4_-_Know_how_to_view_deduced_types">Item 4 - Know how to view deduced types</h3><ul>
+<li>这一节讲述，如何才能知道推断出来的类型是否是我们想要的。</li>
+<li>第一种方法 ： 某些 <strong>IDE</strong> 自带，这个不再记录</li>
+<li><p>第二种方法 ： 通过语法错误产生的编译信息来确定。</p>
+<ul>
+<li><p>给出一个范例使用</p>
+<pre><code><span class="keyword">template</span>&lt;typename T&gt;
+class <span class="type">TD</span>; // 故意不写完整
+// 使用的时候
+<span class="type">TD</span>&lt;decltype(x)&gt; xType; // x 即为想知道什么类型的对象
+<span class="type">TD</span>&lt;decltype(y)&gt; yType;
+</code></pre></li>
+</ul>
 </li>
+<li><p>第三种方法 ： 使用库里的一个方法 <code>typeid</code></p>
+<pre><code><span class="preprocessor">#<span class="keyword">include</span> &lt;typeinfo&gt;</span>
+...
+<span class="built_in">cout</span> &lt;&lt; <span class="keyword">typeid</span>(x).name() &lt;&lt; endl;
+<span class="built_in">cout</span> &lt;&lt; <span class="keyword">typeid</span>(y).name() &lt;&lt; endl;
+</code></pre><p>  这会在终端输出类型信息，只不过这个信息略微有些晦涩，可以自行查询资料</p>
+</li>
+<li><p>但是，很遗憾第一种和第三种方法往往不能正确的打印出正确的类型，换句话说就是不太可靠。<code>Boost</code> 库中，有一个可靠的实现，<code>Boost.TypeIndex</code> 可以使用。原书例子不在记录。</p>
+</li>
+<li>所以本节就这么多例子信息，旨在告诉读者，要善用编译器。</li>
+<li>Item 4 结束</li>
+</ul>
+<h2 id="Chapter_2_-_auto">Chapter 2 - auto</h2><h3 id="Item_5_-_Prefer_auto_to_explict_type_declarations">Item 5 - Prefer auto to explict type declarations</h3>]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>每日更新(1-2 Item)</p>
+</blockquote>
+<ul>
+<li>Item 5</li>
+</ul>
+<h1 id="《Effective_Modern_C++》概要">《Effective Modern C++》概要</h1><ul>
+<li>因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。</li>
 <li>记录自己阅读这本书的过程，以及一些细节，知道自己不可能读一遍就能将所有信息记下，故写成博文，方便自己及需要者查阅</li>
 <li>本文是我自己的感受，如果有想要体会完整的思想请自行查阅原书，最好配一本完备的C++的语法工具书（例如<code>The C++ Programming Languag, 4th Edition--Bjarne Stroustrup</code>），以便随时查询，当然还需要一个可编程平台。</li>
 </ul>
 <blockquote>
 <p>代码尽量和原书相同，除非是想更详细的解释才会自行修改</p>
 </blockquote>
-<h3 id="Item_1_-_Understand_template_type_dedution">Item 1 - Understand template type dedution</h3><ul>
+<h2 id="Chapter_1_-_Deducing_Types">Chapter 1 - Deducing Types</h2><h3 id="Item_1_-_Understand_template_type_dedution">Item 1 - Understand template type dedution</h3><ul>
 <li>这节讲述了C++有两种类型推断(不许程序员介入)， <strong>自动类型推断(auto type dedution)</strong> 和 <strong>模板类型推断(template type dedution)</strong>， 两者的联系以及唯一的区别。</li>
 <li>首先介绍的是模板类型推断，这是来自(C++98)的特性了，现在以及在沿用，是最成功的特性之一。</li>
 <li><p>对于模板类型推断，一般形式可归纳为：</p>
