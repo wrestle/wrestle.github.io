@@ -6,10 +6,10 @@
   
   <title>Effective Modern C++概述 | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="每日更新(1-2 Item)
+  <meta name="description" content="每日更新(0-2 Item)
 
 
-Item 5
+Item 9
 
 《Effective Modern C++》概要
 因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。
@@ -19,10 +19,10 @@ Item 5
 <meta property="og:title" content="Effective Modern C++概述">
 <meta property="og:url" content="//wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="每日更新(1-2 Item)
+<meta property="og:description" content="每日更新(0-2 Item)
 
 
-Item 5
+Item 9
 
 《Effective Modern C++》概要
 因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。
@@ -30,10 +30,10 @@ Item 5
 本文是我自己的感受，如果有想要体会完整的思想请自行查阅原书，最好配一本完备的C++的语法工具书（例如T">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Effective Modern C++概述">
-<meta name="twitter:description" content="每日更新(1-2 Item)
+<meta name="twitter:description" content="每日更新(0-2 Item)
 
 
-Item 5
+Item 9
 
 《Effective Modern C++》概要
 因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。
@@ -127,10 +127,10 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>每日更新(1-2 Item)</p>
+<p>每日更新(0-2 Item)</p>
 </blockquote>
 <ul>
-<li>Item 5</li>
+<li>Item 9</li>
 </ul>
 <h1 id="《Effective_Modern_C++》概要">《Effective Modern C++》概要</h1><ul>
 <li>因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。</li>
@@ -157,9 +157,12 @@ f(exor); // <span class="type">expr</span> 可能是一条语句
 <li><code>ParamType</code> 是一个指针或者引用，但不是一个 通用引用(Universal reference 不知道怎么翻译)。</li>
 <li><code>ParamType</code> 是一个 Universal reference</li>
 <li><code>ParamType</code>·不是一个指针也不是一个引用· </li>
-<li>所以将模板类型推断分为三种情况。<a id="more"></a></li>
+<li>所以将模板类型推断分为三种情况。</li>
 </ol>
 </li>
+</ul>
+<a id="more"></a>
+<ul>
 <li><p>第一种情况比较简单</p>
 <ul>
 <li><p>如果此时 <code>expr</code>是一个引用，那就把引用去掉，剩下的就是 <code>T</code></p>
@@ -529,12 +532,211 @@ derefUPLess =
 <li>但是一定要切记，<code>auto</code> 使用时会发生的事情。</li>
 <li>Item 5 结束</li>
 </ul>
-
+<h3 id="Item_6_-_Use_the_explictly_typed_initializer_idiom_when_auto_deduces_undesired_types">Item 6 - Use the explictly typed initializer idiom when auto deduces undesired types</h3><ul>
+<li>本篇几乎为上述篇幅的一个小补充，叙述的是，当 <code>auto</code> 返回了一个出人意料的结果时，应该改用显式的类型声明。</li>
+<li>何时会出现出人意料的结果？ 文中给出了一种叫做 代理(Proxy) 的模式下，会有出人意料的结果</li>
+<li><p>简单来说就是，例如一个 <code>std::vector&lt;bool&gt;</code> 的使用，几乎大部分人都知道 <code>std::vector&lt;bool&gt;</code>是一个模板特例化的产物，且一般而言 <code>operetor[]</code>操作返回的是容器元素的引用，但是在 <strong>C++</strong> 中， <strong>bit</strong>是不允许被引用指向的，也就是说<code>bool&amp;</code>是不存在的。所以，使用了一种称为代理的机制，返回的真正类型是 <code>std::vector&lt;bool&gt;::reference</code>，这是一个内嵌类(vector中)</p>
+<pre><code><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; isTriangle;
+...
+<span class="keyword">bool</span> rights = isTriangle[<span class="number">1</span>]; <span class="comment">// 正确，有类型转换发生，但是合法的</span>
+<span class="keyword">auto</span> wrongs = isTriangle[<span class="number">1</span>]; <span class="comment">// 也是能够编译通过，但是不太好</span>
+</code></pre><p>  但是 <code>wrong</code> 的类型是 <code>std::vector&lt;bool&gt;::reference</code></p>
+<p>  如果这个 <code>vector</code> 是个临时对象呢？</p>
+<pre><code><span class="comment">// 假设有一个函数 std::vector&lt;bool&gt; retVec(int para);</span>
+<span class="keyword">bool</span> rights = retVec(<span class="number">2</span>)[<span class="number">1</span>]; <span class="comment">// 可以</span>
+<span class="keyword">auto</span> wrongs = retVec(<span class="number">2</span>)[<span class="number">1</span>]; <span class="comment">// 绝对不能这么做</span>
+</code></pre><p>  这取决于，<code>std::vector&lt;&gt;::reference</code> 的实现了，有一种实现是返回一个指向区域的类似指针的东西，假设如此，那么当这个临时对象被销毁之后呢？所以 <code>wrongs</code> 是一种不确定行为。</p>
+<p>  当然有一种做法就是给它加上类型转换</p>
+<pre><code><span class="keyword">auto</span> change = <span class="keyword">static_cast</span>&lt;<span class="keyword">bool</span>&gt;(retVec(<span class="number">2</span>)[<span class="number">1</span>]);
+</code></pre></li>
+<li><p>Item 6 结束</p>
+</li>
+</ul>
+<h2 id="Chapter_3_-_Moving_to_Modern_C++">Chapter 3 - Moving to Modern C++</h2><h3 id="Item_7_Distinguish_between_()_and_{}_when_creating_objects">Item 7 Distinguish between () and {} when creating objects</h3><ul>
+<li>前者代表 <code>()</code> 后者代表 <code>{}</code></li>
+<li><p>首先，后者能让初始化一个容器，或者类似事物，在某种程度上更加简便</p>
+<pre><code><span class="comment">// 只需</span>
+<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; index1{<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>};
+<span class="comment">// 不需</span>
+<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; index2;
+<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; constance; i++)
+{
+    index2.push_back(i);
+}
+</code></pre></li>
+</ul>
+<ul>
+<li><p>不可拷贝的对象的创建，有时候必须借用这种机制</p>
+<pre><code><span class="symbol">std:</span><span class="symbol">:atomic&lt;int&gt;</span> al1{ <span class="number">0</span> }; <span class="regexp">//</span><span class="constant">Okay</span>
+<span class="symbol">std:</span><span class="symbol">:atomic&lt;int&gt;</span> al2(<span class="number">0</span>); <span class="regexp">//</span><span class="constant">Okay</span>
+<span class="symbol">std:</span><span class="symbol">:atomic&lt;int&gt;</span> al3 = <span class="number">0</span>; <span class="regexp">//</span>这就不行了 
+</code></pre></li>
+<li><p>对于可能在不经意间造成的 类型缩窄(<strong>narrowing convertions</strong>)，可以尝试使用后者来进行杜绝，也就是说，让编译器监督我们是否有类型被缩窄了。</p>
+<pre><code><span class="keyword">double</span> x, y, z;
+...
+<span class="keyword">int</span> sum{ x + y + z }; <span class="comment">// 错误！花括号内表达式的结果是 double</span>
+<span class="function"><span class="keyword">int</span> <span class="title">sum2</span><span class="params">(x + y + z)</span></span>; <span class="comment">// 这样可以</span>
+<span class="keyword">int</span> sum3 = x + y + z; <span class="comment">// 也可以</span>
+</code></pre></li>
+<li><p>再有一点，涉及到了 C++ 的缺陷，那就是有时候一个表达式可能会引起理解上的混淆(于程序员而言)</p>
+<pre><code><span class="comment">// 函数声明 还是 函数调用？</span>
+<span class="function">Widget <span class="title">w2</span><span class="params">()</span></span>; <span class="comment">// 这是什么？</span>
+<span class="function">Widget <span class="title">w1</span><span class="params">(<span class="number">10</span>)</span></span>; <span class="comment">// 这是调用一个 以 10 为参数的Widget的构造函数</span>
+</code></pre><p>  很多人看完第二个，会直觉的默认第一个就是调用 Widget的无参构造函数，其实不是，在编译器看来(至少目前是)这是一个函数声明</p>
+<p>  那如果要调用无参数构造函数怎么办？</p>
+<pre><code><span class="comment">// 新标准下，可以使用后者</span>
+<span class="tag">Widget</span> <span class="tag">w2</span>{}; <span class="comment">// 这就调用了 无参的构造函数</span>
+</code></pre><p>  当然，后者也有它不好的地方</p>
+</li>
+<li><p>当构造一个类的时候</p>
+<pre><code><span class="keyword">class</span> <span class="title">Widget</span>{
+<span class="keyword">public</span>:
+    Widget(<span class="keyword">int</span> i, <span class="keyword">bool</span> b);
+    Widget(<span class="keyword">int</span> i, <span class="keyword">double</span> b);
+};
+<span class="comment">// 调用</span>
+<span class="function">Widget <span class="title">w1</span><span class="params">(<span class="number">10</span>, <span class="keyword">true</span>)</span></span>; <span class="comment">// 调用第一个</span>
+Widget w2{<span class="number">10</span>, <span class="keyword">true</span>}; <span class="comment">// 第一个</span>
+<span class="function">Widget <span class="title">w3</span><span class="params">(<span class="number">10</span>, <span class="number">5.0</span>)</span></span>;  <span class="comment">// 第二个</span>
+Widget w4{<span class="number">10</span>, <span class="number">5.0</span>};  <span class="comment">// 第二个</span>
+</code></pre><p>  看起来似乎没什么问题，如果加一个构造函数</p>
+<pre><code><span class="keyword">class</span> Widget{
+<span class="comment">//.. 前方一致</span>
+    Widget(<span class="built_in">std</span>::initializer_list&lt;<span class="keyword">long</span> <span class="keyword">double</span>&gt; il); <span class="comment">//第三个构造函数</span>
+};
+<span class="comment">// 调用</span>
+<span class="function">Widget <span class="title">w1</span><span class="params">(10, <span class="keyword">true</span>)</span></span>; <span class="comment">// 调用第一个</span>
+Widget w2{<span class="number">10</span>, <span class="keyword">true</span>}; <span class="comment">// 第三个</span>
+<span class="function">Widget <span class="title">w3</span><span class="params">(10, 5.0)</span></span>;  <span class="comment">// 第二个</span>
+Widget w4{<span class="number">10</span>, <span class="number">5.0</span>};  <span class="comment">// 第三个    </span>
+</code></pre><p>  如果此时再多加一个隐式的转换(重载)，那连拷贝构造函数都会出现意外</p>
+<pre><code><span class="keyword">class</span> Widget{
+<span class="comment">//.. 前方一致</span>
+    <span class="function">operate <span class="title">float</span><span class="params">()</span> <span class="keyword">const</span></span>; <span class="comment">// 作用是将这种类型(Widget)转换成 float</span>
+}；
+<span class="comment">// 使用</span>
+<span class="function">Widget <span class="title">w5</span><span class="params">(w4)</span></span>; <span class="comment">// 调用拷贝构造函数</span>
+Widget w6{w4};    <span class="comment">// 调用第三个构造函数</span>
+<span class="function">Widget <span class="title">w7</span><span class="params">(<span class="built_in">std</span>::move(w4)</span>)</span>; <span class="comment">// 调用移动拷贝构造函数</span>
+Widget w8{<span class="built_in">std</span>::move(w4)}; <span class="comment">// 调用第三个构造函数</span>
+</code></pre><p>  更让人吃惊的是，即使这么做会让编译无法通过，它(编译器)    依旧会选择匹配以<strong>初始化列表</strong>为类型的构造函数</p>
+<pre><code><span class="comment">// 将第三个构造函数改成</span>
+<span class="keyword">class</span> Widget{
+<span class="comment">// 其他一致</span>
+    Widget(<span class="built_in">std</span>::initializer_list&lt;<span class="keyword">bool</span>&gt; il); <span class="comment">// long double -&gt; bool</span>
+};
+Widget w{<span class="number">10</span>, <span class="number">5.0</span>}; <span class="comment">// 这回，编译出错了！明明有更好的选择，但是出错了。</span>
+</code></pre><p>  只有当没有任何途径可以转换类型的情况下，编译器才会舍弃倔强，回到普通的构造函数选择中</p>
+<pre><code><span class="comment">// 将第三个构造函数改成</span>
+<span class="keyword">class</span> Widget{
+<span class="comment">// 其他一致</span>
+    Widget(<span class="built_in">std</span>::initializer_list&lt;<span class="built_in">std</span>::<span class="built_in">string</span>&gt; il);
+};
+<span class="comment">// 调用</span>
+<span class="function">Widget <span class="title">w1</span><span class="params">(10, <span class="keyword">true</span>)</span></span>; <span class="comment">// 调用第一个</span>
+Widget w2{<span class="number">10</span>, <span class="keyword">true</span>}; <span class="comment">// 第一个</span>
+<span class="function">Widget <span class="title">w3</span><span class="params">(10, 5.0)</span></span>;  <span class="comment">// 第二个</span>
+Widget w4{<span class="number">10</span>, <span class="number">5.0</span>};  <span class="comment">// 第二个</span>
+</code></pre><p>  回到最初，如果使用一个空的 <code>{}</code> 呢？会发生什么，是调用第三个构造函数，还是调用无参构造函数？</p>
+<p>  答案是调用 <strong>无参的构造函数</strong></p>
+</li>
+<li><p>不记录一个和模板有关的信息,以及如何用 <code>{}</code> 传递空参数的记录</p>
+</li>
+<li>Item 7 结束</li>
+</ul>
+<h3 id="Item_8_-_prefer_nullptr_to_0_and_NULL">Item 8 - prefer nullptr to 0 and NULL</h3><ul>
+<li>首先，对于 <code>0</code> 和 <code>NULL</code> 的使用，是历史遗留的问题，依靠类型转换来勉强维持正确性，但他们究竟是什么类型，特别是后者，根本无法确切得知</li>
+<li><code>0</code> 毫无疑问是 <code>int</code>，而 <code>NULL</code> 可以是<code>int</code>，也可以是其他类型，具体看编译器实现。</li>
+<li><p><code>nullptr</code> 则是一种新的类型，用来代替前两者，类型是<code>std::nullptr_t</code>，它能够自动转换成通用指针类型。所以它是真正意义上的空指针</p>
+<pre><code><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span>)</span></span>;
+<span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">bool</span>)</span></span>;
+<span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">void</span>*)</span></span>;
+f(<span class="number">0</span>); <span class="comment">// 调用第一个</span>
+f(NULL); <span class="comment">// 可能调用第一个，也可能都无法编译通过</span>
+f(<span class="keyword">nullptr</span>); <span class="comment">// 调用第三个</span>
+</code></pre></li>
+<li><p>在模板使用中，就会严格很多</p>
+<pre><code><span class="keyword">template</span> &lt;typename <span class="type">FuncType</span>,
+            typename <span class="type">MuxType</span>,
+            typename <span class="type">PtrType</span>&gt;
+<span class="type">auto</span> lockAndCall(<span class="type">FuncType</span> func,
+                    <span class="type">MuxType</span> mutex,
+                    <span class="type">PtrType</span> <span class="keyword">ptr</span>) -&gt; decltype(func(<span class="keyword">ptr</span>))
+{
+    <span class="keyword">using</span> <span class="type">MuxGuard</span> = std::lock_guard&lt;std:mutex&gt;;
+    <span class="type">MuxGuard</span> g(mutex);
+    <span class="keyword">return</span> func(<span class="keyword">ptr</span>);
+}
+</code></pre><p>  在对这个函数使用的时候，如果我们再将 <code>0</code> 或者 <code>NULL</code> 当作空指针传递的话，就会发生错误，原因就在于，模板类型推断已经限制了进一步的转换。</p>
+</li>
+<li><p>最后一点就是，要尽量避免 整形 和 指针类型的 函数重载。</p>
+</li>
+<li>Item 8 结束</li>
+</ul>
+<h3 id="Item_9_-_Prefer_alias_declarations_to_typedefs">Item 9 - Prefer alias declarations to typedefs</h3><ul>
+<li>C++11 后增加一个新的语法，作用和 <code>typedef</code> 十分相似，但是按照说法，它能做的更多更好。</li>
+<li><p>首先是两者的共同点</p>
+<pre><code><span class="keyword">typedef</span>
+<span class="built_in">std</span>::unique_ptr&lt;<span class="built_in">std</span>::<span class="built_in">unordered_map</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>, <span class="built_in">std</span>::<span class="built_in">string</span>&gt;&gt;
+UPtrMapSS; <span class="comment">// 注意此处有连续的 &gt;&gt; 如果在 C++98下会编译出错，加一个空格即可     </span>
+<span class="keyword">using</span> UPtrMapSS = 
+<span class="built_in">std</span>::unique_ptr&lt;<span class="built_in">std</span>::<span class="built_in">unordered_map</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>, <span class="built_in">std</span>::<span class="built_in">string</span>&gt;&gt;;
+</code></pre><p>  两种方法最后的效果是一样的，有时候 using 更加清晰</p>
+<pre><code><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*FP)</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;)</span></span>;
+<span class="keyword">using</span> FP = <span class="keyword">void</span> (*)(<span class="keyword">int</span>, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span> &amp;);
+</code></pre><p>  明显那看出第二种写法更加清晰，当然也有人不这么认为，所以在这方面 using 和 typedef 对比并没有谁更优。</p>
+</li>
+<li><p>真正区分开两者的地方是在<strong>模板</strong>方面</p>
+<pre><code><span class="keyword">template</span>&lt;typename T&gt;
+<span class="keyword">using</span> <span class="type">MyAllocList</span> = std::list&lt;T, <span class="type">MyAlloc</span>&lt;T&gt;&gt;;
+// 使用
+<span class="type">MyAllocList</span>&lt;<span class="type">Widget</span>&gt; lw; 
+</code></pre><p>  如果是在 C++98，只能</p>
+<pre><code><span class="keyword">template</span>&lt;class T&gt;
+struct <span class="type">MyAllocList</span>{
+    typedef std::list&lt;T, <span class="type">MyAlloc</span>&lt;T&gt;&gt; <span class="keyword">type</span>;
+};
+// 使用
+<span class="type">MyAllocList</span>&lt;<span class="type">Widget</span>&gt;::<span class="keyword">type</span> lw;
+</code></pre><p>  既然使用了 <code>::</code>，那么自然会引申出在 模板类中的情况：</p>
+<p>  例如，在一个模板类中使用上述这个模板的情况</p>
+<pre><code><span class="keyword">template</span>&lt;typename T&gt;
+class <span class="type">Widget</span>{
+private: 
+    typename <span class="type">MyAllocList</span>&lt;T&gt;::<span class="keyword">type</span> list; // 出现了typename
+};
+</code></pre><p>  此处 <code>typename</code> 的作用就是告诉编译器，接下来这个东西是一个依赖于T的类型，而不是其他东西，如果没有这个 <code>typename</code> 在前方修饰那么编译器就不明白这是个什么东西，因为可能这回事某个类中的 <strong>成员对象</strong>，考虑<strong>模板特例化</strong>的情形。</p>
+<p>  那使用 using 的语法就可以直接使用，而不用加 <code>typename</code>了。</p>
+<pre><code><span class="keyword">template</span>&lt;typename T&gt;
+class <span class="type">Widget</span>{
+private: 
+    <span class="type">MyAllocList</span>&lt;T&gt; list;
+};        
+</code></pre><p>  这里需要注释一下，不要将 <code>using</code> 想象的太乐观，很多情况下即使用了 using，也还是要用 typename 的。例如</p>
+<pre><code>// 补例
+class outerClass{
+public:
+    <span class="keyword">using</span> size_type = std::size_t; // 作为一种约定俗成的类似接口的规范
+private:
+    std::size_t capacity;
+};
+<span class="keyword">template</span>&lt;typename T&gt;
+class <span class="type">Widget</span>{
+public:
+    typename T::size_type call_me() <span class="decorator">{...}</span>
+private:
+};
+</code></pre><p>  这个例子里，即使用了 <code>using</code> ，照样需要告诉编译器，这是一个类型，而编程中经常遇到这种情况。</p>
+</li>
+<li>接下来涉及了模板元编程，后续再记录。</li>
+<li>Item 9 结束</li>
+</ul>
+<h3 id="Item_10_-_Prefer_scoped_enums_to_unscoped_enums">Item 10 - Prefer scoped enums to unscoped enums</h3>
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="//wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html" data-id="cii7ckhx8001gl0ltsob0xs9u" class="article-share-link" data-share="baidu" data-title="Effective Modern C++概述">分享到</a>
+        <a data-url="//wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html" data-id="ciip9xiwq001gvglt7k9br1qn" class="article-share-link" data-share="baidu" data-title="Effective Modern C++概述">分享到</a>
       
 
       
