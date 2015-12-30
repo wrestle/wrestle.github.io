@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快感]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-12-28T01:17:41.167Z</updated>
+  <updated>2015-12-30T11:16:27.927Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,12 +20,12 @@
     <link href="//wushxin.top/2015/12/15/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0.html"/>
     <id>//wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html</id>
     <published>2015-12-15T08:40:14.000Z</published>
-    <updated>2015-12-28T01:17:41.167Z</updated>
+    <updated>2015-12-30T11:16:27.927Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>每日更新(0-2 Item)</p>
 </blockquote>
 <ul>
-<li>Item 9</li>
+<li>Item 10</li>
 </ul>
 <h1 id="《Effective_Modern_C++》概要">《Effective Modern C++》概要</h1><ul>
 <li>因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。</li>
@@ -626,13 +626,60 @@ private:
 <li>接下来涉及了模板元编程，后续再记录。</li>
 <li>Item 9 结束</li>
 </ul>
-<h3 id="Item_10_-_Prefer_scoped_enums_to_unscoped_enums">Item 10 - Prefer scoped enums to unscoped enums</h3>]]></content>
+<h3 id="Item_10_-_Prefer_scoped_enums_to_unscoped_enums">Item 10 - Prefer scoped enums to unscoped enums</h3><ul>
+<li><p>本节讲述的是要尽量使用新标准下的 <strong>Scoped Enum</strong> 代替原来标准的 <strong>UnScoped Enum</strong></p>
+<pre><code><span class="comment">// Unscoped enum</span>
+<span class="class"><span class="keyword">enum</span> <span class="title">Color</span> </span>{black, red, white};
+auto white = <span class="literal">false</span>;    <span class="comment">// 编译错误</span>
+
+<span class="comment">// Scoped enum</span>
+<span class="class"><span class="keyword">enum</span> <span class="title">class</span> Color </span>{black, red, white};
+auto white = <span class="literal">false</span>;    <span class="comment">// 编译通过</span>
+
+<span class="comment">//所以</span>
+<span class="class"><span class="keyword">enum</span> <span class="title">class</span> Color </span>{black, red, white};
+<span class="constant">Color c1</span> = white; <span class="comment">// 错误</span>
+<span class="constant">Color c2</span> = Color::white; <span class="comment">// 正确</span>
+auto  c3 = Color::white; <span class="comment">// 正确</span>
+</code></pre><p>  区别就是这样，当然还有使用上的差异，以及行为上的差异。</p>
+<p>  首先，前者具有 <strong>强作用域意识</strong>，什么意思，就是没有命名污染。所以第一句编译错误，因为 <code>white</code> 已经使用过了！而对于第二句中的 <code>white</code> 在全局里并没有出现过，只出现在<code>Color::white</code></p>
+</li>
+<li><p>对于 <strong>Unscoped enum</strong> 来说，其限制几乎没有</p>
+<pre><code><span class="keyword">enum</span> Color {black, white, red};
+<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::size_t&gt; primeFactors(<span class="built_in">std</span>::size_t x);
+
+Color c = red;
+...
+<span class="keyword">if</span>(c &lt; <span class="number">14.5</span>){ <span class="comment">// 发生了隐式类型转换</span>
+    <span class="keyword">auto</span> factor = primeFactors(c);
+} 
+</code></pre><p>  这段代码编译通过，因为 <strong>Unscoped enum</strong> 可以隐式转换为数值类型，包括整形和浮点数。但是如果换成 <strong>Scoped enum</strong> 就不行，必须使用强制类型转换</p>
+<pre><code><span class="class"><span class="keyword">enum</span> <span class="title">class</span> <span class="title">Color</span> </span>{black, white, red};
+<span class="type">Color</span> <span class="built_in">c</span> = <span class="type">Color</span>::red;
+...
+<span class="keyword">if</span>(<span class="built_in">c</span> &lt; <span class="number">14.5</span>) { <span class="comment">// 编译失败，因为 c 没办法转换成 double类型</span>
+...
+</code></pre><p>  解决办法就是：</p>
+<pre><code><span class="keyword">if</span>(<span class="keyword">static_cast</span>&lt;<span class="keyword">double</span>&gt;(c) &lt; <span class="number">14.5</span>) {
+...
+</code></pre></li>
+<li><p>其次，<strong>Unscoped enum</strong> 其不可以只声明不定义，因为编译器无法得知它的大小，至少在 <strong>C++98</strong>标准及以前无法办到</p>
+<pre><code><span class="keyword">enum</span> unreach; <span class="comment">// 这是不行的</span>
+<span class="keyword">enum</span> <span class="keyword">class</span> <span class="title">reach</span>; <span class="comment">// 可以，因为编译器知道它默认为 sizeof(int)</span>
+</code></pre><p>  当然，在 C++11 标准下， 前者同样可以只声明不定义，只需要小小改动：</p>
+<pre><code><span class="keyword">enum</span> unreach: <span class="built_in">std</span>::<span class="keyword">int8_t</span>; <span class="comment">// 显式提供大小即可</span>
+</code></pre><p>  这个语法对 <strong>Scoped enum</strong> 同样有效，意思就是显式规定了枚举成员的大小类型。</p>
+</li>
+<li><p>Item 10 结束</p>
+</li>
+</ul>
+<h3 id="Item_11_-_Prefer_delete_function_to_private_undefined_ones">Item 11 - Prefer delete function to private undefined ones</h3>]]></content>
     <summary type="html">
     <![CDATA[<blockquote>
 <p>每日更新(0-2 Item)</p>
 </blockquote>
 <ul>
-<li>Item 9</li>
+<li>Item 10</li>
 </ul>
 <h1 id="《Effective_Modern_C++》概要">《Effective Modern C++》概要</h1><ul>
 <li>因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。</li>
