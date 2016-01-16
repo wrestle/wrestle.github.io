@@ -5,7 +5,7 @@
   <subtitle><![CDATA[喜欢编程带来的快感]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="//wushxin.top//"/>
-  <updated>2015-12-30T11:16:27.927Z</updated>
+  <updated>2016-01-14T06:29:01.157Z</updated>
   <id>//wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="//wushxin.top/2015/12/15/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0.html"/>
     <id>//wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html</id>
     <published>2015-12-15T08:40:14.000Z</published>
-    <updated>2015-12-30T11:16:27.927Z</updated>
+    <updated>2016-01-14T06:29:01.157Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>每日更新(0-2 Item)</p>
 </blockquote>
@@ -42,7 +42,7 @@
 <pre><code><span class="keyword">template</span>&lt;typename T&gt;
 <span class="type">void</span> f(<span class="type">ParamType</span> param);
 // 调用
-f(exor); // <span class="type">expr</span> 可能是一条语句
+f(<span class="type">expr</span>); // <span class="type">expr</span> 可能是一条语句
 </code></pre><p>  <code>ParamType</code> 是一种缩写，用来表示 可能 类型<code>T</code>会有一些限定词来修饰，例如<code>const</code>, <code>&amp;</code> 之类的。</p>
 <p>  例如 把<code>ParamType</code> 可以代表 <code>const T &amp;</code></p>
 </li>
@@ -696,7 +696,7 @@ Color c = red;
 <pre><code><span class="keyword">template</span>&lt;typename T&gt;
 <span class="type">void</span> f(<span class="type">ParamType</span> param);
 // 调用
-f(exor); // <span class="type">expr</span> 可能是一条语句
+f(<span class="type">expr</span>); // <span class="type">expr</span> 可能是一条语句
 </code></pre><p>  <code>ParamType</code> 是一种缩写，用来表示 可能 类型<code>T</code>会有一些限定词来修饰，例如<code>const</code>, <code>&amp;</code> 之类的。</p>
 <p>  例如 把<code>ParamType</code> 可以代表 <code>const T &amp;</code></p>
 </li>
