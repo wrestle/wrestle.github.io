@@ -4,9 +4,9 @@
   <title><![CDATA[WuShXin's fox]]></title>
   <subtitle><![CDATA[喜欢编程带来的快感]]></subtitle>
   <link href="/atom.xml" rel="self"/>
-  <link href="//wushxin.top//"/>
+  <link href="http://www.wushxin.top//"/>
   <updated>2016-01-14T06:29:01.157Z</updated>
-  <id>//wushxin.top//</id>
+  <id>http://www.wushxin.top//</id>
   
   <author>
     <name><![CDATA[WuShengXin]]></name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title><![CDATA[Effective Modern C++概述]]></title>
-    <link href="//wushxin.top/2015/12/15/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0.html"/>
-    <id>//wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html</id>
+    <link href="http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0.html"/>
+    <id>http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html</id>
     <published>2015-12-15T08:40:14.000Z</published>
     <updated>2016-01-14T06:29:01.157Z</updated>
     <content type="html"><![CDATA[<blockquote>
@@ -713,14 +713,14 @@ f(<span class="type">expr</span>); // <span class="type">expr</span> 可能是�
     
     </summary>
     
-      <category term="Cpp" scheme="//wushxin.top/tags/Cpp/"/>
+      <category term="Cpp" scheme="http://www.wushxin.top/tags/Cpp/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[现代TCP/IP网络编程-UDP]]></title>
-    <link href="//wushxin.top/2015/12/04/%E7%8E%B0%E4%BB%A3TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-UDP.html"/>
-    <id>//wushxin.top/2015/12/04/现代TCP-IP网络编程-UDP.html</id>
+    <link href="http://www.wushxin.top/2015/12/04/%E7%8E%B0%E4%BB%A3TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-UDP.html"/>
+    <id>http://www.wushxin.top/2015/12/04/现代TCP-IP网络编程-UDP.html</id>
     <published>2015-12-04T10:23:45.000Z</published>
     <updated>2015-12-13T02:36:49.271Z</updated>
     <content type="html"><![CDATA[<h4 id="UDP_的_connect()">UDP 的 connect()</h4><ul>
@@ -924,16 +924,16 @@ connect(udp_sock, (<span class="keyword">struct</span> sockaddr *)&amp;unconnect
     
     </summary>
     
-      <category term="杂货居" scheme="//wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
+      <category term="杂货居" scheme="http://www.wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
     
-      <category term="网络编程" scheme="//wushxin.top/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"/>
+      <category term="网络编程" scheme="http://www.wushxin.top/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[现代TCP/IP网络编程-启航]]></title>
-    <link href="//wushxin.top/2015/10/30/%E7%8E%B0%E4%BB%A3TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-%E5%90%AF%E8%88%AA.html"/>
-    <id>//wushxin.top/2015/10/30/现代TCP-IP网络编程-启航.html</id>
+    <link href="http://www.wushxin.top/2015/10/30/%E7%8E%B0%E4%BB%A3TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-%E5%90%AF%E8%88%AA.html"/>
+    <id>http://www.wushxin.top/2015/10/30/现代TCP-IP网络编程-启航.html</id>
     <published>2015-10-30T10:16:53.000Z</published>
     <updated>2015-12-13T02:28:44.820Z</updated>
     <content type="html"><![CDATA[<h2 id="概念">概念</h2><ul>
@@ -1743,16 +1743,16 @@ close(sock);
     
     </summary>
     
-      <category term="C" scheme="//wushxin.top/tags/C/"/>
+      <category term="C" scheme="http://www.wushxin.top/tags/C/"/>
     
-      <category term="网络编程" scheme="//wushxin.top/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"/>
+      <category term="网络编程" scheme="http://www.wushxin.top/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Linux记录]]></title>
-    <link href="//wushxin.top/2015/09/20/Linux%E8%AE%B0%E5%BD%95.html"/>
-    <id>//wushxin.top/2015/09/20/Linux记录.html</id>
+    <link href="http://www.wushxin.top/2015/09/20/Linux%E8%AE%B0%E5%BD%95.html"/>
+    <id>http://www.wushxin.top/2015/09/20/Linux记录.html</id>
     <published>2015-09-20T00:33:33.000Z</published>
     <updated>2015-09-20T01:23:19.132Z</updated>
     <content type="html"><![CDATA[<h2 id="源">源</h2><ul>
@@ -1840,16 +1840,16 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
     
     </summary>
     
-      <category term="Linux" scheme="//wushxin.top/tags/Linux/"/>
+      <category term="Linux" scheme="http://www.wushxin.top/tags/Linux/"/>
     
-      <category term="杂货居" scheme="//wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
+      <category term="杂货居" scheme="http://www.wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[《我为什么学C》]]></title>
-    <link href="//wushxin.top/2015/08/31/%E3%80%8A%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C%E3%80%8B.html"/>
-    <id>//wushxin.top/2015/08/31/《我为什么学C》.html</id>
+    <link href="http://www.wushxin.top/2015/08/31/%E3%80%8A%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C%E3%80%8B.html"/>
+    <id>http://www.wushxin.top/2015/08/31/《我为什么学C》.html</id>
     <published>2015-08-31T13:56:34.000Z</published>
     <updated>2015-10-07T02:07:15.018Z</updated>
     <content type="html"><![CDATA[<h4 id="集结成电子书_《Real_C》">集结成电子书 《<a href="http://wrestle.gitbooks.io/whyilearnc/" target="_blank" rel="external">Real C</a>》</h4><h4 id="目录">目录</h4><ul>
@@ -1888,16 +1888,16 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
     <![CDATA[<h4 id="集结成电子书_《Real_C》">集结成电子书 《<a href="http://wrestle.gitbooks.io/whyilearnc/" target="_blank" rel="external">Real C</a>》</h4><h4 id="目录"]]>
     </summary>
     
-      <category term="C" scheme="//wushxin.top/tags/C/"/>
+      <category term="C" scheme="http://www.wushxin.top/tags/C/"/>
     
-      <category term="杂货居" scheme="//wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
+      <category term="杂货居" scheme="http://www.wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Practical cpp]]></title>
-    <link href="//wushxin.top/2015/07/21/Practical-cpp.html"/>
-    <id>//wushxin.top/2015/07/21/Practical-cpp.html</id>
+    <link href="http://www.wushxin.top/2015/07/21/Practical-cpp.html"/>
+    <id>http://www.wushxin.top/2015/07/21/Practical-cpp.html</id>
     <published>2015-07-21T03:08:13.000Z</published>
     <updated>2015-07-25T07:01:01.609Z</updated>
     <content type="html"><![CDATA[<h4 id="try-throw-catch_三段式">try-throw-catch 三段式</h4><p>这是异常抛出的方式，简单的用法便是在外部使用的try-catch形式：</p>
@@ -2360,16 +2360,16 @@ knowType(&amp;unkwType); //编译器推断
     
     </summary>
     
-      <category term="Cpp" scheme="//wushxin.top/tags/Cpp/"/>
+      <category term="Cpp" scheme="http://www.wushxin.top/tags/Cpp/"/>
     
-      <category term="杂货居" scheme="//wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
+      <category term="杂货居" scheme="http://www.wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Cpp记录10.1k]]></title>
-    <link href="//wushxin.top/2015/07/09/Cpp%E8%AE%B0%E5%BD%9510.1k.html"/>
-    <id>//wushxin.top/2015/07/09/Cpp记录10.1k.html</id>
+    <link href="http://www.wushxin.top/2015/07/09/Cpp%E8%AE%B0%E5%BD%9510.1k.html"/>
+    <id>http://www.wushxin.top/2015/07/09/Cpp记录10.1k.html</id>
     <published>2015-07-09T02:03:28.000Z</published>
     <updated>2015-07-21T03:07:14.481Z</updated>
     <content type="html"><![CDATA[<h3 id="更新于_2015/7/14_21:14:21">更新于 2015/7/14 21:14:21</h3><h4 id="再记录_operator=_重载">再记录 operator= 重载</h4><ul>
@@ -2703,16 +2703,16 @@ j = <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>
     
     </summary>
     
-      <category term="Cpp" scheme="//wushxin.top/tags/Cpp/"/>
+      <category term="Cpp" scheme="http://www.wushxin.top/tags/Cpp/"/>
     
-      <category term="杂货居" scheme="//wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
+      <category term="杂货居" scheme="http://www.wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Cpp记录10.4k]]></title>
-    <link href="//wushxin.top/2015/06/21/Cpp%E8%AE%B0%E5%BD%9510.4k.html"/>
-    <id>//wushxin.top/2015/06/21/Cpp记录10.4k.html</id>
+    <link href="http://www.wushxin.top/2015/06/21/Cpp%E8%AE%B0%E5%BD%9510.4k.html"/>
+    <id>http://www.wushxin.top/2015/06/21/Cpp记录10.4k.html</id>
     <published>2015-06-21T03:38:55.000Z</published>
     <updated>2015-07-21T06:50:05.692Z</updated>
     <content type="html"><![CDATA[<h4 id="更新于_2015/7/9_10:03:12">更新于 2015/7/9 10:03:12</h4><h4 id="名称空间">名称空间</h4><ul>
@@ -3165,16 +3165,16 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
     
     </summary>
     
-      <category term="Cpp" scheme="//wushxin.top/tags/Cpp/"/>
+      <category term="Cpp" scheme="http://www.wushxin.top/tags/Cpp/"/>
     
-      <category term="杂货居" scheme="//wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
+      <category term="杂货居" scheme="http://www.wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Qt记录]]></title>
-    <link href="//wushxin.top/2015/06/12/Qt%E8%AE%B0%E5%BD%95.html"/>
-    <id>//wushxin.top/2015/06/12/Qt记录.html</id>
+    <link href="http://www.wushxin.top/2015/06/12/Qt%E8%AE%B0%E5%BD%95.html"/>
+    <id>http://www.wushxin.top/2015/06/12/Qt记录.html</id>
     <published>2015-06-12T00:42:47.000Z</published>
     <updated>2015-09-20T03:03:52.375Z</updated>
     <content type="html"><![CDATA[<h4 id="开启C++11支持">开启C++11支持</h4><ol>
@@ -3305,16 +3305,16 @@ test_sig.Q_SendSignal(); <span class="comment">//发射信号</span>
     
     </summary>
     
-      <category term="Qt" scheme="//wushxin.top/tags/Qt/"/>
+      <category term="Qt" scheme="http://www.wushxin.top/tags/Qt/"/>
     
-      <category term="杂货居" scheme="//wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
+      <category term="杂货居" scheme="http://www.wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Opencv3.0.0配置]]></title>
-    <link href="//wushxin.top/2015/06/08/Opencv3%E9%85%8D%E7%BD%AE.html"/>
-    <id>//wushxin.top/2015/06/08/Opencv3配置.html</id>
+    <link href="http://www.wushxin.top/2015/06/08/Opencv3%E9%85%8D%E7%BD%AE.html"/>
+    <id>http://www.wushxin.top/2015/06/08/Opencv3配置.html</id>
     <published>2015-06-08T08:26:15.000Z</published>
     <updated>2015-06-10T08:21:31.798Z</updated>
     <content type="html"><![CDATA[<h4 id="配置Opencv3-0-0">配置Opencv3.0.0</h4><p>前天，Opencv3.0.0的正式版本发布，不再有奇怪的缺少文件之类的错误，正好最近需要使用它来完成一些神经网络上的辅助，也就尝试了配置，下面记录配置的过程。</p>
@@ -3543,16 +3543,16 @@ test_sig.Q_SendSignal(); <span class="comment">//发射信号</span>
     
     </summary>
     
-      <category term="Cpp" scheme="//wushxin.top/tags/Cpp/"/>
+      <category term="Cpp" scheme="http://www.wushxin.top/tags/Cpp/"/>
     
-      <category term="Opencv" scheme="//wushxin.top/tags/Opencv/"/>
+      <category term="Opencv" scheme="http://www.wushxin.top/tags/Opencv/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[我为什么学C(5)---效率(下)]]></title>
-    <link href="//wushxin.top/2015/05/29/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C-5.html"/>
-    <id>//wushxin.top/2015/05/29/我为什么学C-5.html</id>
+    <link href="http://www.wushxin.top/2015/05/29/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C-5.html"/>
+    <id>http://www.wushxin.top/2015/05/29/我为什么学C-5.html</id>
     <published>2015-05-29T13:19:50.000Z</published>
     <updated>2015-06-06T14:46:48.104Z</updated>
     <content type="html"><![CDATA[<h4 id="更新于_2015/6/3_19:19:13">更新于 2015/6/3 19:19:13</h4><h4 id="0x08-C语言效率(下)">0x08-C语言效率(下)</h4><h4 id="注：存储器山就是对于不同步长不同大小文件的读取速率的三维坐标图，形似一座山，z轴为速率，x轴为步长，y轴为文件大小（字节），某些主流的测评软件便是这个原理(将存储器山的图像进行一下简单的变换，就能得到哪些软件呈现的效果图像)。">注：存储器山就是对于不同步长不同大小文件的读取速率的三维坐标图，形似一座山，<code>z</code>轴为速率，<code>x</code>轴为步长，<code>y</code>轴为文件大小（字节），某些主流的测评软件便是这个原理(将存储器山的图像进行一下简单的变换，就能得到哪些软件呈现的效果图像)。</h4><p>上文提到过，任何一点小改动，都有可能让程序的性能发生很大的变动，这是为什么？</p>
@@ -3745,14 +3745,14 @@ test_sig.Q_SendSignal(); <span class="comment">//发射信号</span>
     
     </summary>
     
-      <category term="C" scheme="//wushxin.top/tags/C/"/>
+      <category term="C" scheme="http://www.wushxin.top/tags/C/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[我为什么学C(4)---效率(上)]]></title>
-    <link href="//wushxin.top/2015/05/20/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(4).html"/>
-    <id>//wushxin.top/2015/05/20/我为什么学C(4).html</id>
+    <link href="http://www.wushxin.top/2015/05/20/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(4).html"/>
+    <id>http://www.wushxin.top/2015/05/20/我为什么学C(4).html</id>
     <published>2015-05-20T03:06:38.000Z</published>
     <updated>2015-06-03T11:50:43.786Z</updated>
     <content type="html"><![CDATA[<h4 id="0x07-C语言效率(上)">0x07-C语言效率(上)</h4><h4 id="更新于_2015-05-23">更新于 2015-05-23</h4><p>大概所有学习C语言的初学者，都被前辈说过，C语言是世界上接近最速的编程语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 </p>
@@ -3987,14 +3987,14 @@ local_result = local_result + local_data[i] + local_data[i+<span class="number">
     
     </summary>
     
-      <category term="C" scheme="//wushxin.top/tags/C/"/>
+      <category term="C" scheme="http://www.wushxin.top/tags/C/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[可视化Qt信号与槽]]></title>
-    <link href="//wushxin.top/2015/05/19/%E5%8F%AF%E8%A7%86%E5%8C%96Qt%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD.html"/>
-    <id>//wushxin.top/2015/05/19/可视化Qt信号与槽.html</id>
+    <link href="http://www.wushxin.top/2015/05/19/%E5%8F%AF%E8%A7%86%E5%8C%96Qt%E4%BF%A1%E5%8F%B7%E4%B8%8E%E6%A7%BD.html"/>
+    <id>http://www.wushxin.top/2015/05/19/可视化Qt信号与槽.html</id>
     <published>2015-05-19T01:38:38.000Z</published>
     <updated>2015-06-12T12:52:32.538Z</updated>
     <content type="html"><![CDATA[<h2 id="Qt5_中的信号与槽">Qt5 中的信号与槽</h2><p>对于已经有了IDE的Qt而言，我们拥有更多的建立<strong>信号-槽</strong>方法的选择，但是作为一名自然人类，我们最喜欢的还是眼见为实，既然Qt为我们设计了 <strong>Qt Creator</strong>，那么我们就应该充分利用它，然而国内的教程大都停留在非可视化操作下，这里记录在 <strong>Qt Creator</strong> 下我们该如何设计一个<strong>信号-槽</strong>机制</p>
@@ -4089,14 +4089,14 @@ ui<span class="subst">-&gt;</span>button_name<span class="subst">-&gt;</span>set
     
     </summary>
     
-      <category term="Qt" scheme="//wushxin.top/tags/Qt/"/>
+      <category term="Qt" scheme="http://www.wushxin.top/tags/Qt/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[我为什么学C(3)---预处理器]]></title>
-    <link href="//wushxin.top/2015/05/13/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(3).html"/>
-    <id>//wushxin.top/2015/05/13/我为什么学C(3).html</id>
+    <link href="http://www.wushxin.top/2015/05/13/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(3).html"/>
+    <id>http://www.wushxin.top/2015/05/13/我为什么学C(3).html</id>
     <published>2015-05-13T09:17:49.000Z</published>
     <updated>2015-06-03T11:50:20.405Z</updated>
     <content type="html"><![CDATA[<h2 id="本章更新于_2015-05-16">本章更新于 2015-05-16</h2><h4 id="0x06-C语言预处理器">0x06-C语言预处理器</h4><p><strong>预处理最大的标志便是大写，虽然这不是标准，但请你在使用的时候大写，为了自己，也为了后人。</strong></p>
@@ -4269,14 +4269,14 @@ puts(WHERE(x, <span class="keyword">__LINE__</span>)); <span class="comment">//x
     
     </summary>
     
-      <category term="C" scheme="//wushxin.top/tags/C/"/>
+      <category term="C" scheme="http://www.wushxin.top/tags/C/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[我为什么学C(2)---指针]]></title>
-    <link href="//wushxin.top/2015/05/13/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(2).html"/>
-    <id>//wushxin.top/2015/05/13/我为什么学C(2).html</id>
+    <link href="http://www.wushxin.top/2015/05/13/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(2).html"/>
+    <id>http://www.wushxin.top/2015/05/13/我为什么学C(2).html</id>
     <published>2015-05-13T04:17:12.000Z</published>
     <updated>2015-08-21T11:23:15.794Z</updated>
     <content type="html"><![CDATA[<h2 id="本章更新于_2015-05-16">本章更新于 2015-05-16</h2><h4 id="0x05-C语言指针:(Volume-1)">0x05-C语言指针:(Volume-1)</h4><p>这似乎是一个很凝重的话题，但是它真的很有趣。</p>
@@ -4541,14 +4541,14 @@ vari_struct* vari_p_3 = <span class="built_in">malloc</span>(<span class="keywor
     
     </summary>
     
-      <category term="C" scheme="//wushxin.top/tags/C/"/>
+      <category term="C" scheme="http://www.wushxin.top/tags/C/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[我为什么学C(1)---开篇]]></title>
-    <link href="//wushxin.top/2015/05/12/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(1).html"/>
-    <id>//wushxin.top/2015/05/12/我为什么学C(1).html</id>
+    <link href="http://www.wushxin.top/2015/05/12/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(1).html"/>
+    <id>http://www.wushxin.top/2015/05/12/我为什么学C(1).html</id>
     <published>2015-05-12T14:22:23.000Z</published>
     <updated>2015-06-22T01:33:14.181Z</updated>
     <content type="html"><![CDATA[<h1 id="我的C语言">我的C语言</h1><h2 id="本章更新于_2015/6/21_11:36:01">本章更新于 2015/6/21 11:36:01</h2><p><strong>正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域</strong></p>
@@ -4885,14 +4885,14 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
     
     </summary>
     
-      <category term="C" scheme="//wushxin.top/tags/C/"/>
+      <category term="C" scheme="http://www.wushxin.top/tags/C/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Python-lib安装]]></title>
-    <link href="//wushxin.top/2015/05/10/Python-lib%E5%AE%89%E8%A3%85.html"/>
-    <id>//wushxin.top/2015/05/10/Python-lib安装.html</id>
+    <link href="http://www.wushxin.top/2015/05/10/Python-lib%E5%AE%89%E8%A3%85.html"/>
+    <id>http://www.wushxin.top/2015/05/10/Python-lib安装.html</id>
     <published>2015-05-09T23:48:28.000Z</published>
     <updated>2015-05-10T14:22:44.480Z</updated>
     <content type="html"><![CDATA[<h1 id="Python">Python</h1><h2 id="安装第三方库(Linux::Ubuntu_14-04_LTS)">安装第三方库(Linux::Ubuntu 14.04 LTS)</h2><p>   关于一个gui的库 SimpleGUICS2Pygame <br><br>   所有的命令均在 root 权限下执行 <br></p>
@@ -4920,14 +4920,14 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
     <![CDATA[<h1 id="Python">Python</h1><h2 id="安装第三方库(Linux::Ubuntu_14-04_LTS)">安装第三方库(Linux::Ubuntu 14.04 LTS)</h2><p>   关于一个gui的库 SimpleGUICS2Pygame <]]>
     </summary>
     
-      <category term="Python" scheme="//wushxin.top/tags/Python/"/>
+      <category term="Python" scheme="http://www.wushxin.top/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[Python学习笔记]]></title>
-    <link href="//wushxin.top/2015/05/10/Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html"/>
-    <id>//wushxin.top/2015/05/10/Python学习笔记.html</id>
+    <link href="http://www.wushxin.top/2015/05/10/Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.html"/>
+    <id>http://www.wushxin.top/2015/05/10/Python学习笔记.html</id>
     <published>2015-05-09T23:48:13.000Z</published>
     <updated>2015-05-10T14:17:51.926Z</updated>
     <content type="html"><![CDATA[<h2 id="Python学习笔记之基础">Python学习笔记之基础</h2><h3 id="Python缩进">Python缩进</h3><p>1. Python用相同缩进来代表同一个代码块，而某2些语言则是用花括号</p><br><p>2. 缩进最好使用四个空格，不要混用和使用Tab</p><br><p>3. 退出缩进多敲一个回车</p>
@@ -5064,14 +5064,14 @@ elif statemen<span class="variable">t:</span>
     
     </summary>
     
-      <category term="Python" scheme="//wushxin.top/tags/Python/"/>
+      <category term="Python" scheme="http://www.wushxin.top/tags/Python/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[C++流操作(续)]]></title>
-    <link href="//wushxin.top/2015/05/10/C-%E6%B5%81%E6%93%8D%E4%BD%9C-%E7%BB%AD.html"/>
-    <id>//wushxin.top/2015/05/10/C-流操作-续.html</id>
+    <link href="http://www.wushxin.top/2015/05/10/C-%E6%B5%81%E6%93%8D%E4%BD%9C-%E7%BB%AD.html"/>
+    <id>http://www.wushxin.top/2015/05/10/C-流操作-续.html</id>
     <published>2015-05-09T23:47:59.000Z</published>
     <updated>2015-09-20T02:43:04.458Z</updated>
     <content type="html"><![CDATA[<h3 id="Ｃ++流的使用(续)">Ｃ++流的使用(续)</h3><h2 id="文件I/O">文件I/O</h2><ul>
@@ -5181,14 +5181,14 @@ fout.open();
     
     </summary>
     
-      <category term="Cpp" scheme="//wushxin.top/tags/Cpp/"/>
+      <category term="Cpp" scheme="http://www.wushxin.top/tags/Cpp/"/>
     
   </entry>
   
   <entry>
     <title><![CDATA[C++流操作]]></title>
-    <link href="//wushxin.top/2015/05/10/C-%E6%B5%81%E6%93%8D%E4%BD%9C.html"/>
-    <id>//wushxin.top/2015/05/10/C-流操作.html</id>
+    <link href="http://www.wushxin.top/2015/05/10/C-%E6%B5%81%E6%93%8D%E4%BD%9C.html"/>
+    <id>http://www.wushxin.top/2015/05/10/C-流操作.html</id>
     <published>2015-05-09T23:47:37.000Z</published>
     <updated>2015-09-20T02:32:19.353Z</updated>
     <content type="html"><![CDATA[<h1 id="C++流的使用">C++流的使用</h1><h2 id="每次使用完流,记得要关闭,虽然有时候并不是必须的-">每次使用完流,记得要关闭,虽然有时候并不是必须的.</h2><p><code>streamname.close();</code></p>
@@ -5281,7 +5281,7 @@ dec(<span class="built_in">cout</span>); <span class="comment">//代表转换为
     
     </summary>
     
-      <category term="Cpp" scheme="//wushxin.top/tags/Cpp/"/>
+      <category term="Cpp" scheme="http://www.wushxin.top/tags/Cpp/"/>
     
   </entry>
   
