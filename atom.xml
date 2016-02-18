@@ -2,14 +2,14 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   
   <title><![CDATA[WuShXin's fox]]></title>
-  <subtitle><![CDATA[喜欢编程带来的快感]]></subtitle>
+  <subtitle><![CDATA[Tech Collector]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.wushxin.top//"/>
   <updated>2016-01-14T06:29:01.157Z</updated>
   <id>http://www.wushxin.top//</id>
   
   <author>
-    <name><![CDATA[WuShengXin]]></name>
+    <name><![CDATA[吴生鑫]]></name>
     
   </author>
   
