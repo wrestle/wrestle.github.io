@@ -5,7 +5,7 @@
   <subtitle><![CDATA[Tech Collector]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.wushxin.top//"/>
-  <updated>2016-01-14T06:29:01.157Z</updated>
+  <updated>2016-02-20T14:04:58.991Z</updated>
   <id>http://www.wushxin.top//</id>
   
   <author>
@@ -16,17 +16,14 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[Effective Modern C++概述]]></title>
-    <link href="http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0.html"/>
-    <id>http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html</id>
+    <title><![CDATA[Effective Modern C++概述（一）]]></title>
+    <link href="http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0%EF%BC%88%E4%B8%80%EF%BC%89.html"/>
+    <id>http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-概述（一）.html</id>
     <published>2015-12-15T08:40:14.000Z</published>
-    <updated>2016-01-14T06:29:01.157Z</updated>
+    <updated>2016-02-20T14:04:58.991Z</updated>
     <content type="html"><![CDATA[<blockquote>
-<p>每日更新(0-2 Item)</p>
+<p>(本文有 11 个 Item)</p>
 </blockquote>
-<ul>
-<li>Item 10</li>
-</ul>
 <h1 id="《Effective_Modern_C++》概要">《Effective Modern C++》概要</h1><ul>
 <li>因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。</li>
 <li>记录自己阅读这本书的过程，以及一些细节，知道自己不可能读一遍就能将所有信息记下，故写成博文，方便自己及需要者查阅</li>
@@ -673,14 +670,101 @@ Color c = red;
 <li><p>Item 10 结束</p>
 </li>
 </ul>
-<h3 id="Item_11_-_Prefer_delete_function_to_private_undefined_ones">Item 11 - Prefer delete function to private undefined ones</h3>]]></content>
+<h3 id="Item_11_-_Prefer_delete_function_to_private_undefined_ones">Item 11 - Prefer delete function to private undefined ones</h3><ul>
+<li>一共是三个理由</li>
+<li>第一个理由，是最熟悉的，如何禁止一个类的拷贝，即拷贝构造函数，例如<code>istream</code>，这是最常用的位置，在<strong>C++98</strong>时代，如果想要禁止一个类的拷贝，那就只能使用一些技巧，将拷贝构造函数声明为 <code>private</code> 级别来达到禁止一定程度上的访问，别无他法。</li>
+<li><p>一个类会为我们自动生成一些函数(使用的时候生成)，其中就包括和拷贝相关的，<strong>拷贝构造函数</strong>，<strong>拷贝赋值构造函数</strong>(即重载 <code>=</code> 运算符)，在<strong>C++11</strong>中我们就不需要投机取巧，而是有一个明确的机制来实现这个功能，那就是 <code>=delete</code></p>
+<pre><code><span class="comment">// C++98</span>
+<span class="keyword">template</span> &lt;<span class="keyword">class</span> charT, <span class="keyword">class</span> traits = char_trait&lt;charT&gt; &gt;
+<span class="keyword">class</span> basic_ios : <span class="keyword">public</span> ios_base {
+<span class="keyword">public</span>:
+..
+<span class="keyword">private</span>:
+  basic_ios(<span class="keyword">const</span> basic_ios &amp;);
+  basic_ios&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> basic_ios &amp;);
+};
+</code></pre><p>  唯一的办法就是将函数声明为 <code>private</code> 级别，并且不定义它，着能在一定程度上禁止访问该函数，但是如果是 <strong>成员函数</strong> 或者 <strong>友元函数/类</strong> 就无能为力了。所以说这是一种不完善的技巧。</p>
+</li>
+<li><p>而在<strong>C++11</strong>里，我们可以：</p>
+<pre><code><span class="comment">// C++11</span>
+<span class="keyword">template</span> &lt;<span class="keyword">class</span> charT, <span class="keyword">class</span> traits = char_trait&lt;charT&gt; &gt;
+<span class="keyword">class</span> basic_ios : <span class="keyword">public</span> ios_base {
+<span class="keyword">public</span>:
+  basic_ios(<span class="keyword">const</span> basic_ios &amp;) = <span class="keyword">delete</span>;
+  basic_ios &amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> basic_ios&amp;) = <span class="keyword">delete</span>;
+ ..
+};
+</code></pre><p>  这样就完美解决了上述问题，无论怎么样都无法访问这个函数，并且一旦有某个地方试图使用它们，就会生成<strong>编译错误</strong>，帮助我们及早发现问题。</p>
+</li>
+<li><p>第二个理由</p>
+</li>
+<li><p>用在一般的函数上，<strong>C++</strong>这中有重载和类型转换这一个概念，而这有时候会带来麻烦：</p>
+<pre><code><span class="function"><span class="keyword">bool</span> <span class="title">isLucky</span><span class="params">(<span class="keyword">int</span> number)</span></span>;
+</code></pre><p>  这是一个很普通的函数，如果我们这么调用</p>
+<pre><code>isLucky<span class="list">(<span class="quoted">'a</span>')</span><span class="comment">;</span>
+isLucky<span class="list">(<span class="keyword">true</span>)</span><span class="comment">;</span>
+isLucky<span class="list">(<span class="number">3.5</span>)</span><span class="comment">;</span>
+</code></pre><p>  这样能够编译通过并且运行，因为参数都被转换成 <code>int</code> 了，但是有时候我们不需要其他类型该如何做？</p>
+<pre><code><span class="function"><span class="keyword">bool</span> <span class="title">isLucky</span><span class="params">(<span class="keyword">char</span>)</span> </span>= <span class="keyword">delete</span>;
+<span class="function"><span class="keyword">bool</span> <span class="title">isLucky</span><span class="params">(<span class="keyword">bool</span>)</span> </span>= <span class="keyword">delete</span>;
+<span class="function"><span class="keyword">bool</span> <span class="title">isLucky</span><span class="params">(<span class="keyword">double</span>)</span> </span>= <span class="keyword">delete</span>;
+</code></pre><p>  这样就行了，再编译上面的调用，就无法通过了，也就是禁止了这些<strong>隐式转换</strong>的可能。</p>
+</li>
+<li><p>这个对于模板函数同样通用，例如想要禁止某一种类型的<strong>特例化</strong>，直接 <code>=delete</code>就行。</p>
+</li>
+<li><p>最后一种情况，实际上是出现在类内的问题，和模板特例化有关。</p>
+</li>
+<li>在一个类中，如果有一个模板函数，我们不希望出现某种类型的特例化，并且想禁止它，一般会想到可不可以将<strong>模板特例化的声明</strong>写在 <code>private</code> 下，以此来达到禁止的目的，但是实际上是不行的。</li>
+<li><p>原因是，模板函数和它的模板特例化必须是在同一个命名空间中，而不能在不同的 <strong>访问级别（public,pretected,private）</strong> 中，所以此法行不通。</p>
+<pre><code>class <span class="type">Widget</span> {
+public:
+  ...
+  <span class="keyword">template</span> &lt;typename T&gt;
+  <span class="type">void</span> processPointer(T* <span class="keyword">ptr</span>) { ... }
+
+private:
+  <span class="keyword">template</span> &lt;&gt;
+  <span class="type">void</span> processPointer&lt;&gt;(<span class="type">void</span> *)
+</code></pre><p>  这样是不行的，编译都无法通过</p>
+</li>
+<li><p><strong>C++11</strong>中，我们可以：</p>
+<pre><code>class <span class="type">Widget</span> {
+public:
+  ...
+  <span class="keyword">template</span> &lt;typename T&gt;
+  <span class="type">void</span> processPointer(T* <span class="keyword">ptr</span>) { ... }
+...
+};
+
+<span class="keyword">template</span>&lt;&gt;
+<span class="type">void</span> <span class="type">Widget</span>::processPointer&lt;<span class="type">void</span>&gt;(<span class="type">void</span>*) = delete;
+</code></pre><p>  这样就关闭了这个函数的 <void> 类型特例化</void></p>
+</li>
+<li><p>在这里有一个需要特别注意，就是在 <code>delete</code> 一个模板函数的时候，删除函数的某一个特例话只意味着和它完全一致的参数的那种特例化会被禁止，如果加了限定词那就无效了。</p>
+<pre><code><span class="keyword">template</span>&lt;&gt;
+<span class="type">void</span> <span class="type">Widget</span>::processPointer&lt;<span class="keyword">const</span> volatile double&gt;(<span class="keyword">const</span> volatile double*) = delete; // 第一个
+<span class="keyword">template</span>&lt;&gt;
+<span class="type">void</span> <span class="type">Widget</span>::processPointer&lt;<span class="keyword">const</span> double&gt;(<span class="keyword">const</span> double*) = delete; // 第二个
+<span class="keyword">template</span>&lt;&gt;
+<span class="type">void</span> <span class="type">Widget</span>::processPointer&lt;double&gt;(double*) = delete;  // 第三个
+</code></pre><p>  从上至下，一一对应范围：</p>
+<pre><code>Widget ObjTest;
+<span class="keyword">double</span> testDouble = <span class="number">1.0</span>;
+<span class="keyword">double</span> * pDouble1 = &amp;testDouble;
+<span class="keyword">const</span> <span class="keyword">double</span> * pDouble2 = &amp;testDouble;
+<span class="keyword">const</span> <span class="keyword">volatile</span> <span class="keyword">double</span> * pDouble3  = &amp;testDouble;
+ObjeTest.processPointer(pDouble1); <span class="comment">// 第三个会编译错误</span>
+ObjeTest.processPointer(pDouble2); <span class="comment">// 第二个会编译错误</span>
+ObjeTest.processPointer(pDouble3); <span class="comment">// 第一个会编译错误</span>
+</code></pre><p>  所以如果想禁止某一类型的所有情况，就需要写三个 <code>=delete</code></p>
+</li>
+<li>Item 11 结束</li>
+</ul>
+]]></content>
     <summary type="html">
     <![CDATA[<blockquote>
-<p>每日更新(0-2 Item)</p>
+<p>(本文有 11 个 Item)</p>
 </blockquote>
-<ul>
-<li>Item 10</li>
-</ul>
 <h1 id="《Effective_Modern_C++》概要">《Effective Modern C++》概要</h1><ul>
 <li>因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。</li>
 <li>记录自己阅读这本书的过程，以及一些细节，知道自己不可能读一遍就能将所有信息记下，故写成博文，方便自己及需要者查阅</li>
