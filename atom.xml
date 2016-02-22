@@ -5,7 +5,7 @@
   <subtitle><![CDATA[Tech Collector]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.wushxin.top//"/>
-  <updated>2016-02-20T14:04:58.991Z</updated>
+  <updated>2016-02-22T03:32:45.936Z</updated>
   <id>http://www.wushxin.top//</id>
   
   <author>
@@ -16,11 +16,94 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[Effective Modern Cpp 概述（二）]]></title>
+    <link href="http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0%EF%BC%88%E4%BA%8C%EF%BC%89.html"/>
+    <id>http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-概述（二）.html</id>
+    <published>2016-02-22T01:29:50.000Z</published>
+    <updated>2016-02-22T03:32:45.936Z</updated>
+    <content type="html"><![CDATA[<h3 id="Item_12_-_Declare_overriding_functions_override-">Item 12 - Declare overriding functions override.</h3><ul>
+<li><p>介绍了一个鲜为人知的 <strong>C++11</strong> 新特性，针对一个类成员函数的</p>
+<pre><code><span class="keyword">class</span> <span class="title">Widget</span> {
+<span class="keyword">public</span>:
+  ...
+  <span class="function"><span class="keyword">void</span> <span class="title">doWork</span><span class="params">()</span> &amp;</span>;   <span class="comment">// 只有当 *this 是 lvalue 时才调用</span>
+  <span class="function"><span class="keyword">void</span> <span class="title">doWork</span><span class="params">()</span> &amp;&amp;</span>;  <span class="comment">// 只有当 *this 是 rvalue 时才调用</span>
+};
+...
+<span class="function">Widget <span class="title">makeWidget</span><span class="params">()</span></span>; <span class="comment">// 制造一个临时的 Widget</span>
+<span class="comment">// 调用</span>
+Widget w; <span class="comment">// 默认构造函数创建</span>
+w.doWork(); <span class="comment">// 调用第一个版本(lvalue)</span>
+makeWidget().doWork(); <span class="comment">// 调用第二个版本</span>
+</code></pre></li>
+<li><p>对于 <strong>重写</strong> 和 <strong>重载</strong>，这两个极易混淆，或者说不是混淆而是十分容易不小心就写错了，的功能，在 <strong>C++98</strong> 之前我们只能选择相信程序员写下的代码是准确无误的。有几个判断 <strong>重写</strong> 的条件</p>
+<ol>
+<li>基类里的该函数必须是 <code>virtual</code></li>
+<li>基类里的该函数和派生类里的该函数的 <strong>函数名</strong> 必须相同</li>
+<li>基类里的该函数和派生类里的该函数的 <strong>参数类型</strong> 必须相同</li>
+<li>基类里的该函数和派生类里的该函数的 <strong>返回值类型</strong> 必须相同或者可以<strong>兼容(即继承关系)</strong></li>
+<li>基类里的该函数和派生类里的该函数的 <code>const</code> 属性必须相同</li>
+<li>基类里的该函数和派生类里的该函数的 <strong>引用限定词</strong> 必须相同(<strong>C++11新增</strong>)</li>
+</ol>
+</li>
+<li><p>上述关系缺一不可。</p>
+<pre><code><span class="keyword">class</span> <span class="title">Base</span> {
+<span class="keyword">public</span>:
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf1</span><span class="params">()</span> <span class="keyword">const</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf2</span><span class="params">(<span class="keyword">int</span> x)</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf3</span><span class="params">()</span> &amp;</span>;  <span class="comment">// C++11 </span>
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf4</span><span class="params">()</span> <span class="keyword">const</span></span>;
+};
+<span class="comment">// C++98</span>
+<span class="keyword">class</span> <span class="title">Derived</span> : <span class="title">public</span> <span class="title">Base</span> {
+<span class="keyword">public</span>:
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf1</span><span class="params">()</span> <span class="keyword">const</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf2</span><span class="params">(unsigned <span class="keyword">int</span> x)</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf4</span><span class="params">()</span> <span class="keyword">const</span></span>;
+};        
+<span class="comment">// C++11</span>
+<span class="keyword">class</span> <span class="title">Derived</span> : <span class="title">public</span> <span class="title">Base</span> {
+<span class="keyword">public</span>:
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf1</span><span class="params">()</span> <span class="keyword">const</span> <span class="keyword">override</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf2</span><span class="params">(unsigned <span class="keyword">int</span> x)</span> <span class="keyword">override</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf3</span><span class="params">()</span> &amp; <span class="keyword">override</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf4</span><span class="params">()</span> <span class="keyword">const</span> <span class="keyword">override</span></span>;
+};
+</code></pre><p>  其中 <code>Derived</code> 类中的 <strong>重写</strong> 函数前面的 <code>virtual</code> 不是强制性要求。相比于<strong>C++98</strong> 而言对了一个关键字<code>override</code>，其作用就是帮助我们在编译期检查到是否在重写的时候出了差错</p>
+<p>  <strong>C++98</strong> 版本的<code>mf2</code>函数可以通过编译，但是 <strong>C++11</strong> 版本的<code>mf2</code>函数便无法通过编译，因为<code>override</code>告诉编译器这是一个<strong>重写</strong>函数，但是实际上我们的 <code>mf2</code> 并不符合要求。</p>
+</li>
+<li><code>override</code>的作用便在于让编译器替我们检查错误，并且在实现一个工程时，往往需要改变某个函数来修改原有的内容业务，这时候可以借助编译器的<strong>错误提示</strong>看看修改这个函数，会对整个工程造成多大的影响，以及是否值得如此做。</li>
+<li><p>对于新的 <strong>引用限定词</strong> 的用法，大体上会用在判断 <strong>lvalue</strong> 和 <strong>rvalue</strong> 上，其目的是为了避免某些不必要的开销，而不是依赖 <strong>编译器优化</strong> 这种虚无飘渺的说法。</p>
+<pre><code><span class="keyword">class</span> Widget {
+<span class="keyword">public</span>:
+  <span class="keyword">using</span> DataType = <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;;
+  ...
+DataType&amp; data() &amp; { <span class="keyword">return</span> values; }
+<span class="function">DataType  <span class="title">data</span><span class="params">()</span> &amp;&amp; </span>{ <span class="keyword">return</span> <span class="built_in">std</span>::move(values); }
+...
+
+<span class="keyword">private</span>:
+  DataType values;
+};
+</code></pre><p> 可以很明显的看出，两个版本的<code>data</code>函数，是为了适应不同情况下对于 <code>values</code>的使用。</p>
+</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="Item_12_-_Declare_overriding_functions_override-">Item 12 - Declare overriding functions override.</h3><ul>
+<li><p>介绍了一个鲜为人知的 <stron]]>
+    </summary>
+    
+      <category term="Cpp" scheme="http://www.wushxin.top/tags/Cpp/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Effective Modern C++概述（一）]]></title>
     <link href="http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0%EF%BC%88%E4%B8%80%EF%BC%89.html"/>
     <id>http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-概述（一）.html</id>
     <published>2015-12-15T08:40:14.000Z</published>
-    <updated>2016-02-20T14:04:58.991Z</updated>
+    <updated>2016-02-22T01:32:06.135Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>(本文有 11 个 Item)</p>
 </blockquote>
@@ -757,6 +840,8 @@ ObjeTest.processPointer(pDouble1); <span class="comment">// 第三个会编译�
 ObjeTest.processPointer(pDouble2); <span class="comment">// 第二个会编译错误</span>
 ObjeTest.processPointer(pDouble3); <span class="comment">// 第一个会编译错误</span>
 </code></pre><p>  所以如果想禁止某一类型的所有情况，就需要写三个 <code>=delete</code></p>
+</li>
+<li><p><strong>任何函数都可能会被</strong> <code>=delete</code></p>
 </li>
 <li>Item 11 结束</li>
 </ul>
@@ -5262,106 +5347,6 @@ fout.open();
 ...
 </code></pre></li>
 <li><p>使用命令行参数的使用]]>
-    
-    </summary>
-    
-      <category term="Cpp" scheme="http://www.wushxin.top/tags/Cpp/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[C++流操作]]></title>
-    <link href="http://www.wushxin.top/2015/05/10/C-%E6%B5%81%E6%93%8D%E4%BD%9C.html"/>
-    <id>http://www.wushxin.top/2015/05/10/C-流操作.html</id>
-    <published>2015-05-09T23:47:37.000Z</published>
-    <updated>2015-09-20T02:32:19.353Z</updated>
-    <content type="html"><![CDATA[<h1 id="C++流的使用">C++流的使用</h1><h2 id="每次使用完流,记得要关闭,虽然有时候并不是必须的-">每次使用完流,记得要关闭,虽然有时候并不是必须的.</h2><p><code>streamname.close();</code></p>
-<h2 id="重定向">重定向</h2><p>   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源</p>
-<p>   <code>~$ program &lt;input.filetype&gt;output.filetype</code> </p>
-<p>   在Linux和Unix下, <code>&gt;</code> <code>&lt;</code> 默认是标准输出和标准输入, <code>2&gt;</code> 则是标准错误(即<code>std::cerr</code>)</p>
-<h2 id="输出流">输出流</h2><ol>
-<li><p><code>ostream</code> 类提供了 <code>put()</code> 和 <code>write()</code> 方法用来输出 </p>
-<pre><code><span class="built_in">cout</span>.put(<span class="string">'W'</span>); <span class="comment">//输出字符Ｗ,可以拼接使用就像重载之后的 '&lt;&lt;'</span>
-<span class="built_in">cout</span>.write(<span class="string">"Candy Bob"</span>,<span class="number">5</span>); <span class="comment">//输出第一个参数的第二个参数个长度</span>
-</code></pre></li>
-<li><p>刷新输出缓冲区可以有两种方法,原理都是重载 <code>&lt;&lt;</code> </p>
-<ul>
-<li><p>前者与后者的差别就在与后者刷新缓冲区后多了一个换行操作</p>
-<pre><code><span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; flush; <span class="comment">//相当于flush(cout);</span>
-<span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; endl;  
-</code></pre></li>
-</ul>
-</li>
-<li><p>可以通过流操作修改现实的进制, 默认十进制,十六进制,八进制 <br></p>
-<a id="more"></a>
-<pre><code><span class="keyword">int</span> n = <span class="number">100</span>;
-<span class="built_in">cout</span> &lt;&lt; n &lt;&lt; endl;
-<span class="comment">//八进制</span>
-<span class="built_in">cout</span> &lt;&lt; oct &lt;&lt; n &lt;&lt; endl;
-<span class="comment">//十六进制</span>
-<span class="built_in">cout</span> &lt;&lt; hex &lt;&lt; n &lt;&lt; endl;
-<span class="comment">//这种作用是持久的,在不用的时候记得转换回来</span>
-dec(<span class="built_in">cout</span>); <span class="comment">//代表转换为十进制 cout &lt;&lt; dec;同样适用  </span>
-</code></pre></li>
-<li><p>我们可以调整字段宽度来达到美观,但Ｃ++有一种数据完整大于美观的理念,所以即使你设置了字段宽度,一旦超过还是会打乱阵型,以保证数据的完整性.</p>
-<pre><code><span class="built_in">cout</span>.fill(<span class="string">'*'</span>);<span class="comment">//使用'*'填充空白,注意此为持久的.</span>
-<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">100</span>;i*=<span class="number">10</span>)
-{
-<span class="built_in">cout</span>.width(<span class="number">5</span>);
-<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">":"</span>;
-<span class="built_in">cout</span>.width(<span class="number">8</span>);
-<span class="built_in">cout</span> &lt;&lt; i * i &lt;&lt; endl;
-}<span class="comment">//注意，width()方法并不是持久的,也就是说每次排版都需要使用一次该方法.</span>
-</code></pre></li>
-<li><p>浮点数的使用 <br></p>
-<pre><code><span class="built_in">cout</span>.precision(<span class="number">2</span>);<span class="comment">//设置浮点数的精度为2,Ｃ++默认六位精度,但不显示末尾的0.</span>
-<span class="built_in">cout</span>.setf(ios_base::showpoint);<span class="comment">//显示末尾的零</span>
-</code></pre><h2 id="输入流">输入流</h2></li>
-</ol>
-<ul>
-<li><p><code>cin</code> 检查输入: 当读取到的流和指定的类型不符合的时候,不符合的流中的数据被保留,留待下一次读取.并返回<code>flase</code>, 可以使用 <code>while</code> 语句进行判断 <br></p>
-<pre><code>int <span class="keyword">input</span>, <span class="keyword">sum</span>;
-<span class="keyword">while</span>(cin &gt;&gt; <span class="keyword">input</span>)
-<span class="keyword">sum</span> += <span class="keyword">input</span>;
-</code></pre></li>
-<li><p>当流由于输入不匹配失败时,发生的问题十分复杂,简述为位设置问题,使用下列代码恢复</p>
-<pre><code><span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; input)
-    sum += input;
-<span class="keyword">if</span>(<span class="built_in">cin</span>.fail() &amp;&amp; !<span class="built_in">cin</span>.eof())
-{
-<span class="built_in">cin</span>.clear();              <span class="comment">//重置流状态,但此时还是有残余留在流中</span>
-<span class="keyword">while</span>(!<span class="built_in">isspace</span>(<span class="built_in">cin</span>.get()))<span class="comment">//丢弃那些残留在流中妨碍下一次输入的不符合的输入</span>
-    <span class="keyword">continue</span>;           <span class="comment">//头文件 cctype</span>
-}
-<span class="built_in">cin</span> &gt;&gt; input; <span class="comment">//现在可以继续输入了</span>
-</code></pre></li>
-<li><p>字符串的输入: <code>get(char*, int)</code> 和 <code>getline(char*, int)</code> </p>
-<pre><code>- get读取少于第二个参数减<span class="number">1</span>个或遇见换行符,并将换行符留在流中,<span class="escape">`g</span>etline<span class="escape">`则</span>将换行符抽取并丢弃
-</code></pre></li>
-<li><p><code>get(char*, int, char)</code> 和 <code>getline(char*, int, char)</code> </p>
-<pre><code><span class="bullet">- </span>第三个参数则是分界符,读取到分界符号时停止读取. 
-</code></pre></li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="C++流的使用">C++流的使用</h1><h2 id="每次使用完流,记得要关闭,虽然有时候并不是必须的-">每次使用完流,记得要关闭,虽然有时候并不是必须的.</h2><p><code>streamname.close();</code></p>
-<h2 id="重定向">重定向</h2><p>   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源</p>
-<p>   <code>~$ program &lt;input.filetype&gt;output.filetype</code> </p>
-<p>   在Linux和Unix下, <code>&gt;</code> <code>&lt;</code> 默认是标准输出和标准输入, <code>2&gt;</code> 则是标准错误(即<code>std::cerr</code>)</p>
-<h2 id="输出流">输出流</h2><ol>
-<li><p><code>ostream</code> 类提供了 <code>put()</code> 和 <code>write()</code> 方法用来输出 </p>
-<pre><code><span class="built_in">cout</span>.put(<span class="string">'W'</span>); <span class="comment">//输出字符Ｗ,可以拼接使用就像重载之后的 '&lt;&lt;'</span>
-<span class="built_in">cout</span>.write(<span class="string">"Candy Bob"</span>,<span class="number">5</span>); <span class="comment">//输出第一个参数的第二个参数个长度</span>
-</code></pre></li>
-<li><p>刷新输出缓冲区可以有两种方法,原理都是重载 <code>&lt;&lt;</code> </p>
-<ul>
-<li><p>前者与后者的差别就在与后者刷新缓冲区后多了一个换行操作</p>
-<pre><code><span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; flush; <span class="comment">//相当于flush(cout);</span>
-<span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; endl;  
-</code></pre></li>
-</ul>
-</li>
-<li><p>可以通过流操作修改现实的进制, 默认十进制,十六进制,八进制 </br></p>]]>
     
     </summary>
     

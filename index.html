@@ -95,6 +95,115 @@ var _hmt = _hmt || [];
     <div class="outer">
       <section id="main">
   
+    <article id="post-Effective-Modern-Cpp-概述（二）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/02/22/Effective-Modern-Cpp-概述（二）.html" class="article-date">
+  <time datetime="2016-02-22T01:29:50.000Z" itemprop="datePublished">2016-02-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/22/Effective-Modern-Cpp-概述（二）.html">Effective Modern Cpp 概述（二）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Item_12_-_Declare_overriding_functions_override-">Item 12 - Declare overriding functions override.</h3><ul>
+<li><p>介绍了一个鲜为人知的 <strong>C++11</strong> 新特性，针对一个类成员函数的</p>
+<pre><code><span class="keyword">class</span> <span class="title">Widget</span> {
+<span class="keyword">public</span>:
+  ...
+  <span class="function"><span class="keyword">void</span> <span class="title">doWork</span><span class="params">()</span> &amp;</span>;   <span class="comment">// 只有当 *this 是 lvalue 时才调用</span>
+  <span class="function"><span class="keyword">void</span> <span class="title">doWork</span><span class="params">()</span> &amp;&amp;</span>;  <span class="comment">// 只有当 *this 是 rvalue 时才调用</span>
+};
+...
+<span class="function">Widget <span class="title">makeWidget</span><span class="params">()</span></span>; <span class="comment">// 制造一个临时的 Widget</span>
+<span class="comment">// 调用</span>
+Widget w; <span class="comment">// 默认构造函数创建</span>
+w.doWork(); <span class="comment">// 调用第一个版本(lvalue)</span>
+makeWidget().doWork(); <span class="comment">// 调用第二个版本</span>
+</code></pre></li>
+<li><p>对于 <strong>重写</strong> 和 <strong>重载</strong>，这两个极易混淆，或者说不是混淆而是十分容易不小心就写错了，的功能，在 <strong>C++98</strong> 之前我们只能选择相信程序员写下的代码是准确无误的。有几个判断 <strong>重写</strong> 的条件</p>
+<ol>
+<li>基类里的该函数必须是 <code>virtual</code></li>
+<li>基类里的该函数和派生类里的该函数的 <strong>函数名</strong> 必须相同</li>
+<li>基类里的该函数和派生类里的该函数的 <strong>参数类型</strong> 必须相同</li>
+<li>基类里的该函数和派生类里的该函数的 <strong>返回值类型</strong> 必须相同或者可以<strong>兼容(即继承关系)</strong></li>
+<li>基类里的该函数和派生类里的该函数的 <code>const</code> 属性必须相同</li>
+<li>基类里的该函数和派生类里的该函数的 <strong>引用限定词</strong> 必须相同(<strong>C++11新增</strong>)</li>
+</ol>
+</li>
+<li><p>上述关系缺一不可。</p>
+<pre><code><span class="keyword">class</span> <span class="title">Base</span> {
+<span class="keyword">public</span>:
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf1</span><span class="params">()</span> <span class="keyword">const</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf2</span><span class="params">(<span class="keyword">int</span> x)</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf3</span><span class="params">()</span> &amp;</span>;  <span class="comment">// C++11 </span>
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf4</span><span class="params">()</span> <span class="keyword">const</span></span>;
+};
+<span class="comment">// C++98</span>
+<span class="keyword">class</span> <span class="title">Derived</span> : <span class="title">public</span> <span class="title">Base</span> {
+<span class="keyword">public</span>:
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf1</span><span class="params">()</span> <span class="keyword">const</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf2</span><span class="params">(unsigned <span class="keyword">int</span> x)</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf4</span><span class="params">()</span> <span class="keyword">const</span></span>;
+};        
+<span class="comment">// C++11</span>
+<span class="keyword">class</span> <span class="title">Derived</span> : <span class="title">public</span> <span class="title">Base</span> {
+<span class="keyword">public</span>:
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf1</span><span class="params">()</span> <span class="keyword">const</span> <span class="keyword">override</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf2</span><span class="params">(unsigned <span class="keyword">int</span> x)</span> <span class="keyword">override</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf3</span><span class="params">()</span> &amp; <span class="keyword">override</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf4</span><span class="params">()</span> <span class="keyword">const</span> <span class="keyword">override</span></span>;
+};
+</code></pre><p>  其中 <code>Derived</code> 类中的 <strong>重写</strong> 函数前面的 <code>virtual</code> 不是强制性要求。相比于<strong>C++98</strong> 而言对了一个关键字<code>override</code>，其作用就是帮助我们在编译期检查到是否在重写的时候出了差错</p>
+<p>  <strong>C++98</strong> 版本的<code>mf2</code>函数可以通过编译，但是 <strong>C++11</strong> 版本的<code>mf2</code>函数便无法通过编译，因为<code>override</code>告诉编译器这是一个<strong>重写</strong>函数，但是实际上我们的 <code>mf2</code> 并不符合要求。</p>
+</li>
+<li><code>override</code>的作用便在于让编译器替我们检查错误，并且在实现一个工程时，往往需要改变某个函数来修改原有的内容业务，这时候可以借助编译器的<strong>错误提示</strong>看看修改这个函数，会对整个工程造成多大的影响，以及是否值得如此做。</li>
+<li><p>对于新的 <strong>引用限定词</strong> 的用法，大体上会用在判断 <strong>lvalue</strong> 和 <strong>rvalue</strong> 上，其目的是为了避免某些不必要的开销，而不是依赖 <strong>编译器优化</strong> 这种虚无飘渺的说法。</p>
+<pre><code><span class="keyword">class</span> Widget {
+<span class="keyword">public</span>:
+  <span class="keyword">using</span> DataType = <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;;
+  ...
+DataType&amp; data() &amp; { <span class="keyword">return</span> values; }
+<span class="function">DataType  <span class="title">data</span><span class="params">()</span> &amp;&amp; </span>{ <span class="keyword">return</span> <span class="built_in">std</span>::move(values); }
+...
+
+<span class="keyword">private</span>:
+  DataType values;
+};
+</code></pre><p> 可以很明显的看出，两个版本的<code>data</code>函数，是为了适应不同情况下对于 <code>values</code>的使用。</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-概述（二）.html" data-id="cikxfh92n001gmwltasrlgtt2" class="article-share-link" data-share="baidu" data-title="Effective Modern Cpp 概述（二）">分享到</a>
+      
+
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Effective-Modern-Cpp-概述（一）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/12/15/Effective-Modern-Cpp-概述（一）.html" class="article-date">
@@ -158,7 +267,7 @@ f(<span class="type">expr</span>); // <span class="type">expr</span> 可能是�
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-概述（一）.html" data-id="cikv76pjs0000rwltt0thhy8b" class="article-share-link" data-share="baidu" data-title="Effective Modern C++概述（一）">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-概述（一）.html" data-id="cikxfh92p001imwltqw7calrs" class="article-share-link" data-share="baidu" data-title="Effective Modern C++概述（一）">分享到</a>
       
 
       
@@ -234,7 +343,7 @@ connect(udp_sock, (<span class="keyword">struct</span> sockaddr *)&amp;unconnect
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/12/04/现代TCP-IP网络编程-UDP.html" data-id="ciks0an8e0008d0ltzn5dvk46" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-UDP">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/12/04/现代TCP-IP网络编程-UDP.html" data-id="cikxfh91e0008mwltjo60qfxi" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-UDP">分享到</a>
       
 
       
@@ -322,7 +431,7 @@ connect(udp_sock, (<span class="keyword">struct</span> sockaddr *)&amp;unconnect
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/10/30/现代TCP-IP网络编程-启航.html" data-id="ciks0an850003d0lt62qoca5p" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-启航">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/10/30/现代TCP-IP网络编程-启航.html" data-id="cikxfh9150003mwlt5a11g8az" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-启航">分享到</a>
       
 
       
@@ -384,7 +493,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/09/20/Linux记录.html" data-id="ciks0an9o0018d0ltds9720ut" class="article-share-link" data-share="baidu" data-title="Linux记录">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/09/20/Linux记录.html" data-id="cikxfh92h0018mwltuvcef04a" class="article-share-link" data-share="baidu" data-title="Linux记录">分享到</a>
       
 
       
@@ -457,80 +566,13 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/08/31/《我为什么学C》.html" data-id="ciks0an91000pd0ltu7f56cth" class="article-share-link" data-share="baidu" data-title="《我为什么学C》">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/08/31/《我为什么学C》.html" data-id="cikxfh91x000pmwlthf7unk6g" class="article-share-link" data-share="baidu" data-title="《我为什么学C》">分享到</a>
       
 
       
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Practical-cpp" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/07/21/Practical-cpp.html" class="article-date">
-  <time datetime="2015-07-21T03:08:13.000Z" itemprop="datePublished">2015-07-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/21/Practical-cpp.html">Practical cpp</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="try-throw-catch_三段式">try-throw-catch 三段式</h4><p>这是异常抛出的方式，简单的用法便是在外部使用的try-catch形式：</p>
-<pre><code><span class="comment">//Code-1</span>
-<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
-</span>{
-    <span class="keyword">int</span> get_num;
-    <span class="built_in">std</span>::<span class="built_in">cin</span> &gt;&gt; get_num;
-    <span class="keyword">try</span>
-    {
-        <span class="keyword">if</span>(get_num &lt; <span class="number">0</span>)
-            <span class="keyword">throw</span> get_num
-        <span class="comment">//Something happen</span>
-    }
-    <span class="keyword">catch</span>(<span class="keyword">int</span> e) <span class="comment">//此处括号内的参数的类型和抛出的类型需要一致</span>
-    {
-        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"The number "</span> &lt;&lt; get_num &lt;&lt; <span class="string">" is negative"</span>
-                  &lt;<span class="built_in">std</span>::endl;
-    }
-    <span class="comment">//...</span>
-}
-</code></pre><ul>
-<li><p>这是最简单的使用，在三段式中，<code>try</code>充当的是正常代码块，而<code>catch</code>则是对于抛出异常的处理。<code>catch</code> 可以不止一个，但一定要合理，实际来说，三段式能少用尽量少用，我们一般是这么使用三段式的：
-        
-          <p class="article-more-link">
-            <a href="/2015/07/21/Practical-cpp.html#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://www.wushxin.top/2015/07/21/Practical-cpp.html" data-id="ciks0an9i0010d0ltkcoeblic" class="article-share-link" data-share="baidu" data-title="Practical cpp">分享到</a>
-      
-
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li></ul>
 
     </footer>
   </div>
@@ -554,7 +596,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络编程/">网络编程</a><span class="tag-list-count">2</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络编程/">网络编程</a><span class="tag-list-count">2</span></li></ul>
     </div>
   </div>
 
@@ -563,7 +605,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/C/" style="font-size: 16.67px;">C</a><a href="/tags/Cpp/" style="font-size: 16.67px;">Cpp</a><a href="/tags/Linux/" style="font-size: 10px;">Linux</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 13.33px;">Python</a><a href="/tags/Qt/" style="font-size: 13.33px;">Qt</a><a href="/tags/杂货居/" style="font-size: 20px;">杂货居</a><a href="/tags/网站/" style="font-size: 10px;">网站</a><a href="/tags/网络编程/" style="font-size: 13.33px;">网络编程</a>
+      <a href="/tags/C/" style="font-size: 16.67px;">C</a><a href="/tags/Cpp/" style="font-size: 20px;">Cpp</a><a href="/tags/Linux/" style="font-size: 10px;">Linux</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 13.33px;">Python</a><a href="/tags/Qt/" style="font-size: 13.33px;">Qt</a><a href="/tags/杂货居/" style="font-size: 20px;">杂货居</a><a href="/tags/网站/" style="font-size: 10px;">网站</a><a href="/tags/网络编程/" style="font-size: 13.33px;">网络编程</a>
     </div>
   </div>
 
@@ -572,7 +614,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -582,6 +624,10 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
     <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/02/22/Effective-Modern-Cpp-概述（二）.html">Effective Modern Cpp 概述（二）</a>
+          </li>
         
           <li>
             <a href="/2015/12/15/Effective-Modern-Cpp-概述（一）.html">Effective Modern C++概述（一）</a>
@@ -597,10 +643,6 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
         
           <li>
             <a href="/2015/09/20/Linux记录.html">Linux记录</a>
-          </li>
-        
-          <li>
-            <a href="/2015/08/31/《我为什么学C》.html">《我为什么学C》</a>
           </li>
         
       </ul>

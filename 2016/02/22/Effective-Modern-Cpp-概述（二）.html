@@ -4,29 +4,35 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Linux记录 | WuShXin&#39;s fox</title>
+  <title>Effective Modern Cpp 概述（二） | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="源
-因为国内的原因，没有办法直接使用官方的源，速度有时候会过慢，在高校内部的人可以回比外边更好一些
-而经常出现是根据网上搜索(百度)，出来的结果，大都是直接换源，导致很多错误例如 Some Index fail to ... 之类的错误，这是由于每个版本的 Linux 的源都有细微的差别。以最有名的基于 Debian 的 Ubuntu 为例子
-例如Ubuntu 14.04 的163源应该是：
-de">
+  <meta name="description" content="Item 12 - Declare overriding functions override.
+介绍了一个鲜为人知的 C++11 新特性，针对一个类成员函数的
+class Widget {
+public:
+  ...
+  void doWork() &amp;amp;;   // 只有当 *this 是 lvalue 时才调用
+  void doWork() &amp;amp;&amp;amp;;  // 只有当 *t">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux记录">
-<meta property="og:url" content="http://www.wushxin.top/2015/09/20/Linux记录.html">
+<meta property="og:title" content="Effective Modern Cpp 概述（二）">
+<meta property="og:url" content="http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-概述（二）.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="源
-因为国内的原因，没有办法直接使用官方的源，速度有时候会过慢，在高校内部的人可以回比外边更好一些
-而经常出现是根据网上搜索(百度)，出来的结果，大都是直接换源，导致很多错误例如 Some Index fail to ... 之类的错误，这是由于每个版本的 Linux 的源都有细微的差别。以最有名的基于 Debian 的 Ubuntu 为例子
-例如Ubuntu 14.04 的163源应该是：
-de">
+<meta property="og:description" content="Item 12 - Declare overriding functions override.
+介绍了一个鲜为人知的 C++11 新特性，针对一个类成员函数的
+class Widget {
+public:
+  ...
+  void doWork() &amp;amp;;   // 只有当 *this 是 lvalue 时才调用
+  void doWork() &amp;amp;&amp;amp;;  // 只有当 *t">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux记录">
-<meta name="twitter:description" content="源
-因为国内的原因，没有办法直接使用官方的源，速度有时候会过慢，在高校内部的人可以回比外边更好一些
-而经常出现是根据网上搜索(百度)，出来的结果，大都是直接换源，导致很多错误例如 Some Index fail to ... 之类的错误，这是由于每个版本的 Linux 的源都有细微的差别。以最有名的基于 Debian 的 Ubuntu 为例子
-例如Ubuntu 14.04 的163源应该是：
-de">
+<meta name="twitter:title" content="Effective Modern Cpp 概述（二）">
+<meta name="twitter:description" content="Item 12 - Declare overriding functions override.
+介绍了一个鲜为人知的 C++11 新特性，针对一个类成员函数的
+class Widget {
+public:
+  ...
+  void doWork() &amp;amp;;   // 只有当 *this 是 lvalue 时才调用
+  void doWork() &amp;amp;&amp;amp;;  // 只有当 *t">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -105,10 +111,10 @@ var _hmt = _hmt || [];
   </div>
 </header>
     <div class="outer">
-      <section id="main"><article id="post-Linux记录" class="article article-type-post" itemscope itemprop="blogPost">
+      <section id="main"><article id="post-Effective-Modern-Cpp-概述（二）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/09/20/Linux记录.html" class="article-date">
-  <time datetime="2015-09-20T00:33:33.000Z" itemprop="datePublished">2015-09-20</time>
+    <a href="/2016/02/22/Effective-Modern-Cpp-概述（二）.html" class="article-date">
+  <time datetime="2016-02-22T01:29:50.000Z" itemprop="datePublished">2016-02-22</time>
 </a>
     
   </div>
@@ -119,7 +125,7 @@ var _hmt = _hmt || [];
         
   
     <h1 class="article-title" itemprop="name">
-      Linux记录
+      Effective Modern Cpp 概述（二）
     </h1>
   
 
@@ -127,82 +133,85 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="源">源</h2><ul>
-<li>因为国内的原因，没有办法直接使用官方的源，速度有时候会过慢，在高校内部的人可以回比外边更好一些</li>
-<li>而经常出现是根据网上搜索(百度)，出来的结果，大都是直接换源，导致很多错误例如 <code>Some Index fail to ...</code> 之类的错误，这是由于每个版本的 Linux 的源都有细微的差别。以最有名的基于 <strong>Debian</strong> 的 <code>Ubuntu</code> 为例子</li>
-<li><p>例如<strong>Ubuntu 14.04</strong> 的163源应该是：</p>
-<pre><code>deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty main restricted universe multiverse</span>
-deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse</span>
-deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse</span>
-deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse</span>
-deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse</span>
-deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty main restricted universe multiverse</span>
-deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-security main restricted universe multiverse</span>
-deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-updates main restricted universe multiverse</span>
-deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-proposed main restricted universe multiverse</span>
-deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ trusty-backports main restricted universe multiverse</span>
+        <h3 id="Item_12_-_Declare_overriding_functions_override-">Item 12 - Declare overriding functions override.</h3><ul>
+<li><p>介绍了一个鲜为人知的 <strong>C++11</strong> 新特性，针对一个类成员函数的</p>
+<pre><code><span class="keyword">class</span> <span class="title">Widget</span> {
+<span class="keyword">public</span>:
+  ...
+  <span class="function"><span class="keyword">void</span> <span class="title">doWork</span><span class="params">()</span> &amp;</span>;   <span class="comment">// 只有当 *this 是 lvalue 时才调用</span>
+  <span class="function"><span class="keyword">void</span> <span class="title">doWork</span><span class="params">()</span> &amp;&amp;</span>;  <span class="comment">// 只有当 *this 是 rvalue 时才调用</span>
+};
+...
+<span class="function">Widget <span class="title">makeWidget</span><span class="params">()</span></span>; <span class="comment">// 制造一个临时的 Widget</span>
+<span class="comment">// 调用</span>
+Widget w; <span class="comment">// 默认构造函数创建</span>
+w.doWork(); <span class="comment">// 调用第一个版本(lvalue)</span>
+makeWidget().doWork(); <span class="comment">// 调用第二个版本</span>
 </code></pre></li>
-<li><p><strong>Ubuntu 15.04</strong> 的163源应该是：<a id="more"></a></p>
-<pre><code>deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid main restricted universe multiverse</span>
-deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-security main restricted universe multiverse</span>
-deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-updates main restricted universe multiverse</span>
-eb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-proposed main restricted universe multiverse</span>
-deb <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-backports main restricted universe multiverse</span>
-deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid main restricted universe multiverse</span>
-deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-security main restricted universe multiverse</span>
-deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-updates main restricted universe multiverse</span>
-deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-proposed main restricted universe multiverse</span>
-deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com/ubuntu/ vivid-backports main restricted universe multiverse</span>
-</code></pre><p>区别就在于源中的 <strong>vivid 和 trusty</strong><br>相应的其他版本亦有自己的代号，详情<a href="http://wiki.ubuntu.org.cn/Qref/Source" target="_blank" rel="external">请见此处</a></p>
+<li><p>对于 <strong>重写</strong> 和 <strong>重载</strong>，这两个极易混淆，或者说不是混淆而是十分容易不小心就写错了，的功能，在 <strong>C++98</strong> 之前我们只能选择相信程序员写下的代码是准确无误的。有几个判断 <strong>重写</strong> 的条件</p>
+<ol>
+<li>基类里的该函数必须是 <code>virtual</code></li>
+<li>基类里的该函数和派生类里的该函数的 <strong>函数名</strong> 必须相同</li>
+<li>基类里的该函数和派生类里的该函数的 <strong>参数类型</strong> 必须相同</li>
+<li>基类里的该函数和派生类里的该函数的 <strong>返回值类型</strong> 必须相同或者可以<strong>兼容(即继承关系)</strong></li>
+<li>基类里的该函数和派生类里的该函数的 <code>const</code> 属性必须相同</li>
+<li>基类里的该函数和派生类里的该函数的 <strong>引用限定词</strong> 必须相同(<strong>C++11新增</strong>)</li>
+</ol>
 </li>
-<li><p>根据中文 <a href="http://wiki.ubuntu.org.cn" target="_blank" rel="external">Ubuntu官网</a> 提供的信息，有些源已经无法被公众使用。(本文此处更新于2015/09/20)</p>
-<ul>
-<li><p>完全失效的服务器：      </p>
-<ul>
-<li>青岛大学更新服务器（教育网/山东青岛移动专线双线服务器），由 OSQDU维护，位于青岛大学。包含开源镜像和Opera、马克思主义文库等其他镜像。<ul>
-<li>Geekbone.org更新服务器（上海电信服务器，由 SHLUG /上海Linux用户群维护）,现跳转至搜狐服务器。</li>
-<li>由Love4Taylor维护的开源镜像站，位于香港新世界电讯有限公司CDN节点上，包含Deepin 镜像，可能包含其它开源镜像。 </li>
-<li>上述服务器部分可能改为校内/地区访问。 </li>
+<li><p>上述关系缺一不可。</p>
+<pre><code><span class="keyword">class</span> <span class="title">Base</span> {
+<span class="keyword">public</span>:
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf1</span><span class="params">()</span> <span class="keyword">const</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf2</span><span class="params">(<span class="keyword">int</span> x)</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf3</span><span class="params">()</span> &amp;</span>;  <span class="comment">// C++11 </span>
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf4</span><span class="params">()</span> <span class="keyword">const</span></span>;
+};
+<span class="comment">// C++98</span>
+<span class="keyword">class</span> <span class="title">Derived</span> : <span class="title">public</span> <span class="title">Base</span> {
+<span class="keyword">public</span>:
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf1</span><span class="params">()</span> <span class="keyword">const</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf2</span><span class="params">(unsigned <span class="keyword">int</span> x)</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf4</span><span class="params">()</span> <span class="keyword">const</span></span>;
+};        
+<span class="comment">// C++11</span>
+<span class="keyword">class</span> <span class="title">Derived</span> : <span class="title">public</span> <span class="title">Base</span> {
+<span class="keyword">public</span>:
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf1</span><span class="params">()</span> <span class="keyword">const</span> <span class="keyword">override</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf2</span><span class="params">(unsigned <span class="keyword">int</span> x)</span> <span class="keyword">override</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf3</span><span class="params">()</span> &amp; <span class="keyword">override</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf4</span><span class="params">()</span> <span class="keyword">const</span> <span class="keyword">override</span></span>;
+};
+</code></pre><p>  其中 <code>Derived</code> 类中的 <strong>重写</strong> 函数前面的 <code>virtual</code> 不是强制性要求。相比于<strong>C++98</strong> 而言对了一个关键字<code>override</code>，其作用就是帮助我们在编译期检查到是否在重写的时候出了差错</p>
+<p>  <strong>C++98</strong> 版本的<code>mf2</code>函数可以通过编译，但是 <strong>C++11</strong> 版本的<code>mf2</code>函数便无法通过编译，因为<code>override</code>告诉编译器这是一个<strong>重写</strong>函数，但是实际上我们的 <code>mf2</code> 并不符合要求。</p>
+</li>
+<li><code>override</code>的作用便在于让编译器替我们检查错误，并且在实现一个工程时，往往需要改变某个函数来修改原有的内容业务，这时候可以借助编译器的<strong>错误提示</strong>看看修改这个函数，会对整个工程造成多大的影响，以及是否值得如此做。</li>
+<li><p>对于新的 <strong>引用限定词</strong> 的用法，大体上会用在判断 <strong>lvalue</strong> 和 <strong>rvalue</strong> 上，其目的是为了避免某些不必要的开销，而不是依赖 <strong>编译器优化</strong> 这种虚无飘渺的说法。</p>
+<pre><code><span class="keyword">class</span> Widget {
+<span class="keyword">public</span>:
+  <span class="keyword">using</span> DataType = <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;;
+  ...
+DataType&amp; data() &amp; { <span class="keyword">return</span> values; }
+<span class="function">DataType  <span class="title">data</span><span class="params">()</span> &amp;&amp; </span>{ <span class="keyword">return</span> <span class="built_in">std</span>::move(values); }
+...
+
+<span class="keyword">private</span>:
+  DataType values;
+};
+</code></pre><p> 可以很明显的看出，两个版本的<code>data</code>函数，是为了适应不同情况下对于 <code>values</code>的使用。</p>
+</li>
 </ul>
-</li>
-</ul>
-<ul>
-<li>部分失效的服务器</li>
-<li>西南大学开源社区维护的西南大学镜像中已经取消了主要发行版镜像，但有一些学习资源。</li>
-<li>由电子科技大学Linux 用户组维护的UESTC LUG软件源中包含其它发行版的镜像。</li>
-<li>由电子科技大学学生之家维护的电子科大星辰工作室镜像中已经取消了 Ubuntu 镜像，但有其它发行版的镜像。</li>
-<li>由We·Cloud云技术小组维护的大连东软信息学院的We - 开源镜像站中已经取消了 Ubuntu 镜像，但有Ubuntu 光盘镜像和其它发行版。</li>
-<li>由西南林业大学计信学院维护的西南林大镜像中已经取消了 Ubuntu 镜像，但有其它发行版的镜像。</li>
-<li>由LUPA开源社区维护的LupaWorld更新服务器（浙江杭州电信/联通双线服务器）中已经取消了 Ubuntu 镜像，但有其它发行版的镜像。 <h2 id="update_&amp;&amp;_upgrade">update &amp;&amp; upgrade</h2></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>这大概是最熟悉的两个参数之一，但是经常看见类似如此错误：<br><code>0 upgraded, 0 newly installed, 0 to remove and 3 not upgraded</code></p>
-</li>
-<li><p><code>not upgraded</code> 的解决办法是: ·<br><code>$ sudo apt-get -u dist-upgrade</code></p>
-</li>
-</ul>
-<h2 id="Linux_of_Qt5">Linux of Qt5</h2><p>在Ubuntu编译Qt5工程时出现了 </p>
-<p><code>can not find -lGL</code></p>
-<p>这是为什么?在Qt4时代并没有这种情况</p>
-<p>经过查找,发现<strong>Qt5在这个版本自动加入了openGL的支持</strong>,而有的平台并没有默认拥有</p>
-<p><strong>(Windows默认有openGL,Linux却没有完全)</strong></p>
-<p>可以通过安装 <code>libglut-dev</code> 来进行修复</p>
-<p><code>sudo apt-get install libglut-dev</code></p>
-<p>稍微解读一下也能知道<code>-lGL==&gt;-linkopenGL</code>的意思</p>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/09/20/Linux记录.html" data-id="cikxfh92h0018mwltuvcef04a" class="article-share-link" data-share="baidu" data-title="Linux记录">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-概述（二）.html" data-id="cikxfh92n001gmwltasrlgtt2" class="article-share-link" data-share="baidu" data-title="Effective Modern Cpp 概述（二）">分享到</a>
       
 
       
 
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li></ul>
 
     </footer>
   </div>
@@ -210,19 +219,10 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
     
 <nav id="article-nav">
   
-    <a href="/2015/10/30/现代TCP-IP网络编程-启航.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">
-        
-          现代TCP/IP网络编程-启航
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/08/31/《我为什么学C》.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/12/15/Effective-Modern-Cpp-概述（一）.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">《我为什么学C》</div>
+      <div class="article-nav-title">Effective Modern C++概述（一）</div>
     </a>
   
 </nav>
