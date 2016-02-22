@@ -139,52 +139,12 @@ makeWidget().doWork(); <span class="comment">// 调用第二个版本</span>
 <li>基类里的该函数和派生类里的该函数的 <strong>参数类型</strong> 必须相同</li>
 <li>基类里的该函数和派生类里的该函数的 <strong>返回值类型</strong> 必须相同或者可以<strong>兼容(即继承关系)</strong></li>
 <li>基类里的该函数和派生类里的该函数的 <code>const</code> 属性必须相同</li>
-<li>基类里的该函数和派生类里的该函数的 <strong>引用限定词</strong> 必须相同(<strong>C++11新增</strong>)</li>
-</ol>
-</li>
-<li><p>上述关系缺一不可。</p>
-<pre><code><span class="keyword">class</span> <span class="title">Base</span> {
-<span class="keyword">public</span>:
-  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf1</span><span class="params">()</span> <span class="keyword">const</span></span>;
-  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf2</span><span class="params">(<span class="keyword">int</span> x)</span></span>;
-  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf3</span><span class="params">()</span> &amp;</span>;  <span class="comment">// C++11 </span>
-  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf4</span><span class="params">()</span> <span class="keyword">const</span></span>;
-};
-<span class="comment">// C++98</span>
-<span class="keyword">class</span> <span class="title">Derived</span> : <span class="title">public</span> <span class="title">Base</span> {
-<span class="keyword">public</span>:
-  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf1</span><span class="params">()</span> <span class="keyword">const</span></span>;
-  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf2</span><span class="params">(unsigned <span class="keyword">int</span> x)</span></span>;
-  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf4</span><span class="params">()</span> <span class="keyword">const</span></span>;
-};        
-<span class="comment">// C++11</span>
-<span class="keyword">class</span> <span class="title">Derived</span> : <span class="title">public</span> <span class="title">Base</span> {
-<span class="keyword">public</span>:
-  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf1</span><span class="params">()</span> <span class="keyword">const</span> <span class="keyword">override</span></span>;
-  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf2</span><span class="params">(unsigned <span class="keyword">int</span> x)</span> <span class="keyword">override</span></span>;
-  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf3</span><span class="params">()</span> &amp; <span class="keyword">override</span></span>;
-  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf4</span><span class="params">()</span> <span class="keyword">const</span> <span class="keyword">override</span></span>;
-};
-</code></pre><p>  其中 <code>Derived</code> 类中的 <strong>重写</strong> 函数前面的 <code>virtual</code> 不是强制性要求。相比于<strong>C++98</strong> 而言对了一个关键字<code>override</code>，其作用就是帮助我们在编译期检查到是否在重写的时候出了差错</p>
-<p>  <strong>C++98</strong> 版本的<code>mf2</code>函数可以通过编译，但是 <strong>C++11</strong> 版本的<code>mf2</code>函数便无法通过编译，因为<code>override</code>告诉编译器这是一个<strong>重写</strong>函数，但是实际上我们的 <code>mf2</code> 并不符合要求。</p>
-</li>
-<li><code>override</code>的作用便在于让编译器替我们检查错误，并且在实现一个工程时，往往需要改变某个函数来修改原有的内容业务，这时候可以借助编译器的<strong>错误提示</strong>看看修改这个函数，会对整个工程造成多大的影响，以及是否值得如此做。</li>
-<li><p>对于新的 <strong>引用限定词</strong> 的用法，大体上会用在判断 <strong>lvalue</strong> 和 <strong>rvalue</strong> 上，其目的是为了避免某些不必要的开销，而不是依赖 <strong>编译器优化</strong> 这种虚无飘渺的说法。</p>
-<pre><code><span class="keyword">class</span> Widget {
-<span class="keyword">public</span>:
-  <span class="keyword">using</span> DataType = <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;;
-  ...
-DataType&amp; data() &amp; { <span class="keyword">return</span> values; }
-<span class="function">DataType  <span class="title">data</span><span class="params">()</span> &amp;&amp; </span>{ <span class="keyword">return</span> <span class="built_in">std</span>::move(values); }
-...
-
-<span class="keyword">private</span>:
-  DataType values;
-};
-</code></pre><p> 可以很明显的看出，两个版本的<code>data</code>函数，是为了适应不同情况下对于 <code>values</code>的使用。</p>
-</li>
-</ul>
-
+<li>基类里的该函数和派生类里的该函数的 <strong>引用限定词</strong> 必须相同(<strong>C++11新增</strong>)
+        
+          <p class="article-more-link">
+            <a href="/2016/02/22/Effective-Modern-Cpp-概述（二）.html#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">

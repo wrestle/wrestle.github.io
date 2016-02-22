@@ -155,13 +155,13 @@ makeWidget().doWork(); <span class="comment">// 调用第二个版本</span>
 <li>基类里的该函数和派生类里的该函数的 <strong>参数类型</strong> 必须相同</li>
 <li>基类里的该函数和派生类里的该函数的 <strong>返回值类型</strong> 必须相同或者可以<strong>兼容(即继承关系)</strong></li>
 <li>基类里的该函数和派生类里的该函数的 <code>const</code> 属性必须相同</li>
-<li>基类里的该函数和派生类里的该函数的 <strong>引用限定词</strong> 必须相同(<strong>C++11新增</strong>)</li>
+<li>基类里的该函数和派生类里的该函数的 <strong>引用限定词</strong> 必须相同(<strong>C++11新增</strong>)<a id="more"></a></li>
 </ol>
 </li>
 <li><p>上述关系缺一不可。</p>
 <pre><code><span class="keyword">class</span> <span class="title">Base</span> {
 <span class="keyword">public</span>:
-  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf1</span><span class="params">()</span> <span class="keyword">const</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf1</span><span class="params">()</span></span>;
   <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf2</span><span class="params">(<span class="keyword">int</span> x)</span></span>;
   <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf3</span><span class="params">()</span> &amp;</span>;  <span class="comment">// C++11 </span>
   <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf4</span><span class="params">()</span> <span class="keyword">const</span></span>;
@@ -169,14 +169,14 @@ makeWidget().doWork(); <span class="comment">// 调用第二个版本</span>
 <span class="comment">// C++98</span>
 <span class="keyword">class</span> <span class="title">Derived</span> : <span class="title">public</span> <span class="title">Base</span> {
 <span class="keyword">public</span>:
-  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf1</span><span class="params">()</span> <span class="keyword">const</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf1</span><span class="params">()</span></span>;
   <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf2</span><span class="params">(unsigned <span class="keyword">int</span> x)</span></span>;
   <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf4</span><span class="params">()</span> <span class="keyword">const</span></span>;
 };        
 <span class="comment">// C++11</span>
 <span class="keyword">class</span> <span class="title">Derived</span> : <span class="title">public</span> <span class="title">Base</span> {
 <span class="keyword">public</span>:
-  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf1</span><span class="params">()</span> <span class="keyword">const</span> <span class="keyword">override</span></span>;
+  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf1</span><span class="params">()</span> <span class="keyword">override</span></span>;
   <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf2</span><span class="params">(unsigned <span class="keyword">int</span> x)</span> <span class="keyword">override</span></span>;
   <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf3</span><span class="params">()</span> &amp; <span class="keyword">override</span></span>;
   <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">mf4</span><span class="params">()</span> <span class="keyword">const</span> <span class="keyword">override</span></span>;
