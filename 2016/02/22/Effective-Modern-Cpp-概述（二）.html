@@ -6,33 +6,39 @@
   
   <title>Effective Modern Cpp 概述（二） | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Item 12 - Declare overriding functions override.
+  <meta name="description" content="(Item 14)
+
+Item 12 - Declare overriding functions override.
 介绍了一个鲜为人知的 C++11 新特性，针对一个类成员函数的
 class Widget {
 public:
   ...
   void doWork() &amp;amp;;   // 只有当 *this 是 lvalue 时才调用
-  void doWork() &amp;amp;&amp;amp;;  // 只有当 *t">
+  void doWork() &amp;amp;&amp;amp;;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Effective Modern Cpp 概述（二）">
 <meta property="og:url" content="http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-概述（二）.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="Item 12 - Declare overriding functions override.
+<meta property="og:description" content="(Item 14)
+
+Item 12 - Declare overriding functions override.
 介绍了一个鲜为人知的 C++11 新特性，针对一个类成员函数的
 class Widget {
 public:
   ...
   void doWork() &amp;amp;;   // 只有当 *this 是 lvalue 时才调用
-  void doWork() &amp;amp;&amp;amp;;  // 只有当 *t">
+  void doWork() &amp;amp;&amp;amp;;">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Effective Modern Cpp 概述（二）">
-<meta name="twitter:description" content="Item 12 - Declare overriding functions override.
+<meta name="twitter:description" content="(Item 14)
+
+Item 12 - Declare overriding functions override.
 介绍了一个鲜为人知的 C++11 新特性，针对一个类成员函数的
 class Widget {
 public:
   ...
   void doWork() &amp;amp;;   // 只有当 *this 是 lvalue 时才调用
-  void doWork() &amp;amp;&amp;amp;;  // 只有当 *t">
+  void doWork() &amp;amp;&amp;amp;;">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -133,7 +139,10 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Item_12_-_Declare_overriding_functions_override-">Item 12 - Declare overriding functions override.</h3><ul>
+        <blockquote>
+<p>(Item 14)</p>
+</blockquote>
+<h3 id="Item_12_-_Declare_overriding_functions_override-">Item 12 - Declare overriding functions override.</h3><ul>
 <li><p>介绍了一个鲜为人知的 <strong>C++11</strong> 新特性，针对一个类成员函数的</p>
 <pre><code><span class="keyword">class</span> <span class="title">Widget</span> {
 <span class="keyword">public</span>:
@@ -199,6 +208,61 @@ DataType&amp; data() &amp; { <span class="keyword">return</span> values; }
 };
 </code></pre><p> 可以很明显的看出，两个版本的<code>data</code>函数，是为了适应不同情况下对于 <code>values</code>的使用。</p>
 </li>
+</ul>
+<h3 id="Item_13_Prefer_const_iterators_to_iterators">Item 13 Prefer const_iterators to iterators</h3><ul>
+<li>很简短，尽量去使用 <code>const_iterator</code>，原因就是安全。</li>
+<li><p><strong>C++11</strong> 提供了十分简便(还不够完善)的获取上限</p>
+<ol>
+<li>容器中自带的 <code>begin(), end()</code> 和 <code>cbegin(), cend()</code> ……</li>
+<li>非容器自带(非成员函数) <code>std::begin&lt;...&gt;(), std::end&lt;...&gt;()</code></li>
+<li>在 <strong>C++14</strong> 中补全了对 <strong>1</strong> 的非容器实现</li>
+</ol>
+</li>
+<li><p>更加建议使用 非容器的版本。</p>
+</li>
+</ul>
+<h3 id="Item_14_Declare_functions_noexcept_if_they_won’t_emit_exceptions">Item 14 Declare functions noexcept if they won’t emit exceptions</h3><ul>
+<li><code>noexcept</code> 是 <strong>C++11</strong> 新的标准语法</li>
+<li><code>noexcept</code> 的意义就是，告诉编译器这个函数绝对不会抛出异常。</li>
+<li>让一个函数成为 <code>noexcept</code> 会让编译器对它做<strong>极大的优化</strong>，但是这并不是建议你尽量的使用<code>noexcept</code>，你必须谨慎再谨慎的使用它</li>
+<li>实际上，<code>noexcept</code> 对于 <strong>移动语义</strong>，<strong>swap函数</strong>，<strong>delete</strong>，和 <strong>析构函数</strong>十分有意义，后两者一般情况下要是<code>noexcept</code>。</li>
+<li>但事实上，大部分函数是 <strong>“中立的”</strong>，也就是不清楚是否会抛出异常<ul>
+<li>因为有时候写一个函数时，会调用其他函数，这个被调用的函数是否会抛出异常，往往无从得知。</li>
+</ul>
+</li>
+<li><p><code>noexcept</code>是作为函数接口的一部分 <code>int f(int x) noexcept;</code></p>
+<ul>
+<li>在<strong>C++98</strong>时代，有一种同样意义(效果不同)的写法 <code>int f(int x) throw();</code> </li>
+</ul>
+</li>
+<li><p>首先，是对于<strong>移动语义</strong>和<code>swap</code>函数而言，<code>noexcept</code>意义非凡</p>
+<ul>
+<li>移动语义也就是<strong>C++11</strong>新的特性，右值引用的意义所在，众所周知它可能会带来极大的性能提升，例如在拷贝一组不小的数据时。</li>
+<li>但问题就在于<strong>“拷贝”</strong>这组数据时(实际上应该说是移动它们)，假如在移动的过程中突然发生异常那该如何？因为是移动，而不是拷贝，<strong>所以之前移动的那部分数据就算是丢失了！</strong></li>
+<li>相比较而言，拷贝的做法就较为妥当，因为不管会不会在拷贝过程中发生异常，原始数据始终是不会丢失的。</li>
+<li>所以我们必须确保 <strong>移动操作</strong> 是 <code>noexcept</code>，这样它才能在必要时对<strong>拷贝构造函数</strong>进行替换，以此来达到提升性能的作用。</li>
+<li>例如对一个容器(<code>std::vector</code>)进行<code>push_back</code>操作，编译器除非能确定操作对象的<strong>移动操作</strong>是<code>noexcept</code>的，否则是不会<strong>默默(隐式)</strong> 地将<strong>拷贝换成移动</strong>。</li>
+</ul>
+</li>
+<li><p>其次 <code>swap</code> 函数也是如此</p>
+<pre><code>// 只有当swap数组中的元素是noexcept，这个函数才是noexcept
+<span class="keyword">template</span> &lt;class T, size_t N&gt;
+<span class="type">void</span> swap(T (&amp;a)[N]),
+          T (@b)[N])noexcept(noexcept(swap(*a, *b)));
+
+//只有当对pair内部元素进行swap是noexcept时，对pair进行swap才是noexcept
+<span class="keyword">template</span> &lt;class <span class="type">T1</span>, class <span class="type">T2</span>&gt;
+struct pair {
+    ...
+    <span class="type">void</span> swap(pair&amp; p)noexcept(noexcept(swap(first, p.first)) &amp;&amp;
+                                  noexcept(swap(second, p.second)));
+};
+</code></pre><p>  这段代码出自 <strong>标准库</strong>，这种语法的意思就是，只有当<code>noexcept</code>括号内的是<code>noexcept</code>时，才是<code>noexcept</code>，绕口却好理解。</p>
+<p>  总结起来就是，对高级封装的数据结构进行操作的<code>swap</code>函数是否是<code>noexcept</code>，取决于这个高级封装的数据结构内部的成员是否对于<code>swap</code>操作是<code>noexcept</code>(并且是对于每一成员都必须成立)</p>
+</li>
+<li><p>如果硬是把一个不确定的函数，设定为<code>except</code>，那是在是有些本末倒置，但对于<strong>移动语义</strong>和<code>swap</code>函数而言，却是一个很有意义的做法。</p>
+</li>
+<li>总之本节最主要的目的就是，当我们十分确定某个函数一定不会抛出异常，那就让它成为<code>noexcept</code>。</li>
 </ul>
 
       
