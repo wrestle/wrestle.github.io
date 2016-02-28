@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.wushxin.top/about/index.html</loc>
+    
+    <lastmod>2016-02-28T13:20:45.129Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0%EF%BC%88%E4%BA%8C%EF%BC%89.html</loc>
     
     <lastmod>2016-02-28T06:12:30.802Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0%EF%BC%88%E4%B8%80%EF%BC%89.html</loc>
     
     <lastmod>2016-02-22T01:32:06.135Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.wushxin.top/about/index.html</loc>
-    
-    <lastmod>2015-12-18T07:40:37.668Z</lastmod>
     
   </url>
   
