@@ -6,7 +6,7 @@
   
   <title>Effective Modern Cpp 概述（二） | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="(Item 14)
+  <meta name="description" content="(Item 15)
 
 Item 12 - Declare overriding functions override.
 介绍了一个鲜为人知的 C++11 新特性，针对一个类成员函数的
@@ -19,7 +19,7 @@ public:
 <meta property="og:title" content="Effective Modern Cpp 概述（二）">
 <meta property="og:url" content="http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-概述（二）.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="(Item 14)
+<meta property="og:description" content="(Item 15)
 
 Item 12 - Declare overriding functions override.
 介绍了一个鲜为人知的 C++11 新特性，针对一个类成员函数的
@@ -30,7 +30,7 @@ public:
   void doWork() &amp;amp;&amp;amp;;">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Effective Modern Cpp 概述（二）">
-<meta name="twitter:description" content="(Item 14)
+<meta name="twitter:description" content="(Item 15)
 
 Item 12 - Declare overriding functions override.
 介绍了一个鲜为人知的 C++11 新特性，针对一个类成员函数的
@@ -140,7 +140,7 @@ var _hmt = _hmt || [];
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>(Item 14)</p>
+<p>(Item 15)</p>
 </blockquote>
 <h3 id="Item_12_-_Declare_overriding_functions_override-">Item 12 - Declare overriding functions override.</h3><ul>
 <li><p>介绍了一个鲜为人知的 <strong>C++11</strong> 新特性，针对一个类成员函数的</p>
@@ -209,7 +209,7 @@ DataType&amp; data() &amp; { <span class="keyword">return</span> values; }
 </code></pre><p> 可以很明显的看出，两个版本的<code>data</code>函数，是为了适应不同情况下对于 <code>values</code>的使用。</p>
 </li>
 </ul>
-<h3 id="Item_13_Prefer_const_iterators_to_iterators">Item 13 Prefer const_iterators to iterators</h3><ul>
+<h3 id="Item_13_-_Prefer_const_iterators_to_iterators">Item 13 - Prefer const_iterators to iterators</h3><ul>
 <li>很简短，尽量去使用 <code>const_iterator</code>，原因就是安全。</li>
 <li><p><strong>C++11</strong> 提供了十分简便(还不够完善)的获取上限</p>
 <ol>
@@ -221,18 +221,26 @@ DataType&amp; data() &amp; { <span class="keyword">return</span> values; }
 <li><p>更加建议使用 非容器的版本。</p>
 </li>
 </ul>
-<h3 id="Item_14_Declare_functions_noexcept_if_they_won’t_emit_exceptions">Item 14 Declare functions noexcept if they won’t emit exceptions</h3><ul>
+<h3 id="Item_14_-_Declare_functions_noexcept_if_they_won’t_emit_exceptions">Item 14 - Declare functions noexcept if they won’t emit exceptions</h3><ul>
 <li><code>noexcept</code> 是 <strong>C++11</strong> 新的标准语法</li>
 <li><code>noexcept</code> 的意义就是，告诉编译器这个函数绝对不会抛出异常。</li>
 <li>让一个函数成为 <code>noexcept</code> 会让编译器对它做<strong>极大的优化</strong>，但是这并不是建议你尽量的使用<code>noexcept</code>，你必须谨慎再谨慎的使用它</li>
-<li>实际上，<code>noexcept</code> 对于 <strong>移动语义</strong>，<strong>swap函数</strong>，<strong>delete</strong>，和 <strong>析构函数</strong>十分有意义，后两者一般情况下要是<code>noexcept</code>。</li>
+</ul>
+<blockquote>
+<p><code>noexcept</code> 对于 <strong>移动语义</strong>，<strong>swap函数</strong>，<strong>delete</strong>，和 <strong>析构函数</strong>十分有意义，后两者一般情况下就是 <code>noexcept</code>。</p>
+</blockquote>
+<ul>
 <li>但事实上，大部分函数是 <strong>“中立的”</strong>，也就是不清楚是否会抛出异常<ul>
 <li>因为有时候写一个函数时，会调用其他函数，这个被调用的函数是否会抛出异常，往往无从得知。</li>
 </ul>
 </li>
 <li><p><code>noexcept</code>是作为函数接口的一部分 <code>int f(int x) noexcept;</code></p>
 <ul>
-<li>在<strong>C++98</strong>时代，有一种同样意义(效果不同)的写法 <code>int f(int x) throw();</code> </li>
+<li>在<strong>C++98</strong>时代，有一种同样意义(效果不同)的写法 <code>int f(int x) throw();</code></li>
+<li>但这种看似等价的写法并不能让编译器对其进行极大的优化。<blockquote>
+<p>优化指的是<code>noexcept</code>可以让编译器不为这个函数维护一个 <strong>runtime stack</strong>，且不必确保按照创建对象相反的顺序销毁对象。 </p>
+</blockquote>
+</li>
 </ul>
 </li>
 <li><p>首先，是对于<strong>移动语义</strong>和<code>swap</code>函数而言，<code>noexcept</code>意义非凡</p>
@@ -264,12 +272,80 @@ struct pair {
 </li>
 <li>总之本节最主要的目的就是，当我们十分确定某个函数一定不会抛出异常，那就让它成为<code>noexcept</code>。</li>
 </ul>
+<h3 id="Item_15_-_Use_constexpr_whenever_possible">Item 15 - Use constexpr whenever possible</h3><ul>
+<li><p>当<code>constexpr</code>用在一个变量名上时，它的作用效果是 <code>const</code> 的<strong>超集</strong></p>
+<pre><code><span class="comment">// 对于 constexpr</span>
+<span class="keyword">int</span> sz;
+<span class="keyword">constexpr</span> <span class="keyword">auto</span> arraySize1 = sz; <span class="comment">// 编译错误，sz在编译期值未知</span>
+<span class="built_in">std</span>::<span class="built_in">array</span>&lt;<span class="keyword">int</span>, sz&gt; data1; <span class="comment">//这样也错，模板常量的值同样需要在编译期知道</span>
+
+constexor <span class="keyword">auto</span> arraySize2 = <span class="number">10</span>; <span class="comment">//这样可以</span>
+<span class="built_in">std</span>::<span class="built_in">array</span>&lt;<span class="keyword">int</span>, arraySize2&gt; data2; <span class="comment">// 编译通过</span>
+</code></pre><p>  从代码中可以看出，constexpr保证在编译期(其实还有链接期)这个被修饰的变量的值必须被初始化。</p>
+<pre><code><span class="comment">// 对于 const</span>
+<span class="keyword">int</span> sz;
+<span class="keyword">const</span> <span class="keyword">auto</span> arraySize = sz; <span class="comment">// 这样可以</span>
+<span class="built_in">std</span>::<span class="built_in">array</span>&lt;<span class="keyword">int</span>, arraySize&gt; data; <span class="comment">//编译出错，还是上面的老原因</span>
+<span class="comment">// 补充</span>
+<span class="keyword">const</span> <span class="keyword">int</span> arraySize2 = <span class="number">10</span>;
+<span class="built_in">std</span>::<span class="built_in">array</span>&lt;<span class="keyword">int</span>, arraySize2&gt; data2; <span class="comment">// 这样编译就通过了</span>
+</code></pre><p>  也就是说，const并不能保证其被修饰的变量在编译期就一定被初始化完成。</p>
+<p>  对于一个变量名而言，其余方面 <code>constexpr</code> 和 <code>const</code> 的作用是一样的 </p>
+<blockquote>
+<p>实际上， <code>constexpr</code> 的意义就在于尽量牺牲编译时间来换取软件的运行时间。</p>
+</blockquote>
+</li>
+<li><p><code>constexpr</code> 可以作为函数接口的一部分。<code>constexpr int f(int x);</code>    </p>
+</li>
+<li>如果<code>constexpr</code>函数的返回值被用在了需要编译期时使用的地方，例如<strong>数组维度</strong>， <strong>模板常量</strong> 等地方，那么传给其的参数也必须是在编译期就能够确定下来的，如果传给这个<code>constexpr</code>函数的参数并不能在编译期得到其值，那么编译就将出错。（<strong>试想声明一个数组，如果你用这个函数返回值做其维度，却发现返回值没办法在编译期计算出来，那还怎么给这个数组在栈上分配内存</strong>）    </li>
+<li>当然，如果是纯粹调用这个<code>constexpr</code>函数，就没有如此多限制，相反还具有灵活性，如果调用的参数，其中一个或多个或全部，都无法在编译期获取其值，那么这个函数就会像普通函数一样等到运行时才能得到其返回值。否则就会在编译期就计算出其返回值。</li>
+<li><p>但此处有一些小遗憾，因为<strong>C++11</strong>的<code>constexpr</code>有一定的局限性，但这些局限性在<strong>C++14</strong>版本中被修缮了。</p>
+<ul>
+<li><p><strong>C++11</strong>版本的<code>constexpr</code>函数里只能写有一个<code>return</code>语句：</p>
+<pre><code><span class="function"><span class="keyword">constexpr</span> <span class="keyword">int</span> <span class="title">pow</span><span class="params">(<span class="keyword">int</span> base, <span class="keyword">int</span> <span class="built_in">exp</span>)</span> </span>{
+    <span class="keyword">return</span> (<span class="built_in">exp</span> == <span class="number">0</span> ? <span class="number">1</span> : base * <span class="built_in">pow</span>(base, <span class="built_in">exp</span>-<span class="number">1</span>));
+}
+</code></pre></li>
+<li><p><strong>C++14</strong>版本则可以自由的书写：</p>
+<pre><code>constexpr <span class="type">int</span> pow(<span class="type">int</span> base, <span class="type">int</span> exp) {
+    <span class="type">auto</span> <span class="literal">result</span> = <span class="number">1</span>;
+    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; exp; ++i) 
+        <span class="literal">result</span> *= exp;
+    <span class="keyword">return</span> <span class="literal">result</span>;
+}
+</code></pre></li>
+</ul>
+</li>
+<li><p>任何类型，无论是内建(built-in)，还是用户自己定义的类型，都可以被<code>constexpr</code>修饰，这就带来了一个好处，那就是如果构造函数被声明为<code>constexpr</code>，那么一旦其所传入的构造参数是可以在编译期内获得值的，那么，这次构造函数所创建对象将被保存在<strong>只读区域</strong>！</p>
+<ul>
+<li>这种途径用的越多，你的程序也就<strong>可能</strong>跑得越快(当然更费编译时间)</li>
+<li><p>但是<strong>C++11</strong>的<code>constexpr</code>在此处又体现出一些瑕疵，那就是它所修饰的类成员函数，是<code>const</code>的，也就是说无法通过这个函数修改其内的值，换句话说就是没办法将<strong>setter</strong>类的成员函数声明为<code>constexpr</code>;</p>
+<pre><code>class <span class="type">Point</span>{
+public:
+    constexpr <span class="type">void</span> setX（double newX） {
+        x = newX; //C++<span class="number">14</span> 可行
+    }
+...
+};
+constexpr <span class="type">Point</span> reflection(<span class="keyword">const</span> <span class="type">Point</span> &amp; p) {
+    <span class="type">Point</span> <span class="literal">result</span>;
+    <span class="literal">result</span>.setX(-p.xValue());
+    <span class="literal">result</span>.setY(-p.yValue());
+    <span class="keyword">return</span> <span class="literal">result</span>;
+}
+// 使用
+constexpr <span class="type">Point</span> p1(<span class="number">9</span>.<span class="number">4</span>, <span class="number">27</span>.<span class="number">7</span>);
+constexpr <span class="type">auto</span> reflected = reflection(p1); // 这个对象也是被创建在只读区。
+</code></pre></li>
+</ul>
+</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-概述（二）.html" data-id="cil556du5001g5wlt05b7u0n2" class="article-share-link" data-share="baidu" data-title="Effective Modern Cpp 概述（二）">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-概述（二）.html" data-id="cil65u1if001ga4ltwjb5skze" class="article-share-link" data-share="baidu" data-title="Effective Modern Cpp 概述（二）">分享到</a>
       
 
       
