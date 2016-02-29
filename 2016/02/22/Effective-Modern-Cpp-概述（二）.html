@@ -340,6 +340,53 @@ constexpr <span class="type">auto</span> reflected = reflection(p1); // 这个�
 </ul>
 </li>
 </ul>
+<h3 id="Item_16_-_Make_const_member_functions_thread_safe">Item 16 - Make const member functions thread safe</h3><ul>
+<li>不太清楚这一小节的用意，只是粗略介绍一下如何实现线程安全的其中两种方法，而且是说让<code>const</code>成员函数在多线程环境下<strong>安全</strong>。</li>
+<li><p>方法1：</p>
+<ul>
+<li><p>使用<code>std::mutex</code>进行真个代码块的阻塞保护。</p>
+<pre><code><span class="keyword">class</span> Polynomial {
+<span class="keyword">public</span>:
+    <span class="keyword">using</span> RootsType = <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">double</span>&gt;;
+    <span class="function">RootsType <span class="title">roots</span><span class="params">()</span> <span class="keyword">const</span> </span>{
+        <span class="built_in">std</span>::lock_guard&lt;<span class="built_in">std</span>::mutex&gt; g(m); <span class="comment">//也可以直接使用 m.lock()，而不用这个 lock_guard</span>
+        <span class="keyword">if</span>(!rootsAreValid) {
+            ...
+            rootsAreValid = <span class="keyword">true</span>;
+        }
+        <span class="keyword">return</span> rootVals;
+    }
+<span class="keyword">private</span>:
+    <span class="keyword">mutable</span> <span class="built_in">std</span>::mutex m;
+    <span class="keyword">mutable</span> <span class="keyword">bool</span> rootsAreValid{ <span class="keyword">false</span> };
+    <span class="keyword">mutable</span> RootsType rootVals{};
+};
+</code></pre><p>  这样就实现了线程安全，其中<code>mutable</code>关键字是为了在 <code>const</code>成员函数中也能修改成员变量的。</p>
+<p>  lock_guard 则是实现了自动加锁，解锁的功能。 </p>
+</li>
+</ul>
+</li>
+<li><p>方法2：</p>
+<ul>
+<li><p>对于轻量级的场景，使用<code>std:：atomic</code>来达到原子操作的目的，以此实现一定程度上的线程安全</p>
+<pre><code><span class="keyword">class</span> Point {
+<span class="keyword">public</span>:
+    <span class="function"><span class="keyword">double</span> <span class="title">distanceFromOrigin</span><span class="params">()</span> <span class="keyword">const</span> <span class="keyword">noexcept</span> 
+    </span>{
+        ++callCount;
+        <span class="keyword">return</span> <span class="built_in">std</span>::<span class="built_in">sqrt</span>((x * x) + (y * y));
+    }
+<span class="keyword">private</span>:
+    <span class="keyword">mutable</span> <span class="built_in">std</span>::atomic&lt;<span class="keyword">unsigned</span>&gt; callCount{ <span class="number">0</span> };
+    <span class="keyword">double</span> x, y;
+};
+</code></pre><p>  <code>callCount</code> 在此处实现了成了 具有原子操作的对象。且原子操作比锁操作所耗费的资源更少。</p>
+</li>
+</ul>
+</li>
+<li><p>综上。</p>
+</li>
+</ul>
 
       
     </div>
