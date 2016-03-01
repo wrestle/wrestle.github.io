@@ -373,8 +373,8 @@ makeWidget().doWork(); <span class="comment">// 调用第二个版本</span>
   
   <entry>
     <title><![CDATA[Effective Modern C++概述（一）]]></title>
-    <link href="http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0%EF%BC%88%E4%B8%80%EF%BC%89.html"/>
-    <id>http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-概述（一）.html</id>
+    <link href="http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0.html"/>
+    <id>http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html</id>
     <published>2015-12-15T08:40:14.000Z</published>
     <updated>2016-02-22T01:32:06.135Z</updated>
     <content type="html"><![CDATA[<blockquote>
