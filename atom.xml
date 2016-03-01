@@ -5,7 +5,7 @@
   <subtitle><![CDATA[Tech Collector]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.wushxin.top//"/>
-  <updated>2016-02-29T06:57:22.981Z</updated>
+  <updated>2016-03-01T05:19:22.928Z</updated>
   <id>http://www.wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0%EF%BC%88%E4%BA%8C%EF%BC%89.html"/>
     <id>http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-概述（二）.html</id>
     <published>2016-02-22T01:29:50.000Z</published>
-    <updated>2016-02-29T06:57:22.981Z</updated>
+    <updated>2016-03-01T05:19:22.928Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>(Item 15)</p>
 </blockquote>
@@ -268,6 +268,73 @@ constexpr <span class="type">auto</span> reflected = reflection(p1); // 这个�
 </li>
 <li><p>综上。</p>
 </li>
+</ul>
+<h3 id="Item_17_-_Understand_special_member_function_generation">Item 17 - Understand special member function generation</h3><ul>
+<li>在一个类里面，有一种特殊的函数，是由编译器自动生成的(视情况而定)<ul>
+<li>在<strong>C++98</strong>时代，它们分别是，<strong>默认构造函数</strong>， <strong>拷贝构造函数</strong>， <strong>拷贝赋值构造函数</strong>， <strong>析构函数</strong></li>
+<li>在<strong>C++11</strong>时代，除了上述四种以外还多了两种<strong>移动操作</strong>， <strong>移动构造函数</strong>， <strong>移动赋值构造函数</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>以下情况，均是在未有显式声明定义的前提，要是显式定义了，那么本节的大部分内容是无意义的，关键就在于是否由编译器来生成这些函数</p>
+</blockquote>
+<ul>
+<li>在<strong>C++98</strong>时，有提到过一个 <strong>Rule of Three</strong> 原则，那就是 ： <strong>如果你需要声明定义了 拷贝构造函数，拷贝赋值构造函数，析构函数中的任意一个，那么你就应该把他们全部都声明定义出来</strong>。</li>
+<li><p>在<strong>C++11</strong>的时代，这些依然适用，但是有区别的是，它们对于<strong>移动操作</strong>的影响。</p>
+<ul>
+<li>对于<strong>移动操作</strong>而言，只要声明其中任意一个都会阻止另一个的自动生成。</li>
+<li>而且，只要声明<strong>拷贝构造函数，拷贝赋值构造函数，析构函数中的任意一个</strong>，都会阻止<strong>移动操作</strong>的相关函数的生成。</li>
+<li>而<strong>其他三个函数</strong>则不会，即使显式声明了 <strong>拷贝构造函数</strong>，也不会影响编译器默认生成<strong>拷贝赋值构造函数</strong>。</li>
+</ul>
+</li>
+<li><p>那我们需要编译器为我们自动生成<strong>移动操作</strong>该怎么办呢？满足三个条件：</p>
+<ol>
+<li>没有<strong>拷贝操作</strong>函数在类中声明</li>
+<li>没有<strong>移动操作</strong>函数在类中声明</li>
+<li>没有<strong>析构函数</strong>在类中声明</li>
+</ol>
+</li>
+<li><p>停下来想一想，是否太过，在<strong>C++98</strong>时代，这种特殊函数的生成规则尚且比较单一，能用<strong>Rule of Three</strong>来概述，但是<strong>C++11</strong>时代，由于引入了<strong>移动操作</strong>，这个规则变得复杂起来(远不止上面说的哪些情况)。</p>
+</li>
+</ul>
+<blockquote>
+<p>有没有更简洁的方法？</p>
+</blockquote>
+<ul>
+<li>当然有，这就是<strong>C++11</strong>中引入 <code>= default</code> 的原因。</li>
+<li><p>使用它我们就可以屏蔽一切所谓的规则，这个新语法的意义就是<strong>我想使用这个函数的编译器生成版本</strong></p>
+<pre><code><span class="keyword">class</span> <span class="title">Widget</span> {
+<span class="keyword">public</span>:
+    ...
+    ~Widget();
+    Widget(<span class="keyword">const</span> Widget &amp;) = <span class="keyword">default</span>;
+    Widget &amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Widget &amp;) = <span class="keyword">default</span>;
+};
+</code></pre><p>  对于这个类而言，即使不显式写上 <strong>拷贝操作</strong>的两个函数，在我们用这个类的对象进行操作时，使用了<strong>拷贝操作</strong>，编译器也会自动为我们生成。</p>
+<p>  但是如果我们并不懂这些规则，或者说我们不想花费时间去记，那就每次都将想要的写上并在其后跟上 <code>= default</code></p>
+</li>
+<li><p>书中提到了另一个完整的例子</p>
+<pre><code><span class="keyword">class</span> <span class="title">Base</span> {
+<span class="keyword">public</span>:
+    <span class="keyword">virtual</span> ~Base() = <span class="keyword">default</span>; <span class="comment">//对于析构函数，如果作为基类最好为virtual</span>
+    Base(Base &amp;&amp;) = <span class="keyword">default</span>;
+    Base&amp; <span class="keyword">operator</span>=(Base &amp;&amp;) = <span class="keyword">default</span>;     <span class="comment">// 移动操作</span>
+
+    Base(<span class="keyword">const</span> Base &amp;) = <span class="keyword">default</span>;
+    Base&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Base &amp;) = <span class="keyword">default</span>; <span class="comment">// 拷贝操作</span>
+};
+</code></pre></li>
+<li><p>最后，如果这些特殊函数在类中被写成了模板的形式，那并不会影响编译器自动生成的规则，即当他们不存在一样。</p>
+<pre><code>class <span class="type">Widget</span> {
+...
+    <span class="keyword">template</span> &lt;typename T&gt;
+    <span class="type">Widget</span>(<span class="keyword">const</span> T&amp; rhs);
+
+    <span class="keyword">template</span> &lt;typename T&gt;
+    <span class="type">Widget</span>&amp; operator=(<span class="keyword">const</span> T&amp; rhs);
+};
+</code></pre></li>
 </ul>
 ]]></content>
     <summary type="html">
