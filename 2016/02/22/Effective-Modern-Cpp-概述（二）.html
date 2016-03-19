@@ -454,12 +454,26 @@ constexpr <span class="type">auto</span> reflected = reflection(p1); // 这个�
 };
 </code></pre></li>
 </ul>
+<h3 id="Chapter_4_:_Smart_Pointer">Chapter 4 : Smart Pointer</h3><h3 id="Use_std::unique_ptr_for_exclusive-ownership_resource_management">Use std::unique_ptr for exclusive-ownership resource management</h3><ul>
+<li>内存泄漏一直是<strong>C/C++</strong> 程序员的痛处，自从 <strong>C++11</strong>的智能指针被引入，问题得到了挺大的改善。</li>
+<li><code>unique_ptr</code> 用来表示某个资源被这个智能指针唯一的占有，不允许对其进行拷贝(当然你不能用裸指针刻意指向它，那就没意义了)，只能被 <strong>移动操作</strong></li>
+<li><p>本节用一个继承类及工厂模式来讲解</p>
+<pre><code>ckass <span class="type">Investment</span> <span class="decorator">{...}</span>
+class <span class="type">Stock</span> : public <span class="type">Investment</span> { ... }
+class <span class="type">Bond</span> : public <span class="type">Investment</span> { ... }
+class <span class="type">RealEstate</span> : public <span class="type">Investment</span> { ... }
+</code></pre><p>  对于这种模型下的工厂模式，我们可以</p>
+<pre><code><span class="keyword">template</span> &lt;typenam... <span class="type">Ts</span>&gt;
+std::unique_ptr&lt;<span class="type">Investment</span>&gt;
+makeInvestment(<span class="type">Ts</span>&amp;&amp;... params);
+</code></pre></li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-概述（二）.html" data-id="cil65u1if001ga4ltwjb5skze" class="article-share-link" data-share="baidu" data-title="Effective Modern Cpp 概述（二）">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-概述（二）.html" data-id="cilyw344a001h48ltcyk9j9wk" class="article-share-link" data-share="baidu" data-title="Effective Modern Cpp 概述（二）">分享到</a>
       
 
       
@@ -472,6 +486,15 @@ constexpr <span class="type">auto</span> reflected = reflection(p1); // 这个�
   
     
 <nav id="article-nav">
+  
+    <a href="/2016/03/19/使用gdb.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">
+        
+          使用gdb
+        
+      </div>
+    </a>
   
   
     <a href="/2015/12/15/Effective-Modern-Cpp-概述.html" id="article-nav-older" class="article-nav-link-wrap">
@@ -512,7 +535,7 @@ constexpr <span class="type">auto</span> reflected = reflection(p1); // 这个�
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -522,6 +545,10 @@ constexpr <span class="type">auto</span> reflected = reflection(p1); // 这个�
     <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/03/19/使用gdb.html">使用gdb</a>
+          </li>
         
           <li>
             <a href="/2016/02/22/Effective-Modern-Cpp-概述（二）.html">Effective Modern Cpp 概述（二）</a>
@@ -537,10 +564,6 @@ constexpr <span class="type">auto</span> reflected = reflection(p1); // 这个�
         
           <li>
             <a href="/2015/10/30/现代TCP-IP网络编程-启航.html">现代TCP/IP网络编程-启航</a>
-          </li>
-        
-          <li>
-            <a href="/2015/09/20/Linux记录.html">Linux记录</a>
           </li>
         
       </ul>
