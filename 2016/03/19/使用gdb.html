@@ -153,7 +153,7 @@ var _hmt = _hmt || [];
 <pre><code>gcc -o <span class="keyword">main</span> -g <span class="keyword">main</span>.c
 </code></pre><p> 这个 <code>-g</code> 标志非常必要，意味着生成一些<strong>符号信息</strong>，用人话说就是 <code>gdb</code> 所需要的东西，没有这个东西是无法使用 <code>gdb</code>进行调试的。</p>
 </li>
-<li><p>紧接着，在当前目录下就有一个名为 <code>main</code> 的可执行文件，看好当前用户是否有权限执行它之后，使用如下命令开启调试旅程：</p>
+<li><p>紧接着，在当前目录下就有一个名为 <code>main</code> 的可执行文件，看好当前用户是否有权限执行它之后，使用如下命令开启调试旅程：<a id="more"></a></p>
 <pre><code><span class="title">gdb</span> ./main
 </code></pre><p> 紧接着，出现一大堆英文，不要慌，静静的等待它们装逼，最后会出现一个</p>
 <pre><code><span class="list">(<span class="keyword">gdb</span>)</span> 

@@ -5,7 +5,7 @@
   <subtitle><![CDATA[Tech Collector]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.wushxin.top//"/>
-  <updated>2016-03-19T08:45:16.799Z</updated>
+  <updated>2016-03-19T08:47:53.501Z</updated>
   <id>http://www.wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.wushxin.top/2016/03/19/%E4%BD%BF%E7%94%A8gdb.html"/>
     <id>http://www.wushxin.top/2016/03/19/使用gdb.html</id>
     <published>2016-03-19T06:47:18.000Z</published>
-    <updated>2016-03-19T08:45:16.799Z</updated>
+    <updated>2016-03-19T08:47:53.501Z</updated>
     <content type="html"><![CDATA[<h2 id="开始">开始</h2><ul>
 <li>近来在写网络服务器程序，涉及到了多线程，且由于网络的环境复杂的原因，常有未知情况发生，导致在程序中自行添加调试语句显得有些吃力</li>
 <li>将 <code>gdb</code> 请出山来是一个最为正确的选择</li>
@@ -41,7 +41,7 @@
 <pre><code>gcc -o <span class="keyword">main</span> -g <span class="keyword">main</span>.c
 </code></pre><p> 这个 <code>-g</code> 标志非常必要，意味着生成一些<strong>符号信息</strong>，用人话说就是 <code>gdb</code> 所需要的东西，没有这个东西是无法使用 <code>gdb</code>进行调试的。</p>
 </li>
-<li><p>紧接着，在当前目录下就有一个名为 <code>main</code> 的可执行文件，看好当前用户是否有权限执行它之后，使用如下命令开启调试旅程：</p>
+<li><p>紧接着，在当前目录下就有一个名为 <code>main</code> 的可执行文件，看好当前用户是否有权限执行它之后，使用如下命令开启调试旅程：<a id="more"></a></p>
 <pre><code><span class="title">gdb</span> ./main
 </code></pre><p> 紧接着，出现一大堆英文，不要慌，静静的等待它们装逼，最后会出现一个</p>
 <pre><code><span class="list">(<span class="keyword">gdb</span>)</span> 
@@ -192,7 +192,25 @@ argv=<span class="number">0x7fffffffe1f8</span>) <span class="keyword">at</span>
     <![CDATA[<h2 id="开始">开始</h2><ul>
 <li>近来在写网络服务器程序，涉及到了多线程，且由于网络的环境复杂的原因，常有未知情况发生，导致在程序中自行添加调试语句显得有些吃力</li>
 <li>将 <code>gdb</code> 请出山来是一个最为正确的选择</li>
-]]>
+</ul>
+<h2 id="使用">使用</h2><ul>
+<li><code>gdb</code>看起来是全命令行的东西，而且一启动就是一大片英文，实在让没用过的望而却步，其实真正常用的就只有那几个功能。</li>
+<li>接下来我可能不会对这些命令进行明确的定义功能，因为有时候某些功能放在不同的地方意义就不同了，所以我只用最简单的语言来记录它们。</li>
+</ul>
+<ol>
+<li><p>首先是安装，在(<strong>Debian</strong>)系的发行版 <strong>Linux</strong> 上，使用</p>
+<pre><code>apt-<span class="keyword">get</span> install gdb
+</code></pre><p> 回车等一会就行，可能有的发行版已经装好了，但有的却没有。</p>
+</li>
+<li><p>首先不要打开这个<code>gdb</code>，因为这里面的东西的确看起来挺复杂的</p>
+</li>
+<li>我们要先有一个程序的源文件，假设是 <strong>C语言</strong> 的 <code>main.c</code></li>
+<li><p>在里面写好正确的语句后，对它进行编译，链接，也就是调用 <code>GCC</code>，这里使用<code>GCC</code>的命令是</p>
+<pre><code>gcc -o <span class="keyword">main</span> -g <span class="keyword">main</span>.c
+</code></pre><p> 这个 <code>-g</code> 标志非常必要，意味着生成一些<strong>符号信息</strong>，用人话说就是 <code>gdb</code> 所需要的东西，没有这个东西是无法使用 <code>gdb</code>进行调试的。</p>
+</li>
+<li><p>紧接着，在当前目录下就有一个名为 <code>main</code> 的可执行文件，看好当前用户是否有权限执行它之后，使用如下命令开启调试旅程：]]>
+    
     </summary>
     
   </entry>
