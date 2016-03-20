@@ -185,6 +185,9 @@ var _hmt = _hmt || [];
 <pre><code>(gdb) <span class="tag">b</span> main<span class="class">.c</span>:<span class="number">10</span>
 </code></pre><p> 这就是完整的语法，十分简单，这就是设置断点最常用的方式</p>
 </li>
+<li><p>当然，你也可以直接以函数的名字作为断点，来进行设置</p>
+<pre><code><span class="list">(<span class="keyword">gdb</span>)</span> b main
+</code></pre></li>
 <li>但是在执行的时候，我怎么能记得住我要在哪里设置断点？难道要背下来？这里有几个方法可以参考一下。<ol>
 <li>首先当然就是你事先已经有一个完整的调试计划，记下在哪里设置断点自然是万事大吉</li>
 <li>但通常由于程序员的自信小宇宙，我们坚信自己的程序是完美的，所以会先执行程序，在这个过程中假设我们碰到一个<strong>错误</strong>，<code>gdb</code>帮我们及时停了下来，我们可以借助三个常用命令(后面写到)来帮助我们知道，自己现在身处何处，再设置断点</li>
