@@ -5,7 +5,7 @@
   <subtitle><![CDATA[Tech Collector]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.wushxin.top//"/>
-  <updated>2016-03-20T09:42:42.760Z</updated>
+  <updated>2016-03-23T07:00:19.737Z</updated>
   <id>http://www.wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.wushxin.top/2016/03/19/%E4%BD%BF%E7%94%A8gdb.html"/>
     <id>http://www.wushxin.top/2016/03/19/使用gdb.html</id>
     <published>2016-03-19T06:47:18.000Z</published>
-    <updated>2016-03-20T09:42:42.760Z</updated>
+    <updated>2016-03-23T07:00:19.737Z</updated>
     <content type="html"><![CDATA[<h2 id="开始">开始</h2><ul>
 <li>近来在写网络服务器程序，涉及到了多线程，且由于网络的环境复杂的原因，常有未知情况发生，导致在程序中自行添加调试语句显得有些吃力</li>
 <li>将 <code>gdb</code> 请出山来是一个最为正确的选择</li>
@@ -130,9 +130,9 @@ filename=<span class="number">0</span>x7fffffff9a80 <span class="string">"./home
 <li><p>最后就是怎么退出 <code>gdb</code></p>
 <pre><code><span class="list">(<span class="keyword">gdb</span>)</span> q
 </code></pre><p>就行了。</p>
-<h4 id="小结">小结</h4></li>
+</li>
 </ol>
-<ul>
+<h4 id="小结">小结</h4><ul>
 <li><code>r &lt;para1&gt; ...</code>是运行程序 </li>
 <li><code>c</code> 是继续运行程序</li>
 <li><code>n</code> 是执行下一条语句</li>
@@ -190,6 +190,96 @@ argv=<span class="number">0x7fffffffe1f8</span>) <span class="keyword">at</span>
 <h2 id="总结">总结</h2><ul>
 <li>以上便是全部<code>gdb</code>常用的操作，记住了他们也就能满足绝大部分的调试工作了，比带图形界面的调试器更有效率。</li>
 </ul>
+<h2 id="实用">实用</h2><ul>
+<li>当调试一个程序的时候，往往不是只看表象就能解决的，有时候需要深入到某个栈的某个变量的值，查看是否违背了原先的意义。</li>
+<li><p>这时候需要的就是<code>gdb</code>的 <code>info</code>功能，以及有时候需要在前序栈中进行查看，就需要<code>frame</code>功能的配合。</p>
+</li>
+<li><p>假设有一个程序：</p>
+<pre><code><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span>
+<span class="preprocessor">#<span class="keyword">include</span> &lt;stdlib.h&gt;</span>
+
+<span class="function"><span class="keyword">int</span> <span class="title">func_2</span><span class="params">(<span class="keyword">int</span> arg_2)</span> </span>{
+    <span class="keyword">int</span> in_func_2_1 = <span class="number">22</span>;
+    <span class="keyword">int</span> in_func_2_2 = arg_2;
+    <span class="keyword">return</span> in_func_2_1 + in_func_2_2;
+}
+<span class="function"><span class="keyword">int</span> <span class="title">func_1</span><span class="params">(<span class="keyword">int</span> arg_1)</span> </span>{
+    <span class="keyword">int</span> in_func_1_1 = <span class="number">11</span>;
+    <span class="keyword">int</span> in_func_1_2 = arg_1;
+    <span class="keyword">return</span> func_2(in_func_1_1 + in_func_1_2);
+}
+
+<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> * argv[])</span> </span>{
+<span class="built_in">printf</span>(<span class="string">"The result is %d\n"</span>, func_1(<span class="number">0</span>));
+<span class="keyword">return</span> <span class="number">0</span>;
+}
+</code></pre><p>  将这个程序编译，记得带上 <code>-g</code>，并用<code>gdb</code>打开</p>
+<p>  设置断点 <code>b func_1</code>, <code>b func_2</code></p>
+</li>
+<li><p>设置完成之后，<code>r</code>运行，程序停在了第一个断点，也就是<code>func_1</code>的入口处，这时候使用<code>bt</code>查看一下栈的情况</p>
+<pre><code>Breakpoint <span class="number">1</span>, func_1 (<span class="variable">arg_1=</span><span class="number">0</span>) at main.c:<span class="number">10</span>
+<span class="number">10</span>        int <span class="variable">in_func_1_1 =</span> <span class="number">11</span>;
+(gdb) info locals
+<span class="variable">in_func_1_1 =</span> <span class="number">0</span>
+<span class="variable">in_func_1_2 =</span> <span class="number">0</span>
+</code></pre><p>  这时候使用了<code>info locals</code>，可以显示出这个函数中创建的本地变量的值，看到两个值都是零，这只是偶然而已，很有可能是其他的垃圾值。继续使用命令<code>n</code></p>
+<pre><code>(gdb) n
+<span class="number">11</span>        int <span class="keyword">in</span>_func_1_2 = arg_1;
+(gdb) info <span class="built_in">local</span>
+<span class="keyword">in</span>_func_1_1 = <span class="number">11</span>
+<span class="keyword">in</span>_func_1_2 = <span class="number">0</span>
+</code></pre><p>  发现执行到第11行，<code>in_func_1_1</code>被赋值，为<code>11</code>,这就是常用的调试手法，那接着使用<code>c</code>命令，继续运行。</p>
+<pre><code>(gdb) c
+Continuing.
+
+Breakpoint <span class="number">2</span>, func_2 (arg_2=<span class="number">11</span>) <span class="preprocessor">at</span> main.c:<span class="number">5</span>
+<span class="number">5</span>        <span class="keyword">int</span> in_func_2_1 = <span class="number">22</span><span class="comment">;</span>
+(gdb) info local
+in_func_2_1 = <span class="number">32767</span>
+in_func_2_2 = -<span class="number">134253376</span>
+(gdb) n
+<span class="number">6</span>        <span class="keyword">int</span> in_func_2_2 = arg_2<span class="comment">;</span>
+(gdb) info locals
+in_func_2_1 = <span class="number">22</span>
+in_func_2_2 = -<span class="number">134253376</span>
+(gdb) <span class="keyword">bt</span>
+#<span class="number">0</span>  func_2 (arg_2=<span class="number">11</span>) <span class="preprocessor">at</span> main.c:<span class="number">6</span>
+#<span class="number">1</span>  <span class="number">0x000000000040052b</span> <span class="keyword">in</span> func_1 (arg_1=<span class="number">0</span>) <span class="preprocessor">at</span> main.c:<span class="number">12</span>
+#<span class="number">2</span>  <span class="number">0x0000000000400546</span> <span class="keyword">in</span> main (argc=<span class="number">1</span>, argv=<span class="number">0x7fffffffe228</span>) <span class="preprocessor">at</span> main.c:<span class="number">16</span>
+</code></pre><p>  此处的<code>info local</code> 和 <code>info locals</code> 的效果一样，看来<code>gdb</code>也懂得程序员不容易，允许我们脑子放松一些。还有在<code>gdb</code>中是可以使用<code>Tab</code>键的补全功能的。</p>
+<p>  此处和上方的效果一致，就不再叙述，重点是，现在我使用<code>bt</code>命令发现，身处三重函数栈的第<code>0</code>层（最顶层）之中，也就是当先的函数<code>func_2</code>之中，但是我现在却想要看到<code>func_1</code>里面的信息怎么办？</p>
+<p>  很简单，就是使用<code>frame</code></p>
+<pre><code>(gdb) frame <span class="number">1</span>
+<span class="comment">#1  0x000000000040052b in func_1 (arg_1=0) at main.c:12</span>
+<span class="number">12</span>        <span class="built_in">return</span> func_2(<span class="keyword">in</span>_func_1_1 + <span class="keyword">in</span>_func_1_2);
+(gdb) info locals
+<span class="keyword">in</span>_func_1_1 = <span class="number">11</span>
+<span class="keyword">in</span>_func_1_2 = <span class="number">0</span>
+</code></pre><p>  这样我们就回到了编号为 <code>1</code> 的栈中，且当前状态就是调用<code>func_2</code>的时候，此时再使用<code>info locals</code>就可以看见这个栈中的各种参数了</p>
+</li>
+<li><p>这里少了实参的查看，其实很简单： <code>info args</code></p>
+<pre><code>(gdb) info ar
+arg_1 = <span class="number">0</span>
+(gdb) <span class="tag">p</span> arg_1
+$<span class="number">1</span> = <span class="number">0</span>
+</code></pre><p>  当然也可以用<code>p</code>直接打印了。其实<code>info</code>还有很多其他功能，是很多。可以在<code>gdb</code>中使用<code>info</code>直接查询，像这样</p>
+<pre><code><span class="list">(<span class="keyword">gdb</span>)</span> info
+</code></pre><p>  回车之后</p>
+<pre><code>List <span class="keyword">of</span> info subcommands:
+
+info address -- Describe <span class="keyword">where</span> symbol SYM <span class="keyword">is</span> stored
+info all-registers -- List <span class="keyword">of</span> all registers <span class="keyword">and</span> their contents
+info args -- Argument variables <span class="keyword">of</span> current stack frame
+info <span class="keyword">auto</span>-load -- Print current status <span class="keyword">of</span> <span class="keyword">auto</span>-loaded files
+info <span class="keyword">auto</span>-load-scripts -- Print the list <span class="keyword">of</span> automatically loaded Python scripts
+info auxv -- Display the inferior<span class="comment">'s auxiliary vector</span>
+info bookmarks -- Status <span class="keyword">of</span> user-settable bookmarks
+info breakpoints -- Status <span class="keyword">of</span> specified breakpoints (all user-settable 
+......
+---Type &lt;<span class="keyword">return</span>&gt; <span class="keyword">to</span> <span class="keyword">continue</span>, <span class="keyword">or</span> q &lt;<span class="keyword">return</span>&gt; <span class="keyword">to</span> quit---
+</code></pre><p>  还有很多没贴上来，可以自行查看。</p>
+</li>
+</ul>
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="开始">开始</h2><ul>
@@ -215,6 +305,12 @@ argv=<span class="number">0x7fffffffe1f8</span>) <span class="keyword">at</span>
 <li><p>紧接着，在当前目录下就有一个名为 <code>main</code> 的可执行文件，看好当前用户是否有权限执行它之后，使用如下命令开启调试旅程：]]>
     
     </summary>
+    
+      <category term="C" scheme="http://www.wushxin.top/tags/C/"/>
+    
+      <category term="GDB" scheme="http://www.wushxin.top/tags/GDB/"/>
+    
+      <category term="杂货居" scheme="http://www.wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
     
   </entry>
   
