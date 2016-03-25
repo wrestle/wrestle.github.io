@@ -5,7 +5,7 @@
   <subtitle><![CDATA[狐狸永远是我的]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.wushxin.top//"/>
-  <updated>2016-03-25T11:46:02.457Z</updated>
+  <updated>2016-03-25T12:38:55.045Z</updated>
   <id>http://www.wushxin.top//</id>
   
   <author>
@@ -16,11 +16,202 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[一个HTTP服务器的C之路(下)]]></title>
+    <link href="http://www.wushxin.top/2016/03/26/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF-%E4%B8%8B.html"/>
+    <id>http://www.wushxin.top/2016/03/26/一个HTTP服务器的C之路-下.html</id>
+    <published>2016-03-26T00:00:23.000Z</published>
+    <updated>2016-03-25T12:38:55.045Z</updated>
+    <content type="html"><![CDATA[<blockquote>
+<p>趁着早起， 接着昨天</p>
+</blockquote>
+<h2 id="功能选择">功能选择</h2><ul>
+<li>选择使用的<code>epoll</code></li>
+<li>实际上，<code>epoll</code>应该是代表单进程的极端表现，最大程度的发挥一个核的最大实力，但是对多核来说就有些无法触及，但是在此处我们可以考虑将<code>epoll</code>扩展出去。</li>
+<li><p><code>epoll</code>的作用是监听已被注册到自身的那些文件描述符的各种事件(可读，可写等等)。我们可以考虑让<strong>监听套接字</strong>独享一个<code>epoll</code>(连接epoll)，并且在其之下(逻辑中的下，实际上没有直接连接接触)用多线程/多进程建立几个处理新连接事物的专用<code>epoll</code>(事务epoll)。就是这么简单的思路。</p>
+<ul>
+<li>对比一下多线程还是多进程：</li>
+<li><strong>多进程</strong> 模式是独立性较好，在忽略所谓的进程创建开销(对于本程序而言可以忽略，因为总是创建固定数量的进程，而不是在运行程序是一直创建，销毁)情况下，多进程还有一个缺点，那就是进程间通信(IPC)开销大，即便是使用<strong>共享内存</strong>也是如此，因为需要<strong>打开描述符open，映射mmap，关闭描述符close</strong>，(还隐含着解除映射munmap)，这样的操作。</li>
+<li><strong>多线程</strong> 模式是对于数据的独立性差，十分容易出错，特别是竞争条件的产生是多核编程中最为核心的问题。</li>
+</ul>
+</li>
+<li><p>针对上面的问题，可以参考<strong>分布式系统</strong>的设计过程中，有一种叫做<strong>一致性哈希</strong>的设计思想，也就是不要让 <strong>事务epoll</strong> 相互竞争，而是让<strong>连接epoll</strong>自己将新的到的连接，分发给这些固定数量的<strong>事务epoll</strong>中的某一个，并且应该形成<strong>均衡发布</strong>。</p>
+<ul>
+<li>后期会实现，当某一个线程意外退出以后，事务会均衡发放给离自己最近的线程。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>epoll</p>
+</blockquote>
+<ul>
+<li><p>对于<code>epoll</code>而言，<strong>连接epoll</strong>所处理的事情十分简单，就是负责整个网络程序服务端工作中的第四个部分 <code>accept</code>，只需要对监听套接字的 <strong>可读事件(EPOLLIN)</strong> 敏感就行，这样就讲现成的撰写难度降低。而对于<strong>事务epoll</strong>而言，事情会稍微复杂一些。</p>
+<ul>
+<li><strong>事务epoll</strong> 是真正处理实际连接的，也就是对<strong>HTTP</strong>请求做出回应的。</li>
+<li>在这些<code>epoll</code>中，我们需要处理的就是<strong>三种事件</strong> ： (<strong>可读</strong>，<strong>可写</strong>，<strong>错误</strong>)，这里很多刚接触的人(包括我)，都会将可读和可写放在一起处理，其实这是不怎么好的方法，试想这种情况：<ul>
+<li>你接受到了一个新连接请求(连接epoll处理了)，并且这个新连接被分发到了某一个<strong>事物epoll</strong>中，且产生了一个可读事件，并被捕捉到了，这时候你处理完可读事件之后，直接向其发送数据。</li>
+<li>此时就是一个性能点，如果此时你本机的TCP写缓冲满了怎么办？用程序语言来说就是，如果此时<code>write</code>调用返回<code>-1</code>且<code>errno == EAGAIN</code>,由于你将读写放在一个事件里(读事件)，所以你没办法在这种错误发生时有补救措施。要么你一直循环重试<code>write</code>知道其成功发送(或者对方突然关闭连接，返回<code>0</code>)，这就会导致那个线程所在的CPU核使用率居高不下，都浪费在这里了。要么你就只能关闭连接，让<strong>peer端</strong>去负担这个后果(<strong>这个由服务器端失策造成的后果！</strong>)。</li>
+</ul>
+</li>
+<li>对 可读事件 和 可写事件 进行分离，是一个比较好，且操作起来也比较简洁的方法，这样我们可以不用同时考虑两种事件带来的复杂性，即增加复杂度。</li>
+<li>具体做法就是，在<code>连接epoll</code>获得新连接时，将其用<strong>可读事件</strong>注册到<strong>事务epoll</strong>中，一旦<strong>事务epoll</strong>被可读事件激活，就处理这个可读事件，并将需要发送给<strong>peer端</strong>的数据准备好，放在每个连接自己的缓冲区内，将这个连接重新用<strong>可写事件</strong>注册回自身。</li>
+<li>这样即便是TCP的写缓冲满了，我们也可以选择下次<strong>发送剩下的数据</strong></li>
+</ul>
+</li>
+<li><p><code>epoll</code>有两种模式，<strong>LT</strong> 和 <strong>ET</strong>, 这两种的区别网上详细讲解的很多，不在赘述，我在这个软件中采用的是 <strong>ET</strong> 模式，且使用了<code>EPOLLONESHOT</code>选项，这个选项在我的设计方式中，实际上是没有什么必要(目前看来)</p>
+<ul>
+<li><code>EPOLLONESHOT</code>最开始是为了防止使用<strong>线程池技术</strong>时候，对防止<strong>对新连接的竞争</strong>时的措施，也就是说，假设A线程在处理某个新连接(A连接)的某个事件(A事件)时，突然A连接的A事件又被触发了(这是可能的，例如读事件，突然又有新数据到来)，那么B线程可能就接到了这个事件，也开始处理，这就产生了冲突，会导致垃圾数据的产生。</li>
+<li>而对这个连接采用<code>EPOLLONESHOT</code>的意义就在于，每次这个连接被处理了，那么就自动从这个epoll中除名，下次想用这个epoll监视这个连接，就需要重新注册(epoll_clt)。</li>
+<li>但这对我从一开始就分配好固定的<code>epoll</code>而言，这个属性似乎没有什么必要，留下它是因为它并没有造成额外的工作，而且可以让后续的想法更流畅的实现，万一有新想法了呢：）</li>
+</ul>
+</li>
+</ul>
+<h2 id="错误处理">错误处理</h2><blockquote>
+<p>前提所有的 文件描述符 都是非阻塞的。</p>
+</blockquote>
+<ul>
+<li><p><code>accept</code></p>
+<ul>
+<li><p>由于 <code>accept</code> 是在 <strong>连接epoll</strong> 的 <code>epoll_wait</code>成功时，才会调用，所以我们需要对这个<code>accept</code>一直循环，直到其返回`-1</p>
+<pre><code><span class="keyword">while</span> (is_work <span class="subst">&gt;</span> <span class="number">0</span>) { <span class="comment">/* New Connect */</span>
+    sock <span class="subst">=</span> accept(new_client<span class="built_in">.</span><span class="built_in">data</span><span class="built_in">.</span>fd, <span class="built_in">NULL</span>, <span class="built_in">NULL</span>);
+    <span class="keyword">if</span> (sock <span class="subst">&gt;</span> <span class="number">0</span>) {
+        fprintf(stderr, <span class="string">"There has a client(%d) Connected\n"</span>, sock);
+        set_nonblock(sock);
+        <span class="attribute">...</span> 
+    } <span class="keyword">else</span> <span class="comment">/* sock == -1 means nothing to accept */</span>
+        break;
+}
+</code></pre><p>之所以需要一直循环，是因为不一定只有一个新连接接上来。</p>
+</li>
+</ul>
+</li>
+<li><p><code>read</code></p>
+<ul>
+<li>如果 <code>read</code>函数返回值大于<code>0</code>，表明正确读到数据，继续循环读</li>
+<li>如果 <code>read</code>函数返回值小于<code>0</code>，(1)且<code>errno == EAGAIN || errno == EWOULDBLOCK</code> 代表缓冲区无数据可读了，注册写事件,(2)你需要关闭这个连接了</li>
+<li><p>如果 <code>read</code>函数返回值等于<code>0</code>，表明你需要关闭这个连接了。这代表<strong>peer</strong>端发了一个<strong>FIN</strong>给你。</p>
+<pre><code><span class="keyword">while</span> (<span class="number">1</span>) {
+    <span class="built_in">read</span>_number = <span class="built_in">read</span>(fd, buf+buf_index, BUF_SIZE-buf_index);
+    <span class="keyword">if</span> (<span class="number">0</span> == <span class="built_in">read</span>_number) { /* We must close connection */
+        <span class="built_in">return</span> READ_FAIL;
+    }
+    <span class="keyword">else</span> <span class="keyword">if</span> (-<span class="number">1</span> == <span class="built_in">read</span>_number) { /* Nothing to <span class="built_in">read</span> */
+        <span class="keyword">if</span> (EAGAIN == errno || EWOULDBLOCK == errno) {
+            buf[buf_index] = <span class="string">'\0'</span>;
+            <span class="built_in">return</span> READ_SUCCESS;
+        }
+        <span class="built_in">return</span> READ_FAIL;
+    }
+    <span class="keyword">else</span> { /* Read Success */
+            ...
+    }
+}
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>EAGAIN 和 EWOULDBLOCK 值实际上是一样的</p>
+</blockquote>
+<ul>
+<li><p><code>write</code></p>
+<ul>
+<li>如果 <code>write</code>函数返回值大于<code>0</code>,表明正确的写了数据，继续循环写</li>
+<li>如果 <code>write</code>函数返回值小于<code>0</code>,(1)且<code>errno == EAGAIN</code>代表写缓冲满了，重新注册写事件，(2)且<code>errno == EPIPE</code>，表明你需要关闭这个连接了，这代表<strong>peer</strong>端<code>close</code>这个连接。(3) 表明你需要关闭这个连接了</li>
+<li><p>如果 <code>write</code>函数返回值等于<code>0</code>,这种情况应该不会发生，在系统层面来说这应该是不合法的。</p>
+<pre><code><span class="keyword">while</span> (nbyte &gt; <span class="number">0</span>) {
+    buf += <span class="keyword">count</span>;
+    <span class="keyword">count</span> = write(fd, buf, <span class="number">8192</span>);
+    <span class="keyword">if</span> (<span class="keyword">count</span> &lt; <span class="number">0</span>) {
+        <span class="keyword">if</span> (EAGAIN == errno || EWOULDBLOCK == errno) {
+            memcpy(<span class="keyword">client</span>-&gt;write_buf, buf, strlen(buf));
+            <span class="keyword">client</span>-&gt;write_offset = nbyte;
+            <span class="keyword">return</span> HANDLE_WRITE_AGAIN;
+        }
+        <span class="keyword">if</span> (EPIPE == errno)
+            <span class="keyword">return</span> HANDLE_WRITE_FAILURE;
+    }
+    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="number">0</span> == <span class="keyword">count</span>)
+        <span class="keyword">return</span> HANDLE_WRITE_FAILURE;
+    nbyte -= <span class="keyword">count</span>;
+}
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>EPIPE 会和一个信号 SIGPIPE 一起出现，你需要(必须)处理它，至少在它发生前处理它，不然你的程序就会被中断，最简单的处理方式就是 <strong>忽略它</strong>。</p>
+<p>EINTR 这个<code>errno</code>值，在非阻塞的套接字中不需要太过关注，但是如果是阻塞型套接字编程，那就是一个十分重要的值，需要特别关注</p>
+</blockquote>
+<ul>
+<li>以上是三大需要<strong>仔细小心谨慎</strong>处理的比较核心的错误。</li>
+<li>如果还要加一点，那就是<strong>信号处理</strong>，不过这个用<code>gdb</code>很容易就定位出来了，还不懂怎么用的，可以参考我上一篇文章如何简洁地使用gdb。</li>
+</ul>
+<h3 id="缺陷">缺陷</h3><ul>
+<li>那就是对客户端信息的包装不够</li>
+<li>具体体现在，<code>GET</code>方法实现的时候，需要传递的参数很多，应该将这些信息包含进客户端连接的结构体中，而不是临时用变量存储，传递。</li>
+<li>一个线程如果挂掉了，很可能引发雪崩似的错误。</li>
+<li><p>就算没有崩溃，每崩掉一个线程(<strong>事务epoll</strong>所在线程)整个服务器的性能将下降 <strong>20%</strong>， 如果<strong>连接epoll</strong>所在的线程崩溃，整个程序也就结束了。</p>
+</li>
+<li><p>具体项目源码 : <a href="https://github.com/wrestle/httpd3" target="_blank" rel="external">httpd3</a>·</p>
+</li>
+<li>欢迎指正 : )</li>
+</ul>
+<h3 id="写在最后之前">写在最后之前</h3><ul>
+<li>其实对于使用 <strong>多线程</strong> 还是 <strong>多进程</strong>，又是一个话题，这个问题我考虑了许久，实际上两者各有千秋，怎么说呢？</li>
+<li>我分享一下我当时的思路，其实我选择多线程，并不是因为多线程比多进程的方案更优，而是我看多线程更顺眼而已。</li>
+</ul>
+<blockquote>
+<p>可以读一读关于 Linux 环境中，线程和进程的区别和联系，其实两者十分相似(不止体现在功能上)</p>
+</blockquote>
+<ul>
+<li>多进程：<ol>
+<li>我只说程序模型，而不是讨论他们的运行原理。如果是选择多进程模型，那就应该尽量避免进程间的数据传递，所以多线程的那种 <strong>负载均衡</strong> 方式就不适合了，我们可以选择创建多个进程（地位平等），每个进程都有一个<code>epoll</code>实例，且都注册了同一个<strong>监听套接字</strong>，这样不就也达到了同样的并发目的。</li>
+<li>但是随之而来的问题是： 1) <strong>惊群现象</strong>，在 Linux内核<code>4.5</code> 之前没有系统提供的解决方案，而距离主流内核提升到<code>4.5</code>还有漫漫长路要走。至于惊群现象这里不给出赘述，网上的解释很多，简单来说就是一个新连接到来会唤醒所有进程中的<code>epoll_wait</code>，但只有一个<code>epoll_wait</code>会成功返回。 2) <strong>负载不均衡</strong>， 因为每次被<strong>成功</strong>唤醒的进程都不确定，完全是操作系统这个二愣子出的主意，所以有可能(很有可能，到最后会接近99%)会出现一个进程忙死了，有的进程闲死(专业一点叫做<strong>饥饿现象</strong>)。</li>
+<li>解决方案当然是有的，而且是很好的一箭双雕(解决方案是<code>nginx</code>的)，就是用锁来解决，大概的意思就是每个进程持有自旋锁(<strong>自己实现的</strong>)，这个自旋锁的设计很巧妙，是有时间限制的自旋锁，且时间可自行调整，通过调整这个时间的值，来达到负载均衡的效果，即本次没有得到新连接的进程，下次锁的时间就减少，这样获得新连接的概率就增大，同时也解决了惊群现象。</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>惊群现象在内核 <code>3.9</code> 的时候，被提出解决，解决的方案是 <code>EPOLLEXCLUSIVE</code> 这个Event，而在最近发布的 <strong>Linux内核4.5</strong>中被正式的修复(方案就是前面这个)。 其实在这之前还有一个系统调用会导致惊群，那就是 <code>accept</code>，只不过被修复了，忘了是内核多少(<code>2.4</code>or<code>2.6</code>)。</p>
+</blockquote>
+<ul>
+<li>多线程<ol>
+<li>在逻辑最上层有一个<code>epoll</code>实例，用于注册<strong>监听套接字</strong>，<code>accept</code>新连接，并将新连接 均衡 的分给，处于逻辑下层的各个线程中的<code>epoll</code>实例。</li>
+<li>缺点当然很明显就是，只有一个<code>epoll</code>在逻辑上层接待新连接，要是它崩溃了，那整个程序就完了。所以就健壮性而言，不如多进程的方案。而且要是任意一个线程因为某些原因死掉了，且不说程序是否能够运行的下去，就算程序能够苟活，整个服务器的性能一定会打一个折扣。相比之下，同种情况发生在多进程方案身上最多就是损失点性能，对整个服务器的运行而言，不会造成太大的波动。</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<p>所以在我的实现中，处于上层逻辑中的<code>epoll</code>实例，也被我写成了一个数组类型，只不过初始化大小为 <code>1</code>，也就是暂时只有一个，我的想法是后期可以通过配置文件中添加新选项来进行更改。</p>
+</blockquote>
+<h2 id="末尾">末尾</h2><ul>
+<li>这个 <strong>HTTP服务器</strong>程序只是一个预热，我的原计划中是要写一个 <strong>爬虫程序</strong></li>
+<li>大致是，用这个<strong>HTTP服务器</strong>熟悉一下我将要战斗的地方的内部运作，考虑到现在大部分使用的都是<code>nginx</code>，我也很认真的看了它的一些(头疼，战斗民族的代码，但是比德国佬的<code>libuv</code>好太多了…)实现源码。</li>
+<li>接下来会想做一个爬虫，并且最终的目标是一个分布式架构的爬虫，如果有兴趣的话可以联系我一起，我的<strong>E-mail</strong>在顶部栏的 <strong>关于</strong> 里面。</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<blockquote>
+<p>趁着早起， 接着昨天</p>
+</blockquote>
+<h2 id="功能选择">功能选择</h2><ul>
+<li>选择使用的<code>epoll</code></li>
+<li>实际上，<code>epoll</code>应该是代表单进程]]>
+    </summary>
+    
+      <category term="C" scheme="http://www.wushxin.top/tags/C/"/>
+    
+      <category term="网络编程" scheme="http://www.wushxin.top/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[一个HTTP服务器的C之路（上）]]></title>
     <link href="http://www.wushxin.top/2016/03/23/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF(%E4%B8%8A).html"/>
     <id>http://www.wushxin.top/2016/03/23/一个HTTP服务器的C之路(上).html</id>
     <published>2016-03-23T07:08:28.000Z</published>
-    <updated>2016-03-25T11:46:02.457Z</updated>
+    <updated>2016-03-25T12:40:39.126Z</updated>
     <content type="html"><![CDATA[<h3 id="记录近来写的HTTP服务器的_经历，坑，收获">记录近来写的HTTP服务器的 经历，坑，收获</h3><h2 id="万事皆有起因">万事皆有起因</h2><ul>
 <li>大三了，又在反思自己和科班的差距，课少了，空闲时间突然多了起来，在这个大学里，这么一路走过来，自己摸索的不容易</li>
 <li>天天看着浏览器的<strong>F12</strong>界面和 <strong>Wireshark</strong> 的抓取交互界面，突然想要自己做一个HTTP服务器，首先冷静了三天，发现这个念头依旧强烈，墙裂。</li>
@@ -202,6 +393,7 @@
 <li>具体项目源码 : <a href="https://github.com/wrestle/httpd3" target="_blank" rel="external">httpd3</a>·</li>
 <li>在并发下有BUG，还没时间去调试，等有空了再去Debug，欢迎你们帮我 : )</li>
 </ul>
+<p>转载注明:<a href="http://www.wushxin.top/2016/03/23/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF%28%E4%B8%8A%29.html" target="_blank" rel="external">http://www.wushxin.top/2016/03/23/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF%28%E4%B8%8A%29.html</a></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h3 id="记录近来写的HTTP服务器的_经历，坑，收获">记录近来写的HTTP服务器的 经历，坑，收获</h3><h2 id="万事皆有起因">万事皆有起因</h2><ul>
@@ -5881,42 +6073,6 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
     </summary>
     
       <category term="C" scheme="http://www.wushxin.top/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Python-lib安装]]></title>
-    <link href="http://www.wushxin.top/2015/05/10/Python-lib%E5%AE%89%E8%A3%85.html"/>
-    <id>http://www.wushxin.top/2015/05/10/Python-lib安装.html</id>
-    <published>2015-05-09T23:48:28.000Z</published>
-    <updated>2016-03-24T23:58:50.087Z</updated>
-    <content type="html"><![CDATA[<h1 id="Python">Python</h1><h2 id="安装第三方库(Linux::Ubuntu_14-04_LTS)">安装第三方库(Linux::Ubuntu 14.04 LTS)</h2><p>   关于一个gui的库 SimpleGUICS2Pygame <br><br>   所有的命令均在 root 权限下执行 <br></p>
-<h3 id="安装前提:">安装前提:</h3><ol>
-<li>使用easy_install 工具 <code>apt-get install easy_install</code></li>
-<li>安装pip <code>easy_install pip</code></li>
-</ol>
-<h3 id="开始安装">开始安装</h3><ol>
-<li>在 <a href="https://pypi.python.org/pypi/SimpleGUICS2Pygame" target="_blank" rel="external">https://pypi.python.org/pypi/SimpleGUICS2Pygame</a> 下载.egg格式的安装包 <br></li>
-<li>使用命令 <code>easy_install name.egg #name.egg 为下载的第三方库的egg包名称</code></li>
-<li>我们这里可以使用 <code>easy_install *.egg #代表安装所有的egg包,方便快捷,不用输入完整的名字</code></li>
-<li>我们可以通过 <code>pip freeze</code> 查看所安装的包</li>
-</ol>
-<h3 id="使用错误">使用错误</h3><ul>
-<li><p>当我们 <code>import simplegui</code>时,却出现 <code>...importError: No module named simplegui</code> <br><br>此时,我们应该使用这个语句块替换: <br></p>
-<pre><code><span class="string">try:</span>
-    <span class="keyword">import</span> simplegui 
-<span class="string">except:</span>
-    <span class="keyword">import</span> SimpleGUICS2Pygame.simpleGUICS2Pygame <span class="keyword">as</span> simplegui
-</code></pre></li>
-</ul>
-<p>· 作者给出的解释是由于内部冲突所以会导致这种现象的产生</p>
-<p>转载注明: <a href="http://www.wushxin.top/2015/05/10/Python-lib%E5%AE%89%E8%A3%85.html" target="_blank" rel="external">http://www.wushxin.top/2015/05/10/Python-lib%E5%AE%89%E8%A3%85.html</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="Python">Python</h1><h2 id="安装第三方库(Linux::Ubuntu_14-04_LTS)">安装第三方库(Linux::Ubuntu 14.04 LTS)</h2><p>   关于一个gui的库 SimpleGUICS2Pygame <]]>
-    </summary>
-    
-      <category term="Python" scheme="http://www.wushxin.top/tags/Python/"/>
     
   </entry>
   
