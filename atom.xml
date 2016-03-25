@@ -5,7 +5,7 @@
   <subtitle><![CDATA[Tech Collector]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.wushxin.top//"/>
-  <updated>2016-03-25T00:38:06.610Z</updated>
+  <updated>2016-03-25T00:42:16.736Z</updated>
   <id>http://www.wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.wushxin.top/2016/03/23/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF(%E4%B8%8A).html"/>
     <id>http://www.wushxin.top/2016/03/23/一个HTTP服务器的C之路(上).html</id>
     <published>2016-03-23T07:08:28.000Z</published>
-    <updated>2016-03-25T00:38:06.610Z</updated>
+    <updated>2016-03-25T00:42:16.736Z</updated>
     <content type="html"><![CDATA[<h3 id="记录近来写的HTTP服务器的_经历，坑，收获">记录近来写的HTTP服务器的 经历，坑，收获</h3><h2 id="万事皆有起因">万事皆有起因</h2><ul>
 <li>大三了，又在反思自己和科班的差距，课少了，空闲时间突然多了起来，在这个大学里，这么一路走过来，自己摸索的不容易</li>
 <li>天天看着浏览器的<strong>F12</strong>界面和 <strong>Wireshark</strong> 的抓取交互界面，突然想要自己做一个HTTP服务器，首先冷静了三天，发现这个念头依旧强烈，墙裂。</li>
@@ -48,11 +48,10 @@
 <li><p>不过读了<strong>CSAPP</strong>之后，最基本的服务器工作原理还是可以知道的，至少我看到了某些让我目瞪口呆的HTTP协议之间的交互方式。</p>
 <ul>
 <li>比如报文还真的是如我想象那般，完全自己构造的。</li>
-<li>对于一个几乎没有高级字符串处理功能的C语言来说，这的确是一个苦活，但是正因为如此，才能接触到相对真实的<strong>HTTP服务器</strong>。</li>
+<li>对于一个几乎没有高级字符串处理功能的C语言来说，这的确是一个苦活，但是正因为如此，才能接触到相对真实的<strong>HTTP服务器</strong>。<a id="more"></a>
+<h2 id="首先">首先</h2></li>
 </ul>
 </li>
-</ul>
-<h2 id="首先">首先</h2><ul>
 <li><p>每个人最开始学网络编程的时候，或者说几乎每本讲述网络编程的书籍，都会教你实现一个 <strong>echo</strong>程序，无论是<strong>TCP</strong>还是<strong>UDP</strong>， 当然这并不是说没有用，再复杂的网络程序，只要还是使用 套接字进行编程，那就不会走出这个最简单的模型</p>
 <ul>
 <li>服务器的 <code>socket-&gt;bind-&gt;listen-&gt;accept deal_event</code></li>
@@ -206,7 +205,34 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<h3 id="记录近来写的HTTP服务器的_经历，坑，收获">记录近来写的HTTP服务器的 经历，坑，收获</h3><h2 id="万事皆有起因">万事皆有起因</h2><ul>
-<li>大三了，又在反思自己和科班的差距，课少了，空闲时间突然多了起来，在这个大学里，这么一路走过]]>
+<li>大三了，又在反思自己和科班的差距，课少了，空闲时间突然多了起来，在这个大学里，这么一路走过来，自己摸索的不容易</li>
+<li>天天看着浏览器的<strong>F12</strong>界面和 <strong>Wireshark</strong> 的抓取交互界面，突然想要自己做一个HTTP服务器，首先冷静了三天，发现这个念头依旧强烈，墙裂。</li>
+<li>在翻看<strong>TCP/IP卷一协议</strong>无果后，于是我开始蹲点图书馆，借<strong>HTTP权威指南</strong> 和 <strong>图解HTTP</strong>，然而事与愿违，这个号称<strong>”黑龙江最大图书馆“</strong>称呼的学校图书馆竟无法找到这本书。行吧，那我不借了总行吧</li>
+<li>回想起自己大二节选看的<strong>深入理解计算机操作系统(CSAPP)</strong>这本著名的书，似乎后面有一个Web服务器实现，虽然知道这大概是一个十分简陋的单处理的程序，但是对于理清自己思路很有帮助，特别是协议的交互</li>
+<li>翻看一开，还真的有，说来惭愧前面的进程部分至今还是崭新的。首先看到了<strong>CGI</strong>，后来发现了后方的<strong>GET</strong>方法实现，大概了解了交互的过程，这之间在<strong>w3cschool</strong>查找了(恶补了一下HTTP状态码)一些HTTP的状态，以及<strong>维基百科</strong>里查看了HTTP报文的组成，当然最详细的还是使用WireShark抓取的交互包，而最简单明了的方法则是用 <strong>F12</strong>查看交互信息。</li>
+<li><p>这之中有两个网站对我助力很大</p>
+<ul>
+<li><a href="http://www.softlab.ntua.gr/facilities/documentation/unix/unix-socket-faq/unix-socket-faq-2.html">Questions regarding both Clients and Servers</a></li>
+<li><a href="http://stackoverflow.com/questions/14388706/socket-options-so-reuseaddr-and-so-reuseport-how-do-they-differ-do-they-mean-t/14388707#14388707">Socket options SO_REUSEADDR and SO_REUSEPORT, how do they differ?</a></li>
+</ul>
+</li>
+<li><p>Linux 的 <strong>man page</strong> 是另一个最有用的工具。</p>
+</li>
+</ul>
+<h2 id="用C编写一个HTTP服务器？！">用C编写一个HTTP服务器？！</h2><ul>
+<li>我说了这个想法给我的一个同学，他以为我疯了。</li>
+<li>并没有，我在网上查了近来的许多模型，最后选择参考 <strong>事件驱动的epoll + 多线程</strong>进行实现，一方面直接避免了逻辑上的惊群现象，一方面也能充分利用多核。</li>
+<li><p>我怎么想的，在最开始我对照着<strong>CSAPP</strong>对最开始的版本代码进行编写，不得不说里面有一个对系统调用(<code>read</code>, <code>write</code>)的调用在后面给我一个大坑，也给我很多思路上的启发。</p>
+<ul>
+<li>启发就在于，将系统调用进行自己的包装，可以提供很干净的C代码，并且可以进行良好功能的编写，这里特指对<strong>数据的缓存</strong>和<strong>错误处理</strong>，而这两个都是网络编程里的重头戏</li>
+<li>大坑在于，我到后期发现，一个新的客户端在连接上本服务器之后，其信息应该尽可能集中，而不是分散在各处不同的结构体中，不容易维护，而且出了错还不容易发现。特别在于<strong>CSAPP</strong>中的 <code>rio</code>形式的读写封装，无法进行长久性的数据缓存，在这里长久性的数据缓存指的是，假设对端(<strong>peer</strong>)正忙，或者自己的TCP发送缓冲区已满，那这个数据要怎么办？</li>
+</ul>
+</li>
+<li><p>不过读了<strong>CSAPP</strong>之后，最基本的服务器工作原理还是可以知道的，至少我看到了某些让我目瞪口呆的HTTP协议之间的交互方式。</p>
+<ul>
+<li>比如报文还真的是如我想象那般，完全自己构造的。</li>
+<li>对于一个几乎没有高级字符串处理功能的C语言来说，这的确是一个苦活，但是正因为如此，才能接触到相对真实的<strong>HTTP服务器</strong>。]]>
+    
     </summary>
     
       <category term="C" scheme="http://www.wushxin.top/tags/C/"/>

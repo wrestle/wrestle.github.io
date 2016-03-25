@@ -125,8 +125,8 @@ var _hmt = _hmt || [];
 <li>翻看一开，还真的有，说来惭愧前面的进程部分至今还是崭新的。首先看到了<strong>CGI</strong>，后来发现了后方的<strong>GET</strong>方法实现，大概了解了交互的过程，这之间在<strong>w3cschool</strong>查找了(恶补了一下HTTP状态码)一些HTTP的状态，以及<strong>维基百科</strong>里查看了HTTP报文的组成，当然最详细的还是使用WireShark抓取的交互包，而最简单明了的方法则是用 <strong>F12</strong>查看交互信息。</li>
 <li><p>这之中有两个网站对我助力很大</p>
 <ul>
-<li><a href="http://www.softlab.ntua.gr/facilities/documentation/unix/unix-socket-faq/unix-socket-faq-2.html" target="_blank" rel="external">Questions regarding both Clients and Servers</a></li>
-<li><a href="http://stackoverflow.com/questions/14388706/socket-options-so-reuseaddr-and-so-reuseport-how-do-they-differ-do-they-mean-t/14388707#14388707" target="_blank" rel="external">Socket options SO_REUSEADDR and SO_REUSEPORT, how do they differ?</a></li>
+<li><a href="http://www.softlab.ntua.gr/facilities/documentation/unix/unix-socket-faq/unix-socket-faq-2.html">Questions regarding both Clients and Servers</a></li>
+<li><a href="http://stackoverflow.com/questions/14388706/socket-options-so-reuseaddr-and-so-reuseport-how-do-they-differ-do-they-mean-t/14388707#14388707">Socket options SO_REUSEADDR and SO_REUSEPORT, how do they differ?</a></li>
 </ul>
 </li>
 <li><p>Linux 的 <strong>man page</strong> 是另一个最有用的工具。</p>
@@ -144,167 +144,17 @@ var _hmt = _hmt || [];
 <li><p>不过读了<strong>CSAPP</strong>之后，最基本的服务器工作原理还是可以知道的，至少我看到了某些让我目瞪口呆的HTTP协议之间的交互方式。</p>
 <ul>
 <li>比如报文还真的是如我想象那般，完全自己构造的。</li>
-<li>对于一个几乎没有高级字符串处理功能的C语言来说，这的确是一个苦活，但是正因为如此，才能接触到相对真实的<strong>HTTP服务器</strong>。</li>
-</ul>
-</li>
-</ul>
-<h2 id="首先">首先</h2><ul>
-<li><p>每个人最开始学网络编程的时候，或者说几乎每本讲述网络编程的书籍，都会教你实现一个 <strong>echo</strong>程序，无论是<strong>TCP</strong>还是<strong>UDP</strong>， 当然这并不是说没有用，再复杂的网络程序，只要还是使用 套接字进行编程，那就不会走出这个最简单的模型</p>
-<ul>
-<li>服务器的 <code>socket-&gt;bind-&gt;listen-&gt;accept deal_event</code></li>
-<li>客户端的 <code>socket-&gt;bind-&gt;connect      deal_event</code></li>
-<li>这是<strong>TCP</strong>的，因为说的是HTTP服务器。</li>
-</ul>
-</li>
-<li><p>HTTP服务器程序也是如此，由于HTTP协议支持几个标准的<strong>方法</strong>，但是一般的浏览器实现会实现两个： <code>GET, POST</code></p>
-</li>
-<li>用人话科普一下：<ul>
-<li><code>GET</code>和<code>POST</code><strong>本质功能</strong>都是查询，只不过有时候用途不同，所以会造成某些人认为这两个的意义不同</li>
-<li><code>GET</code> 很明确，就是提供了查询功能，如果使用它对服务器进行访问，那么它所要查询的信息会放在状态信息中： <code>GET /3/18/hello-world.html HTTP/1.1</code>。这就是每个浏览器向一个网站请求时，在成功建立 TCP 连接之后的<strong>第一条信息</strong>，也就是服务器可以从<strong>peer</strong>读取的第一条信息。<ul>
-<li>其实<strong>HTTP</strong>协议并没有限制中间那个参数的长度！很多人认为的长度限制是<code>1024</code>，那只是你所用的浏览器的实现中，浏览器规定这个请求资源的参数长度不能超过<code>1024</code>，你要是自己做一个浏览器，你可以放长点。</li>
-<li>就某些情况而言，用<code>GET</code>方法会让某些特殊用处<strong>参数</strong>显示在你的地址栏中，例如动态请求一些东西的时候，也就是我们在HTTP服务器中的一个叫做 <strong>CGI</strong>程序的概念。<ul>
-<li><code>POST</code> 则是将请求放在报文段，这样就给了很多人误解，就是上面所说的<code>GET</code>所传的参数长度有限，而<code>POST</code>是几乎无限的。两个实际上没有差太多。至少在服务器这一端，只不过是获取参数的时候，方式稍微有些不同。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="其次">其次</h2><ul>
-<li>在用C写这个HTTP服务器的时候，有几个难点和遇到的磕磕绊绊，在这里记录一下</li>
-</ul>
-<h2 id="我所踩过的泥">我所踩过的泥</h2><h3 id="说在前头的程序配置">说在前头的程序配置</h3><ul>
-<li>对于有网络编程经验的人来说，都不太陌生，哪怕只写过 <code>echo</code> 程序，那些服务器所必须的硬配置，也就是<strong>五元组</strong>里的<code>&lt;IP address, Port&gt;</code></li>
-<li>好一些的教科书会告诉我们，将这两个参数硬编码进代码中，是不好的选择，一旦需要修改，调试，测试，就需要重新编译程序。<ul>
-<li>所以，他们每次都通过命令行进行传递，并在程序中显式地进行转换。</li>
-<li>稍有不慎，就是大错，而且这在调试的时候，十分不方便(还好<code>Shell</code>自带记录功能，不然更累)</li>
-</ul>
-</li>
-<li>所以，在写一个大一些的网络程序之前，请务必写一个<strong>配置文件</strong>，再多花一个函数的时间，写一个能够处理它的小方法，这并不难，甚至还可以给它添上一些注释的小功能。</li>
-<li><p>让自己的调试之路更加顺畅，那就用配置文件的形式进行传递参数，不然效率一定会被这个给拖住。</p>
-<pre><code><span class="keyword">int</span> init_config(wsx_config_t * config){
-    const <span class="keyword">char</span> ** roll = config_path_search;
-    <span class="keyword">FILE</span> * <span class="keyword">file</span>;
-    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; roll[i] != <span class="keyword">NULL</span>; ++i) {
-            <span class="keyword">file</span> = fopen(roll[i], <span class="string">"r"</span>);
-            <span class="keyword">if</span> (<span class="keyword">file</span> != <span class="keyword">NULL</span>)
-                <span class="keyword">break</span>;
-    }
-    <span class="keyword">char</span> buf[PATH_LENGTH] = {<span class="string">"\0"</span>};
-    <span class="keyword">char</span> * ret;
-    ret = fgets(buf, PATH_LENGTH, <span class="keyword">file</span>);
-    <span class="keyword">while</span> (ret != <span class="keyword">NULL</span>) {
-        <span class="keyword">char</span> * pos = strchr(buf, <span class="string">':'</span>);
-        <span class="keyword">char</span> * check = strchr(buf, <span class="string">'#'</span>); <span class="comment">/* Start with # will be ignore */</span>
-        <span class="keyword">if</span> (check != <span class="keyword">NULL</span>)
-            *check = <span class="string">'\0'</span>;
-        <span class="keyword">if</span> (pos != <span class="keyword">NULL</span>) {
-            *pos++ = <span class="string">'\0'</span>;
-            <span class="keyword">if</span> (<span class="number">0</span> == strncasecmp(buf, <span class="string">"thread"</span>, <span class="number">6</span>))
-                sscanf(pos, <span class="string">"%d"</span>, &amp;config-&gt;core_num);
-            <span class="keyword">else</span> <span class="keyword">if</span> (<span class="number">0</span> == strncasecmp(buf, <span class="string">"root"</span>, <span class="number">4</span>)) {
-                sscanf(pos, <span class="string">"%s"</span>, &amp;config-&gt;root_path);
-                    <span class="comment">/* End up without "/", Add it */</span>
-                    <span class="keyword">if</span> ((config-&gt;root_path)[strlen(config-&gt;root_path)-<span class="number">1</span>] != <span class="string">'/'</span>)
-                        strncat(config-&gt;root_path, <span class="string">"/"</span>, <span class="number">1</span>);
-            }
-            <span class="keyword">else</span> <span class="keyword">if</span> (<span class="number">0</span> == strncasecmp(buf, <span class="string">"port"</span>, <span class="number">4</span>))
-                sscanf(pos, <span class="string">"%s"</span>, &amp;config-&gt;listen_port);
-            <span class="keyword">else</span> <span class="keyword">if</span> (<span class="number">0</span> == strncasecmp(buf, <span class="string">"addr"</span>, <span class="number">4</span>))
-                sscanf(pos, <span class="string">"%s"</span>, &amp;config-&gt;use_addr);
-        }
-        ret = fgets(buf, PATH_LENGTH, <span class="keyword">file</span>);
-    }<span class="comment">/* while */</span>
-    fclose(<span class="keyword">file</span>);
-    <span class="keyword">return</span> <span class="number">0</span>;
-}
-</code></pre></li>
-</ul>
-<h3 id="整个程序的构造">整个程序的构造</h3><ol>
-<li>由于C语言没有像 Java 那样的包<code>inport</code>机制，甚至连C++那样的<code>namespace</code>都没有。那对于C语言程序的整体把握，就都在程序员手里，如果没有办法做好模块化，那真的是世界上最可怕的事情</li>
-<li><p>而对于C语言的模块化，唯一能起到作用的就是<strong>文件夹</strong>，没错就是强行做一波解释，让自己相信这就是隔离开的模块。但确实很有效果：有两种形式：</p>
-<ol>
-<li><strong>发布的库形式</strong> ： 将所有可提供向外的接口 API 分发在不同的头文件中(以功能作为模块划分的标准)，在根目录下建立 <code>include</code> 文件夹，将这些头文件都放进去。而源文件，以及一些自用的头文件放在根目录下的<code>src</code>文件夹中，<code>src</code>文件夹中再进行模块细分，例如<strong>内存管理(manage)</strong>，<strong>页面分发(http_page)</strong>之类的模块文件夹。</li>
-<li><strong>工程形式</strong>： 就是消除<strong>include</strong>文件夹，只保留 <strong>src</strong>文件夹，不对外提供作为的API，可以让工作量减少，尽量的使用 <code>static</code> 来修饰函数。</li>
-</ol>
-</li>
-<li><p>在目前阶段，先不要考虑使用外来库，对于一些不必要的库一定要自行编写，而不要采用第三方库，这样会提高编译成本。让用户使用体验降低。</p>
-<ol>
-<li>在后期可以考虑使用一些优化，强化的库，例如<code>tcmalloc/jemalloc</code>以及<code>ssl</code>的通信加密库之类的，而对于数据结构而言，千万要选择自行编写，而不应该依赖其他库例如<code>glib</code>之类的。</li>
-<li>可以选择使用<strong>宏</strong>对标准库函数进行封装，这样提高程序的扩展性，这点体现在，随时可以通过宏来替换调用的版本，而不用在源码中大肆修改，一个最典型的例子就是内存分配的包装。(万恶的<code>realloc</code>)</li>
-</ol>
-</li>
-</ol>
-<h3 id="功能封装">功能封装</h3><ol>
-<li><p>封装这个词，我也不知道起源何处，只是第一次听说是从面向对象里听来的，但是觉得就算是过程式的编程，也可以有这个方面的用处，当然不像那些概念说的那么严谨，我一直觉得功能拿来用就很好，不要墨守成规，虽然没有规矩不成方圆，但那对于程序员这种职业，如果思维都被限制了，那还怎么改变世界，对吧。</p>
-<ol>
-<li>就像数据结构<code>Trie</code>树，当初第一眼看到这个数据结构的时候，心里一直打鼓这什么东西，结果仅仅只是去百科了一下这个树的概念，脑海里立即浮现出这个树的构造来，就是每个节点一个字符，依次向下增长，空间换时间的意思，正好依此做了一个生命学院里DNA序列匹配的程序，还实现了一个很纯粹的<strong>KMP</strong>对比了一下，前后不过一天时间而已。</li>
-<li>做东西还是不能被已有的事物左右，最起码一开始的时候不行，后期等你形成了自己的思路后再去参考别人的也不迟，就像当初学数据结构的时候，只知道链表的下一个节点指针就应该用本类型的指针指向，从未想过实现一个通用的链表，可以无所谓节点的类型，就能指向下一个节点(Linux内核链表实现)。</li>
-<li>所有的一切都说明，思维不该被现有的模式所控制。</li>
-</ol>
-</li>
-<li><p>要尽量将某些零散的功能进行合并，保持代码的模块化，而且容易维护，例如对于打开监听套接字这个功能</p>
-<ol>
-<li><p><code>socket-&gt;bind</code>，像这种代码就不需要整个塞在<code>main</code>函数里，那样的话错误处理代码会把真个函数挤满。而不如使用一个函数将这些代码包装起来，咋 <code>main</code>中调用。</p>
-<pre><code><span class="type">int</span> open_listenfd(<span class="keyword">const</span> <span class="type">char</span> * restrict host_addr, <span class="keyword">const</span> <span class="type">char</span> * restrict port, <span class="type">int</span> * restrict sock_type){
-    <span class="type">int</span> listenfd = <span class="number">0</span>; /* listen the <span class="type">Port</span>, <span class="type">To</span> accept the new <span class="type">Connection</span> */
-    struct addrinfo info_of_host;
-    struct addrinfo * <span class="literal">result</span>;
-    struct addrinfo * p;
-    memset(&amp;info_of_host, <span class="number">0</span>, sizeof(info_of_host));
-    info_of_host.ai_family = <span class="type">AF_UNSPEC</span>; /* <span class="type">Unknown</span> <span class="type">Socket</span> <span class="type">Type</span> */
-    info_of_host.ai_flags = <span class="type">AI_PASSIVE</span>; /* <span class="type">Let</span> the <span class="type">Program</span> to help us fill the <span class="type">Message</span> we need */
-    info_of_host.ai_socktype = <span class="type">SOCK_STREAM</span>; /* <span class="type">TCP</span> */
-
-    <span class="type">int</span> error_code;
-    <span class="keyword">if</span>(<span class="number">0</span> != (error_code = getaddrinfo(host_addr, port, &amp;info_of_host, &amp;<span class="literal">result</span>))){
-        fputs(gai_strerror(error_code), <span class="literal">stderr</span>);
-        <span class="keyword">return</span> <span class="type">ERR_GETADDRINFO</span>; /* -<span class="number">2</span> */
-    }
-
-    <span class="keyword">for</span>(p = <span class="literal">result</span>; p != <span class="type">NULL</span>; p = p-&gt;ai_next) {
-        listenfd = socket(p-&gt;ai_family, p-&gt;ai_socktype, p-&gt;ai_protocol);
-
-        <span class="keyword">if</span>(-<span class="number">1</span> == listenfd)
-            <span class="keyword">continue</span>; /* <span class="type">Try</span> the <span class="type">Next</span> <span class="type">Possibility</span> */
-        <span class="keyword">if</span>(-<span class="number">1</span> == <span class="keyword">bind</span>(listenfd, p-&gt;ai_addr, p-&gt;ai_addrlen)){
-            close(listenfd);
-            <span class="keyword">continue</span>; /* <span class="type">Same</span> <span class="type">Reason</span> */
-        }
-        <span class="keyword">break</span>; /* <span class="type">If</span> we get here, it means that we have succeed to <span class="keyword">do</span> all the <span class="type">Work</span> */
-    }
-    freeaddrinfo(<span class="literal">result</span>);
-    <span class="keyword">if</span> (<span class="type">NULL</span> == p) {
-    /* <span class="type">TODO</span> <span class="type">ERROR</span> <span class="type">HANDLE</span> */
-        fprintf(<span class="literal">stderr</span>, <span class="string">"In %s, Line: %d\nError Occur while Open/Binding the listen fd\n"</span>,__FILE__, __LINE__);
-        <span class="keyword">return</span> <span class="type">ERR_BINDIND</span>;
-    }
-
-    fprintf(<span class="literal">stderr</span>, <span class="string">"DEBUG MESG: Now We(%d) are in : %s , listen the %s port Success\n"</span>, listenfd, 
-            inet_ntoa(((struct sockaddr_in *)p-&gt;ai_addr)-&gt;sin_addr), port);
-    *sock_type = p-&gt;ai_family;
-    set_nonblock(listenfd);
-    optimizes(listenfd);
-    <span class="keyword">return</span> listenfd;
-}
-</code></pre><p>这段代码就是对打开监听套接字的<code>socket-&gt;bind</code>的一个功能封装，使用的是 <code>getaddrinfo</code> 而不是传统的手工转换，降低了出错的概率而且更加可靠。</p>
-<p>有一个问题就是，注释太多，没有必要，这个只是在编写过程中让我快速回溯自己的想法，所以写了许多注释。</p>
-<p><code>set_nonblock</code> 和 <code>optimizes</code> 都是自己包装的函数，功能和名字一样。在用程序内信息Debug的时候，记得不要使用<code>stdout</code>，而使用<code>stderr</code>，并且在正式使用时，程序应该<strong>尽可能减少输出到终端</strong>。</p>
-</li>
-</ol>
-</li>
-</ol>
-<h3 id="未完待续，上课略累">未完待续，上课略累</h3><ul>
-<li>具体项目源码 : <a href="https://github.com/wrestle/httpd3" target="_blank" rel="external">httpd3</a>·</li>
-<li>在并发下有BUG，还没时间去调试，等有空了再去Debug，欢迎你们帮我 : )</li>
-</ul>
-
+<li>对于一个几乎没有高级字符串处理功能的C语言来说，这的确是一个苦活，但是正因为如此，才能接触到相对真实的<strong>HTTP服务器</strong>。
+        
+          <p class="article-more-link">
+            <a href="/2016/03/23/一个HTTP服务器的C之路(上).html#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/03/23/一个HTTP服务器的C之路(上).html" data-id="cim6zcp850000l8lt0hxxz4ns" class="article-share-link" data-share="baidu" data-title="一个HTTP服务器的C之路（上）">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/03/23/一个HTTP服务器的C之路(上).html" data-id="cim6zhg6m000wqwltcimvo74s" class="article-share-link" data-share="baidu" data-title="一个HTTP服务器的C之路（上）">分享到</a>
       
 
       
@@ -380,7 +230,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/03/19/使用gdb.html" data-id="cim4k3aq0000qasltmu8vgkqo" class="article-share-link" data-share="baidu" data-title="使用gdb">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/03/19/使用gdb.html" data-id="cim6zhg6f000qqwlt902d3p4n" class="article-share-link" data-share="baidu" data-title="使用gdb">分享到</a>
       
 
       
@@ -461,7 +311,7 @@ makeWidget().doWork(); <span class="comment">// 调用第二个版本</span>
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-概述（二）.html" data-id="cim4k3aqt001nasltaxyysb2p" class="article-share-link" data-share="baidu" data-title="Effective Modern Cpp 概述（二）">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-概述（二）.html" data-id="cim6zhg7b001sqwlt3swe7aqc" class="article-share-link" data-share="baidu" data-title="Effective Modern Cpp 概述（二）">分享到</a>
       
 
       
@@ -548,7 +398,7 @@ f(<span class="type">expr</span>); // <span class="type">expr</span> 可能是�
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html" data-id="cim4k3aqv001pasltfcugwwce" class="article-share-link" data-share="baidu" data-title="Effective Modern C++概述（一）">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html" data-id="cim6zhg7d001uqwltxp149vpa" class="article-share-link" data-share="baidu" data-title="Effective Modern C++概述（一）">分享到</a>
       
 
       
@@ -633,7 +483,7 @@ connect(udp_sock, (<span class="keyword">struct</span> sockaddr *)&amp;unconnect
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/12/04/现代TCP-IP网络编程-UDP.html" data-id="cim4k3apj0009aslt1rvzncrq" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-UDP">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/12/04/现代TCP-IP网络编程-UDP.html" data-id="cim6zhg5z0009qwltqtipb6om" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-UDP">分享到</a>
       
 
       
@@ -730,7 +580,7 @@ connect(udp_sock, (<span class="keyword">struct</span> sockaddr *)&amp;unconnect
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/10/30/现代TCP-IP网络编程-启航.html" data-id="cim4k3apc0004asltasnvz10r" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-启航">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/10/30/现代TCP-IP网络编程-启航.html" data-id="cim6zhg5s0004qwltu843styb" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-启航">分享到</a>
       
 
       
