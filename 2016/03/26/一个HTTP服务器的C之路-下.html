@@ -145,14 +145,13 @@ var _hmt = _hmt || [];
 </li>
 <li><p>针对上面的问题，可以参考<strong>分布式系统</strong>的设计过程中，有一种叫做<strong>一致性哈希</strong>的设计思想，也就是不要让 <strong>事务epoll</strong> 相互竞争，而是让<strong>连接epoll</strong>自己将新的到的连接，分发给这些固定数量的<strong>事务epoll</strong>中的某一个，并且应该形成<strong>均衡发布</strong>。</p>
 <ul>
-<li>后期会实现，当某一个线程意外退出以后，事务会均衡发放给离自己最近的线程。</li>
-</ul>
-</li>
-</ul>
+<li>后期会实现，当某一个线程意外退出以后，事务会均衡发放给离自己最近的线程。<a id="more"></a>
 <blockquote>
 <p>epoll</p>
 </blockquote>
-<ul>
+</li>
+</ul>
+</li>
 <li><p>对于<code>epoll</code>而言，<strong>连接epoll</strong>所处理的事情十分简单，就是负责整个网络程序服务端工作中的第四个部分 <code>accept</code>，只需要对监听套接字的 <strong>可读事件(EPOLLIN)</strong> 敏感就行，这样就讲现成的撰写难度降低。而对于<strong>事务epoll</strong>而言，事情会稍微复杂一些。</p>
 <ul>
 <li><strong>事务epoll</strong> 是真正处理实际连接的，也就是对<strong>HTTP</strong>请求做出回应的。</li>
