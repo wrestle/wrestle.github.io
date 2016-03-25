@@ -69,7 +69,7 @@ var _hmt = _hmt || [];
       </h1>
       
         <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">Tech Collector</a>
+          <a href="/" id="subtitle">狐狸永远是我的</a>
         </h2>
       
     </div>
@@ -252,7 +252,7 @@ var _hmt = _hmt || [];
 </li>
 <li><p>要尽量将某些零散的功能进行合并，保持代码的模块化，而且容易维护，例如对于打开监听套接字这个功能</p>
 <ol>
-<li><p><code>socket-&gt;bind</code>，像这种代码就不需要整个塞在<code>main</code>函数里，那样的话错误处理代码会把真个函数挤满。而不如使用一个函数将这些代码包装起来，咋 <code>main</code>中调用。</p>
+<li><p><code>socket-&gt;bind</code>，像这种代码就不需要整个塞在<code>main</code>函数里，那样的话错误处理代码会把真个函数挤满。而不如使用一个函数将这些代码包装起来，在 <code>main</code>中调用。</p>
 <pre><code><span class="type">int</span> open_listenfd(<span class="keyword">const</span> <span class="type">char</span> * restrict host_addr, <span class="keyword">const</span> <span class="type">char</span> * restrict port, <span class="type">int</span> * restrict sock_type){
     <span class="type">int</span> listenfd = <span class="number">0</span>; /* listen the <span class="type">Port</span>, <span class="type">To</span> accept the new <span class="type">Connection</span> */
     struct addrinfo info_of_host;
@@ -310,7 +310,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/03/23/一个HTTP服务器的C之路(上).html" data-id="cim6zhg6m000wqwltcimvo74s" class="article-share-link" data-share="baidu" data-title="一个HTTP服务器的C之路（上）">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/03/23/一个HTTP服务器的C之路(上).html" data-id="cim7n8sa4000w00ltsceo6j4c" class="article-share-link" data-share="baidu" data-title="一个HTTP服务器的C之路（上）">分享到</a>
       
 
       

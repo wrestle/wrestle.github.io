@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   
   <title><![CDATA[WuShXin's fox]]></title>
-  <subtitle><![CDATA[Tech Collector]]></subtitle>
+  <subtitle><![CDATA[狐狸永远是我的]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.wushxin.top//"/>
-  <updated>2016-03-25T00:42:16.736Z</updated>
+  <updated>2016-03-25T11:46:02.457Z</updated>
   <id>http://www.wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.wushxin.top/2016/03/23/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF(%E4%B8%8A).html"/>
     <id>http://www.wushxin.top/2016/03/23/一个HTTP服务器的C之路(上).html</id>
     <published>2016-03-23T07:08:28.000Z</published>
-    <updated>2016-03-25T00:42:16.736Z</updated>
+    <updated>2016-03-25T11:46:02.457Z</updated>
     <content type="html"><![CDATA[<h3 id="记录近来写的HTTP服务器的_经历，坑，收获">记录近来写的HTTP服务器的 经历，坑，收获</h3><h2 id="万事皆有起因">万事皆有起因</h2><ul>
 <li>大三了，又在反思自己和科班的差距，课少了，空闲时间突然多了起来，在这个大学里，这么一路走过来，自己摸索的不容易</li>
 <li>天天看着浏览器的<strong>F12</strong>界面和 <strong>Wireshark</strong> 的抓取交互界面，突然想要自己做一个HTTP服务器，首先冷静了三天，发现这个念头依旧强烈，墙裂。</li>
@@ -149,7 +149,7 @@
 </li>
 <li><p>要尽量将某些零散的功能进行合并，保持代码的模块化，而且容易维护，例如对于打开监听套接字这个功能</p>
 <ol>
-<li><p><code>socket-&gt;bind</code>，像这种代码就不需要整个塞在<code>main</code>函数里，那样的话错误处理代码会把真个函数挤满。而不如使用一个函数将这些代码包装起来，咋 <code>main</code>中调用。</p>
+<li><p><code>socket-&gt;bind</code>，像这种代码就不需要整个塞在<code>main</code>函数里，那样的话错误处理代码会把真个函数挤满。而不如使用一个函数将这些代码包装起来，在 <code>main</code>中调用。</p>
 <pre><code><span class="type">int</span> open_listenfd(<span class="keyword">const</span> <span class="type">char</span> * restrict host_addr, <span class="keyword">const</span> <span class="type">char</span> * restrict port, <span class="type">int</span> * restrict sock_type){
     <span class="type">int</span> listenfd = <span class="number">0</span>; /* listen the <span class="type">Port</span>, <span class="type">To</span> accept the new <span class="type">Connection</span> */
     struct addrinfo info_of_host;
