@@ -5,7 +5,7 @@
   <subtitle><![CDATA[Tech Collector]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.wushxin.top//"/>
-  <updated>2016-03-23T07:08:28.066Z</updated>
+  <updated>2016-03-25T00:38:06.610Z</updated>
   <id>http://www.wushxin.top//</id>
   
   <author>
@@ -16,15 +16,204 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[一个HTTP服务器的C之路]]></title>
-    <link href="http://www.wushxin.top/2016/03/23/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF.html"/>
-    <id>http://www.wushxin.top/2016/03/23/一个HTTP服务器的C之路.html</id>
+    <title><![CDATA[一个HTTP服务器的C之路（上）]]></title>
+    <link href="http://www.wushxin.top/2016/03/23/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF(%E4%B8%8A).html"/>
+    <id>http://www.wushxin.top/2016/03/23/一个HTTP服务器的C之路(上).html</id>
     <published>2016-03-23T07:08:28.000Z</published>
-    <updated>2016-03-23T07:08:28.066Z</updated>
-    <content type="html"></content>
+    <updated>2016-03-25T00:38:06.610Z</updated>
+    <content type="html"><![CDATA[<h3 id="记录近来写的HTTP服务器的_经历，坑，收获">记录近来写的HTTP服务器的 经历，坑，收获</h3><h2 id="万事皆有起因">万事皆有起因</h2><ul>
+<li>大三了，又在反思自己和科班的差距，课少了，空闲时间突然多了起来，在这个大学里，这么一路走过来，自己摸索的不容易</li>
+<li>天天看着浏览器的<strong>F12</strong>界面和 <strong>Wireshark</strong> 的抓取交互界面，突然想要自己做一个HTTP服务器，首先冷静了三天，发现这个念头依旧强烈，墙裂。</li>
+<li>在翻看<strong>TCP/IP卷一协议</strong>无果后，于是我开始蹲点图书馆，借<strong>HTTP权威指南</strong> 和 <strong>图解HTTP</strong>，然而事与愿违，这个号称<strong>”黑龙江最大图书馆“</strong>称呼的学校图书馆竟无法找到这本书。行吧，那我不借了总行吧</li>
+<li>回想起自己大二节选看的<strong>深入理解计算机操作系统(CSAPP)</strong>这本著名的书，似乎后面有一个Web服务器实现，虽然知道这大概是一个十分简陋的单处理的程序，但是对于理清自己思路很有帮助，特别是协议的交互</li>
+<li>翻看一开，还真的有，说来惭愧前面的进程部分至今还是崭新的。首先看到了<strong>CGI</strong>，后来发现了后方的<strong>GET</strong>方法实现，大概了解了交互的过程，这之间在<strong>w3cschool</strong>查找了(恶补了一下HTTP状态码)一些HTTP的状态，以及<strong>维基百科</strong>里查看了HTTP报文的组成，当然最详细的还是使用WireShark抓取的交互包，而最简单明了的方法则是用 <strong>F12</strong>查看交互信息。</li>
+<li><p>这之中有两个网站对我助力很大</p>
+<ul>
+<li><a href="http://www.softlab.ntua.gr/facilities/documentation/unix/unix-socket-faq/unix-socket-faq-2.html" target="_blank" rel="external">Questions regarding both Clients and Servers</a></li>
+<li><a href="http://stackoverflow.com/questions/14388706/socket-options-so-reuseaddr-and-so-reuseport-how-do-they-differ-do-they-mean-t/14388707#14388707" target="_blank" rel="external">Socket options SO_REUSEADDR and SO_REUSEPORT, how do they differ?</a></li>
+</ul>
+</li>
+<li><p>Linux 的 <strong>man page</strong> 是另一个最有用的工具。</p>
+</li>
+</ul>
+<h2 id="用C编写一个HTTP服务器？！">用C编写一个HTTP服务器？！</h2><ul>
+<li>我说了这个想法给我的一个同学，他以为我疯了。</li>
+<li>并没有，我在网上查了近来的许多模型，最后选择参考 <strong>事件驱动的epoll + 多线程</strong>进行实现，一方面直接避免了逻辑上的惊群现象，一方面也能充分利用多核。</li>
+<li><p>我怎么想的，在最开始我对照着<strong>CSAPP</strong>对最开始的版本代码进行编写，不得不说里面有一个对系统调用(<code>read</code>, <code>write</code>)的调用在后面给我一个大坑，也给我很多思路上的启发。</p>
+<ul>
+<li>启发就在于，将系统调用进行自己的包装，可以提供很干净的C代码，并且可以进行良好功能的编写，这里特指对<strong>数据的缓存</strong>和<strong>错误处理</strong>，而这两个都是网络编程里的重头戏</li>
+<li>大坑在于，我到后期发现，一个新的客户端在连接上本服务器之后，其信息应该尽可能集中，而不是分散在各处不同的结构体中，不容易维护，而且出了错还不容易发现。特别在于<strong>CSAPP</strong>中的 <code>rio</code>形式的读写封装，无法进行长久性的数据缓存，在这里长久性的数据缓存指的是，假设对端(<strong>peer</strong>)正忙，或者自己的TCP发送缓冲区已满，那这个数据要怎么办？</li>
+</ul>
+</li>
+<li><p>不过读了<strong>CSAPP</strong>之后，最基本的服务器工作原理还是可以知道的，至少我看到了某些让我目瞪口呆的HTTP协议之间的交互方式。</p>
+<ul>
+<li>比如报文还真的是如我想象那般，完全自己构造的。</li>
+<li>对于一个几乎没有高级字符串处理功能的C语言来说，这的确是一个苦活，但是正因为如此，才能接触到相对真实的<strong>HTTP服务器</strong>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="首先">首先</h2><ul>
+<li><p>每个人最开始学网络编程的时候，或者说几乎每本讲述网络编程的书籍，都会教你实现一个 <strong>echo</strong>程序，无论是<strong>TCP</strong>还是<strong>UDP</strong>， 当然这并不是说没有用，再复杂的网络程序，只要还是使用 套接字进行编程，那就不会走出这个最简单的模型</p>
+<ul>
+<li>服务器的 <code>socket-&gt;bind-&gt;listen-&gt;accept deal_event</code></li>
+<li>客户端的 <code>socket-&gt;bind-&gt;connect      deal_event</code></li>
+<li>这是<strong>TCP</strong>的，因为说的是HTTP服务器。</li>
+</ul>
+</li>
+<li><p>HTTP服务器程序也是如此，由于HTTP协议支持几个标准的<strong>方法</strong>，但是一般的浏览器实现会实现两个： <code>GET, POST</code></p>
+</li>
+<li>用人话科普一下：<ul>
+<li><code>GET</code>和<code>POST</code><strong>本质功能</strong>都是查询，只不过有时候用途不同，所以会造成某些人认为这两个的意义不同</li>
+<li><code>GET</code> 很明确，就是提供了查询功能，如果使用它对服务器进行访问，那么它所要查询的信息会放在状态信息中： <code>GET /3/18/hello-world.html HTTP/1.1</code>。这就是每个浏览器向一个网站请求时，在成功建立 TCP 连接之后的<strong>第一条信息</strong>，也就是服务器可以从<strong>peer</strong>读取的第一条信息。<ul>
+<li>其实<strong>HTTP</strong>协议并没有限制中间那个参数的长度！很多人认为的长度限制是<code>1024</code>，那只是你所用的浏览器的实现中，浏览器规定这个请求资源的参数长度不能超过<code>1024</code>，你要是自己做一个浏览器，你可以放长点。</li>
+<li>就某些情况而言，用<code>GET</code>方法会让某些特殊用处<strong>参数</strong>显示在你的地址栏中，例如动态请求一些东西的时候，也就是我们在HTTP服务器中的一个叫做 <strong>CGI</strong>程序的概念。<ul>
+<li><code>POST</code> 则是将请求放在报文段，这样就给了很多人误解，就是上面所说的<code>GET</code>所传的参数长度有限，而<code>POST</code>是几乎无限的。两个实际上没有差太多。至少在服务器这一端，只不过是获取参数的时候，方式稍微有些不同。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="其次">其次</h2><ul>
+<li>在用C写这个HTTP服务器的时候，有几个难点和遇到的磕磕绊绊，在这里记录一下</li>
+</ul>
+<h2 id="我所踩过的泥">我所踩过的泥</h2><h3 id="说在前头的程序配置">说在前头的程序配置</h3><ul>
+<li>对于有网络编程经验的人来说，都不太陌生，哪怕只写过 <code>echo</code> 程序，那些服务器所必须的硬配置，也就是<strong>五元组</strong>里的<code>&lt;IP address, Port&gt;</code></li>
+<li>好一些的教科书会告诉我们，将这两个参数硬编码进代码中，是不好的选择，一旦需要修改，调试，测试，就需要重新编译程序。<ul>
+<li>所以，他们每次都通过命令行进行传递，并在程序中显式地进行转换。</li>
+<li>稍有不慎，就是大错，而且这在调试的时候，十分不方便(还好<code>Shell</code>自带记录功能，不然更累)</li>
+</ul>
+</li>
+<li>所以，在写一个大一些的网络程序之前，请务必写一个<strong>配置文件</strong>，再多花一个函数的时间，写一个能够处理它的小方法，这并不难，甚至还可以给它添上一些注释的小功能。</li>
+<li><p>让自己的调试之路更加顺畅，那就用配置文件的形式进行传递参数，不然效率一定会被这个给拖住。</p>
+<pre><code><span class="keyword">int</span> init_config(wsx_config_t * config){
+    const <span class="keyword">char</span> ** roll = config_path_search;
+    <span class="keyword">FILE</span> * <span class="keyword">file</span>;
+    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; roll[i] != <span class="keyword">NULL</span>; ++i) {
+            <span class="keyword">file</span> = fopen(roll[i], <span class="string">"r"</span>);
+            <span class="keyword">if</span> (<span class="keyword">file</span> != <span class="keyword">NULL</span>)
+                <span class="keyword">break</span>;
+    }
+    <span class="keyword">char</span> buf[PATH_LENGTH] = {<span class="string">"\0"</span>};
+    <span class="keyword">char</span> * ret;
+    ret = fgets(buf, PATH_LENGTH, <span class="keyword">file</span>);
+    <span class="keyword">while</span> (ret != <span class="keyword">NULL</span>) {
+        <span class="keyword">char</span> * pos = strchr(buf, <span class="string">':'</span>);
+        <span class="keyword">char</span> * check = strchr(buf, <span class="string">'#'</span>); <span class="comment">/* Start with # will be ignore */</span>
+        <span class="keyword">if</span> (check != <span class="keyword">NULL</span>)
+            *check = <span class="string">'\0'</span>;
+        <span class="keyword">if</span> (pos != <span class="keyword">NULL</span>) {
+            *pos++ = <span class="string">'\0'</span>;
+            <span class="keyword">if</span> (<span class="number">0</span> == strncasecmp(buf, <span class="string">"thread"</span>, <span class="number">6</span>))
+                sscanf(pos, <span class="string">"%d"</span>, &amp;config-&gt;core_num);
+            <span class="keyword">else</span> <span class="keyword">if</span> (<span class="number">0</span> == strncasecmp(buf, <span class="string">"root"</span>, <span class="number">4</span>)) {
+                sscanf(pos, <span class="string">"%s"</span>, &amp;config-&gt;root_path);
+                    <span class="comment">/* End up without "/", Add it */</span>
+                    <span class="keyword">if</span> ((config-&gt;root_path)[strlen(config-&gt;root_path)-<span class="number">1</span>] != <span class="string">'/'</span>)
+                        strncat(config-&gt;root_path, <span class="string">"/"</span>, <span class="number">1</span>);
+            }
+            <span class="keyword">else</span> <span class="keyword">if</span> (<span class="number">0</span> == strncasecmp(buf, <span class="string">"port"</span>, <span class="number">4</span>))
+                sscanf(pos, <span class="string">"%s"</span>, &amp;config-&gt;listen_port);
+            <span class="keyword">else</span> <span class="keyword">if</span> (<span class="number">0</span> == strncasecmp(buf, <span class="string">"addr"</span>, <span class="number">4</span>))
+                sscanf(pos, <span class="string">"%s"</span>, &amp;config-&gt;use_addr);
+        }
+        ret = fgets(buf, PATH_LENGTH, <span class="keyword">file</span>);
+    }<span class="comment">/* while */</span>
+    fclose(<span class="keyword">file</span>);
+    <span class="keyword">return</span> <span class="number">0</span>;
+}
+</code></pre></li>
+</ul>
+<h3 id="整个程序的构造">整个程序的构造</h3><ol>
+<li>由于C语言没有像 Java 那样的包<code>inport</code>机制，甚至连C++那样的<code>namespace</code>都没有。那对于C语言程序的整体把握，就都在程序员手里，如果没有办法做好模块化，那真的是世界上最可怕的事情</li>
+<li><p>而对于C语言的模块化，唯一能起到作用的就是<strong>文件夹</strong>，没错就是强行做一波解释，让自己相信这就是隔离开的模块。但确实很有效果：有两种形式：</p>
+<ol>
+<li><strong>发布的库形式</strong> ： 将所有可提供向外的接口 API 分发在不同的头文件中(以功能作为模块划分的标准)，在根目录下建立 <code>include</code> 文件夹，将这些头文件都放进去。而源文件，以及一些自用的头文件放在根目录下的<code>src</code>文件夹中，<code>src</code>文件夹中再进行模块细分，例如<strong>内存管理(manage)</strong>，<strong>页面分发(http_page)</strong>之类的模块文件夹。</li>
+<li><strong>工程形式</strong>： 就是消除<strong>include</strong>文件夹，只保留 <strong>src</strong>文件夹，不对外提供作为的API，可以让工作量减少，尽量的使用 <code>static</code> 来修饰函数。</li>
+</ol>
+</li>
+<li><p>在目前阶段，先不要考虑使用外来库，对于一些不必要的库一定要自行编写，而不要采用第三方库，这样会提高编译成本。让用户使用体验降低。</p>
+<ol>
+<li>在后期可以考虑使用一些优化，强化的库，例如<code>tcmalloc/jemalloc</code>以及<code>ssl</code>的通信加密库之类的，而对于数据结构而言，千万要选择自行编写，而不应该依赖其他库例如<code>glib</code>之类的。</li>
+<li>可以选择使用<strong>宏</strong>对标准库函数进行封装，这样提高程序的扩展性，这点体现在，随时可以通过宏来替换调用的版本，而不用在源码中大肆修改，一个最典型的例子就是内存分配的包装。(万恶的<code>realloc</code>)</li>
+</ol>
+</li>
+</ol>
+<h3 id="功能封装">功能封装</h3><ol>
+<li><p>封装这个词，我也不知道起源何处，只是第一次听说是从面向对象里听来的，但是觉得就算是过程式的编程，也可以有这个方面的用处，当然不像那些概念说的那么严谨，我一直觉得功能拿来用就很好，不要墨守成规，虽然没有规矩不成方圆，但那对于程序员这种职业，如果思维都被限制了，那还怎么改变世界，对吧。</p>
+<ol>
+<li>就像数据结构<code>Trie</code>树，当初第一眼看到这个数据结构的时候，心里一直打鼓这什么东西，结果仅仅只是去百科了一下这个树的概念，脑海里立即浮现出这个树的构造来，就是每个节点一个字符，依次向下增长，空间换时间的意思，正好依此做了一个生命学院里DNA序列匹配的程序，还实现了一个很纯粹的<strong>KMP</strong>对比了一下，前后不过一天时间而已。</li>
+<li>做东西还是不能被已有的事物左右，最起码一开始的时候不行，后期等你形成了自己的思路后再去参考别人的也不迟，就像当初学数据结构的时候，只知道链表的下一个节点指针就应该用本类型的指针指向，从未想过实现一个通用的链表，可以无所谓节点的类型，就能指向下一个节点(Linux内核链表实现)。</li>
+<li>所有的一切都说明，思维不该被现有的模式所控制。</li>
+</ol>
+</li>
+<li><p>要尽量将某些零散的功能进行合并，保持代码的模块化，而且容易维护，例如对于打开监听套接字这个功能</p>
+<ol>
+<li><p><code>socket-&gt;bind</code>，像这种代码就不需要整个塞在<code>main</code>函数里，那样的话错误处理代码会把真个函数挤满。而不如使用一个函数将这些代码包装起来，咋 <code>main</code>中调用。</p>
+<pre><code><span class="type">int</span> open_listenfd(<span class="keyword">const</span> <span class="type">char</span> * restrict host_addr, <span class="keyword">const</span> <span class="type">char</span> * restrict port, <span class="type">int</span> * restrict sock_type){
+    <span class="type">int</span> listenfd = <span class="number">0</span>; /* listen the <span class="type">Port</span>, <span class="type">To</span> accept the new <span class="type">Connection</span> */
+    struct addrinfo info_of_host;
+    struct addrinfo * <span class="literal">result</span>;
+    struct addrinfo * p;
+    memset(&amp;info_of_host, <span class="number">0</span>, sizeof(info_of_host));
+    info_of_host.ai_family = <span class="type">AF_UNSPEC</span>; /* <span class="type">Unknown</span> <span class="type">Socket</span> <span class="type">Type</span> */
+    info_of_host.ai_flags = <span class="type">AI_PASSIVE</span>; /* <span class="type">Let</span> the <span class="type">Program</span> to help us fill the <span class="type">Message</span> we need */
+    info_of_host.ai_socktype = <span class="type">SOCK_STREAM</span>; /* <span class="type">TCP</span> */
+
+    <span class="type">int</span> error_code;
+    <span class="keyword">if</span>(<span class="number">0</span> != (error_code = getaddrinfo(host_addr, port, &amp;info_of_host, &amp;<span class="literal">result</span>))){
+        fputs(gai_strerror(error_code), <span class="literal">stderr</span>);
+        <span class="keyword">return</span> <span class="type">ERR_GETADDRINFO</span>; /* -<span class="number">2</span> */
+    }
+
+    <span class="keyword">for</span>(p = <span class="literal">result</span>; p != <span class="type">NULL</span>; p = p-&gt;ai_next) {
+        listenfd = socket(p-&gt;ai_family, p-&gt;ai_socktype, p-&gt;ai_protocol);
+
+        <span class="keyword">if</span>(-<span class="number">1</span> == listenfd)
+            <span class="keyword">continue</span>; /* <span class="type">Try</span> the <span class="type">Next</span> <span class="type">Possibility</span> */
+        <span class="keyword">if</span>(-<span class="number">1</span> == <span class="keyword">bind</span>(listenfd, p-&gt;ai_addr, p-&gt;ai_addrlen)){
+            close(listenfd);
+            <span class="keyword">continue</span>; /* <span class="type">Same</span> <span class="type">Reason</span> */
+        }
+        <span class="keyword">break</span>; /* <span class="type">If</span> we get here, it means that we have succeed to <span class="keyword">do</span> all the <span class="type">Work</span> */
+    }
+    freeaddrinfo(<span class="literal">result</span>);
+    <span class="keyword">if</span> (<span class="type">NULL</span> == p) {
+    /* <span class="type">TODO</span> <span class="type">ERROR</span> <span class="type">HANDLE</span> */
+        fprintf(<span class="literal">stderr</span>, <span class="string">"In %s, Line: %d\nError Occur while Open/Binding the listen fd\n"</span>,__FILE__, __LINE__);
+        <span class="keyword">return</span> <span class="type">ERR_BINDIND</span>;
+    }
+
+    fprintf(<span class="literal">stderr</span>, <span class="string">"DEBUG MESG: Now We(%d) are in : %s , listen the %s port Success\n"</span>, listenfd, 
+            inet_ntoa(((struct sockaddr_in *)p-&gt;ai_addr)-&gt;sin_addr), port);
+    *sock_type = p-&gt;ai_family;
+    set_nonblock(listenfd);
+    optimizes(listenfd);
+    <span class="keyword">return</span> listenfd;
+}
+</code></pre><p>这段代码就是对打开监听套接字的<code>socket-&gt;bind</code>的一个功能封装，使用的是 <code>getaddrinfo</code> 而不是传统的手工转换，降低了出错的概率而且更加可靠。</p>
+<p>有一个问题就是，注释太多，没有必要，这个只是在编写过程中让我快速回溯自己的想法，所以写了许多注释。</p>
+<p><code>set_nonblock</code> 和 <code>optimizes</code> 都是自己包装的函数，功能和名字一样。在用程序内信息Debug的时候，记得不要使用<code>stdout</code>，而使用<code>stderr</code>，并且在正式使用时，程序应该<strong>尽可能减少输出到终端</strong>。</p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="未完待续，上课略累">未完待续，上课略累</h3><ul>
+<li>具体项目源码 : <a href="https://github.com/wrestle/httpd3" target="_blank" rel="external">httpd3</a>·</li>
+<li>在并发下有BUG，还没时间去调试，等有空了再去Debug，欢迎你们帮我 : )</li>
+</ul>
+]]></content>
     <summary type="html">
-    
+    <![CDATA[<h3 id="记录近来写的HTTP服务器的_经历，坑，收获">记录近来写的HTTP服务器的 经历，坑，收获</h3><h2 id="万事皆有起因">万事皆有起因</h2><ul>
+<li>大三了，又在反思自己和科班的差距，课少了，空闲时间突然多了起来，在这个大学里，这么一路走过]]>
     </summary>
+    
+      <category term="C" scheme="http://www.wushxin.top/tags/C/"/>
+    
+      <category term="分布式" scheme="http://www.wushxin.top/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+      <category term="网络编程" scheme="http://www.wushxin.top/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
@@ -33,7 +222,7 @@
     <link href="http://www.wushxin.top/2016/03/19/%E4%BD%BF%E7%94%A8gdb.html"/>
     <id>http://www.wushxin.top/2016/03/19/使用gdb.html</id>
     <published>2016-03-19T06:47:18.000Z</published>
-    <updated>2016-03-23T07:00:19.737Z</updated>
+    <updated>2016-03-25T00:05:34.631Z</updated>
     <content type="html"><![CDATA[<h2 id="开始">开始</h2><ul>
 <li>近来在写网络服务器程序，涉及到了多线程，且由于网络的环境复杂的原因，常有未知情况发生，导致在程序中自行添加调试语句显得有些吃力</li>
 <li>将 <code>gdb</code> 请出山来是一个最为正确的选择</li>
@@ -65,7 +254,7 @@
 </code></pre></li>
 <li><p>如果这个程序没有问题的话，几乎就和在外面正常运行时一样，<code>gdb</code>没有起到任何作用，但是一旦有任何问题的话，<code>gdb</code>就会暂停在那个出错的地方，而不是继续执行。</p>
 <ol>
-<li>这里说的出错，不一定代表着就是程序出错或者奔溃退出，有可能是程序接收到了某个信号，信号在<code>Linux</code>中并不少见，这对于某些特殊用途的程序而言，看到接收到的信号十分重要，例如网络程序。</li>
+<li>这里说的出错，不一定代表着就是程序出错或者崩溃退出，有可能是程序接收到了某个信号，信号在<code>Linux</code>中并不少见，这对于某些特殊用途的程序而言，看到接收到的信号十分重要，例如网络程序。</li>
 </ol>
 </li>
 <li><p>对于 <code>r</code> 这个命令除了这么孤零零的使用以外，还可以对它进行传递参数，例如你的<code>main</code>程序需要两个参数，你可以这样</p>
@@ -96,7 +285,8 @@
 </li>
 </ol>
 </li>
-<li><p>上面说到的<strong>三个常用命令</strong>之一，二 <code>where</code>，<code>bt</code></p>
+<li>上面说到的<strong>三个常用命令</strong>之</li>
+<li><p>一，二 <code>where</code>，<code>bt</code></p>
 <ol>
 <li>之所以放在一起，因为这两个命令的意义差不多，至少在用的时候是这样，都是显示出当前执行位置的<strong>函数栈</strong>，这对调试十分重要，所谓函数栈就是我们当前进入到哪个函数了，如果程序的函数嵌套挺深的时候，就能够用它来理清思路</li>
 <li><p>并且这里说的函数栈并不只限于 <strong>程序员编写的函数</strong>，还包括所调用的系统函数。</p>
@@ -293,6 +483,7 @@ info breakpoints -- Status <span class="keyword">of</span> specified breakpoints
 </code></pre><p>  还有很多没贴上来，可以自行查看。</p>
 </li>
 </ul>
+<p>转载注明: <a href="http://www.wushxin.top/2016/03/19/%E4%BD%BF%E7%94%A8gdb.html" target="_blank" rel="external">http://www.wushxin.top/2016/03/19/%E4%BD%BF%E7%94%A8gdb.html</a></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="开始">开始</h2><ul>
@@ -323,7 +514,7 @@ info breakpoints -- Status <span class="keyword">of</span> specified breakpoints
     
       <category term="GDB" scheme="http://www.wushxin.top/tags/GDB/"/>
     
-      <category term="杂货居" scheme="http://www.wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
+      <category term="杂货居， Linux" scheme="http://www.wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85%EF%BC%8C-Linux/"/>
     
   </entry>
   
@@ -332,7 +523,7 @@ info breakpoints -- Status <span class="keyword">of</span> specified breakpoints
     <link href="http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0%EF%BC%88%E4%BA%8C%EF%BC%89.html"/>
     <id>http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-概述（二）.html</id>
     <published>2016-02-22T01:29:50.000Z</published>
-    <updated>2016-03-03T09:28:58.395Z</updated>
+    <updated>2016-03-25T00:01:49.732Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>(Item 15)</p>
 </blockquote>
@@ -662,6 +853,7 @@ std::unique_ptr&lt;<span class="type">Investment</span>&gt;
 makeInvestment(<span class="type">Ts</span>&amp;&amp;... params);
 </code></pre></li>
 </ul>
+<p>转载注明: <a href="http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0%EF%BC%88%E4%BA%8C%EF%BC%89.html" target="_blank" rel="external">http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0%EF%BC%88%E4%BA%8C%EF%BC%89.html</a></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<blockquote>
@@ -702,7 +894,7 @@ makeWidget().doWork(); <span class="comment">// 调用第二个版本</span>
     <link href="http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0.html"/>
     <id>http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html</id>
     <published>2015-12-15T08:40:14.000Z</published>
-    <updated>2016-02-22T01:32:06.135Z</updated>
+    <updated>2016-03-25T00:01:24.611Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>(本文有 11 个 Item)</p>
 </blockquote>
@@ -1444,6 +1636,7 @@ ObjeTest.processPointer(pDouble3); <span class="comment">// 第一个会编译�
 </li>
 <li>Item 11 结束</li>
 </ul>
+<p>转载注明: <a href="http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0.html" target="_blank" rel="external">http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-%E6%A6%82%E8%BF%B0.html</a></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<blockquote>
@@ -1490,7 +1683,7 @@ f(<span class="type">expr</span>); // <span class="type">expr</span> 可能是�
     <link href="http://www.wushxin.top/2015/12/04/%E7%8E%B0%E4%BB%A3TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-UDP.html"/>
     <id>http://www.wushxin.top/2015/12/04/现代TCP-IP网络编程-UDP.html</id>
     <published>2015-12-04T10:23:45.000Z</published>
-    <updated>2015-12-13T02:36:49.271Z</updated>
+    <updated>2016-03-25T00:04:56.644Z</updated>
     <content type="html"><![CDATA[<h4 id="UDP_的_connect()">UDP 的 connect()</h4><ul>
 <li>前方提到，如果使用的是 UDP 套接字进行通信的话，可以采取 <code>connect</code> 来进行优化，但是却不知原因。</li>
 <li>首先 <strong>UDP</strong> 的别称叫做 <strong>不可靠连接</strong>， 也就是说它可以不需要对发送出去的数据负责任，在默认情况下这是对的，因为“效率”。</li>
@@ -1657,6 +1850,7 @@ recv_host.sin6_addr = in6addr_any; /<span class="keyword">*</span> 接收任意�
 <p>注： sendto / recvfrom 并不是 UDP 专用，而是协议无关的函数接口，也就是说同样可以将这两个接口用于 TCP 套接字，只需要将最后两个参数设置为 NULL即可</p>
 <p>至于有没有必要，就仁者见仁智者见智了。</p>
 </blockquote>
+<p>转载注明: <a href="http://www.wushxin.top/2015/12/04/%E7%8E%B0%E4%BB%A3TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-UDP.html" target="_blank" rel="external">http://www.wushxin.top/2015/12/04/%E7%8E%B0%E4%BB%A3TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-UDP.html</a></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h4 id="UDP_的_connect()">UDP 的 connect()</h4><ul>
@@ -1703,7 +1897,7 @@ connect(udp_sock, (<span class="keyword">struct</span> sockaddr *)&amp;unconnect
     <link href="http://www.wushxin.top/2015/10/30/%E7%8E%B0%E4%BB%A3TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-%E5%90%AF%E8%88%AA.html"/>
     <id>http://www.wushxin.top/2015/10/30/现代TCP-IP网络编程-启航.html</id>
     <published>2015-10-30T10:16:53.000Z</published>
-    <updated>2015-12-13T02:28:44.820Z</updated>
+    <updated>2016-03-25T00:04:39.873Z</updated>
     <content type="html"><![CDATA[<h2 id="概念">概念</h2><ul>
 <li>最具误导性的当属于 <code>TCP/IP</code> 协议了<ul>
 <li>所谓 <code>TCP/IP</code> 协议指的并不是一个协议，往往在生活中听见的术语如：<strong>IP地址</strong>， <strong>TCP连接</strong> 等，总会被误导，以为就是一个东西</li>
@@ -2464,6 +2658,7 @@ close(sock);
 </ul>
 </li>
 </ul>
+<p>转载注明: <a href="http://www.wushxin.top/2015/10/30/%E7%8E%B0%E4%BB%A3TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-%E5%90%AF%E8%88%AA.html" target="_blank" rel="external">http://www.wushxin.top/2015/10/30/%E7%8E%B0%E4%BB%A3TCP-IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B-%E5%90%AF%E8%88%AA.html</a></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="概念">概念</h2><ul>
@@ -2522,7 +2717,7 @@ close(sock);
     <link href="http://www.wushxin.top/2015/09/20/Linux%E8%AE%B0%E5%BD%95.html"/>
     <id>http://www.wushxin.top/2015/09/20/Linux记录.html</id>
     <published>2015-09-20T00:33:33.000Z</published>
-    <updated>2015-09-20T01:23:19.132Z</updated>
+    <updated>2016-03-25T00:00:24.996Z</updated>
     <content type="html"><![CDATA[<h2 id="源">源</h2><ul>
 <li>因为国内的原因，没有办法直接使用官方的源，速度有时候会过慢，在高校内部的人可以回比外边更好一些</li>
 <li>而经常出现是根据网上搜索(百度)，出来的结果，大都是直接换源，导致很多错误例如 <code>Some Index fail to ...</code> 之类的错误，这是由于每个版本的 Linux 的源都有细微的差别。以最有名的基于 <strong>Debian</strong> 的 <code>Ubuntu</code> 为例子</li>
@@ -2587,6 +2782,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
 <p>可以通过安装 <code>libglut-dev</code> 来进行修复</p>
 <p><code>sudo apt-get install libglut-dev</code></p>
 <p>稍微解读一下也能知道<code>-lGL==&gt;-linkopenGL</code>的意思</p>
+<p>转载注明: www.wushxin.top/2015/09/20/Linux记录.html</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="源">源</h2><ul>
@@ -2667,7 +2863,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
     <link href="http://www.wushxin.top/2015/07/21/Practical-cpp.html"/>
     <id>http://www.wushxin.top/2015/07/21/Practical-cpp.html</id>
     <published>2015-07-21T03:08:13.000Z</published>
-    <updated>2015-07-25T07:01:01.609Z</updated>
+    <updated>2016-03-24T23:59:32.547Z</updated>
     <content type="html"><![CDATA[<h4 id="try-throw-catch_三段式">try-throw-catch 三段式</h4><p>这是异常抛出的方式，简单的用法便是在外部使用的try-catch形式：</p>
 <pre><code><span class="comment">//Code-1</span>
 <span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
@@ -3102,6 +3298,7 @@ knowType(&amp;unkwType); //编译器推断
 </ul>
 </li>
 </ul>
+<p>转载注明: www.wushxin.top/2015/07/21/Practical-cpp.htm</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h4 id="try-throw-catch_三段式">try-throw-catch 三段式</h4><p>这是异常抛出的方式，简单的用法便是在外部使用的try-catch形式：</p>
@@ -3139,7 +3336,7 @@ knowType(&amp;unkwType); //编译器推断
     <link href="http://www.wushxin.top/2015/07/09/Cpp%E8%AE%B0%E5%BD%9510.1k.html"/>
     <id>http://www.wushxin.top/2015/07/09/Cpp记录10.1k.html</id>
     <published>2015-07-09T02:03:28.000Z</published>
-    <updated>2015-07-21T03:07:14.481Z</updated>
+    <updated>2016-03-25T00:04:09.538Z</updated>
     <content type="html"><![CDATA[<h3 id="更新于_2015/7/14_21:14:21">更新于 2015/7/14 21:14:21</h3><h4 id="再记录_operator=_重载">再记录 operator= 重载</h4><ul>
 <li>因为在类的设计中 重载 <code>=</code> 可能是在所难免的，如果你的类设计比较复杂。</li>
 <li>之所以需要重载它是为了当类中包含了复杂的关系的时候，提供了一个人为的保证，最典型的莫过于对象的拷贝：<ol>
@@ -3457,6 +3654,7 @@ j = <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>
 <span class="keyword">int</span> * j = <span class="keyword">const_cast</span>&lt;<span class="keyword">int</span>*&gt;(&amp;i);
 </code></pre></li>
 </ol>
+<p>转载注明: <a href="http://www.wushxin.top/2015/07/09/Cpp%E8%AE%B0%E5%BD%9510.1k.html" target="_blank" rel="external">http://www.wushxin.top/2015/07/09/Cpp%E8%AE%B0%E5%BD%9510.1k.html</a></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h3 id="更新于_2015/7/14_21:14:21">更新于 2015/7/14 21:14:21</h3><h4 id="再记录_operator=_重载">再记录 operator= 重载</h4><ul>
@@ -3482,7 +3680,7 @@ j = <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>
     <link href="http://www.wushxin.top/2015/06/21/Cpp%E8%AE%B0%E5%BD%9510.4k.html"/>
     <id>http://www.wushxin.top/2015/06/21/Cpp记录10.4k.html</id>
     <published>2015-06-21T03:38:55.000Z</published>
-    <updated>2015-07-21T06:50:05.692Z</updated>
+    <updated>2016-03-25T00:03:39.045Z</updated>
     <content type="html"><![CDATA[<h4 id="更新于_2015/7/9_10:03:12">更新于 2015/7/9 10:03:12</h4><h4 id="名称空间">名称空间</h4><ul>
 <li><p>匿名的名称空间只在本文件中可见。</p>
 <pre><code><span class="comment">//file1.cpp</span>
@@ -3889,6 +4087,7 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
 </ol>
 </li>
 </ul>
+<p>转载注明: www.wushxin.top/2015/06/21/Cpp记录10.4k.html</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h4 id="更新于_2015/7/9_10:03:12">更新于 2015/7/9 10:03:12</h4><h4 id="名称空间">名称空间</h4><ul>
@@ -3944,7 +4143,7 @@ ostream &amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp; stream
     <link href="http://www.wushxin.top/2015/06/12/Qt%E8%AE%B0%E5%BD%95.html"/>
     <id>http://www.wushxin.top/2015/06/12/Qt记录.html</id>
     <published>2015-06-12T00:42:47.000Z</published>
-    <updated>2015-09-20T03:03:52.375Z</updated>
+    <updated>2016-03-24T23:57:31.286Z</updated>
     <content type="html"><![CDATA[<h4 id="开启C++11支持">开启C++11支持</h4><ol>
 <li><p>.pro文件中增加：</p>
 <pre><code><span class="comment">CONFIG</span> <span class="literal">+</span><span class="comment">=</span> <span class="comment">c</span><span class="literal">+</span><span class="literal">+</span><span class="comment">11</span>
@@ -4059,6 +4258,7 @@ test_sig.Q_SendSignal(); <span class="comment">//发射信号</span>
 <li>使用 <code>QStringLiteral 包裹中文</code></li>
 <li>行了。</li>
 </ul>
+<p>转载注明: www.wushxin.top/2015/06/12/Qt记录.html</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h4 id="开启C++11支持">开启C++11支持</h4><ol>
@@ -4084,7 +4284,7 @@ test_sig.Q_SendSignal(); <span class="comment">//发射信号</span>
     <link href="http://www.wushxin.top/2015/06/08/Opencv3%E9%85%8D%E7%BD%AE.html"/>
     <id>http://www.wushxin.top/2015/06/08/Opencv3配置.html</id>
     <published>2015-06-08T08:26:15.000Z</published>
-    <updated>2015-06-10T08:21:31.798Z</updated>
+    <updated>2016-03-24T23:59:58.858Z</updated>
     <content type="html"><![CDATA[<h4 id="配置Opencv3-0-0">配置Opencv3.0.0</h4><p>前天，Opencv3.0.0的正式版本发布，不再有奇怪的缺少文件之类的错误，正好最近需要使用它来完成一些神经网络上的辅助，也就尝试了配置，下面记录配置的过程。</p>
 <h4 id="准备">准备</h4><ol>
 <li><a href="https://www.visualstudio.com/" target="_blank" rel="external">Visual Studio 2013</a></li>
@@ -4274,6 +4474,7 @@ test_sig.Q_SendSignal(); <span class="comment">//发射信号</span>
 <li>添加测试文件（和VS的一样）。</li>
 </ul>
 <h4 id="结束">结束</h4><p>就是这样如果还有什么错误的话，不妨去Google看看，比如dll不存在的问题，那一定是你没有把要使用的bin目录加入到系统环境当中</p>
+<p>转载注明: www.wushxin.top/2015/06/08/Opencv3配置.html</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h4 id="配置Opencv3-0-0">配置Opencv3.0.0</h4><p>前天，Opencv3.0.0的正式版本发布，不再有奇怪的缺少文件之类的错误，正好最近需要使用它来完成一些神经网络上的辅助，也就尝试了配置，下面记录配置的过程。</p>
@@ -5662,7 +5863,7 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
     <link href="http://www.wushxin.top/2015/05/10/Python-lib%E5%AE%89%E8%A3%85.html"/>
     <id>http://www.wushxin.top/2015/05/10/Python-lib安装.html</id>
     <published>2015-05-09T23:48:28.000Z</published>
-    <updated>2015-05-10T14:22:44.480Z</updated>
+    <updated>2016-03-24T23:58:50.087Z</updated>
     <content type="html"><![CDATA[<h1 id="Python">Python</h1><h2 id="安装第三方库(Linux::Ubuntu_14-04_LTS)">安装第三方库(Linux::Ubuntu 14.04 LTS)</h2><p>   关于一个gui的库 SimpleGUICS2Pygame <br><br>   所有的命令均在 root 权限下执行 <br></p>
 <h3 id="安装前提:">安装前提:</h3><ol>
 <li>使用easy_install 工具 <code>apt-get install easy_install</code></li>
@@ -5683,6 +5884,7 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
 </code></pre></li>
 </ul>
 <p>· 作者给出的解释是由于内部冲突所以会导致这种现象的产生</p>
+<p>转载注明: <a href="http://www.wushxin.top/2015/05/10/Python-lib%E5%AE%89%E8%A3%85.html" target="_blank" rel="external">http://www.wushxin.top/2015/05/10/Python-lib%E5%AE%89%E8%A3%85.html</a></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h1 id="Python">Python</h1><h2 id="安装第三方库(Linux::Ubuntu_14-04_LTS)">安装第三方库(Linux::Ubuntu 14.04 LTS)</h2><p>   关于一个gui的库 SimpleGUICS2Pygame <]]>

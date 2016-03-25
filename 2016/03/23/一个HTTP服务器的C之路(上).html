@@ -4,17 +4,26 @@
 <head>
   <meta charset="utf-8">
   
-  <title>WuShXin&#39;s fox</title>
+  <title>一个HTTP服务器的C之路（上） | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="编程带来的不是回报而是心满意足">
-<meta property="og:type" content="website">
-<meta property="og:title" content="WuShXin's fox">
-<meta property="og:url" content="http://www.wushxin.top/index.html">
+  <meta name="description" content="记录近来写的HTTP服务器的 经历，坑，收获万事皆有起因
+大三了，又在反思自己和科班的差距，课少了，空闲时间突然多了起来，在这个大学里，这么一路走过来，自己摸索的不容易
+天天看着浏览器的F12界面和 Wireshark 的抓取交互界面，突然想要自己做一个HTTP服务器，首先冷静了三天，发现这个念头依旧强烈，墙裂。
+在翻看TCP/IP卷一协议无果后，于是我开始蹲点图书馆，借HTTP权威指南 和 图解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个HTTP服务器的C之路（上）">
+<meta property="og:url" content="http://www.wushxin.top/2016/03/23/一个HTTP服务器的C之路(上).html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="编程带来的不是回报而是心满意足">
+<meta property="og:description" content="记录近来写的HTTP服务器的 经历，坑，收获万事皆有起因
+大三了，又在反思自己和科班的差距，课少了，空闲时间突然多了起来，在这个大学里，这么一路走过来，自己摸索的不容易
+天天看着浏览器的F12界面和 Wireshark 的抓取交互界面，突然想要自己做一个HTTP服务器，首先冷静了三天，发现这个念头依旧强烈，墙裂。
+在翻看TCP/IP卷一协议无果后，于是我开始蹲点图书馆，借HTTP权威指南 和 图解">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="WuShXin's fox">
-<meta name="twitter:description" content="编程带来的不是回报而是心满意足">
+<meta name="twitter:title" content="一个HTTP服务器的C之路（上）">
+<meta name="twitter:description" content="记录近来写的HTTP服务器的 经历，坑，收获万事皆有起因
+大三了，又在反思自己和科班的差距，课少了，空闲时间突然多了起来，在这个大学里，这么一路走过来，自己摸索的不容易
+天天看着浏览器的F12界面和 Wireshark 的抓取交互界面，突然想要自己做一个HTTP服务器，首先冷静了三天，发现这个念头依旧强烈，墙裂。
+在翻看TCP/IP卷一协议无果后，于是我开始蹲点图书馆，借HTTP权威指南 和 图解">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -93,9 +102,7 @@ var _hmt = _hmt || [];
   </div>
 </header>
     <div class="outer">
-      <section id="main">
-  
-    <article id="post-一个HTTP服务器的C之路(上)" class="article article-type-post" itemscope itemprop="blogPost">
+      <section id="main"><article id="post-一个HTTP服务器的C之路(上)" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/03/23/一个HTTP服务器的C之路(上).html" class="article-date">
   <time datetime="2016-03-23T07:08:28.000Z" itemprop="datePublished">2016-03-23</time>
@@ -108,8 +115,8 @@ var _hmt = _hmt || [];
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/23/一个HTTP服务器的C之路(上).html">一个HTTP服务器的C之路（上）</a>
+    <h1 class="article-title" itemprop="name">
+      一个HTTP服务器的C之路（上）
     </h1>
   
 
@@ -315,81 +322,17 @@ var _hmt = _hmt || [];
     </footer>
   </div>
   
-</article>
-
-
-<script>
-(function(){
-    var bp = document.createElement('script');
-    bp.src = '//push.zhanzhang.baidu.com/push.js';
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-            
+    
+<nav id="article-nav">
   
-    <article id="post-使用gdb" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/03/19/使用gdb.html" class="article-date">
-  <time datetime="2016-03-19T06:47:18.000Z" itemprop="datePublished">2016-03-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/19/使用gdb.html">使用gdb</a>
-    </h1>
+    <a href="/2016/03/19/使用gdb.html" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">使用gdb</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="开始">开始</h2><ul>
-<li>近来在写网络服务器程序，涉及到了多线程，且由于网络的环境复杂的原因，常有未知情况发生，导致在程序中自行添加调试语句显得有些吃力</li>
-<li>将 <code>gdb</code> 请出山来是一个最为正确的选择</li>
-</ul>
-<h2 id="使用">使用</h2><ul>
-<li><code>gdb</code>看起来是全命令行的东西，而且一启动就是一大片英文，实在让没用过的望而却步，其实真正常用的就只有那几个功能。</li>
-<li>接下来我可能不会对这些命令进行明确的定义功能，因为有时候某些功能放在不同的地方意义就不同了，所以我只用最简单的语言来记录它们。</li>
-</ul>
-<ol>
-<li><p>首先是安装，在(<strong>Debian</strong>)系的发行版 <strong>Linux</strong> 上，使用</p>
-<pre><code>apt-<span class="keyword">get</span> install gdb
-</code></pre><p> 回车等一会就行，可能有的发行版已经装好了，但有的却没有。</p>
-</li>
-<li><p>首先不要打开这个<code>gdb</code>，因为这里面的东西的确看起来挺复杂的</p>
-</li>
-<li>我们要先有一个程序的源文件，假设是 <strong>C语言</strong> 的 <code>main.c</code></li>
-<li><p>在里面写好正确的语句后，对它进行编译，链接，也就是调用 <code>GCC</code>，这里使用<code>GCC</code>的命令是</p>
-<pre><code>gcc -o <span class="keyword">main</span> -g <span class="keyword">main</span>.c
-</code></pre><p> 这个 <code>-g</code> 标志非常必要，意味着生成一些<strong>符号信息</strong>，用人话说就是 <code>gdb</code> 所需要的东西，没有这个东西是无法使用 <code>gdb</code>进行调试的。</p>
-</li>
-<li><p>紧接着，在当前目录下就有一个名为 <code>main</code> 的可执行文件，看好当前用户是否有权限执行它之后，使用如下命令开启调试旅程：
-        
-          <p class="article-more-link">
-            <a href="/2016/03/19/使用gdb.html#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://www.wushxin.top/2016/03/19/使用gdb.html" data-id="cim4k3aq0000qasltmu8vgkqo" class="article-share-link" data-share="baidu" data-title="使用gdb">分享到</a>
-      
-
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GDB/">GDB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居，-Linux/">杂货居， Linux</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
 
@@ -402,364 +345,7 @@ var _hmt = _hmt || [];
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-            
-  
-    <article id="post-Effective-Modern-Cpp-概述（二）" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/02/22/Effective-Modern-Cpp-概述（二）.html" class="article-date">
-  <time datetime="2016-02-22T01:29:50.000Z" itemprop="datePublished">2016-02-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/22/Effective-Modern-Cpp-概述（二）.html">Effective Modern Cpp 概述（二）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>(Item 15)</p>
-</blockquote>
-<h3 id="Item_12_-_Declare_overriding_functions_override-">Item 12 - Declare overriding functions override.</h3><ul>
-<li><p>介绍了一个鲜为人知的 <strong>C++11</strong> 新特性，针对一个类成员函数的</p>
-<pre><code><span class="keyword">class</span> <span class="title">Widget</span> {
-<span class="keyword">public</span>:
-  ...
-  <span class="function"><span class="keyword">void</span> <span class="title">doWork</span><span class="params">()</span> &amp;</span>;   <span class="comment">// 只有当 *this 是 lvalue 时才调用</span>
-  <span class="function"><span class="keyword">void</span> <span class="title">doWork</span><span class="params">()</span> &amp;&amp;</span>;  <span class="comment">// 只有当 *this 是 rvalue 时才调用</span>
-};
-...
-<span class="function">Widget <span class="title">makeWidget</span><span class="params">()</span></span>; <span class="comment">// 制造一个临时的 Widget</span>
-<span class="comment">// 调用</span>
-Widget w; <span class="comment">// 默认构造函数创建</span>
-w.doWork(); <span class="comment">// 调用第一个版本(lvalue)</span>
-makeWidget().doWork(); <span class="comment">// 调用第二个版本</span>
-</code></pre></li>
-<li><p>对于 <strong>重写</strong> 和 <strong>重载</strong>，这两个极易混淆，或者说不是混淆而是十分容易不小心就写错了，的功能，在 <strong>C++98</strong> 之前我们只能选择相信程序员写下的代码是准确无误的。有几个判断 <strong>重写</strong> 的条件</p>
-<ol>
-<li>基类里的该函数必须是 <code>virtual</code></li>
-<li>基类里的该函数和派生类里的该函数的 <strong>函数名</strong> 必须相同</li>
-<li>基类里的该函数和派生类里的该函数的 <strong>参数类型</strong> 必须相同</li>
-<li>基类里的该函数和派生类里的该函数的 <strong>返回值类型</strong> 必须相同或者可以<strong>兼容(即继承关系)</strong></li>
-<li>基类里的该函数和派生类里的该函数的 <code>const</code> 属性必须相同</li>
-<li>基类里的该函数和派生类里的该函数的 <strong>引用限定词</strong> 必须相同(<strong>C++11新增</strong>)
-        
-          <p class="article-more-link">
-            <a href="/2016/02/22/Effective-Modern-Cpp-概述（二）.html#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-概述（二）.html" data-id="cim4k3aqt001nasltaxyysb2p" class="article-share-link" data-share="baidu" data-title="Effective Modern Cpp 概述（二）">分享到</a>
-      
-
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-<script>
-(function(){
-    var bp = document.createElement('script');
-    bp.src = '//push.zhanzhang.baidu.com/push.js';
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-            
-  
-    <article id="post-Effective-Modern-Cpp-概述" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/12/15/Effective-Modern-Cpp-概述.html" class="article-date">
-  <time datetime="2015-12-15T08:40:14.000Z" itemprop="datePublished">2015-12-15</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/15/Effective-Modern-Cpp-概述.html">Effective Modern C++概述（一）</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>(本文有 11 个 Item)</p>
-</blockquote>
-<h1 id="《Effective_Modern_C++》概要">《Effective Modern C++》概要</h1><ul>
-<li>因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。</li>
-<li>记录自己阅读这本书的过程，以及一些细节，知道自己不可能读一遍就能将所有信息记下，故写成博文，方便自己及需要者查阅</li>
-<li>本文是我自己的感受，如果有想要体会完整的思想请自行查阅原书，最好配一本完备的C++的语法工具书（例如<code>The C++ Programming Languag, 4th Edition--Bjarne Stroustrup</code>），以便随时查询，当然还需要一个可编程平台。</li>
-</ul>
-<blockquote>
-<p>代码尽量和原书相同，除非是想更详细的解释才会自行修改</p>
-</blockquote>
-<h2 id="Chapter_1_-_Deducing_Types">Chapter 1 - Deducing Types</h2><h3 id="Item_1_-_Understand_template_type_dedution">Item 1 - Understand template type dedution</h3><ul>
-<li>这节讲述了C++有两种类型推断(不许程序员介入)， <strong>自动类型推断(auto type dedution)</strong> 和 <strong>模板类型推断(template type dedution)</strong>， 两者的联系以及唯一的区别。</li>
-<li>首先介绍的是模板类型推断，这是来自(C++98)的特性了，现在以及在沿用，是最成功的特性之一。</li>
-<li><p>对于模板类型推断，一般形式可归纳为：</p>
-<pre><code><span class="keyword">template</span>&lt;typename T&gt;
-<span class="type">void</span> f(<span class="type">ParamType</span> param);
-// 调用
-f(<span class="type">expr</span>); // <span class="type">expr</span> 可能是一条语句
-</code></pre><p>  <code>ParamType</code> 是一种缩写，用来表示 可能 类型<code>T</code>会有一些限定词来修饰，例如<code>const</code>, <code>&amp;</code> 之类的。</p>
-<p>  例如 把<code>ParamType</code> 可以代表 <code>const T &amp;</code></p>
-</li>
-<li>而此时，编译器在进行 模板类型推断 的时候会做两件事(两个推断的结果)，它会判断 <code>T</code> 和 <code>ParamType</code>的类型分别是什么。当然，如果 <code>ParamType</code> 就是 <code>T</code> 那自然就相同了。</li>
-<li>因为 <code>T</code> 究竟是什么，取决于 <code>ParamType</code>。</li>
-<li>进行推断的过程中，有三条编译器遵循的判断情况：<ol>
-<li><code>ParamType</code> 是一个指针或者引用，但不是一个 通用引用(Universal reference 不知道怎么翻译)。</li>
-<li><code>ParamType</code> 是一个 Universal reference</li>
-<li><code>ParamType</code>·不是一个指针也不是一个引用· </li>
-<li>所以将模板类型推断分为三种情况。</li>
-</ol>
-</li>
-</ul>
-        
-          <p class="article-more-link">
-            <a href="/2015/12/15/Effective-Modern-Cpp-概述.html#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html" data-id="cim4k3aqv001pasltfcugwwce" class="article-share-link" data-share="baidu" data-title="Effective Modern C++概述（一）">分享到</a>
-      
-
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-<script>
-(function(){
-    var bp = document.createElement('script');
-    bp.src = '//push.zhanzhang.baidu.com/push.js';
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-            
-  
-    <article id="post-现代TCP-IP网络编程-UDP" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/12/04/现代TCP-IP网络编程-UDP.html" class="article-date">
-  <time datetime="2015-12-04T10:23:45.000Z" itemprop="datePublished">2015-12-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/04/现代TCP-IP网络编程-UDP.html">现代TCP/IP网络编程-UDP</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="UDP_的_connect()">UDP 的 connect()</h4><ul>
-<li>前方提到，如果使用的是 UDP 套接字进行通信的话，可以采取 <code>connect</code> 来进行优化，但是却不知原因。</li>
-<li>首先 <strong>UDP</strong> 的别称叫做 <strong>不可靠连接</strong>， 也就是说它可以不需要对发送出去的数据负责任，在默认情况下这是对的，因为“效率”。</li>
-<li>但是如果一个 <strong>UDP</strong> 套接字端 需要与另一个端进行多于一次的通信的时候，就会出现性能问题：<ul>
-<li>具体是： <code>连接两端通信 -&gt; 发送数据 -&gt; 断开连接 -&gt; 连接两端通信 -&gt; 发送数据 -&gt; 断开连接 ......</code></li>
-<li>可以看出，需要重复的进行 连接和断开， 且这两个操作都是涉及 <strong>内核</strong> 操作，耗费的资源不可忽略</li>
-<li>所以在必要时对 <strong>UDP</strong> 套接字调用 <code>connect</code>，是有必要的(并不硬性要求两端同时都要调用 <code>connect</code>)</li>
-<li>需要注意的是 <strong>TCP</strong>套接字 同样需要调用(必须调用) <code>connect</code>，虽然调用的函数接口一样，但是意义却是不相同的，前者是为了三次握手建立连接，而 <strong>UDP</strong>却只是为了能够省去 不必要的断开连接 以及接收到 <strong>ICMP错误报文</strong>。</li>
-</ul>
-</li>
-<li><strong>ICMP</strong>错误报文，指的是如果对端没办法接收到本端发送的信息的话，会返回一个错误，这个错误使用的就是<strong>ICMP</strong>(ICMPv4和ICMPv6两种)<ul>
-<li>如果 <strong>UDP</strong> 套接字通信时采用的是 未连接(unconnected) 的形式，那么在调用 <code>sendto</code> 接口之后，不管对端有没有收到信息，都会立即返回成功的信息，而即使对端没办法收到信息，且向本端发送了 <strong>ICMP</strong> 报文，我们也是无法检测到的。</li>
-<li>但是如果 <strong>UDP</strong> 套接字通信时采用的是 连接(connected) 的形式，那么就会接收到一个 <code>EHOSTUNREACH</code> 的错误，我们就能够捕捉到(这点与TCP的处理方式一样)。</li>
-</ul>
-</li>
-<li>假设我们想要断开连接 或者 重新选择一个对端进行通信，也是可以的<ul>
-<li>所需要做的也仅仅是在此调用一下 <code>connect</code> 接口函数<pre><code><span class="keyword">struct</span> sockaddr_storage unconnect;
-<span class="built_in">memset</span>(&amp;unconnect, <span class="number">0</span>, <span class="keyword">sizeof</span> unconnect);
-unconnect.ss_family = AF_UNSPEC; <span class="comment">/* 将 xxx_family 位置为 AF_UNSPEC 就表明要断开连接 */</span>
-connect(udp_sock, (<span class="keyword">struct</span> sockaddr *)&amp;unconnect, <span class="keyword">sizeof</span> unconnect); <span class="comment">/* 断开连接 */</span>
-</code></pre></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>注： 断开连接或者重新对套接字建连接是 UDP 才可以使用的，千万不要用在 TCP套接字上面！</p>
-<p>不要疑惑，每次发送的时候只指定了对端的 IP 和 端口，那我们自己的 IP 和端口呢？这个是由内核为我们完成，自动化就是这么方便</p>
-</blockquote>
-<ul>
-<li>和 <strong>TCP</strong> 这种面向连接的方式不同， <strong>UDP</strong> 不管是否是连接的(connected)，它依旧是一种不可靠的传输方式，所以当它调用 <code>connect</code> 时，即使对端没有运行，这个函数也不会有任何错误，知道发送第一条信息时才能知道对端到底可不可达。
-        
-          <p class="article-more-link">
-            <a href="/2015/12/04/现代TCP-IP网络编程-UDP.html#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://www.wushxin.top/2015/12/04/现代TCP-IP网络编程-UDP.html" data-id="cim4k3apj0009aslt1rvzncrq" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-UDP">分享到</a>
-      
-
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络编程/">网络编程</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-<script>
-(function(){
-    var bp = document.createElement('script');
-    bp.src = '//push.zhanzhang.baidu.com/push.js';
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-            
-  
-    <article id="post-现代TCP-IP网络编程-启航" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/10/30/现代TCP-IP网络编程-启航.html" class="article-date">
-  <time datetime="2015-10-30T10:16:53.000Z" itemprop="datePublished">2015-10-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/30/现代TCP-IP网络编程-启航.html">现代TCP/IP网络编程-启航</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="概念">概念</h2><ul>
-<li>最具误导性的当属于 <code>TCP/IP</code> 协议了<ul>
-<li>所谓 <code>TCP/IP</code> 协议指的并不是一个协议，往往在生活中听见的术语如：<strong>IP地址</strong>， <strong>TCP连接</strong> 等，总会被误导，以为就是一个东西</li>
-<li>实际上它们都是彼此独立的 <strong>协议</strong> ，只不过会相互合作罢了</li>
-<li><code>TCP/IP</code>说的是一个 <strong>协议族</strong> ，也就是说是一堆协议的统称</li>
-</ul>
-</li>
-<li>对比 <strong>OSI</strong> 和 <strong>TCP/IP</strong> 参考模型：</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>OSI</th>
-<th>TCP/IP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>应用层 表示层 会话层</td>
-<td>应用层</td>
-</tr>
-<tr>
-<td>传输层</td>
-<td>传输层</td>
-</tr>
-<tr>
-<td>网络层</td>
-<td>网络层</td>
-</tr>
-<tr>
-<td>链路层 物理层</td>
-<td>网络接口层</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>其中最常接触的<ul>
-<li>位于 <strong>网络层</strong> 的 <strong>IP</strong> 协议，大家所熟知的 <code>IP地址</code> 就是由它进行封装并传往下一层</li>
-<li>位于 <strong>传输层</strong> 的 <strong>TCP/UDP</strong> 两个协议， 一个是面向连接(STREAM), 一个是面向数据(DGRAM)的，实际上还有一个但这里不记录。</li>
-<li>查看自身 网络信息的办法<ul>
-<li><code>*nix</code>: 在 <strong>Terminal</strong> 中输入 <code>ifconfig -a</code></li>
-<li><code>Windows</code>: 在 <strong>PowerShell</strong> 中输入 <code>ipconfig</code>
-        
-          <p class="article-more-link">
-            <a href="/2015/10/30/现代TCP-IP网络编程-启航.html#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://www.wushxin.top/2015/10/30/现代TCP-IP网络编程-启航.html" data-id="cim4k3apc0004asltasnvz10r" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-启航">分享到</a>
-      
-
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网络编程/">网络编程</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-<script>
-(function(){
-    var bp = document.createElement('script');
-    bp.src = '//push.zhanzhang.baidu.com/push.js';
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-            
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
-</section>
+            </section>
       
       <aside id="sidebar">
   
