@@ -221,8 +221,9 @@
     <link href="http://www.wushxin.top/2016/03/23/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF(%E4%B8%8A).html"/>
     <id>http://www.wushxin.top/2016/03/23/一个HTTP服务器的C之路(上).html</id>
     <published>2016-03-23T07:08:28.000Z</published>
-    <updated>2016-03-25T12:40:39.126Z</updated>
-    <content type="html"><![CDATA[<h3 id="记录近来写的HTTP服务器的_经历，坑，收获">记录近来写的HTTP服务器的 经历，坑，收获</h3><h2 id="万事皆有起因">万事皆有起因</h2><ul>
+    <updated>2016-03-26T12:21:16.863Z</updated>
+    <content type="html"><![CDATA[<p><a href="http://www.wushxin.top/2016/03/26/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF-%E4%B8%8B.html" target="_blank" rel="external">一个HTTP服务器的C之路(下)</a></p>
+<h3 id="记录近来写的HTTP服务器的_经历，坑，收获">记录近来写的HTTP服务器的 经历，坑，收获</h3><h2 id="万事皆有起因">万事皆有起因</h2><ul>
 <li>大三了，又在反思自己和科班的差距，课少了，空闲时间突然多了起来，在这个大学里，这么一路走过来，自己摸索的不容易</li>
 <li>天天看着浏览器的<strong>F12</strong>界面和 <strong>Wireshark</strong> 的抓取交互界面，突然想要自己做一个HTTP服务器，首先冷静了三天，发现这个念头依旧强烈，墙裂。</li>
 <li>在翻看<strong>TCP/IP卷一协议</strong>无果后，于是我开始蹲点图书馆，借<strong>HTTP权威指南</strong> 和 <strong>图解HTTP</strong>，然而事与愿违，这个号称<strong>”黑龙江最大图书馆“</strong>称呼的学校图书馆竟无法找到这本书。行吧，那我不借了总行吧</li>
@@ -406,7 +407,8 @@
 <p>转载注明:<a href="http://www.wushxin.top/2016/03/23/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF%28%E4%B8%8A%29.html" target="_blank" rel="external">http://www.wushxin.top/2016/03/23/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF%28%E4%B8%8A%29.html</a></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<h3 id="记录近来写的HTTP服务器的_经历，坑，收获">记录近来写的HTTP服务器的 经历，坑，收获</h3><h2 id="万事皆有起因">万事皆有起因</h2><ul>
+    <![CDATA[<p><a href="http://www.wushxin.top/2016/03/26/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF-%E4%B8%8B.html">一个HTTP服务器的C之路(下)</a></p>
+<h3 id="记录近来写的HTTP服务器的_经历，坑，收获">记录近来写的HTTP服务器的 经历，坑，收获</h3><h2 id="万事皆有起因">万事皆有起因</h2><ul>
 <li>大三了，又在反思自己和科班的差距，课少了，空闲时间突然多了起来，在这个大学里，这么一路走过来，自己摸索的不容易</li>
 <li>天天看着浏览器的<strong>F12</strong>界面和 <strong>Wireshark</strong> 的抓取交互界面，突然想要自己做一个HTTP服务器，首先冷静了三天，发现这个念头依旧强烈，墙裂。</li>
 <li>在翻看<strong>TCP/IP卷一协议</strong>无果后，于是我开始蹲点图书馆，借<strong>HTTP权威指南</strong> 和 <strong>图解HTTP</strong>，然而事与愿违，这个号称<strong>”黑龙江最大图书馆“</strong>称呼的学校图书馆竟无法找到这本书。行吧，那我不借了总行吧</li>
