@@ -5,7 +5,7 @@
   <subtitle><![CDATA[狐狸永远是我的]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.wushxin.top//"/>
-  <updated>2016-03-25T23:50:41.321Z</updated>
+  <updated>2016-03-28T08:06:31.185Z</updated>
   <id>http://www.wushxin.top//</id>
   
   <author>
@@ -14,6 +14,207 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[使用tmux]]></title>
+    <link href="http://www.wushxin.top/2016/03/28/%E4%BD%BF%E7%94%A8tmux.html"/>
+    <id>http://www.wushxin.top/2016/03/28/使用tmux.html</id>
+    <published>2016-03-27T23:51:30.000Z</published>
+    <updated>2016-03-28T08:06:31.185Z</updated>
+    <content type="html"><![CDATA[<h2 id="神级命令行软件_Tmux">神级命令行软件 Tmux</h2><ul>
+<li>这是我在大学里认识到的<strong>最好用</strong>的神器，<strong>没有之一</strong>，提高效率那是没得说，主要至今未曾崩溃过，可见其可怕之处</li>
+<li>额外提一点就是，由于学校原因，没机会使用到 <code>tmux</code> 的远程连接黑魔法，所以本篇文章记录的是单机情况下的操作，远程连接没有用过，就不好置评</li>
+<li>但即便是单机情况下，<code>tmux</code> 也绝对是让人惊艳的一款终端软件</li>
+</ul>
+<h3 id="说白了它就是一个分屏工具">说白了它就是一个分屏工具</h3><ul>
+<li>我不会记录它的每个部件的具体名字，而是用什么地方的作用来描述它，还是那句老话，在其位谋其职。</li>
+</ul>
+<h3 id="迅速开始">迅速开始</h3><ul>
+<li><p>安装，直接从仓库里安装，但是一般而言，<code>Linux</code>会自带</p>
+<pre><code>$ sudo apt-<span class="keyword">get</span> install tmux
+</code></pre></li>
+<li><p>完成之后，不用管其他的，直接在 <code>Shell</code> 里输入：</p>
+<pre><code><span class="variable">$ </span>tmux
+</code></pre><p>  很好，进入到了另一个异次元，其实看起来和刚才没多大区别，也就是屏幕闪了一下。</p>
+</li>
+<li><p>这就是最原始的<code>tmux</code>界面，接下来记录进行最有用的，也是最经常用的<strong>三个操作</strong></p>
+</li>
+</ul>
+<p><img src="http://ww3.sinaimg.cn/mw690/81b736ebjw1f2cmx18vogj211j0kk42e.jpg" alt="进入tmux"></p>
+<h3 id="Ctrl_+_b">Ctrl + b</h3><ol>
+<li>意思就是在进入到<code>tmux</code>之后，先摁<code>Ctrl</code>，再摁 <code>b</code>，发现进入到了<strong>上帝模式</strong>，姑且当这种模式就是能干任何事的上帝模式，进入这个模式要干嘛？</li>
+<li>比如创建新的界面，或者分割当前界面，退出当前界面都要靠这个模式。</li>
+<li>所以记下这个简单的组合键，<strong>日后会经常用它</strong>。</li>
+</ol>
+<blockquote>
+<p>后面提到上帝模式，就说明摁了 <strong>Ctrl+b</strong></p>
+</blockquote>
+<h3 id="上帝模式下的屏幕分割">上帝模式下的屏幕分割</h3><ul>
+<li>进入上帝模式后，使用 <code>%</code> 进行屏幕的<strong>水平分割</strong>，至于问我怎么竖直分割，<strong>我不喜欢用</strong>，所以忘了。</li>
+</ul>
+<blockquote>
+<p><code>%</code> 的意思就是，先摁住<code>shift</code>键，再摁数字<code>5</code>，不是小键盘的<code>5</code>，而是英文字符上面的那个<code>5</code>。 <strong>: )</strong></p>
+</blockquote>
+<p><img src="http://ww3.sinaimg.cn/mw690/81b736ebjw1f2cmdudg32j211k0kjjvz.jpg" alt="水平分割tmux"></p>
+<ul>
+<li><p>分割完，要怎么在这两个窗口之间跳转呢？</p>
+<ul>
+<li>进入<strong>上帝模式</strong>，摁左右方向键切换。每切换一次，都需要<strong>重新进入</strong>上帝模式，才能进行下一次的切换</li>
+</ul>
+</li>
+<li><p>要是不想要当前操作的这个分屏怎么办？</p>
+<ul>
+<li>进入<strong>上帝模式</strong>， 摁<code>x</code>，就像是右上角的叉叉一样，很好记。</li>
+</ul>
+</li>
+</ul>
+<h3 id="退出_tmux">退出 tmux</h3><ul>
+<li>进入上帝模式，摁 <code>d</code> ，其实这不是退出，这叫做<strong>断开连接</strong>，意味着你可以再恢复</li>
+<li><p>不信，你试试</p>
+<pre><code>$ tmux <span class="literal">a</span>
+</code></pre></li>
+<li><p>原归正转，当你回到原始<code>Shell</code>时，使用命令 <code>tmux ls</code>，看看会出现什么:</p>
+<pre><code><span class="variable">$ </span>tmux ls
+</code></pre><p>  出现</p>
+<pre><code>wzqt<span class="variable">@kali</span><span class="symbol">:~/ClionProjects/httpd3</span><span class="comment"># tmux ls</span>
+<span class="number">0</span><span class="symbol">:</span> <span class="number">1</span> windows (created <span class="constant">Mon Mar </span><span class="number">28</span> 08<span class="symbol">:</span><span class="number">39</span><span class="symbol">:</span><span class="number">01</span> <span class="number">2016</span>) [<span class="number">150</span>x4<span class="number">0</span>]****
+</code></pre><p>  现在从这行回馈中，能得到对我们最有用的是两个信息：当前有一个 <strong>tmux窗会话</strong>，这个会话的名字是 <code>0</code></p>
+</li>
+</ul>
+<p><img src="http://ww3.sinaimg.cn/mw690/81b736ebjw1f2cmdisl6nj211l0kj0x2.jpg" alt="进入tmux"></p>
+<blockquote>
+<p><code>tmux</code> 可以有多个会话，一个会话可以有多个窗口， 从外部<code>Shell</code>可以连接到不同会话，从内部会话可以切换不同的窗口。</p>
+</blockquote>
+<ul>
+<li><p>得到了名字有什么用？得到了名字，你就能掌控这个会话的一切，就像<strong>夏目友人帐</strong>，跑题。</p>
+<ul>
+<li><p>连接到这个会话(如果有多个会话，这就十分有用):</p>
+<pre><code><span class="variable">$ </span>tmux attach -t <span class="number">0</span>
+</code></pre><p>  或者</p>
+<pre><code>$ tmux <span class="tag">a</span> -t <span class="number">0</span>
+</code></pre><p>  <code>a</code> 是对 <code>attach</code> 的缩写,现在能理解上面那个<code>d</code>的含义了吧，就是<code>detach</code>的意思。</p>
+</li>
+<li><p>关闭这个会话:</p>
+<pre><code>$ tmux <span class="operator"><span class="keyword">kill</span>-<span class="keyword">session</span> -t <span class="number">0</span></span>
+</code></pre><p>  关闭这个会话，这个会话里的一切都消失了(当然你要是重启系统，自然也会消失)</p>
+<h3 id="配置_tmux">配置 tmux</h3></li>
+</ul>
+</li>
+<li><p>上面所说的三个组合，是最常用的三个组合键，记好它们，有人会问我，<strong>你的底部状态栏怎么和我的不一样</strong>，当然是配置问题</p>
+</li>
+<li><p>和<code>vim</code>一样，<code>tmux</code>也有一个配置文件，放在家目录下的<code>.tmux</code>，也就是说在<code>shell</code>里输入</p>
+<pre><code>$ <span class="built_in">cd</span> ~
+</code></pre><p>  进入的目录里，找到<code>.tmux.conf</code>，如果没有就：</p>
+<pre><code>$ touch <span class="class">.tmux</span><span class="class">.conf</span>
+</code></pre><p>  不要怕会误删什么东西。打开它，输入如下内容：</p>
+<pre><code><span class="operator"><span class="keyword">set</span> -g base-<span class="keyword">index</span> <span class="number">1</span>
+<span class="keyword">set</span> -g <span class="keyword">status</span>-utf8 <span class="keyword">on</span>
+<span class="keyword">set</span> -g <span class="keyword">status</span>-bg black
+<span class="keyword">set</span> -g <span class="keyword">status</span>-fg white
+<span class="keyword">set</span> -g <span class="keyword">status</span>-<span class="built_in">interval</span> <span class="number">5</span>
+<span class="keyword">set</span> -g <span class="keyword">status</span>-<span class="keyword">left</span>-length <span class="number">90</span>
+<span class="keyword">set</span> -g <span class="keyword">status</span>-<span class="keyword">right</span>-length <span class="number">60</span>
+<span class="keyword">set</span> -g <span class="keyword">status</span>-<span class="keyword">left</span> <span class="string">"#[fg=Green]#(whoami)#[fg=white]::#[fg=blue]#(hostname -s)#[fg=white]::#[fg=yellow]#(curl ipecho.net/plain;echo)#[fg=Green] &lt;- "</span>
+<span class="keyword">set</span> -g <span class="keyword">status</span>-justify <span class="keyword">left</span>
+<span class="keyword">set</span> -g <span class="keyword">status</span>-<span class="keyword">right</span> <span class="string">'#[fg=Cyan]#S #[fg=white]%a %d %b %R'</span></span>
+</code></pre><p>  稍微解读一下第八行，这样你也可以自己修改配置文件了，很简单(更高级的请看官方文档，以及这个配置文件也不是我原创是属于<a href="raw.githubusercontent.com/danielmiessler/tmux/master/.tmux.config">这位先生的</a>，当然我进行了一点小小的修改)</p>
+<p>  在<code>&quot;&quot;</code>里面包裹着一长串的看不懂的英文， <code>#</code>分割着每个属性，<code>[]</code>里面装放着是下一个<code>#</code>属性的显示颜色，<code>()</code>包裹着的理解为可以在<code>shell</code>下执行的命令，将结果显示出来，想要添加<strong>固定字符串</strong>，直接写就行，例如我在末尾添加了 <code>&lt;-</code>。</p>
+<p>  网上有很多介绍 <code>tmux</code> 的文章，<strong>但不要轻易相信他们</strong>，永远相信自己实践出来的效果，因为网页文章的质量没有人监管，很多都是错误的，让初学者摸不着头脑(也许是手误打错，也许是真的不会装懂。)</p>
+<p>  我这个配置文件的效果，就在上面的图片中有显示。</p>
+</li>
+</ul>
+<blockquote>
+<p>想让这个配置文件生效，必须要将所有的 <code>tmux</code> 窗口都<strong>退出</strong>才行。</p>
+</blockquote>
+<h3 id="到目前为止的组合键">到目前为止的组合键</h3><ul>
+<li>创建且打开<code>tmux</code>的会话 : <code>$ tmux</code></li>
+<li>让这个会话的当前窗口水平分割 : <code>Ctrl + b --&gt; %</code><ul>
+<li>在分割的两个块中跳转 : <code>Ctrl + b --&gt; 方向键</code></li>
+<li>关闭某个分屏 : <code>Ctrl + b --&gt; x</code></li>
+</ul>
+</li>
+<li>让这个会话断开连接，回到原始<code>Shell</code> : <code>Ctrl + b --&gt; d</code></li>
+<li>让这个会话恢复连接，回到 <code>tmux</code> : <code>tmux a -t 0</code></li>
+<li>从原始<code>Shell</code>把这个会话彻底关闭 : <code>$ tmux kill-session -t 0</code></li>
+</ul>
+<h3 id="详细的说">详细的说</h3><ol>
+<li><p>创建会话的时候，如果不指定名称，那么<code>tmux</code>会帮你给这个会话取名字，也就是前面看到的数字，依次递增，如果想自己指定名称那么：</p>
+<pre><code>$ tmux <span class="keyword">new</span> -s session-<span class="number">1</span>-name
+</code></pre><p> 会立即进入到你创建的这个新会话内，现在通过<code>detach</code>回到原始<code>Shell</code>，并输入<code>tmux ls</code></p>
+<pre><code><span class="tag">session-1-name</span>: 1 <span class="tag">windows</span> (<span class="tag">created</span> <span class="tag">Mon</span> <span class="tag">Mar</span> 28 09<span class="pseudo">:28</span><span class="pseudo">:54</span> 2016) <span class="attr_selector">[150x40]</span>
+</code></pre><p> 现在再看看这条信息，应该很清晰明了，<code>:</code>前面是会话名称，后面是这个会话里当前有几个<strong>窗口</strong></p>
+<p> 当然你想要重命名这个会话也是可以的，只要进入上帝模式以后，摁 <code>$</code>即可</p>
+</li>
+<li><p>创建窗口</p>
+<ol>
+<li>在上帝模式下，摁<code>c</code>，就能创建一个新窗口，并且立即进入到新窗口内，如何在窗口之间切换呢？</li>
+<li>这时候看你的底部状态栏，在<code>&lt;-</code>后面是不是多了些什么，没错那些就是新的窗口，每个窗口前面都有序号，在上帝模式下，摁对应的序号就能切换到那个窗口去。</li>
+<li>但是有没有发现一个问题，新建的窗口的名字都一样！那怎么区分啊，不急一般在创建窗口之后会立即修改他的名字<ol>
+<li>进入上帝模式，摁 <code>,</code> 就能修改了，你会发现下面的状态栏变成黄色，且可编辑，删除原来的名字换成自己想要的名字就行。</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>切换会话</p>
+<ol>
+<li>如果我就在会话中，想要到别的会话去，拿到一定要先回到原始<code>Shell</code>在去连接吗？当然不</li>
+<li>直接进入上帝模式，嗯<code>s</code>，就能看见当前存在的会话，移动方向键选择即可。<ol>
+<li><code>Ctrl + b --&gt; s</code></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p><img src="http://ww1.sinaimg.cn/mw690/81b736ebjw1f2cme6107vj20f202ut94.jpg" alt="会话切换"></p>
+<ol>
+<li>切换窗口<ol>
+<li>如果我想显示当前会话中的所有窗口，那就进入上帝模式，再摁 : <code>w</code><ol>
+<li><code>Ctrl + b --&gt; w</code></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p><img src="http://ww1.sinaimg.cn/mw690/81b736ebjw1f2cmx6c634j20a60270sv.jpg" alt="窗口切换"></p>
+<blockquote>
+<p>可以仔细观察一下，<strong>窗口的名字</strong>，是否有什么特殊的地方，文末解释</p>
+</blockquote>
+<h2 id="结束">结束</h2><ul>
+<li>在日常中，只需要记住以上说过的命令就可以，其他的可以查看 <code>man</code> 手册就行，不需要记住，最实用的，才是最好的。</li>
+</ul>
+<h3 id="话内">话内</h3><ul>
+<li>上面的操作看起来很复杂，实际上是一个很流畅的一套操作</li>
+<li><p>如果是日常个人电脑上的操作，可以这样：</p>
+<ul>
+<li>打开终端 <code>Terminal</code></li>
+<li>直接打开 <code>tmux</code> : <code>$ tmux</code> 不必在意会话的名字(如果是公用的可以考虑用名字区分)</li>
+<li><p>直接分屏 <code>Ctrl + b --&gt; %</code> 实际上水平分屏的作用已经足够，对于屏幕小于 <strong>17寸</strong>的显示器而言，对半分已经很完美了，要是分成四份，那真是有点…</p>
+<ul>
+<li>如果对分开的两个屏幕的大小有要求，可以自行调整，方式有些特别：<strong>摁住</strong><code>Ctrl+b</code>不撒手，左右方向键调节窗口大小。</li>
+</ul>
+</li>
+<li><p>想回到原始<code>Shell</code>就<code>Ctrl + b --&gt; d</code> 当然这个一般很少用，我几乎不用</p>
+</li>
+<li>回来就直接 <code>$ tmux a</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="文末">文末</h3><ul>
+<li>前面提到，在一个会话里有多个窗口的时候，窗口的名字会有些许不同</li>
+<li>名字末尾带 <code>*</code> 的是当前窗口，名字末尾带 <code>-</code>则是上一个窗口。</li>
+<li>至于为什么没有介绍更多的快捷键，那就需要自己凭个人去记就行，对于我而言，我只记了这些操作，认为已经足够</li>
+<li>而对于那些说什么 重新绑定快捷键什么的言语，我只说一句，<strong>看个人</strong>，不要想着说服别人，让别人主动去做才是对的。至少我没有感觉到不适应。</li>
+</ul>
+<h4 id="如转载请注明原处_:_)">如转载请注明原处 : )</h4>]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="神级命令行软件_Tmux">神级命令行软件 Tmux</h2><ul>
+<li>这是我在大学里认识到的<strong>最好用</strong>的神器，<strong>没有之一</strong>，提高效率那是没得说，主要至今未曾崩溃过，可见其可怕之处</li>
+<l]]>
+    </summary>
+    
+      <category term="杂货居" scheme="http://www.wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[一个HTTP服务器的C之路(下)]]></title>
@@ -5737,350 +5938,6 @@ vari_struct* vari_p_3 = <span class="built_in">malloc</span>(<span class="keywor
 <span class="comment">//...</span>
 <span class="function"><span class="keyword">function</span><span class="params">(11)</span></span>;
 </code></pre><p>其中，<code>value</code>是形参，<code>11</code>是实参，我们知道场面上，C语言拥有两种传递方式:<strong>按值传递</strong>和<strong>按址传递</strong>，但是你是否有认真研究过？这里给出一个实质，其实C语言只有<strong>按值传递</strong>，所谓按址传递只不过是按值传递的一种假象。至于原因稍微一想便能明白。<br>]]>
-    
-    </summary>
-    
-      <category term="C" scheme="http://www.wushxin.top/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[我为什么学C(1)---开篇]]></title>
-    <link href="http://www.wushxin.top/2015/05/12/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(1).html"/>
-    <id>http://www.wushxin.top/2015/05/12/我为什么学C(1).html</id>
-    <published>2015-05-12T14:22:23.000Z</published>
-    <updated>2015-06-22T01:33:14.181Z</updated>
-    <content type="html"><![CDATA[<h1 id="我的C语言">我的C语言</h1><h2 id="本章更新于_2015/6/21_11:36:01">本章更新于 2015/6/21 11:36:01</h2><p><strong>正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域</strong></p>
-<h4 id="0x00-C语言前续工作">0x00-C语言前续工作</h4><p>正所谓，工欲善其事，必先利其器，把握住当下最强大的工具，能让我们在学习的道路上少走许多弯路，多吸取前人的失败经验，能让自己快速成长，因为成长总是在消耗我们的耐心以及生命。</p>
-<p>入门或者精通或者应用，不管哪一方面，对于一个编程语言而言，最方便的还是使用一个<strong>IDE</strong>作为你的有力助手，什么事<strong>IDE</strong>？通俗而专业的说叫做<strong>集成开发环境</strong>，这个通过字面就能理解到了，就是所有其他的事情都不需要程序员操心，你需要操心的就是写出代码，至于代码完成之后的一系列工作，都不需要你来管，IDE一键帮你搞定。</p>
-<p>当然，会有许多前辈告诉你，如果你想理解C语言，那你一定要使用最基层的东西来写，比如XXX编辑器配上XXX编译器，晕头转向之后更加茫然，本来就支离破碎的小心肝，又被粉碎了一次，撇开那些与当下不符合的幻想，活在现实中，选择一个适合你的<strong>IDE</strong>，逐渐适应它。</p>
-<ul>
-<li><p>讲几个著名的<strong>IDE</strong>，并给出建议，利器第一步：</p>
-<ol>
-<li><p>宇宙级的<strong>IDE</strong>: Visual Studio(2010~2015)，之所以说宇宙级，因为这是市面上最强大的集成开发环境，由微软公司出品，但是放在开头不是为了推荐他，而是为了警示大家不要使用它作为C语言的集成开发环境，因为它使用的是微软公司自己定制的C++编译器，也就是说，你的C语言代码会在C++的标准下编译运行，这就是一个十分不好的现象，即便是C++我依旧不喜欢使用Visual Studio，因为它的C++编译器总是和普通的标准有所出入。</p>
-<p> 原归正传，Visual Studio的确不是一个好的C语言开发IDE，所以请另外选择一个。</p>
-</li>
-<li><p>老牌<strong>IDE</strong>: DevC++，这又是一个大家耳熟能详，经常能在老师手里看见的C语言教学利器，但是，它是C++的IDE，记住C于C++完全是两个世界的人，虽然C++宣称能全面兼容C程序，但是有些东西依旧是有所区别，体现在语法的兼容性上，后文会有提及。那为什么大学老师喜欢使用它呢？因为一本由清华大学出版社出版的《数据结构》，让无数人为之折服，其中赫然写着由于性能我们不能拘泥于小细节，故对于C++的特性<code>&amp;</code>引用，我们可以将其使用在C语言的语法中，就是这句话，让无数无知的学子扑向其中，再也分不清C与C++，看成谭浩强之后的，清华大学出版社又一诲人不倦的力作。</p>
-<p> 所以，真爱编程，远离清华大学出版社，也请大家注意，不要使用DevC++这个IDE进行C语言程序的开发以及练习。</p>
-</li>
-<li><p>知名<strong>IDE</strong>: Code::Blocks，是一款非常优秀的开源跨平台集成开发环境，体积并不大，适合作为C语言的IDE，并且功能齐全，有兴趣的人可以深究，这是首推的C语言开发环境选择。</p>
-</li>
-<li><p>知名<strong>IDE</strong>: CodeLite，是一款非常优秀的开源跨平台集成开发环境，体积并不大，适合作为C语言的IDE，并且功能齐全，有兴趣的人可以深究，这是次推的C语言开发环境选择，因为使用起来稍微也有些额外的工作要做。</p>
-</li>
-<li><p>著名<strong>IDE</strong>: Xcode，是一个苹果电脑上的史诗级集成开发环境，虽然脱胎于C语言，但是由于某些原因，并不太建议使用其作为C语言的开发环境。 </p>
-</li>
-</ol>
-</li>
-<li><p>IDE的基本配置<br>利器第二步是对所选的IDE进行一些基本的配置，以及小科普。</p>
-<ol>
-<li><p>对于一个练习C语言的开发环境来说，选择合适的标准和编译器是很重要的，在Windows以及Linux操作系统下，我们还是使用<code>GCC</code>这个家伙比较多，开源，免费，且极其强大。当然你也可以选择<code>clang</code>，当然整个计算机领域中支持C语言的编译器并不止这两个，只不过这两个是开源免费，而且功能强大，十分适合作为个人开发以及无特殊需求的企业开发的选择。</p>
-<p> 选择了编译器，我们开始讲标准：</p>
-<p> 对于<code>GCC 5.1</code>以下的所有版本，都默认对C语言使用<code>C89</code>标准，但是我建议使用<code>C99</code>两者的差距，有一个极其明显的地方，便是<code>for</code>循环的使用</p>
-<pre><code><span class="comment">/*C89:*/</span>
-<span class="keyword">int</span> i;
-<span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; <span class="number">10</span>;++i)
-<span class="comment">/*...*/</span>
-</code></pre><p>…</p>
-<pre><code><span class="comment">/*C99*/</span>
-for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
-<span class="comment">/*...*/</span>
-</code></pre><p> 这只是其中的一种差别，但是C99需要人为手动的开启，但是很多人有疑问，为什么有时候没有配置什么也能使用后面的语法？吴老师告诉你，这是因为你用了C++的文件进行C语言的开发，就像挂羊皮卖狗肉的道理。</p>
-</li>
-<li><p>开启C99</p>
-<p>一般IDE的顶部都是一系列的标签，找到<code>工具/设置</code>，因为不同的IDE可能有不同的标签，总之在其中找到一个叫<strong>(编译器)Compiler</strong>之后，在其中的<strong>other option</strong>中加入以下:<code>-std=c99</code>，这便是开启C99的选项代码，完事之后保存即可。虽然说我们是中国人，但是毕竟这东西的外国人发明的，我们能看英文就看英文吧。</p>
-</li>
-</ol>
-<ul>
-<li><p>至此，利器成功配置。</p>
-</li>
-<li><p>当然最重要的还是内在，所以加油吧，虽然是一门很古老的语言，但是存在既有其道理。</p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="0x01-C语言序言">0x01-C语言序言</h4><p> 倒是觉得写代码首先不是语法，而是格式，任何时候任何地点，要是自己的代码难以理解，要么你是故意的，要么你就是菜菜</p>
-<p> 一个难以被人理解的代码在我看来是没有太多的潜力的，但不排除故意为之的情况,也许很多人说这是强迫症，但是无论打开哪一个开源代码，你看到的都将是一个拥有规范的代码文件</p>
-<p>也许有人说人不应该被限制，不应该拘泥于小节，但是当一个工程超过一千行，也许不用只需要不到五百行，就能完全暴露出代码规范的重要性，包括缩进，变量命名，接口存放，接口参数的规范之类，听起来似乎很虚<a href="https://code.google.com/p/google-styleguide/" target="_blank" rel="external">谷歌代码规范(翻墙后查看)</a></p>
-<p>在我看来C语言的内建语法真是无比简洁，几乎存在既有道理，简洁不代表着不强大，强大的某些地方在近来渐渐复苏的Lisp身上也有体现。</p>
-<p><code>if, for, while, switch</code></p>
-<p></p><p>组成了每个C程序的半壁江山<br><br><code> “ + “ “ - “ “ * “ “ / “ “ % “ “ = “</code></p>
-<p></p><p>组成了各式各样的算法计数<br><br><code>“&gt;&gt;” “&lt;&lt;” “|” “&amp;” “^” “~” “!”</code></p>
-<p></p><p>让C语言有了更高效的算法以及更奇妙的思路<br><br><code>struct enum union #define return</code><br></p>
-<p></p><p>而这些则让C语言在这乱世纷争中站稳了脚跟，并且一枝独秀<br><br><code>“{}” “()”</code><br></p>
-<p></p><p>让代码不再无序混乱<br><br><code>“type * “ “&amp;” “()” “-&gt;”</code><br></p>
-<p></p><p>让C语言在这个世界无处不在<br><code>“ . “ “[ ]” “ &lt; “ “ &gt; “ “ == “</code><br></p>
-<a id="more"></a>
-<p><strong>还记得他们吗？我想这一辈子都忘不了了</strong></p>
-<h4 id="0x02-编程带给我的">0x02-编程带给我的</h4><p>是快乐而不是痛苦，如果你觉得编程痛苦，请放下你手头的工作，找找自己真正想要的，无论从什么角度来看，你都应该放弃令你痛苦的事情，花上三杯茶的时间，看看自己的心到底喜欢什么。</p>
-<p>C语言可谓是让一个程序员最难以感受到自己进步的编程语言，一个黑窗口就让无数程序员再也走不出来。或者迷失，或者停滞不前，或者放弃，一个人最恐惧无助，甚至彷徨的时候，就是在努力之后却感受不到自己在进步，努力的白费是所有人不愿意看到的，但是太多人就着所谓前途而奋不顾身的投入这个事业，他们也许对计算机完全没有喜爱之心，埋头苦干，世人皆称<strong>爱读书的好孩子</strong>，但是这意义又在何处？即使最后你领着你觉得高的工资，站在了同学，朋友的前方，依然发现自己并没有得到满足，在我看来，让自己开心的才是最好的，不适合你的永远是最差的，即便能带来利益？何不花三杯茶的时间，想想自己到底适合何处。</p>
-<p>在C语言的道路上，囊括了许多道天堑，并不是说这门语言比其他语言难，相反它十分符合人类的思维逻辑，但就是因为它存在的时间太久远，普通的使用于它于世界已经无甚大用，在现在这个高级语言遍地走的时代里，有用的只是那些将C语言发挥到极限的工程，不再是小窗口中写一个数据结构，一个算法，也许你觉得徒手写出一棵<strong>红黑树</strong>很了不起了？那也就是做成一个字典树，在一个浩大的工程中，一个虽重要却不起眼的小部分罢了，学完所有语法，却不知所措接下去该怎么做？有心人在无尽的探索之后发觉，啊！标准库！啊算法！嗯对了，还有各种各样的第三方扩展，以后呢？啊！操作系统！然而自学的路上充满着坎坷，艰辛，无助，烦恼，那又如何？喜欢就好。</p>
-<p>所谓师傅领进门，修行在个人，这句话在我看来有两个重要点，却是现在大学生几乎缺失的。<strong>师傅</strong>一词告诉我们，要不耻下问，要善于询问，而不是伸手即来思想，”提问的智慧”在我看来是一门很重要的课程，特别是在当今信息时代。而更重要的是，先入为主的思想是极其可怕的，在这两年的自学历程里，见过太多后来者居上的事迹，当你一直认为自己一定比后辈强时，你就注定输了，所以不耻下问才是最重要的。但是如果师傅是那么容易找到的，那就不会有学校了，<strong>个人</strong>指的并不是孤军奋战，而是要善于自己发现问题，努力解决问题，这个过程可能少不了请教他人</p>
-<p>编程可以是一种信仰，至少在我认为是这样的，把它当作信仰的人，它就能给你快乐，给你充实，当然也不要忘了现实，虽然现实中总是少不了加班的羁绊，但是如果是真心喜爱编程，又怎么会被这些困难所打败？但是C语言真的不是一门容易精通的语言。</p>
-<h4 id="0x03-C代码">0x03-C代码</h4><pre><code><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span>
-<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span>
-</span>{
-    <span class="built_in">printf</span>(<span class="string">"That is Right Style\n"</span>);
-    <span class="keyword">return</span> <span class="number">0</span>;
-}
-</code></pre><p>在一个标准的C语言程序中，最特殊的莫过于main函数了，而说到底它就是一个函数而已，仅仅因为它地位特殊拥有第一执行权力，换句话说，难道因为一个人是省长它就不是人类了？所以函数该有的它都应该有，那么函数还有什么呢？</p>
-<p>函数大体上分为<a href="http://www.greenend.org.uk/rjk/tech/inline.html" target="_blank" rel="external">内联函数(C99)</a><strong>(内联函数并非C++专属，C语言亦有，具体见前方链接)</strong>和非内联的普通函数，它们之间有一个很明显的特点(一般情况下)，那就是不写原型直接在main函数上方定义，即使不加’inline’关键字，也能被编译器默认为内联函数，但之后带来的某些并发问题就不是编译器考虑的了。</p>
-<p>普通函数正确的形式应该为声明与定义分离，声明就是一个函数原型，函数原型应该有一个函数名字，一个参数列表，一个返回值类型和一个分号。定义就是函数的内在，花括号内的就是函数的定义:</p>
-<pre><code><span class="comment">//...</span>
-<span class="function"><span class="keyword">int</span> <span class="title">function</span><span class="params">(<span class="keyword">int</span> arg_1, <span class="keyword">float</span> arg_2)</span></span>;
-<span class="comment">//...</span>
-<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span>
-</span>{
-  <span class="keyword">int</span> output = function(<span class="number">11</span>, <span class="number">22.0</span>);
-  <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,output);
-  <span class="keyword">return</span> <span class="number">0</span>;
-}
-
-<span class="function"><span class="keyword">int</span> <span class="title">function</span><span class="params">(<span class="keyword">int</span> arg_1, <span class="keyword">float</span> arg_2)</span>
-</span>{
- <span class="keyword">int</span>    return_value  = arg_1;
- <span class="keyword">float</span>  temp_float    = arg_2;
- <span class="keyword">return</span> return_value;
-}    
-</code></pre><p>依上所述，当非必要时，在自己编写函数的时候请注意在开头(main函数之前)写上你的函数的原型，并且在末尾(<code>main</code>函数之后)写上你的函数定义，这是一个很好的习惯以及规范。所谓代码整洁之道，就是如此。</p>
-<p>函数的另一种分类是，有返回值和无返回值，返回值的类型可以是内建<strong>(build-in)</strong>的也可以是自己定义的(<code>struct, union</code>之类)，无返回值则是<code>void</code>。</p>
-<ol>
-<li>为什么我们十分谴责<code>void main()</code>这种写法？因为这完全是中国式教育延伸出来的谭式写法，<strong>main函数</strong>的返回值看似无用，实际上是由操作系统接收，在Windows操作系统下也许无甚”大碍”(实际上有),当你使用Linux的过程中你会清晰的发现一个C语言程序的<strong>main返回值</strong>关系到一个系统是否能正常，高效的运行，这里稍微提一句，<code>0</code>在Linux程序管道通信间代表着无错可行的意思。所以请扔掉<code>void main</code>这种写法。</li>
-<li><p>为什么我们对 <code>main()</code>这种省略返回值的写法置有微词？能发明这种写法的人，必定是了解了，在C语言中，如果一个函数不显式声明自己的返回值，那么会被缺省认为是<code>int</code>，但这一步是由编译器掌控，然而C语言设计之初便是让我们对一切尽可能的掌握，而一切不确定因子我们都不应该让它存在。其次有一个原则，能自己做的就不要让编译器做。</p>
-</li>
-<li><p>为什么我们对参数放空置有不满(int main())?在C语言中，一个函数的参数列表有三种合法形态:<br></p>
-<pre><code><span class="built_in">int</span> <span class="function"><span class="keyword">function</span><span class="params">()</span></span>;
-<span class="built_in">int</span> <span class="function"><span class="keyword">function</span><span class="params">(void)</span></span>;
-<span class="built_in">int</span> <span class="function"><span class="keyword">function</span><span class="params">(int arg_n)</span></span>;
-<span class="built_in">int</span> <span class="function"><span class="keyword">function</span><span class="params">(int arg_n, ...)</span></span>;
-</code></pre><p> 第一种代表拥有未知个参数,第二种代表没有参数，第三种代表有一个参数，第四种代表拥有未知个参数，并且第一个参数类型为int,未知参数在C语言中有一个解决方案就是，可变长的参数列表，具体参考C标准库，在此我们解释的依据就是，我们要将一切都掌控在自己的手中，我们不在括号内填写参数，代表着我们认为一开始的意思是它为空，正因此我们就应该明确说明它为void,而不该让它成为一个未知参数长度的函数，如此在你不小心传入参数的时候，编译器也无法发现错误。</p>
-</li>
-<li><p><code>int main(int argc, char* argv[])</code> 和 <code>int main(void)</code>才是我们该写的C语言标准形式<br><br>对于缩进，除了编译器提供的符号缩进之外，我们可以自己给自己一个规范(请少用或者不用Tab)，比如每一块代码相教上一个代码块有4格的缩进。<br><br>对于学习C语言，请使用.c文件以及C语言编译器练习以及编写C程序，请不要再使用C++的文件编写C语言程序，并且自圆其说为了效率而使用C++的特性在C语言中，我们是祖国的下一代，是祖国的未来，请不要让自己毁在当下，珍爱编程，远离清华大学出版社</p>
-<p> 之所以如此叙述，并不是因为情绪，而是当真如此，下方代码:</p>
-<pre><code><span class="comment">/*file: test.c*/</span>
-<span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span>
-<span class="preprocessor">#<span class="keyword">define</span> SIZES 5</span>
-<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span>
-</span>{
-    <span class="keyword">int</span>* c_pointer = <span class="built_in">malloc</span>(SIZES * <span class="keyword">sizeof</span>(<span class="keyword">int</span>));
-    <span class="comment">/*发生了一些事情*/</span>
-    <span class="built_in">free</span>(c_pointer);
-    <span class="keyword">return</span> <span class="number">0</span>;
-}
-</code></pre><p> 这是一段标准的C语言程序，但是它能在C++个编译器下编译运行吗？换句话说当你将文件扩展名由<code>.c</code>改为<code>.cpp</code>之后，它能编译通过吗？答案是不能。</p>
-<p> 为什么？答案是C++并不支持<code>void*</code>隐式转换为其他类型的指针，但是C语言允许。还有许许多多C于C++不相同的地方，兴许有人说C++是C的超集，但我并不这么认为，一门语言的出现便有它的意义所在，关键在于我们如何发挥它的最大优势，而不是通过混淆概念来增强实用性</p>
-</li>
-<li><p>程序式子的写法</p>
-<p> 一个人活在世界上，时时刻刻都注意着自己的言行举止，而写程序也是如此，对于一个规范的能让别人读懂的程序而言，我们应该尽可能减少阻碍因子，例如:</p>
-<pre><code><span class="keyword">int</span> main(void)
-{<span class="keyword">int</span> complex_int=<span class="number">100</span>;
-<span class="keyword">int</span> i,j,k,<span class="keyword">x</span>;
-<span class="keyword">for</span>(<span class="keyword">int</span> temp=<span class="number">0</span>;temp&lt;complex_int;++temp){k=temp;
-<span class="keyword">x</span>=k+complex_int;}
-<span class="keyword">printf</span>(complex_int=<span class="string">"<span class="variable">%d</span> is k=<span class="variable">%d</span> x=<span class="variable">%d</span>\n"</span>,complex_int,k,<span class="keyword">x</span>);
-<span class="keyword">return</span> <span class="number">0</span>;}
-</code></pre><p>对于上述的代码，我总是在班级里的同学手下出现，但这段代码除了让别人困惑以外，自己在调试的时候也是十分不方便，每每遇到问题了，即便IDE提示了在某处错误，你也找不到问题所在，经常有人来问我哪里错了，大部分情况都是少了分号，括号，或者作用域超过，原因在哪？</p>
-<p> 要是一开始将代码写清楚了，这种情况简直是凤毛麟角，想遇上都难。对于一个代码而言，我们应该注意让其变得清晰。</p>
-<ul>
-<li><p>等号两边使用空格：</p>
-<pre><code><span class="keyword">int</span> complex_int = <span class="number">100</span>;
-</code></pre></li>
-<li><p>使用多个变量的声明定义，或者函数声明定义，函数使用时，注意用空格分开变量：</p>
-<pre><code><span class="keyword">int</span> i, j, k, x;<span class="comment">//但是十分不建议这么声明难以理解意义的变量</span>
-<span class="built_in">printf</span>(<span class="string">"complex_int = %d is k = %d x = %d\n"</span>, complex_int, k, x);
-<span class="function"><span class="keyword">void</span> <span class="title">present</span><span class="params">(<span class="keyword">int</span> arg_1, <span class="keyword">double</span> arg_2)</span></span>;
-</code></pre></li>
-<li><p>对于一个清晰的程序而言，我们要让每一个步骤清晰且有意义，这就要求我们在编写程序的时候尽量能让代码看起来结构化，或者整体化。尽量让每个程序式子为一行，如果有特别的需要让多个式子写在同一行，可以使用<code>,</code>操作符进行组合，但是会让程序更难理解，日后调试的时候也更难发现错误。</p>
-<pre><code><span class="comment">/*Style 1*/</span>    
-for(int <span class="variable">temp =</span> <span class="number">0</span>;temp &lt; complex_int;++temp)
-{
-    <span class="variable">k =</span> temp;
-    <span class="variable">x =</span> k + complex_int;
-}
-<span class="comment">/*Style 2*/</span>
-for(int <span class="variable">temp =</span> <span class="number">0</span>;temp &lt; complex_int;++temp){
-    <span class="variable">k =</span> temp;
-    <span class="variable">x =</span> k + complex_int;
-}
-</code></pre><p>对于上方的代码，是C语言代码花括号的两种风格，最好能选择其中一种作为自己的编程风格，这样能让你的程序看起来更加清晰，混合使用的利弊并不好说，关键还是看个人风格。</p>
-</li>
-<li><p>对于作用域而言，在C语言中有一个经常被使用的特例，当一个条件语句，或者循环只有一条语句的时候，我们常常省略了花括号<code>{}</code>，而是仅仅使用一个分号作为结尾，这在很多情况下让代码不再啰嗦：</p>
-<pre><code><span class="keyword">if</span>(pointo_int == NULL)
-    fprintf(stderr, <span class="string">"The pointer is NULL!\n"</span>);
-<span class="keyword">else</span>
-{
-    <span class="keyword">printf</span>(<span class="string">"<span class="variable">%d</span>\n"</span>,*pointo_int);
-    pointo_int = pointo_int-&gt;<span class="keyword">next</span>;
-}
-</code></pre><p>在这段代码中<code>if</code>语句下方的代码并没有使用<code>{}</code>运算符进行指明，但是根据语法，该语句的确是属于<code>if</code>语句的作用范围内，如果我们此时写上了<code>{}</code>反而会令代码看起来过于啰嗦。但是有的时候，这条特性并不是那么的有趣，当使用嵌套功能的时候，还是建议使用<code>{}</code>进行显式的范围规定，而不是使用默认的作用域：</p>
-<pre><code>for<span class="comment">(int i = 0;i&lt; 10;++i)</span>
-    for<span class="comment">(int k = 0;k &lt; 10;++k)</span>
-        <span class="keyword">while</span><span class="comment">(flag != 1)</span>
-            set_value<span class="comment">(arr[i][k])</span>;
-</code></pre><p>这段代码，看起来十分简洁，但是确实是一个很大的隐患，当我们要调试这段代码的时候，总是需要修改它的构造，而这就带来了潜在的隐患。所以建议在使用嵌套的时候，无论什么情况，都能使用<code>{}</code>进行包装。</p>
-</li>
-</ul>
-</li>
-</ol>
-<p><strong>综上所述，在开始编写一个标准C语言程序的时候，请先把下面这些东西写上:</strong><br></p>
-<pre><code><span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span>
-
-<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span>
-</span>{
-    <span class="keyword">return</span> <span class="number">0</span>;
-}
-</code></pre><p>对于<code>main</code>的参数，有兴趣的可以查阅<a href="http://wrestlewsx.github.io/C++流操作(续)/" target="_blank" rel="external">我的文章</a>，或者自行谷歌，在此问题上百度也是可以的。</p>
-<h4 id="0x04-C语言变量">0x04-C语言变量</h4><p>C语言在明面上将数的变量分为两类，<strong>整型变量</strong>以及<strong>浮点数</strong>，对应着现实世界的整数和小数。</p>
-<ul>
-<li><p>首先是整数，使用了这么多的C语言之后，每当在使用整数之时都会将其想象成二进制的存在，而不是十进制。原因在于，这是程序的本质所在，稍有研究编译器工作原理的都会发现，在编译器处理乘法乃至除法的时候，优秀的编译器总会想方设法的加快程序的速度，毫无疑问在所有运算中移位运算是最快速的”乘法”以及”除法”: <br><br><code>1&lt;&lt;2 == 4</code> ,<code>8&gt;&gt;2 == 2</code></p>
-<p>  而正常一个乘法相当于十数次的加法运算的时间消耗，移位则不用<strong>(除法的消耗更大，但是随着CPU的进步，这些差距正在逐渐缩小，就目前来看依旧是有着不小的差距但无论如何优化，乘法时间都会大于加法)</strong>。正如前面所说，C语言设计之初便是给了程序员所有的权利，而程序员要做的就是掌控所有能掌控的，即便是数的计算亦是如此，比如在优秀的编译器看来:<br><br>  <code>2*7 ====&gt; (2&lt;&lt;3) - 2</code><br><br>  <code>5*31 ====&gt; (5&lt;&lt;5) - 5</code><br><br>  毫无疑问经过编译器优化后的代码此前者要快许多。这就是为什么我们要将一个数看作二进制，这不仅仅是表面，而是要在深层次的认为它是二进制，总体来说C语言的整型是非常简洁明了的总体分为 <em>有符号</em> 和 <em>无符号</em>，很好理解只需要注意不要让无符号数进行负数的运算，这里有一个原则，可以很好的规避这种无意之过，<strong>不把无符号类型变量和有符号类型变量放于同一运算中</strong>，时刻记得保持式子的类型一致是设计时的保障。</p>
-</li>
-<li><p>浮点数，由于实数域可以看作稠密的，故除了整数以外，还有无数的小数，而小数在计算机中如何表示？一种无限的状态是无法在计算机中被精确表示，所以有了浮点法，关于浮点法可以参考书籍<a href="http://www.amazon.cn/计算机科学丛书-深入理解计算机系统-布莱恩特/dp/B004BJ18KM" target="_blank" rel="external">《深入理解计算机系统》</a>。<br>这里介绍的是在C语言中我们应该如何正确使用浮点数？很多人(包括我)在初作之时总是想当然的以为计算机是无所不能的，连人类都无法完全表达出来的小数计算机一定可以，实际上并非如此，在这里我可以说，计算机只是近似表达，而最大的忌讳的便是将两个浮点数进行比较，此处介绍一种浮点数常用的比较方法，精确度法:</p>
-<pre><code><span class="preprocessor">#<span class="keyword">define</span> DISTANCE 0.00000001</span>
-...
-<span class="keyword">float</span> f_x_1 = <span class="number">20.5</span>;
-<span class="keyword">float</span> f_x_2 = <span class="number">19.5</span>;
-<span class="keyword">if</span>(f_x_1 - f_x_2 &lt; DISTANCE)
-    <span class="built_in">printf</span>(<span class="string">"They are Equal\n"</span>);
-<span class="keyword">else</span>
-    <span class="built_in">printf</span>(<span class="string">"Different\n"</span>);
-</code></pre><p>所以说，在很大程度上，当你在程序中使用了浮点数，又直接使用浮点数进行比较，却发现始终无法达到预期效果，那么你可以检查一下，是否是这个原因，在这一点上，不得不说是C语言的一个缺憾。<br></p>
-</li>
-<li><p>指针变量，是一种比较特别的变量，以至于总是对它进行特别对待。这里有几个原则:</p>
-<ul>
-<li>两个不相关的指针进行加减操作是无意义的</li>
-<li>始终确保自己能够找到分配的内存</li>
-<li>无论何时何地何种情况，都要记住，不使用未初始化的指针，不让未使用的内存持续存在。</li>
-</ul>
-<p>指针在不同位的操作系统上的大小是不一样的，但是在同一个操作系统下，无论什么类型的指针都是相同大小，这涉及到指针的寻址问题，<strong>(题外话:C语言的寻址实际上使用了汇编语言的间接寻址，有兴趣的可以自行尝试，方法之一，使用gcc编译器的汇编选项，产生汇编代码，进行一一比对)</strong>，对于寻址一个笼统一些的说法便是<br><br><code>4Byte = 32bit</code><br><br><code>2^32 = 4G</code><br><br>所以32位的操作系统下C语言指针:</p>
-<pre><code>...
-size_t what = <span class="keyword">sizeof</span>(<span class="keyword">void</span>*);
-<span class="built_in">printf</span>(<span class="string">"%d"</span>, what);
-...
-</code></pre><p>输出:<code>$root@mine: 4</code><br><br>对于大部分使用者来说，指针主要用来降低内存消耗以及提高运算效率的，这里设计许多学问，我也无法一一展示，比较有意思也常用的两个东西便是递增以及语法糖:<code>++, -&gt;</code></p>
-<pre><code>...
-<span class="keyword">int</span> dupli_of_me[<span class="number">10</span>] = {<span class="number">0</span>};<span class="comment">//也可以使用库函数memset()进行置0</span>
-<span class="keyword">int</span> *point_to_me = dupli_of_me;
-<span class="keyword">int</span> me = <span class="number">100</span>;
-<span class="keyword">while</span>(point_to_me &lt; (dupli_of_me + <span class="number">10</span>))
-    *point_to_me++ = me;
-</code></pre><p>其中<code>*point_to_me++ = me;</code>在C语言应用广泛它相当于是:</p>
-<pre><code>*point_to_me = <span class="keyword">me</span>;
-point_to_me++;
-</code></pre><p>的语法糖，对于<code>++</code>，在非必要的情况下，请使用前缀递增，而非后缀递增，原因是消耗问题，仔细想想这两种递增的区别在何处？<br>前缀递增总是在原数上进行递增操作，然而后缀递增呢？它首先拷贝一份原数放于别处，并且递增这份拷贝，在原数进行的操作完毕后，将这份拷贝再拷贝进原数取代它，此中的操作涉及的更多，<strong>所以在非必要的情况下，请使用前缀递增而不是后缀递增(递减也是同样的道理)</strong><br><br><code>-&gt;</code>则是在结构体上使用的非常广泛:</p>
-<pre><code>typedef struct <span class="built_in">data</span>{
-    int test;
-    struct <span class="built_in">data</span><span class="subst">*</span> next;
-}my_struct;
-<span class="attribute">...</span>
-my_struct temp;
-my_struct <span class="subst">*</span>ptemp <span class="subst">=</span> <span class="subst">&amp;</span>temp;
-ptemp<span class="subst">-&gt;</span>test <span class="subst">=</span> <span class="number">100</span>;
-ptemp<span class="subst">-&gt;</span>next <span class="subst">=</span> <span class="built_in">NULL</span>;
-<span class="keyword">if</span>(temp<span class="built_in">.</span>test <span class="subst">==</span> <span class="number">100</span>)
-    printf(<span class="string">"Correctly!\n"</span>);
-<span class="keyword">else</span>
-    printf(<span class="string">"That is impossible!\n"</span>);
-<span class="attribute">...</span>
-</code></pre><p>可以很清楚的看出其实<code>ptemp-&gt;test</code>便是<code>(*ptemp).test</code>的语法糖</p>
-</li>
-<li><p>变量限定</p>
-<p>  <code>const</code> 是最常用的变量限定符，它的意思是告诉编译器，这个变量或者对象在初始化以后不能被改变，常用它来保护一些必要的返回值，参数以及常量的定义。</p>
-<p>  <code>volatile</code> 这个关键字常常被C语言教材所忽略，它很神秘。实际上确实如此，他的作用的确很神秘：一旦使用了，就是告诉编译器，即使这个变量没有被使用或修改其他内存单元，它的值也可能发生变化。通俗的说就是，<strong>告诉编译器，不要把你的那一套优化策略用在我身上</strong>。</p>
-<pre><code><span class="comment">/* 此时我们将编译器优化等级提高到 -O2 */</span>
-<span class="keyword">int</span>          test_num   = <span class="number">100</span>; <span class="comment">//测试一个迭代加法</span>
-<span class="keyword">int</span>          nor_result = <span class="number">0</span>;
-<span class="keyword">volatile</span> <span class="keyword">int</span> vol_result = <span class="number">0</span>;
-<span class="comment">/* 测试无volatile限定下，该程序的耗时 */</span>            
-<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">10000</span>;++i)
-    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; <span class="number">10000</span>;++j)
-            nor_result += test_num;
-</code></pre><p>接下来就是测试<code>volatile</code>限定下的代码</p>
-<pre><code><span class="keyword">for</span>(int <span class="built_in">i</span> = <span class="number">0</span>;<span class="built_in">i</span> &lt; <span class="number">10000</span>;++<span class="built_in">i</span>)
-    <span class="keyword">for</span>(int <span class="built_in">j</span> = <span class="number">0</span>;<span class="built_in">j</span> &lt; <span class="number">10000</span>;++<span class="built_in">j</span>)
-            vol_result += test_num;
-</code></pre><p>在使用一些手段后，得到运行时间，可以很清晰的看出差别，在我的机器上，<code>i5-4CPU</code>，得到的结果是后者比前者慢大概十五倍。<br>从某一些方向上证明了，volatile的一些作用，比如调试的时候，或者一些特殊用途。涉足不多，故不记录。</p>
-</li>
-<li><p>变量说明</p>
-<p><code>extern</code> 用于将不同文件的，带有外部链接性的变量引用到本文件中。所谓外部链接性就是可以被除本文件外的其他文件<strong>“看见”</strong>的变量，如全局变量，使用方法：</p>
-<pre><code><span class="comment">/* 以下为一个工程内可见 */</span>
-<span class="comment">/*file1.c*/</span>
-<span class="keyword">int</span> glo_show;<span class="comment">//对于该全局变量来说，它们在声明时无初始化，则默认初始为0</span>
-<span class="keyword">int</span> glo_print = <span class="number">10</span>;<span class="comment">//声明定义完成后，自动分配内存以存储信息    </span>
-...
-
-<span class="comment">/* file2.c */</span>
-<span class="keyword">extern</span> glo_print; <span class="comment">//仅仅是引用名字，并不会额外分配空间</span>
-                  <span class="comment">//所以，只需要写正确变量名字即可，后方的初始化无须完全</span>
-                  <span class="comment">//因为变量的初始化定义只能有一次。</span>
-
-<span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">()</span>
-</span>{
-    <span class="built_in">printf</span>(<span class="string">"The Globle Value is %d \n"</span>, glo_print);
-}
-</code></pre><p>  <code>auto</code> 可以姑且忽略，因为没有什么实际意义。</p>
-<h4 id="Create_By_WuShengXin_@_2015">Create By WuShengXin @ 2015</h4></li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="我的C语言">我的C语言</h1><h2 id="本章更新于_2015/6/21_11:36:01">本章更新于 2015/6/21 11:36:01</h2><p><strong>正式接触编程，大概是一年连六个月吧，这真是一个令人着迷的领域</strong></p>
-<h4 id="0x00-C语言前续工作">0x00-C语言前续工作</h4><p>正所谓，工欲善其事，必先利其器，把握住当下最强大的工具，能让我们在学习的道路上少走许多弯路，多吸取前人的失败经验，能让自己快速成长，因为成长总是在消耗我们的耐心以及生命。</p>
-<p>入门或者精通或者应用，不管哪一方面，对于一个编程语言而言，最方便的还是使用一个<strong>IDE</strong>作为你的有力助手，什么事<strong>IDE</strong>？通俗而专业的说叫做<strong>集成开发环境</strong>，这个通过字面就能理解到了，就是所有其他的事情都不需要程序员操心，你需要操心的就是写出代码，至于代码完成之后的一系列工作，都不需要你来管，IDE一键帮你搞定。</p>
-<p>当然，会有许多前辈告诉你，如果你想理解C语言，那你一定要使用最基层的东西来写，比如XXX编辑器配上XXX编译器，晕头转向之后更加茫然，本来就支离破碎的小心肝，又被粉碎了一次，撇开那些与当下不符合的幻想，活在现实中，选择一个适合你的<strong>IDE</strong>，逐渐适应它。</p>
-<ul>
-<li><p>讲几个著名的<strong>IDE</strong>，并给出建议，利器第一步：</p>
-<ol>
-<li><p>宇宙级的<strong>IDE</strong>: Visual Studio(2010~2015)，之所以说宇宙级，因为这是市面上最强大的集成开发环境，由微软公司出品，但是放在开头不是为了推荐他，而是为了警示大家不要使用它作为C语言的集成开发环境，因为它使用的是微软公司自己定制的C++编译器，也就是说，你的C语言代码会在C++的标准下编译运行，这就是一个十分不好的现象，即便是C++我依旧不喜欢使用Visual Studio，因为它的C++编译器总是和普通的标准有所出入。</p>
-<p> 原归正传，Visual Studio的确不是一个好的C语言开发IDE，所以请另外选择一个。</p>
-</li>
-<li><p>老牌<strong>IDE</strong>: DevC++，这又是一个大家耳熟能详，经常能在老师手里看见的C语言教学利器，但是，它是C++的IDE，记住C于C++完全是两个世界的人，虽然C++宣称能全面兼容C程序，但是有些东西依旧是有所区别，体现在语法的兼容性上，后文会有提及。那为什么大学老师喜欢使用它呢？因为一本由清华大学出版社出版的《数据结构》，让无数人为之折服，其中赫然写着由于性能我们不能拘泥于小细节，故对于C++的特性<code>&amp;</code>引用，我们可以将其使用在C语言的语法中，就是这句话，让无数无知的学子扑向其中，再也分不清C与C++，看成谭浩强之后的，清华大学出版社又一诲人不倦的力作。</p>
-<p> 所以，真爱编程，远离清华大学出版社，也请大家注意，不要使用DevC++这个IDE进行C语言程序的开发以及练习。</p>
-</li>
-<li><p>知名<strong>IDE</strong>: Code::Blocks，是一款非常优秀的开源跨平台集成开发环境，体积并不大，适合作为C语言的IDE，并且功能齐全，有兴趣的人可以深究，这是首推的C语言开发环境选择。</p>
-</li>
-<li><p>知名<strong>IDE</strong>: CodeLite，是一款非常优秀的开源跨平台集成开发环境，体积并不大，适合作为C语言的IDE，并且功能齐全，有兴趣的人可以深究，这是次推的C语言开发环境选择，因为使用起来稍微也有些额外的工作要做。</p>
-</li>
-<li><p>著名<strong>IDE</strong>: Xcode，是一个苹果电脑上的史诗级集成开发环境，虽然脱胎于C语言，但是由于某些原因，并不太建议使用其作为C语言的开发环境。 </p>
-</li>
-</ol>
-</li>
-<li><p>IDE的基本配置<br>利器第二步是对所选的IDE进行一些基本的配置，以及小科普。</p>
-<ol>
-<li><p>对于一个练习C语言的开发环境来说，选择合适的标准和编译器是很重要的，在Windows以及Linux操作系统下，我们还是使用<code>GCC</code>这个家伙比较多，开源，免费，且极其强大。当然你也可以选择<code>clang</code>，当然整个计算机领域中支持C语言的编译器并不止这两个，只不过这两个是开源免费，而且功能强大，十分适合作为个人开发以及无特殊需求的企业开发的选择。</p>
-<p> 选择了编译器，我们开始讲标准：</p>
-<p> 对于<code>GCC 5.1</code>以下的所有版本，都默认对C语言使用<code>C89</code>标准，但是我建议使用<code>C99</code>两者的差距，有一个极其明显的地方，便是<code>for</code>循环的使用</p>
-<pre><code><span class="comment">/*C89:*/</span>
-<span class="keyword">int</span> i;
-<span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; <span class="number">10</span>;++i)
-<span class="comment">/*...*/</span>
-</code></pre><p>…</p>
-<pre><code><span class="comment">/*C99*/</span>
-for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
-<span class="comment">/*...*/</span>
-</code></pre><p> 这只是其中的一种差别，但是C99需要人为手动的开启，但是很多人有疑问，为什么有时候没有配置什么也能使用后面的语法？吴老师告诉你，这是因为你用了C++的文件进行C语言的开发，就像挂羊皮卖狗肉的道理。</p>
-</li>
-<li><p>开启C99</p>
-<p>一般IDE的顶部都是一系列的标签，找到<code>工具/设置</code>，因为不同的IDE可能有不同的标签，总之在其中找到一个叫<strong>(编译器)Compiler</strong>之后，在其中的<strong>other option</strong>中加入以下:<code>-std=c99</code>，这便是开启C99的选项代码，完事之后保存即可。虽然说我们是中国人，但是毕竟这东西的外国人发明的，我们能看英文就看英文吧。</p>
-</li>
-</ol>
-<ul>
-<li><p>至此，利器成功配置。</p>
-</li>
-<li><p>当然最重要的还是内在，所以加油吧，虽然是一门很古老的语言，但是存在既有其道理。</p>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="0x01-C语言序言">0x01-C语言序言</h4><p> 倒是觉得写代码首先不是语法，而是格式，任何时候任何地点，要是自己的代码难以理解，要么你是故意的，要么你就是菜菜</p>
-<p> 一个难以被人理解的代码在我看来是没有太多的潜力的，但不排除故意为之的情况,也许很多人说这是强迫症，但是无论打开哪一个开源代码，你看到的都将是一个拥有规范的代码文件</p>
-<p>也许有人说人不应该被限制，不应该拘泥于小节，但是当一个工程超过一千行，也许不用只需要不到五百行，就能完全暴露出代码规范的重要性，包括缩进，变量命名，接口存放，接口参数的规范之类，听起来似乎很虚<a href="https://code.google.com/p/google-styleguide/">谷歌代码规范(翻墙后查看)</a></p>
-<p>在我看来C语言的内建语法真是无比简洁，几乎存在既有道理，简洁不代表着不强大，强大的某些地方在近来渐渐复苏的Lisp身上也有体现。</p>
-<p><code>if, for, while, switch</code></p>
-<p><p>组成了每个C程序的半壁江山<br><br><code> “ + “ “ - “ “ * “ “ / “ “ % “ “ = “</code></p>
-<p><p>组成了各式各样的算法计数<br><br><code>“&gt;&gt;” “&lt;&lt;” “|” “&amp;” “^” “~” “!”</code></p>
-<p><p>让C语言有了更高效的算法以及更奇妙的思路<br><br><code>struct enum union #define return</code><br></p>
-<p><p>而这些则让C语言在这乱世纷争中站稳了脚跟，并且一枝独秀<br><br><code>“{}” “()”</code><br></p>
-<p><p>让代码不再无序混乱<br><br><code>“type * “ “&amp;” “()” “-&gt;”</code><br></p>
-<p><p>让C语言在这个世界无处不在<br><code>“ . “ “[ ]” “ &lt; “ “ &gt; “ “ == “</code><br></p>]]>
     
     </summary>
     
