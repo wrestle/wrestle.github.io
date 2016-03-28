@@ -5,7 +5,7 @@
   <subtitle><![CDATA[狐狸永远是我的]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.wushxin.top//"/>
-  <updated>2016-03-28T08:09:48.723Z</updated>
+  <updated>2016-03-28T08:20:39.207Z</updated>
   <id>http://www.wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.wushxin.top/2016/03/28/%E4%BD%BF%E7%94%A8tmux.html"/>
     <id>http://www.wushxin.top/2016/03/28/使用tmux.html</id>
     <published>2016-03-27T23:51:30.000Z</published>
-    <updated>2016-03-28T08:09:48.723Z</updated>
+    <updated>2016-03-28T08:20:39.207Z</updated>
     <content type="html"><![CDATA[<h2 id="神级命令行软件_Tmux">神级命令行软件 Tmux</h2><ul>
 <li>这是我在大学里认识到的<strong>最好用</strong>的神器，<strong>没有之一</strong>，提高效率那是没得说，主要至今未曾崩溃过，可见其可怕之处</li>
 <li>额外提一点就是，由于学校原因，没机会使用到 <code>tmux</code> 的远程连接黑魔法，所以本篇文章记录的是单机情况下的操作，远程连接没有用过，就不好置评</li>
@@ -77,7 +77,7 @@
 <li><p>原归正转，当你回到原始<code>Shell</code>时，使用命令 <code>tmux ls</code>，看看会出现什么:</p>
 <pre><code><span class="variable">$ </span>tmux ls
 </code></pre><p>  出现</p>
-<pre><code>wzqt<span class="variable">@kali</span><span class="symbol">:~/ClionProjects/httpd3</span><span class="comment"># tmux ls</span>
+<pre><code>root<span class="variable">@kali</span><span class="symbol">:~/ClionProjects/httpd3</span><span class="comment"># tmux ls</span>
 <span class="number">0</span><span class="symbol">:</span> <span class="number">1</span> windows (created <span class="constant">Mon Mar </span><span class="number">28</span> 08<span class="symbol">:</span><span class="number">39</span><span class="symbol">:</span><span class="number">01</span> <span class="number">2016</span>) [<span class="number">150</span>x4<span class="number">0</span>]****
 </code></pre><p>  现在从这行回馈中，能得到对我们最有用的是两个信息：当前有一个 <strong>tmux窗会话</strong>，这个会话的名字是 <code>0</code></p>
 </li>
@@ -159,7 +159,7 @@
 <li><p>切换会话</p>
 <ol>
 <li>如果我就在会话中，想要到别的会话去，拿到一定要先回到原始<code>Shell</code>在去连接吗？当然不</li>
-<li>直接进入上帝模式，嗯<code>s</code>，就能看见当前存在的会话，移动方向键选择即可。<ol>
+<li>直接进入上帝模式，摁<code>s</code>，就能看见当前存在的会话，移动方向键选择即可。<ol>
 <li><code>Ctrl + b --&gt; s</code></li>
 </ol>
 </li>
@@ -206,7 +206,8 @@
 <li>至于为什么没有介绍更多的快捷键，那就需要自己凭个人去记就行，对于我而言，我只记了这些操作，认为已经足够</li>
 <li>而对于那些说什么 重新绑定快捷键什么的言语，我只说一句，<strong>看个人</strong>，不要想着说服别人，让别人主动去做才是对的。至少我没有感觉到不适应。</li>
 </ul>
-<h4 id="如转载请注明原处_:_)">如转载请注明原处 : )</h4>]]></content>
+<h4 id="如转载请注明原处_:_)">如转载请注明原处 : )</h4><p> <a href="http://www.wushxin.top/2016/03/28/%E4%BD%BF%E7%94%A8tmux.html" target="_blank" rel="external">http://www.wushxin.top/2016/03/28/%E4%BD%BF%E7%94%A8tmux.html</a></p>
+]]></content>
     <summary type="html">
     <![CDATA[<h2 id="神级命令行软件_Tmux">神级命令行软件 Tmux</h2><ul>
 <li>这是我在大学里认识到的<strong>最好用</strong>的神器，<strong>没有之一</strong>，提高效率那是没得说，主要至今未曾崩溃过，可见其可怕之处</li>
@@ -237,7 +238,7 @@
     <link href="http://www.wushxin.top/2016/03/26/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF-%E4%B8%8B.html"/>
     <id>http://www.wushxin.top/2016/03/26/一个HTTP服务器的C之路-下.html</id>
     <published>2016-03-26T00:00:23.000Z</published>
-    <updated>2016-03-25T23:50:41.321Z</updated>
+    <updated>2016-03-28T08:21:29.486Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>趁着早起， 接着昨天</p>
 </blockquote>
@@ -406,6 +407,7 @@
 <li>大致是，用这个<strong>HTTP服务器</strong>熟悉一下我将要战斗的地方的内部运作，考虑到现在大部分使用的都是<code>nginx</code>，我也很认真的看了它的一些(头疼，战斗民族的代码，但是比德国佬的<code>libuv</code>好太多了…)实现源码。</li>
 <li>接下来会想做一个爬虫，并且最终的目标是一个分布式架构的爬虫，如果有兴趣的话可以联系我一起，我的<strong>E-mail</strong>在顶部栏的 <strong>关于</strong> 里面。</li>
 </ul>
+<h4 id="转载请注明原处_:_)">转载请注明原处 : )</h4><p><a href="http://www.wushxin.top/2016/03/26/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF-%E4%B8%8B.html" target="_blank" rel="external">http://www.wushxin.top/2016/03/26/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF-%E4%B8%8B.html</a></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<blockquote>
