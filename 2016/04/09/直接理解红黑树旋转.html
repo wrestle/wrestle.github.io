@@ -4,26 +4,51 @@
 <head>
   <meta charset="utf-8">
   
-  <title>C++流操作 | WuShXin&#39;s fox</title>
+  <title>直接理解红黑树旋转 | WuShXin&#39;s fox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="C++流的使用每次使用完流,记得要关闭,虽然有时候并不是必须的.streamname.close();
-重定向   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源
-   ~$ program &amp;lt;input.filetype&amp;gt;output.filetype 
-   在Linux和Unix下, &amp;gt; &amp;lt; 默认是标准输出和标准输入, 2&amp;gt;">
+  <meta name="description" content="只需要一张图
+
+对于新插入的每个节点而言，它都是红色的，那么就有两种情况
+
+他父亲是黑色(完美，啥都不用变)
+他父亲是红色(需要调整了，从他自己开始，一路向根节点调整)
+
+
+所以最外层可以用一个循环，来判断是否到了根，是否父节点是黑色。
+
+无论是有接触到root节点，在最末尾都给他设置成黑色，这是最省事的做法，也不会有什么性能消耗。
+红字中的: 左旋，右旋，是按照顺序的，且针对的目标不同，稍微看过">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++流操作">
-<meta property="og:url" content="http://www.wushxin.top/2015/05/10/C-流操作.html">
+<meta property="og:title" content="直接理解红黑树旋转">
+<meta property="og:url" content="http://www.wushxin.top/2016/04/09/直接理解红黑树旋转.html">
 <meta property="og:site_name" content="WuShXin's fox">
-<meta property="og:description" content="C++流的使用每次使用完流,记得要关闭,虽然有时候并不是必须的.streamname.close();
-重定向   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源
-   ~$ program &amp;lt;input.filetype&amp;gt;output.filetype 
-   在Linux和Unix下, &amp;gt; &amp;lt; 默认是标准输出和标准输入, 2&amp;gt;">
+<meta property="og:description" content="只需要一张图
+
+对于新插入的每个节点而言，它都是红色的，那么就有两种情况
+
+他父亲是黑色(完美，啥都不用变)
+他父亲是红色(需要调整了，从他自己开始，一路向根节点调整)
+
+
+所以最外层可以用一个循环，来判断是否到了根，是否父节点是黑色。
+
+无论是有接触到root节点，在最末尾都给他设置成黑色，这是最省事的做法，也不会有什么性能消耗。
+红字中的: 左旋，右旋，是按照顺序的，且针对的目标不同，稍微看过">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/81b736ebjw1f2q7jvjqhnj21kw16baf6.jpg">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C++流操作">
-<meta name="twitter:description" content="C++流的使用每次使用完流,记得要关闭,虽然有时候并不是必须的.streamname.close();
-重定向   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源
-   ~$ program &amp;lt;input.filetype&amp;gt;output.filetype 
-   在Linux和Unix下, &amp;gt; &amp;lt; 默认是标准输出和标准输入, 2&amp;gt;">
+<meta name="twitter:title" content="直接理解红黑树旋转">
+<meta name="twitter:description" content="只需要一张图
+
+对于新插入的每个节点而言，它都是红色的，那么就有两种情况
+
+他父亲是黑色(完美，啥都不用变)
+他父亲是红色(需要调整了，从他自己开始，一路向根节点调整)
+
+
+所以最外层可以用一个循环，来判断是否到了根，是否父节点是黑色。
+
+无论是有接触到root节点，在最末尾都给他设置成黑色，这是最省事的做法，也不会有什么性能消耗。
+红字中的: 左旋，右旋，是按照顺序的，且针对的目标不同，稍微看过">
   
     <link rel="alternative" href="/atom.xml" title="WuShXin&#39;s fox" type="application/atom+xml">
   
@@ -102,10 +127,10 @@ var _hmt = _hmt || [];
   </div>
 </header>
     <div class="outer">
-      <section id="main"><article id="post-C-流操作" class="article article-type-post" itemscope itemprop="blogPost">
+      <section id="main"><article id="post-直接理解红黑树旋转" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/05/10/C-流操作.html" class="article-date">
-  <time datetime="2015-05-09T23:47:37.000Z" itemprop="datePublished">2015-05-10</time>
+    <a href="/2016/04/09/直接理解红黑树旋转.html" class="article-date">
+  <time datetime="2016-04-09T01:36:20.000Z" itemprop="datePublished">2016-04-09</time>
 </a>
     
   </div>
@@ -116,7 +141,7 @@ var _hmt = _hmt || [];
         
   
     <h1 class="article-title" itemprop="name">
-      C++流操作
+      直接理解红黑树旋转
     </h1>
   
 
@@ -124,106 +149,54 @@ var _hmt = _hmt || [];
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="C++流的使用">C++流的使用</h1><h2 id="每次使用完流,记得要关闭,虽然有时候并不是必须的-">每次使用完流,记得要关闭,虽然有时候并不是必须的.</h2><p><code>streamname.close();</code></p>
-<h2 id="重定向">重定向</h2><p>   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源</p>
-<p>   <code>~$ program &lt;input.filetype&gt;output.filetype</code> </p>
-<p>   在Linux和Unix下, <code>&gt;</code> <code>&lt;</code> 默认是标准输出和标准输入, <code>2&gt;</code> 则是标准错误(即<code>std::cerr</code>)</p>
-<h2 id="输出流">输出流</h2><ol>
-<li><p><code>ostream</code> 类提供了 <code>put()</code> 和 <code>write()</code> 方法用来输出 </p>
-<pre><code><span class="built_in">cout</span>.put(<span class="string">'W'</span>); <span class="comment">//输出字符Ｗ,可以拼接使用就像重载之后的 '&lt;&lt;'</span>
-<span class="built_in">cout</span>.write(<span class="string">"Candy Bob"</span>,<span class="number">5</span>); <span class="comment">//输出第一个参数的第二个参数个长度</span>
-</code></pre></li>
-<li><p>刷新输出缓冲区可以有两种方法,原理都是重载 <code>&lt;&lt;</code> </p>
-<ul>
-<li><p>前者与后者的差别就在与后者刷新缓冲区后多了一个换行操作</p>
-<pre><code><span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; flush; <span class="comment">//相当于flush(cout);</span>
-<span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; endl;  
-</code></pre></li>
+        <h2 id="只需要一张图">只需要一张图</h2><p><img src="http://ww2.sinaimg.cn/mw690/81b736ebjw1f2q7jvjqhnj21kw16baf6.jpg" alt=""></p>
+<ol>
+<li><p>对于新插入的每个节点而言，它都是红色的，那么就有两种情况</p>
+<ol>
+<li>他父亲是黑色(完美，啥都不用变)</li>
+<li>他父亲是红色(需要调整了，从他自己开始，一路向<strong>根节点</strong>调整)</li>
+</ol>
+</li>
+<li><p>所以最外层可以用一个循环，来判断是否到了根，是否父节点是黑色。</p>
+</li>
+<li>无论是有接触到<code>root</code>节点，在最末尾都给他设置成黑色，这是最省事的做法，也不会有什么性能消耗。</li>
+<li><p>红字中的: 左旋，右旋，是按照顺序的，且针对的目标不同，稍微看过的应该能很快知道</p>
+<ol>
+<li><strong>父为左子-&gt;伯父为黑-&gt;新点为右情况下： </strong> (先对父)左旋，<strong>改颜色</strong>，(再对祖父)右旋。<ul>
+<li>无论如何，先对某个节点的父节点进行单旋转，仅仅是改变这两个家伙的位置(只有在颜色相同时才会触发旋转)。</li>
 </ul>
 </li>
-<li><p>可以通过流操作修改现实的进制, 默认十进制,十六进制,八进制 <br></p>
-<a id="more"></a>
-<pre><code><span class="keyword">int</span> n = <span class="number">100</span>;
-<span class="built_in">cout</span> &lt;&lt; n &lt;&lt; endl;
-<span class="comment">//八进制</span>
-<span class="built_in">cout</span> &lt;&lt; oct &lt;&lt; n &lt;&lt; endl;
-<span class="comment">//十六进制</span>
-<span class="built_in">cout</span> &lt;&lt; hex &lt;&lt; n &lt;&lt; endl;
-<span class="comment">//这种作用是持久的,在不用的时候记得转换回来</span>
-dec(<span class="built_in">cout</span>); <span class="comment">//代表转换为十进制 cout &lt;&lt; dec;同样适用  </span>
-</code></pre></li>
-<li><p>我们可以调整字段宽度来达到美观,但Ｃ++有一种数据完整大于美观的理念,所以即使你设置了字段宽度,一旦超过还是会打乱阵型,以保证数据的完整性.</p>
-<pre><code><span class="built_in">cout</span>.fill(<span class="string">'*'</span>);<span class="comment">//使用'*'填充空白,注意此为持久的.</span>
-<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">100</span>;i*=<span class="number">10</span>)
-{
-<span class="built_in">cout</span>.width(<span class="number">5</span>);
-<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">":"</span>;
-<span class="built_in">cout</span>.width(<span class="number">8</span>);
-<span class="built_in">cout</span> &lt;&lt; i * i &lt;&lt; endl;
-}<span class="comment">//注意，width()方法并不是持久的,也就是说每次排版都需要使用一次该方法.</span>
-</code></pre></li>
-<li><p>浮点数的使用 <br></p>
-<pre><code><span class="built_in">cout</span>.precision(<span class="number">2</span>);<span class="comment">//设置浮点数的精度为2,Ｃ++默认六位精度,但不显示末尾的0.</span>
-<span class="built_in">cout</span>.setf(ios_base::showpoint);<span class="comment">//显示末尾的零</span>
-</code></pre><h2 id="输入流">输入流</h2></li>
+<li><strong>父为左子-&gt;伯父为黑-&gt;新点为左情况下： </strong> <strong>改颜色</strong>， (对祖父)右旋</li>
 </ol>
-<ul>
-<li><p><code>cin</code> 检查输入: 当读取到的流和指定的类型不符合的时候,不符合的流中的数据被保留,留待下一次读取.并返回<code>flase</code>, 可以使用 <code>while</code> 语句进行判断 <br></p>
-<pre><code>int <span class="keyword">input</span>, <span class="keyword">sum</span>;
-<span class="keyword">while</span>(cin &gt;&gt; <span class="keyword">input</span>)
-<span class="keyword">sum</span> += <span class="keyword">input</span>;
-</code></pre></li>
-<li><p>当流由于输入不匹配失败时,发生的问题十分复杂,简述为位设置问题,使用下列代码恢复</p>
-<pre><code><span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; input)
-    sum += input;
-<span class="keyword">if</span>(<span class="built_in">cin</span>.fail() &amp;&amp; !<span class="built_in">cin</span>.eof())
-{
-<span class="built_in">cin</span>.clear();              <span class="comment">//重置流状态,但此时还是有残余留在流中</span>
-<span class="keyword">while</span>(!<span class="built_in">isspace</span>(<span class="built_in">cin</span>.get()))<span class="comment">//丢弃那些残留在流中妨碍下一次输入的不符合的输入</span>
-    <span class="keyword">continue</span>;           <span class="comment">//头文件 cctype</span>
-}
-<span class="built_in">cin</span> &gt;&gt; input; <span class="comment">//现在可以继续输入了</span>
-</code></pre></li>
-<li><p>字符串的输入: <code>get(char*, int)</code> 和 <code>getline(char*, int)</code> </p>
-<pre><code>- get读取少于第二个参数减<span class="number">1</span>个或遇见换行符,并将换行符留在流中,<span class="escape">`g</span>etline<span class="escape">`则</span>将换行符抽取并丢弃
-</code></pre></li>
-<li><p><code>get(char*, int, char)</code> 和 <code>getline(char*, int, char)</code> </p>
-<pre><code><span class="bullet">- </span>第三个参数则是分界符,读取到分界符号时停止读取. 
-</code></pre></li>
+</li>
+<li><p>下面的情况就是依此类推</p>
+</li>
+<li><strong>改颜色</strong>，顾名思义就是，设置颜色的意思，并且将空节点(NULL节点)也<strong>视为黑色的</strong>！</li>
+</ol>
+<h3 id="以上所述">以上所述</h3><ul>
+<li>就是所有红黑树在插入或者删除之后的平衡操作时，需要注意以及执行的步骤。</li>
 </ul>
-<p>转载注明: <a href="http://www.wushxin.top/2015/05/10/C-%E6%B5%81%E6%93%8D%E4%BD%9C.html" target="_blank" rel="external">http://www.wushxin.top/2015/05/10/C-%E6%B5%81%E6%93%8D%E4%BD%9C.html</a></p>
-
+<h3 id="转载请注明出处">转载请注明出处</h3>
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/05/10/C-流操作.html" data-id="cimsi2zi50028y0ltv7bf60yn" class="article-share-link" data-share="baidu" data-title="C++流操作">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/04/09/直接理解红黑树旋转.html" data-id="cimsi2zg20004y0ltc4cgb59a" class="article-share-link" data-share="baidu" data-title="直接理解红黑树旋转">分享到</a>
       
 
       
 
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li></ul>
-
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2015/05/10/C-流操作-续.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">
-        
-          C++流操作(续)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2015/05/09/Hexo网站布置错误解决.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/03/28/使用tmux.html" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">Hexo网站布置错误解决</div>
+      <div class="article-nav-title">使用tmux</div>
     </a>
   
 </nav>

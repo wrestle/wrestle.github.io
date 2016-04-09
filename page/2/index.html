@@ -95,6 +95,93 @@ var _hmt = _hmt || [];
     <div class="outer">
       <section id="main">
   
+    <article id="post-Effective-Modern-Cpp-概述" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/12/15/Effective-Modern-Cpp-概述.html" class="article-date">
+  <time datetime="2015-12-15T08:40:14.000Z" itemprop="datePublished">2015-12-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/15/Effective-Modern-Cpp-概述.html">Effective Modern C++概述（一）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>(本文有 11 个 Item)</p>
+</blockquote>
+<h1 id="《Effective_Modern_C++》概要">《Effective Modern C++》概要</h1><ul>
+<li>因为 Scott 大大的这本新书迟迟没有中译本，百般无奈之下，选择了英文原版阅读。</li>
+<li>记录自己阅读这本书的过程，以及一些细节，知道自己不可能读一遍就能将所有信息记下，故写成博文，方便自己及需要者查阅</li>
+<li>本文是我自己的感受，如果有想要体会完整的思想请自行查阅原书，最好配一本完备的C++的语法工具书（例如<code>The C++ Programming Languag, 4th Edition--Bjarne Stroustrup</code>），以便随时查询，当然还需要一个可编程平台。</li>
+</ul>
+<blockquote>
+<p>代码尽量和原书相同，除非是想更详细的解释才会自行修改</p>
+</blockquote>
+<h2 id="Chapter_1_-_Deducing_Types">Chapter 1 - Deducing Types</h2><h3 id="Item_1_-_Understand_template_type_dedution">Item 1 - Understand template type dedution</h3><ul>
+<li>这节讲述了C++有两种类型推断(不许程序员介入)， <strong>自动类型推断(auto type dedution)</strong> 和 <strong>模板类型推断(template type dedution)</strong>， 两者的联系以及唯一的区别。</li>
+<li>首先介绍的是模板类型推断，这是来自(C++98)的特性了，现在以及在沿用，是最成功的特性之一。</li>
+<li><p>对于模板类型推断，一般形式可归纳为：</p>
+<pre><code><span class="keyword">template</span>&lt;typename T&gt;
+<span class="type">void</span> f(<span class="type">ParamType</span> param);
+// 调用
+f(<span class="type">expr</span>); // <span class="type">expr</span> 可能是一条语句
+</code></pre><p>  <code>ParamType</code> 是一种缩写，用来表示 可能 类型<code>T</code>会有一些限定词来修饰，例如<code>const</code>, <code>&amp;</code> 之类的。</p>
+<p>  例如 把<code>ParamType</code> 可以代表 <code>const T &amp;</code></p>
+</li>
+<li>而此时，编译器在进行 模板类型推断 的时候会做两件事(两个推断的结果)，它会判断 <code>T</code> 和 <code>ParamType</code>的类型分别是什么。当然，如果 <code>ParamType</code> 就是 <code>T</code> 那自然就相同了。</li>
+<li>因为 <code>T</code> 究竟是什么，取决于 <code>ParamType</code>。</li>
+<li>进行推断的过程中，有三条编译器遵循的判断情况：<ol>
+<li><code>ParamType</code> 是一个指针或者引用，但不是一个 通用引用(Universal reference 不知道怎么翻译)。</li>
+<li><code>ParamType</code> 是一个 Universal reference</li>
+<li><code>ParamType</code>·不是一个指针也不是一个引用· </li>
+<li>所以将模板类型推断分为三种情况。</li>
+</ol>
+</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a href="/2015/12/15/Effective-Modern-Cpp-概述.html#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html" data-id="cimsi2zhz0020y0lth1gsim6e" class="article-share-link" data-share="baidu" data-title="Effective Modern C++概述（一）">分享到</a>
+      
+
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+            
+  
     <article id="post-现代TCP-IP网络编程-UDP" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/12/04/现代TCP-IP网络编程-UDP.html" class="article-date">
@@ -156,7 +243,7 @@ connect(udp_sock, (<span class="keyword">struct</span> sockaddr *)&amp;unconnect
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/12/04/现代TCP-IP网络编程-UDP.html" data-id="cimeu2hyu000994ltfovfesa8" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-UDP">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/12/04/现代TCP-IP网络编程-UDP.html" data-id="cimsi2zgd000ay0ltalmqwwjb" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-UDP">分享到</a>
       
 
       
@@ -253,7 +340,7 @@ connect(udp_sock, (<span class="keyword">struct</span> sockaddr *)&amp;unconnect
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/10/30/现代TCP-IP网络编程-启航.html" data-id="cimeu2hyn000494ltp1i8wb8p" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-启航">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/10/30/现代TCP-IP网络编程-启航.html" data-id="cimsi2zg70005y0ltfh31jybf" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-启航">分享到</a>
       
 
       
@@ -324,7 +411,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/09/20/Linux记录.html" data-id="cimeu2i09001p94ltl9fa4fjp" class="article-share-link" data-share="baidu" data-title="Linux记录">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/09/20/Linux记录.html" data-id="cimsi2zhq001qy0ltsnl2wmif" class="article-share-link" data-share="baidu" data-title="Linux记录">分享到</a>
       
 
       
@@ -406,7 +493,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/08/31/《我为什么学C》.html" data-id="cimeu2hzs001694ltz1h4b3wo" class="article-share-link" data-share="baidu" data-title="《我为什么学C》">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/08/31/《我为什么学C》.html" data-id="cimsi2zhb0017y0ltsnoti873" class="article-share-link" data-share="baidu" data-title="《我为什么学C》">分享到</a>
       
 
       
@@ -482,71 +569,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/07/21/Practical-cpp.html" data-id="cimeu2i02001h94ltlxzuixor" class="article-share-link" data-share="baidu" data-title="Practical cpp">分享到</a>
-      
-
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-<script>
-(function(){
-    var bp = document.createElement('script');
-    bp.src = '//push.zhanzhang.baidu.com/push.js';
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-            
-  
-    <article id="post-Cpp记录10.1k" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/07/09/Cpp记录10.1k.html" class="article-date">
-  <time datetime="2015-07-09T02:03:28.000Z" itemprop="datePublished">2015-07-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/09/Cpp记录10.1k.html">Cpp记录10.1k</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="更新于_2015/7/14_21:14:21">更新于 2015/7/14 21:14:21</h3><h4 id="再记录_operator=_重载">再记录 operator= 重载</h4><ul>
-<li>因为在类的设计中 重载 <code>=</code> 可能是在所难免的，如果你的类设计比较复杂。</li>
-<li>之所以需要重载它是为了当类中包含了复杂的关系的时候，提供了一个人为的保证，最典型的莫过于对象的拷贝：<ol>
-<li>假设 类中有一个成员是指针，指向一个对象，这个对象可以是数组，也可以是其他类或者容器。</li>
-<li>当我们执行赋值操作符的时候，假定这里规范的使用赋值运算符，让其一定能调用<strong>赋值拷贝构造函数</strong> <code>=</code> ，此时对于这个指针成员，就有两种情形： <strong>拷贝指针</strong> 或者 <strong>拷贝对象</strong> 。</li>
-</ol>
-</li>
-<li><strong>拷贝指针</strong>，即便不重载运算符 <code>=</code> 编译器也会帮你自动实现，这在国内大概就叫做 <strong>浅拷贝</strong> ，如果仅仅拷贝指针，这就引发了一个问题，多个对象共享一个实际内存，当执行析构函数的时候，会造成多次析构同一个内存块。</li>
-<li><strong>拷贝对象</strong>，这是普遍的解决方法，在拷贝的同时，将指针所指向的对象同样做一份拷贝，似乎也不错，但是如果对象太大，似乎并不是什么很喜人的事 情，但也不失为一种好的解决方案
-        
-          <p class="article-more-link">
-            <a href="/2015/07/09/Cpp记录10.1k.html#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://www.wushxin.top/2015/07/09/Cpp记录10.1k.html" data-id="cimeu2i0o002494ltvs1db41r" class="article-share-link" data-share="baidu" data-title="Cpp记录10.1k">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/07/21/Practical-cpp.html" data-id="cimsi2zhl001iy0lte3b0w8e0" class="article-share-link" data-share="baidu" data-title="Practical cpp">分享到</a>
       
 
       
@@ -603,7 +626,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -613,6 +636,10 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
     <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/04/09/直接理解红黑树旋转.html">直接理解红黑树旋转</a>
+          </li>
         
           <li>
             <a href="/2016/03/28/使用tmux.html">使用tmux</a>
@@ -628,10 +655,6 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
         
           <li>
             <a href="/2016/03/19/使用gdb.html">使用gdb</a>
-          </li>
-        
-          <li>
-            <a href="/2016/02/22/Effective-Modern-Cpp-概述（二）.html">Effective Modern Cpp 概述（二）</a>
           </li>
         
       </ul>

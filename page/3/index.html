@@ -95,6 +95,70 @@ var _hmt = _hmt || [];
     <div class="outer">
       <section id="main">
   
+    <article id="post-Cpp记录10.1k" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/07/09/Cpp记录10.1k.html" class="article-date">
+  <time datetime="2015-07-09T02:03:28.000Z" itemprop="datePublished">2015-07-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/09/Cpp记录10.1k.html">Cpp记录10.1k</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="更新于_2015/7/14_21:14:21">更新于 2015/7/14 21:14:21</h3><h4 id="再记录_operator=_重载">再记录 operator= 重载</h4><ul>
+<li>因为在类的设计中 重载 <code>=</code> 可能是在所难免的，如果你的类设计比较复杂。</li>
+<li>之所以需要重载它是为了当类中包含了复杂的关系的时候，提供了一个人为的保证，最典型的莫过于对象的拷贝：<ol>
+<li>假设 类中有一个成员是指针，指向一个对象，这个对象可以是数组，也可以是其他类或者容器。</li>
+<li>当我们执行赋值操作符的时候，假定这里规范的使用赋值运算符，让其一定能调用<strong>赋值拷贝构造函数</strong> <code>=</code> ，此时对于这个指针成员，就有两种情形： <strong>拷贝指针</strong> 或者 <strong>拷贝对象</strong> 。</li>
+</ol>
+</li>
+<li><strong>拷贝指针</strong>，即便不重载运算符 <code>=</code> 编译器也会帮你自动实现，这在国内大概就叫做 <strong>浅拷贝</strong> ，如果仅仅拷贝指针，这就引发了一个问题，多个对象共享一个实际内存，当执行析构函数的时候，会造成多次析构同一个内存块。</li>
+<li><strong>拷贝对象</strong>，这是普遍的解决方法，在拷贝的同时，将指针所指向的对象同样做一份拷贝，似乎也不错，但是如果对象太大，似乎并不是什么很喜人的事 情，但也不失为一种好的解决方案
+        
+          <p class="article-more-link">
+            <a href="/2015/07/09/Cpp记录10.1k.html#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://www.wushxin.top/2015/07/09/Cpp记录10.1k.html" data-id="cimsi2zi40025y0lt4gj2hajs" class="article-share-link" data-share="baidu" data-title="Cpp记录10.1k">分享到</a>
+      
+
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+            
+  
     <article id="post-Cpp记录10.4k" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/06/21/Cpp记录10.4k.html" class="article-date">
@@ -165,7 +229,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/06/21/Cpp记录10.4k.html" data-id="cimeu2i0m002194ltsprjsc0s" class="article-share-link" data-share="baidu" data-title="Cpp记录10.4k">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/06/21/Cpp记录10.4k.html" data-id="cimsi2zi20022y0ltgm2fisvd" class="article-share-link" data-share="baidu" data-title="Cpp记录10.4k">分享到</a>
       
 
       
@@ -229,7 +293,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/06/12/Qt记录.html" data-id="cimeu2hzu001994ltldez9rns" class="article-share-link" data-share="baidu" data-title="Qt记录">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/06/12/Qt记录.html" data-id="cimsi2zhe001ay0ltkrf5c2vt" class="article-share-link" data-share="baidu" data-title="Qt记录">分享到</a>
       
 
       
@@ -316,7 +380,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/06/08/Opencv3配置.html" data-id="cimeu2i04001l94lt16zlzm51" class="article-share-link" data-share="baidu" data-title="Opencv3.0.0配置">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/06/08/Opencv3配置.html" data-id="cimsi2zhn001my0ltbzqpcyup" class="article-share-link" data-share="baidu" data-title="Opencv3.0.0配置">分享到</a>
       
 
       
@@ -384,7 +448,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/05/29/我为什么学C-5.html" data-id="cimeu2hyz000d94lteksndku6" class="article-share-link" data-share="baidu" data-title="我为什么学C(5)---效率(下)">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/05/29/我为什么学C-5.html" data-id="cimsi2zgf000ey0ltwi4rjewa" class="article-share-link" data-share="baidu" data-title="我为什么学C(5)---效率(下)">分享到</a>
       
 
       
@@ -450,86 +514,13 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/05/20/我为什么学C(4).html" data-id="cimeu2hz1000f94ltz41163ge" class="article-share-link" data-share="baidu" data-title="我为什么学C(4)---效率(上)">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/05/20/我为什么学C(4).html" data-id="cimsi2zgh000gy0ltbp2x5exa" class="article-share-link" data-share="baidu" data-title="我为什么学C(4)---效率(上)">分享到</a>
       
 
       
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-<script>
-(function(){
-    var bp = document.createElement('script');
-    bp.src = '//push.zhanzhang.baidu.com/push.js';
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-            
-  
-    <article id="post-可视化Qt信号与槽" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/05/19/可视化Qt信号与槽.html" class="article-date">
-  <time datetime="2015-05-19T01:38:38.000Z" itemprop="datePublished">2015-05-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/19/可视化Qt信号与槽.html">可视化Qt信号与槽</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Qt5_中的信号与槽">Qt5 中的信号与槽</h2><p>对于已经有了IDE的Qt而言，我们拥有更多的建立<strong>信号-槽</strong>方法的选择，但是作为一名自然人类，我们最喜欢的还是眼见为实，既然Qt为我们设计了 <strong>Qt Creator</strong>，那么我们就应该充分利用它，然而国内的教程大都停留在非可视化操作下，这里记录在 <strong>Qt Creator</strong> 下我们该如何设计一个<strong>信号-槽</strong>机制</p>
-<h4 id="准备工作">准备工作</h4><p>打开<strong>Qt Creator</strong>，创建<strong>Qt Gui</strong>项目，我使用的是Qt5，但是同样也适用于Qt4，两者的在本次中的区别就在于建立连接<code>(QObject::connect)</code>的时候，Qt5更加灵活。</p>
-<p>项目是<code>MainWindow</code>类，建立完成之后， <strong>Qt Creator</strong> 自动生成一系列文件</p>
-<ol>
-<li>打开<code>mainwindow.h</code>头文件，进行添加测试函数 <code>void test();</code></li>
-<li><p>首先包含以下测试使用的头文件<code>&lt;QDebug&gt; &lt;QMessageBox&gt;</code><br>该函数原型需要首先加在<code>private:</code>下，作为私有成员函数。</p>
-</li>
-<li><p>其次打开<code>mainwindow.cpp</code>文件，进行测试函数的定义:</p>
-<pre><code><span class="tag">void</span> <span class="rule"><span class="attribute">MainWindow</span>:<span class="value">:<span class="function">test</span>()
-{
-    <span class="function">qDebug</span>() &lt;&lt; <span class="string">"Test Successful!"</span></span></span>;
-    <span class="rule"><span class="attribute">QMessageBox</span>:<span class="value">:<span class="function">information</span>(this, <span class="function">tr</span>(<span class="string">"Tip"</span>), <span class="function">tr</span>(<span class="string">"Test"</span>))</span></span>;
-}
-</code></pre></li>
-<li>上方的系列操作，<code>2</code>这个功能在Qt5下成功，Qt4需要在标签<code>public slots:</code>下放置该函数声明。<code>3</code>这个操作中定义了<code>test()</code>的函数体，其中<code>qDebug()</code>是在终端调试的时候使用的一个函数，我们使用它来在 <strong>应用程序输出</strong> 窗口显示是否成功。<code>QMessageBox::information(...)</code>则是用来显示一个窗口，也用来显示是否成功。</li>
-</ol>
-<h4 id="方法1">方法1</h4><ol>
-<li><p>双击<code>.ui</code>文件，进入<strong>Qt Designer</strong>，至于不懂这个的也无所谓，只是个叫法而已，只需要知道如何在这个界面操作即可。</p>
-        
-          <p class="article-more-link">
-            <a href="/2015/05/19/可视化Qt信号与槽.html#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://www.wushxin.top/2015/05/19/可视化Qt信号与槽.html" data-id="cimeu2hzb000n94lt33sz8uhl" class="article-share-link" data-share="baidu" data-title="可视化Qt信号与槽">分享到</a>
-      
-
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Qt/">Qt</a></li></ul>
 
     </footer>
   </div>
@@ -580,7 +571,7 @@ var _hmt = _hmt || [];
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -590,6 +581,10 @@ var _hmt = _hmt || [];
     <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/04/09/直接理解红黑树旋转.html">直接理解红黑树旋转</a>
+          </li>
         
           <li>
             <a href="/2016/03/28/使用tmux.html">使用tmux</a>
@@ -605,10 +600,6 @@ var _hmt = _hmt || [];
         
           <li>
             <a href="/2016/03/19/使用gdb.html">使用gdb</a>
-          </li>
-        
-          <li>
-            <a href="/2016/02/22/Effective-Modern-Cpp-概述（二）.html">Effective Modern Cpp 概述（二）</a>
           </li>
         
       </ul>
