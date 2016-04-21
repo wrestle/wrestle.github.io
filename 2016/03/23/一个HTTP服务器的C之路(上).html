@@ -131,7 +131,7 @@ var _hmt = _hmt || [];
 <h3 id="记录近来写的HTTP服务器的_经历，坑，收获">记录近来写的HTTP服务器的 经历，坑，收获</h3><h2 id="万事皆有起因">万事皆有起因</h2><ul>
 <li>大三了，又在反思自己和科班的差距，课少了，空闲时间突然多了起来，在这个大学里，这么一路走过来，自己摸索的不容易</li>
 <li>天天看着浏览器的<strong>F12</strong>界面和 <strong>Wireshark</strong> 的抓取交互界面，突然想要自己做一个HTTP服务器，首先冷静了三天，发现这个念头依旧强烈，墙裂。</li>
-<li>在翻看<strong>TCP/IP卷一协议</strong>无果后，于是我开始蹲点图书馆，借<strong>HTTP权威指南</strong> 和 <strong>图解HTTP</strong>，然而事与愿违，这个号称<strong>”黑龙江最大图书馆“</strong>称呼的学校图书馆竟无法找到这本书。行吧，那我不借了总行吧</li>
+<li>在翻看<strong>TCP/IP卷一协议</strong>无果后，于是我开始蹲点图书馆，借<strong>HTTP权威指南</strong> 和 <strong>图解HTTP</strong>，然而事与愿违，这个号称<strong>“黑龙江最大图书馆”</strong>称呼的学校图书馆竟无法找到这本书。行吧，那我不借了总行吧</li>
 <li>回想起自己大二节选看的<strong>深入理解计算机操作系统(CSAPP)</strong>这本著名的书，似乎后面有一个Web服务器实现，虽然知道这大概是一个十分简陋的单处理的程序，但是对于理清自己思路很有帮助，特别是协议的交互</li>
 <li>翻看一开，还真的有，说来惭愧前面的进程部分至今还是崭新的。首先看到了<strong>CGI</strong>，后来发现了后方的<strong>GET</strong>方法实现，大概了解了交互的过程，这之间在<strong>w3cschool</strong>查找了(恶补了一下HTTP状态码)一些HTTP的状态，以及<strong>维基百科</strong>里查看了HTTP报文的组成，当然最详细的还是使用WireShark抓取的交互包，而最简单明了的方法则是用 <strong>F12</strong>查看交互信息。</li>
 <li><p>这之中有两个网站对我助力很大</p>
@@ -231,8 +231,11 @@ var _hmt = _hmt || [];
 }
 </code></pre></li>
 </ul>
+<blockquote>
+<p>对于配置文件的驳论， 个人认为只要让配置文件的规模不至于大到需要额外掌握就行，如果真像 <strong>Nginx</strong> 那样，我反而觉得欠妥</p>
+</blockquote>
 <h3 id="整个程序的构造">整个程序的构造</h3><ol>
-<li>由于C语言没有像 Java 那样的包<code>inport</code>机制，甚至连C++那样的<code>namespace</code>都没有。那对于C语言程序的整体把握，就都在程序员手里，如果没有办法做好模块化，那真的是世界上最可怕的事情</li>
+<li>由于C语言没有像 Java 那样的包<code>import</code>机制，甚至连C++那样的<code>namespace</code>都没有。那对于C语言程序的整体把握，就都在程序员手里，如果没有办法做好模块化，那真的是世界上最可怕的事情</li>
 <li><p>而对于C语言的模块化，唯一能起到作用的就是<strong>文件夹</strong>，没错就是强行做一波解释，让自己相信这就是隔离开的模块。但确实很有效果：有两种形式：</p>
 <ol>
 <li><strong>发布的库形式</strong> ： 将所有可提供向外的接口 API 分发在不同的头文件中(以功能作为模块划分的标准)，在根目录下建立 <code>include</code> 文件夹，将这些头文件都放进去。而源文件，以及一些自用的头文件放在根目录下的<code>src</code>文件夹中，<code>src</code>文件夹中再进行模块细分，例如<strong>内存管理(manage)</strong>，<strong>页面分发(http_page)</strong>之类的模块文件夹。</li>
@@ -300,14 +303,13 @@ var _hmt = _hmt || [];
 }
 </code></pre><p>这段代码就是对打开监听套接字的<code>socket-&gt;bind</code>的一个功能封装，使用的是 <code>getaddrinfo</code> 而不是传统的手工转换，降低了出错的概率而且更加可靠。</p>
 <p>有一个问题就是，注释太多，没有必要，这个只是在编写过程中让我快速回溯自己的想法，所以写了许多注释。</p>
-<p><code>set_nonblock</code> 和 <code>optimizes</code> 都是自己包装的函数，功能和名字一样。在用程序内信息Debug的时候，记得不要使用<code>stdout</code>，而使用<code>stderr</code>，并且在正式使用时，程序应该<strong>尽可能减少输出到终端</strong>。</p>
+<p><code>set_nonblock</code> 和 <code>optimizes</code> 都是自己包装的函数，功能和名字一样。在用程序内信息Debug的时候，记得不要使用<code>stdout</code>，而使用<code>stderr</code>，并且在正式使用时，程序应该<strong>尽可能减少输出到终端</strong>，或者换句话说，到时候的服务器程序就应该把这三个描述符关闭(标准输出，标准输入，标准错误)</p>
 </li>
 </ol>
 </li>
 </ol>
 <h3 id="未完待续，上课略累">未完待续，上课略累</h3><ul>
 <li>具体项目源码 : <a href="https://github.com/wrestle/httpd3" target="_blank" rel="external">httpd3</a>·</li>
-<li>在并发下有BUG，还没时间去调试，等有空了再去Debug，欢迎你们帮我 : )</li>
 </ul>
 <p>转载注明:<a href="http://www.wushxin.top/2016/03/23/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF%28%E4%B8%8A%29.html" target="_blank" rel="external">http://www.wushxin.top/2016/03/23/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF%28%E4%B8%8A%29.html</a></p>
 

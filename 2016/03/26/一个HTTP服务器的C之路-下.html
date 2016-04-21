@@ -236,7 +236,7 @@ var _hmt = _hmt || [];
             <span class="keyword">client</span>-&gt;write_offset = nbyte;
             <span class="keyword">return</span> HANDLE_WRITE_AGAIN;
         }
-        <span class="keyword">if</span> (EPIPE == errno)
+        <span class="keyword">else</span>
             <span class="keyword">return</span> HANDLE_WRITE_FAILURE;
     }
     <span class="keyword">else</span> <span class="keyword">if</span> (<span class="number">0</span> == <span class="keyword">count</span>)
@@ -253,7 +253,19 @@ var _hmt = _hmt || [];
 </blockquote>
 <ul>
 <li>以上是三大需要<strong>仔细小心谨慎</strong>处理的比较核心的错误。</li>
-<li>如果还要加一点，那就是<strong>信号处理</strong>，不过这个用<code>gdb</code>很容易就定位出来了，还不懂怎么用的，可以参考我上一篇文章如何简洁地使用gdb。</li>
+<li><p>如果还要加一点，那就是<strong>信号处理</strong>，不过这个用<code>gdb</code>很容易就定位出来了，还不懂怎么用的，可以参考我上一篇文章如何简洁地使用gdb。</p>
+</li>
+<li><p>最后一点，就是比较难意识到的，一开始我也忽略了这个严重的问题，那就是网络拥塞的情况</p>
+<ul>
+<li>比如：当对方的请求过大，而你和对端约定的<strong>MTU</strong>比这个请求数据要小的时候，会发生分片，而一旦某个分片先到达，而其他分片由于某些原因没有同时到达</li>
+<li>那么也许<code>read</code>返回<code>-1</code> 且 <code>errno == EAGAIN</code>的时候，数据其实并没有读取完毕。</li>
+<li>这种情况下，我们需要靠自己来判断数据是否完整<ul>
+<li><code>GET,HEAD</code>之类的请求方法时，以收到的数据中是否含有空行<code>\r\n</code>为基准</li>
+<li><code>POST</code>则更麻烦些，需要解析出<code>Content-Length</code>属性，用以确定其报文体的尾部。</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h3 id="缺陷">缺陷</h3><ul>
 <li>那就是对客户端信息的包装不够</li>

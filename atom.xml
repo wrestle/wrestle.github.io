@@ -311,7 +311,7 @@
     <link href="http://www.wushxin.top/2016/03/26/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF-%E4%B8%8B.html"/>
     <id>http://www.wushxin.top/2016/03/26/一个HTTP服务器的C之路-下.html</id>
     <published>2016-03-26T00:00:23.000Z</published>
-    <updated>2016-03-28T08:21:29.486Z</updated>
+    <updated>2016-04-21T10:52:37.131Z</updated>
     <content type="html"><![CDATA[<blockquote>
 <p>趁着早起， 接着昨天</p>
 </blockquote>
@@ -418,7 +418,7 @@
             <span class="keyword">client</span>-&gt;write_offset = nbyte;
             <span class="keyword">return</span> HANDLE_WRITE_AGAIN;
         }
-        <span class="keyword">if</span> (EPIPE == errno)
+        <span class="keyword">else</span>
             <span class="keyword">return</span> HANDLE_WRITE_FAILURE;
     }
     <span class="keyword">else</span> <span class="keyword">if</span> (<span class="number">0</span> == <span class="keyword">count</span>)
@@ -435,7 +435,19 @@
 </blockquote>
 <ul>
 <li>以上是三大需要<strong>仔细小心谨慎</strong>处理的比较核心的错误。</li>
-<li>如果还要加一点，那就是<strong>信号处理</strong>，不过这个用<code>gdb</code>很容易就定位出来了，还不懂怎么用的，可以参考我上一篇文章如何简洁地使用gdb。</li>
+<li><p>如果还要加一点，那就是<strong>信号处理</strong>，不过这个用<code>gdb</code>很容易就定位出来了，还不懂怎么用的，可以参考我上一篇文章如何简洁地使用gdb。</p>
+</li>
+<li><p>最后一点，就是比较难意识到的，一开始我也忽略了这个严重的问题，那就是网络拥塞的情况</p>
+<ul>
+<li>比如：当对方的请求过大，而你和对端约定的<strong>MTU</strong>比这个请求数据要小的时候，会发生分片，而一旦某个分片先到达，而其他分片由于某些原因没有同时到达</li>
+<li>那么也许<code>read</code>返回<code>-1</code> 且 <code>errno == EAGAIN</code>的时候，数据其实并没有读取完毕。</li>
+<li>这种情况下，我们需要靠自己来判断数据是否完整<ul>
+<li><code>GET,HEAD</code>之类的请求方法时，以收到的数据中是否含有空行<code>\r\n</code>为基准</li>
+<li><code>POST</code>则更麻烦些，需要解析出<code>Content-Length</code>属性，用以确定其报文体的尾部。</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h3 id="缺陷">缺陷</h3><ul>
 <li>那就是对客户端信息的包装不够</li>
@@ -513,12 +525,12 @@
     <link href="http://www.wushxin.top/2016/03/23/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF(%E4%B8%8A).html"/>
     <id>http://www.wushxin.top/2016/03/23/一个HTTP服务器的C之路(上).html</id>
     <published>2016-03-23T07:08:28.000Z</published>
-    <updated>2016-03-26T12:21:16.863Z</updated>
+    <updated>2016-04-21T10:45:59.477Z</updated>
     <content type="html"><![CDATA[<p><a href="http://www.wushxin.top/2016/03/26/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF-%E4%B8%8B.html" target="_blank" rel="external">一个HTTP服务器的C之路(下)</a></p>
 <h3 id="记录近来写的HTTP服务器的_经历，坑，收获">记录近来写的HTTP服务器的 经历，坑，收获</h3><h2 id="万事皆有起因">万事皆有起因</h2><ul>
 <li>大三了，又在反思自己和科班的差距，课少了，空闲时间突然多了起来，在这个大学里，这么一路走过来，自己摸索的不容易</li>
 <li>天天看着浏览器的<strong>F12</strong>界面和 <strong>Wireshark</strong> 的抓取交互界面，突然想要自己做一个HTTP服务器，首先冷静了三天，发现这个念头依旧强烈，墙裂。</li>
-<li>在翻看<strong>TCP/IP卷一协议</strong>无果后，于是我开始蹲点图书馆，借<strong>HTTP权威指南</strong> 和 <strong>图解HTTP</strong>，然而事与愿违，这个号称<strong>”黑龙江最大图书馆“</strong>称呼的学校图书馆竟无法找到这本书。行吧，那我不借了总行吧</li>
+<li>在翻看<strong>TCP/IP卷一协议</strong>无果后，于是我开始蹲点图书馆，借<strong>HTTP权威指南</strong> 和 <strong>图解HTTP</strong>，然而事与愿违，这个号称<strong>“黑龙江最大图书馆”</strong>称呼的学校图书馆竟无法找到这本书。行吧，那我不借了总行吧</li>
 <li>回想起自己大二节选看的<strong>深入理解计算机操作系统(CSAPP)</strong>这本著名的书，似乎后面有一个Web服务器实现，虽然知道这大概是一个十分简陋的单处理的程序，但是对于理清自己思路很有帮助，特别是协议的交互</li>
 <li>翻看一开，还真的有，说来惭愧前面的进程部分至今还是崭新的。首先看到了<strong>CGI</strong>，后来发现了后方的<strong>GET</strong>方法实现，大概了解了交互的过程，这之间在<strong>w3cschool</strong>查找了(恶补了一下HTTP状态码)一些HTTP的状态，以及<strong>维基百科</strong>里查看了HTTP报文的组成，当然最详细的还是使用WireShark抓取的交互包，而最简单明了的方法则是用 <strong>F12</strong>查看交互信息。</li>
 <li><p>这之中有两个网站对我助力很大</p>
@@ -618,8 +630,11 @@
 }
 </code></pre></li>
 </ul>
+<blockquote>
+<p>对于配置文件的驳论， 个人认为只要让配置文件的规模不至于大到需要额外掌握就行，如果真像 <strong>Nginx</strong> 那样，我反而觉得欠妥</p>
+</blockquote>
 <h3 id="整个程序的构造">整个程序的构造</h3><ol>
-<li>由于C语言没有像 Java 那样的包<code>inport</code>机制，甚至连C++那样的<code>namespace</code>都没有。那对于C语言程序的整体把握，就都在程序员手里，如果没有办法做好模块化，那真的是世界上最可怕的事情</li>
+<li>由于C语言没有像 Java 那样的包<code>import</code>机制，甚至连C++那样的<code>namespace</code>都没有。那对于C语言程序的整体把握，就都在程序员手里，如果没有办法做好模块化，那真的是世界上最可怕的事情</li>
 <li><p>而对于C语言的模块化，唯一能起到作用的就是<strong>文件夹</strong>，没错就是强行做一波解释，让自己相信这就是隔离开的模块。但确实很有效果：有两种形式：</p>
 <ol>
 <li><strong>发布的库形式</strong> ： 将所有可提供向外的接口 API 分发在不同的头文件中(以功能作为模块划分的标准)，在根目录下建立 <code>include</code> 文件夹，将这些头文件都放进去。而源文件，以及一些自用的头文件放在根目录下的<code>src</code>文件夹中，<code>src</code>文件夹中再进行模块细分，例如<strong>内存管理(manage)</strong>，<strong>页面分发(http_page)</strong>之类的模块文件夹。</li>
@@ -687,14 +702,13 @@
 }
 </code></pre><p>这段代码就是对打开监听套接字的<code>socket-&gt;bind</code>的一个功能封装，使用的是 <code>getaddrinfo</code> 而不是传统的手工转换，降低了出错的概率而且更加可靠。</p>
 <p>有一个问题就是，注释太多，没有必要，这个只是在编写过程中让我快速回溯自己的想法，所以写了许多注释。</p>
-<p><code>set_nonblock</code> 和 <code>optimizes</code> 都是自己包装的函数，功能和名字一样。在用程序内信息Debug的时候，记得不要使用<code>stdout</code>，而使用<code>stderr</code>，并且在正式使用时，程序应该<strong>尽可能减少输出到终端</strong>。</p>
+<p><code>set_nonblock</code> 和 <code>optimizes</code> 都是自己包装的函数，功能和名字一样。在用程序内信息Debug的时候，记得不要使用<code>stdout</code>，而使用<code>stderr</code>，并且在正式使用时，程序应该<strong>尽可能减少输出到终端</strong>，或者换句话说，到时候的服务器程序就应该把这三个描述符关闭(标准输出，标准输入，标准错误)</p>
 </li>
 </ol>
 </li>
 </ol>
 <h3 id="未完待续，上课略累">未完待续，上课略累</h3><ul>
 <li>具体项目源码 : <a href="https://github.com/wrestle/httpd3" target="_blank" rel="external">httpd3</a>·</li>
-<li>在并发下有BUG，还没时间去调试，等有空了再去Debug，欢迎你们帮我 : )</li>
 </ul>
 <p>转载注明:<a href="http://www.wushxin.top/2016/03/23/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF%28%E4%B8%8A%29.html" target="_blank" rel="external">http://www.wushxin.top/2016/03/23/%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84C%E4%B9%8B%E8%B7%AF%28%E4%B8%8A%29.html</a></p>
 ]]></content>
@@ -703,7 +717,7 @@
 <h3 id="记录近来写的HTTP服务器的_经历，坑，收获">记录近来写的HTTP服务器的 经历，坑，收获</h3><h2 id="万事皆有起因">万事皆有起因</h2><ul>
 <li>大三了，又在反思自己和科班的差距，课少了，空闲时间突然多了起来，在这个大学里，这么一路走过来，自己摸索的不容易</li>
 <li>天天看着浏览器的<strong>F12</strong>界面和 <strong>Wireshark</strong> 的抓取交互界面，突然想要自己做一个HTTP服务器，首先冷静了三天，发现这个念头依旧强烈，墙裂。</li>
-<li>在翻看<strong>TCP/IP卷一协议</strong>无果后，于是我开始蹲点图书馆，借<strong>HTTP权威指南</strong> 和 <strong>图解HTTP</strong>，然而事与愿违，这个号称<strong>”黑龙江最大图书馆“</strong>称呼的学校图书馆竟无法找到这本书。行吧，那我不借了总行吧</li>
+<li>在翻看<strong>TCP/IP卷一协议</strong>无果后，于是我开始蹲点图书馆，借<strong>HTTP权威指南</strong> 和 <strong>图解HTTP</strong>，然而事与愿违，这个号称<strong>“黑龙江最大图书馆”</strong>称呼的学校图书馆竟无法找到这本书。行吧，那我不借了总行吧</li>
 <li>回想起自己大二节选看的<strong>深入理解计算机操作系统(CSAPP)</strong>这本著名的书，似乎后面有一个Web服务器实现，虽然知道这大概是一个十分简陋的单处理的程序，但是对于理清自己思路很有帮助，特别是协议的交互</li>
 <li>翻看一开，还真的有，说来惭愧前面的进程部分至今还是崭新的。首先看到了<strong>CGI</strong>，后来发现了后方的<strong>GET</strong>方法实现，大概了解了交互的过程，这之间在<strong>w3cschool</strong>查找了(恶补了一下HTTP状态码)一些HTTP的状态，以及<strong>维基百科</strong>里查看了HTTP报文的组成，当然最详细的还是使用WireShark抓取的交互包，而最简单明了的方法则是用 <strong>F12</strong>查看交互信息。</li>
 <li><p>这之中有两个网站对我助力很大</p>
