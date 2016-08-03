@@ -1,0 +1,5 @@
+User-agent:*
+Disallow:http://www.wushxin.top/Resume/resume.pdf
+Disallow:/Resume/resume.pdf
+Disallow:http://wushxin.top/Resume/resume.pdf
+Disallow:https://wrestle.github.io/Resume/resume.pdf
