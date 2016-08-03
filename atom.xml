@@ -5,7 +5,7 @@
   <subtitle><![CDATA[狐狸永远是我的]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.wushxin.top//"/>
-  <updated>2016-07-29T09:13:40.940Z</updated>
+  <updated>2016-08-03T06:25:11.144Z</updated>
   <id>http://www.wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.wushxin.top/2016/07/29/%E5%90%8E%E5%8F%B0%E5%BC%80%E5%8F%91%E4%B9%8B%E6%9E%B6%E6%9E%84.html"/>
     <id>http://www.wushxin.top/2016/07/29/后台开发之架构.html</id>
     <published>2016-07-29T09:11:21.000Z</published>
-    <updated>2016-07-29T09:13:40.940Z</updated>
+    <updated>2016-08-03T06:25:11.144Z</updated>
     <content type="html"><![CDATA[<h3 id="实习">实习</h3><ul>
 <li>近期在某家公司实习，顺应公司部门文化有一场为期十天左右的实习生小组赛，内容就像<strong>黑客马拉松</strong>一样。</li>
 <li>正好在此小组负起后台开发的职责，技术选择是 Python 的 Web框架 <strong>Flask</strong>， 至于本文想要记录的并不是 <code>flask</code>这个框架怎么用，好不好用，而是其他一些一直以来比较零散的知识</li>
@@ -217,6 +217,12 @@ ip_hash;
 <li>本次是将终端和前端的接口进行了统一，实际上这样对一个快速开发项目来说的确是必须的，不必考虑太多细节，追求的是效率，毕竟<strong>Flask</strong>框架追求的的确就是开发效率，至于并发情况实际上在众多框架中，并不能算太好。]]>
     
     </summary>
+    
+      <category term="Linux" scheme="http://www.wushxin.top/tags/Linux/"/>
+    
+      <category term="Python" scheme="http://www.wushxin.top/tags/Python/"/>
+    
+      <category term="架构" scheme="http://www.wushxin.top/tags/%E6%9E%B6%E6%9E%84/"/>
     
   </entry>
   
@@ -963,7 +969,7 @@ ip_hash;
     <link href="http://www.wushxin.top/2016/03/19/%E4%BD%BF%E7%94%A8gdb.html"/>
     <id>http://www.wushxin.top/2016/03/19/使用gdb.html</id>
     <published>2016-03-19T06:47:18.000Z</published>
-    <updated>2016-03-25T00:05:34.631Z</updated>
+    <updated>2016-08-03T06:25:28.973Z</updated>
     <content type="html"><![CDATA[<h2 id="开始">开始</h2><ul>
 <li>近来在写网络服务器程序，涉及到了多线程，且由于网络的环境复杂的原因，常有未知情况发生，导致在程序中自行添加调试语句显得有些吃力</li>
 <li>将 <code>gdb</code> 请出山来是一个最为正确的选择</li>
@@ -1255,7 +1261,9 @@ info breakpoints -- Status <span class="keyword">of</span> specified breakpoints
     
       <category term="GDB" scheme="http://www.wushxin.top/tags/GDB/"/>
     
-      <category term="杂货居， Linux" scheme="http://www.wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85%EF%BC%8C-Linux/"/>
+      <category term="Linux" scheme="http://www.wushxin.top/tags/Linux/"/>
+    
+      <category term="杂货居" scheme="http://www.wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
     
   </entry>
   
