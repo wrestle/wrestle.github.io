@@ -5,7 +5,7 @@
   <subtitle><![CDATA[狐狸永远是我的]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.wushxin.top//"/>
-  <updated>2016-08-15T09:41:29.683Z</updated>
+  <updated>2016-08-15T09:52:26.463Z</updated>
   <id>http://www.wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.wushxin.top/2016/08/15/%E4%BD%BF%E7%94%A8Vim.html"/>
     <id>http://www.wushxin.top/2016/08/15/使用Vim.html</id>
     <published>2016-08-15T06:35:40.000Z</published>
-    <updated>2016-08-15T09:41:29.683Z</updated>
+    <updated>2016-08-15T09:52:26.463Z</updated>
     <content type="html"><![CDATA[<h3 id="开始Vim">开始Vim</h3><ol>
 <li>使用编辑器，最主要的目的就是编辑，即使你不愿意使用Vim这类终端编辑器，也会在某时候不得不靠他勉强编辑一些东西，例如中国人Geek们最起码都干过的改<strong>Linux Source list</strong>。</li>
 <li>所以无论你是情愿还是不情愿，当你执行这行命令 <code>vim filename</code> 之后，就算是进入了一个有意思，但又不怎么听话的界面，所以书上学来终是浅，实践才是最重要的。</li>
@@ -177,7 +177,11 @@
 <li>因为有时候有的地方的<code>Tab</code>是四个空格，有的不是，我们想统一一下怎么办</li>
 <li><code>:%s/Ctrl+v + Tab/你想替换成什么/g</code></li>
 <li>解释一下中间那段<code>Ctrl+v + Tab</code>，也就是先摁组合键<code>Ctrl+v</code>，再摁<code>Tab</code>键，你会发现命令栏变成了<code>^I</code>，那就对了。</li>
-<li>最后的完整样子<code>:/%s/^I/    /g</code>，代表我想把<code>Tab</code>键都替换成四个空格。</li>
+<li>最后的完整样子<code>:/%s/^I/    /g</code>，代表我想把<code>Tab</code>键都替换成四个空格。(<strong>为了显示效果，我替换成四个@</strong>)<ul>
+<li><img src="http://o8taitpxn.bkt.clouddn.com/replace-1.png" alt=""></li>
+<li><img src="http://o8taitpxn.bkt.clouddn.com/replace-2.png" alt=""></li>
+</ul>
+</li>
 </ol>
 </li>
 </ol>
@@ -236,7 +240,10 @@
 <li>使用<code>Ctrl + w</code> 在窗口间进行切换</li>
 </ol>
 <h3 id="结束语">结束语</h3><ul>
-<li>熟练了上述操作，基本上能很好的应对各种需求了，基本需求指的是编程写代码，修改配置文件等。</li>
+<li><p>熟练了上述操作，基本上能很好的应对各种需求了，基本需求指的是编程写代码，修改配置文件等。</p>
+</li>
+<li><p>转载请注明出处 <a href="http://www.wushxin.top/2016/08/15/%E4%BD%BF%E7%94%A8Vim.html" target="_blank" rel="external">http://www.wushxin.top/2016/08/15/使用Vim.html</a></p>
+</li>
 </ul>
 ]]></content>
     <summary type="html">
