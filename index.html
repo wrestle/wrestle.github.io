@@ -137,211 +137,17 @@ var _hmt = _hmt || [];
 </li>
 </ol>
 <blockquote>
-<p>先不要问这些命令的意义所在，轻松一点，书读百遍其意自现，工具也一样，一开始这些规矩根本没必要记住，用久了自然就懂了。</p>
-</blockquote>
-<ol>
-<li>追加完以后，接下来执行一个连贯的操作:<ol>
-<li><code>Shift + ;</code> 也就是冒号<code>:</code></li>
-<li>输入<code>wq</code></li>
-<li>回车<ul>
-<li><img src="http://o8taitpxn.bkt.clouddn.com/wq.png" alt=""></li>
-</ul>
-</li>
-</ol>
-</li>
-<li>成了！接下来就能开心的进入<code>Vim</code>状态了。</li>
-</ol>
-<h4 id="直接进阶">直接进阶</h4><ol>
-<li>对于编辑器这种东西，我们自然是图个方便快速，不然干嘛不用<strong>IDE</strong>, (没X-Windows的别打我)</li>
-<li><p>所以编辑室第一要义:</p>
-<ol>
-<li>记住，<code>i</code>(看好了是，小写的)就是在你光标那里进行插入，别管在光标前插入还是光标后插入，你的方向键还在那里呐！移动啊！(<strong>hjkl党</strong>放过我)</li>
-<li><code>Esc</code>键就是进入<strong>上帝模式</strong>，也就是99%的 <strong>vim</strong> 功能所在的模式里，唯一不在其中的就是你刚刚退出的<strong>插入模式</strong></li>
-<li>回顾一下，可以输入内容的模式叫做 <strong>插入模式</strong>，在上帝模式中摁<code>i</code>进入，想要返回上帝模式，那就是嗯<code>Esc</code>，在你键盘的左上角。</li>
-</ol>
-</li>
-<li><p>一般在用编辑器的时候，我们希望的是翻页功能，如果只能一行一行的往下，虽然速度也马马虎虎，但是终究有人不习惯</p>
-<ol>
-<li>很简单</li>
-<li><code>Ctrl + f</code> 向前翻页</li>
-<li><code>Ctrl + b</code> 向后翻页</li>
-<li>有一点歧义，更明白一点的说就是，向前翻页(往文章头部走)，向后翻页(往文章尾部走)，自己实践一下前面说的这几个操作。</li>
-</ol>
-</li>
-</ol>
-<blockquote>
-<p>快速回到顶部是什么命令呢？ 在上帝模式下连续摁两次 <code>[</code> 就行了，猜一下回到底部是什么？</p>
-</blockquote>
-<ol>
-<li><p>有了插入编辑和翻页，我们已经能满足一般的小需求了，例如看文件内容，稍微修改一点地方。</p>
-<ol>
-<li>但是如果我想快速修改某个地方呢？</li>
-<li>我事先知道那个地方的关键字</li>
-<li>我事先知道在哪一行</li>
-<li>我看到光标附近的某个关键字，想要快速定位到其他地方的这个关键字处</li>
-</ol>
-</li>
-<li><p>针对上面的三种情况，一一解答</p>
-<ol>
-<li>我事先知道那个地方的关键字<ul>
-<li>顾名思义，就是搜索呗：<ol>
-<li>在<strong>上帝模式</strong>下 <code>Shift + ;</code></li>
-<li>输入 <code>/</code> 斜杠</li>
-<li>再输入你要查找的关键字信息，例如你想要查找 <code>xenial</code> 这个关键字，那最后在下方的命令栏内会看到这些字符 <code>:/xenial</code><ul>
-<li><img src="http://o8taitpxn.bkt.clouddn.com/search-1.png" alt=""></li>
-</ul>
-</li>
-<li>这时候你摁回车，你会发现，你搜索的关键字都亮起来了，这时候你完成了目标的一大半。<ul>
-<li><img src="http://o8taitpxn.bkt.clouddn.com/search-2.png" alt=""></li>
-</ul>
-</li>
-<li>为什么说一大半，请问你现在要怎么移动到那些高亮起来的地方，<strong>方向键移动</strong>？太智障了吧。</li>
-<li>一个字母就能实现快速跳转: <code>n</code>，这里的字母<code>n</code>，小写时候向后跳至下一个高亮处，大写的时候就是向前跳，支持循环跳转，也就是说即使你只记得一个方向跳转，最后也能到达你的目的地。</li>
-<li>这一套组合有些长，自己最好实验三次，如果是纯看的客官，你现在就可以保存一下本页面，去干别的了，因为你不自己动手，是绝对记不住的。前面说的知识点，刚好到达人类短时记忆的顶峰。</li>
-</ol>
-</li>
-</ul>
-</li>
-<li>我事先知道在哪一行<ul>
-<li>那很简单啊，就是一个命令而已</li>
-<li>在上帝模式下，键盘摁 <code>numbergg</code></li>
-<li>什么意思？就是<code>number</code>就是你要去的行数，<code>gg</code>就是连续摁两下键盘上的小写<code>g</code></li>
-<li>假设你要快速<strong>跳转到第231行</strong>，进入上帝模式后，在键盘上摁 <code>231gg</code>，行了。就是这么简单。</li>
-</ul>
-</li>
-<li>我看到光标附近的某个关键字，想要快速定位到其他地方的这个关键字处<ul>
-<li>这个也很简单，也是一个命令而已</li>
-<li>在上帝模式下，确保光标移动到那个关键词语上面(上面这个词后面解释)，键盘摁 <code>gd</code> 就行了<ul>
-<li><img src="http://o8taitpxn.bkt.clouddn.com/gd跳转.png" alt=""></li>
-</ul>
-</li>
-<li>你发现，你要查的这个关键字都亮了起来，怎么跳转就不用再说一次了吧。</li>
-<li>这个功能简直就是神器。想想函数跳转</li>
-</ul>
-</li>
-</ol>
-</li>
-</ol>
-<blockquote>
-<p>上面这个词就是，只要是这个单词里面都可以，例如 hello 这个单词，你光标只要停在 <code>h</code> 到 <code>o</code> 之间的任意一个单词都行，闭区间。</p>
-</blockquote>
-<ol>
-<li>上面说了哪些命令，来回顾一下:<ul>
-<li><strong>插入</strong><code>i</code>和<strong>退出保存</strong><code>:wq</code></li>
-<li><strong>移动</strong>： 方向键</li>
-<li><strong>向前翻页</strong>: <code>Ctrl+f</code>, <strong>向后翻页</strong>: <code>Ctrl+b</code></li>
-<li><strong>搜索</strong>: <code>:/search-key</code></li>
-<li><strong>跳转指定行</strong>: <code>numbergg</code></li>
-<li><strong>快速检索某关键字</strong>: <code>gd</code> </li>
-<li><strong>有高亮状态时向后跳转</strong>: <code>n</code></li>
-</ul>
-</li>
-</ol>
-<blockquote>
-<p>所以实际上<code>gg</code>的作用就是跳转，那有没有想过，不加数字直接使用<code>gg</code>是什么效果？猜猜看就能知道一定是跳转的意思。再换大写的<code>GG</code>试试啊。很有意思的</p>
-<p>额外补充一个，也是用来快速检索某关键字的，<code>#</code>，用法一样。记不记都无所谓了。</p>
-<p>有了这些操作，看一个文件的内容简直就是飞一样，如果你只需要看，少量或者不需要改，那么你根本不用往下看了，这些就足矣。</p>
-</blockquote>
-<h4 id="进阶之后">进阶之后</h4><ol>
-<li>回想一下在其他图形编辑器里面，最经常干什么？</li>
-<li>前面我们漏讲了好多最常用的操作，<strong>编辑操作</strong><ul>
-<li>所谓，<strong>增删改查</strong>，我们只讲了<strong>查</strong></li>
-</ul>
-</li>
-</ol>
-<h4 id="增删改">增删改</h4><ol>
-<li><p>增加可以分为，<strong>字符插入</strong>和<strong>粘贴</strong></p>
-<ul>
-<li>插入就是前方说的<code>i</code>，后面会讲一个写程序时候很方便的调试方法，和插入有关。</li>
-<li>粘贴就比较有意思，也比较有用了，说到粘贴就不得不说<strong>剪切</strong>了</li>
-<li>剪切有多个方法<code>dd</code>, 和<code>cc</code>都行，当然我说的都是在<strong>上帝模式</strong>下进行的操作。</li>
-<li>上面说的就是剪切当前行。</li>
-<li>和剪切类似的就是复制了<code>yy</code>，代表复制当前行。</li>
-<li>那么黏贴是什么，记住这些命令都必须是在上帝模式下使用，黏贴是<code>p</code></li>
-<li>现在你会了快速<strong>剪切/复制</strong>某一行，并黏贴。</li>
-</ul>
-</li>
-<li><p>说完增加，要说说删除了</p>
-<ul>
-<li>很简单，在上帝模式下用<code>x</code>就行了，有人说直接进编辑模式不就行了</li>
-<li>当然可以啊，你愿意的话，怎么方便怎么来，<code>x</code>的左右就是删除当前光标的字符。一直摁住就是一直删除。</li>
-<li>还有一个<strong>误区</strong>，很多网上的教程说<code>dd</code>是删除，实际上并不是，这是剪切的效果，如果你之前有复制的效果，就被他覆盖了。</li>
-<li>当然你也可以用<code>dd</code>或者<code>cc</code>代替删除。</li>
-</ul>
-</li>
-<li><p>改，就是替换，这里用一个很经典的例子来说</p>
-<ol>
-<li>如何替换这个文本内的<code>Tab</code>键</li>
-<li>因为有时候有的地方的<code>Tab</code>是四个空格，有的不是，我们想统一一下怎么办</li>
-<li><code>:%s/Ctrl+v + Tab/你想替换成什么/g</code></li>
-<li>解释一下中间那段<code>Ctrl+v + Tab</code>，也就是先摁组合键<code>Ctrl+v</code>，再摁<code>Tab</code>键，你会发现命令栏变成了<code>^I</code>，那就对了。</li>
-<li>最后的完整样子<code>:/%s/^I/    /g</code>，代表我想把<code>Tab</code>键都替换成四个空格。</li>
-</ol>
-</li>
-</ol>
-<h3 id="高级用法">高级用法</h3><ol>
-<li><p>搜索某个关键字</p>
-<ul>
-<li>假设文件中有一个字符串<code>hello-arntity-is-so-long-in-word</code>,我想查询<code>-arntity-is-so-long</code>, 怎么办？我不想一个字母一个字符输入命令栏啊</li>
-<li>这时候就用到了复制功能，和前面的快速复制某行不同，这回是精确复制某些。</li>
-<li>在上帝模式下，移动光标到你要选择的词语开头，摁小写的<code>v</code>，移动方向键选择一直到末尾，摁<code>y</code>，这样就将这些文字复制下来了。</li>
-<li>你现在可以用<code>p</code>试试是不是复制成功了。</li>
-<li>接下来<code>:/Ctrl+r&quot;</code> 回车即可</li>
-<li>解释一下： 进去命令栏，先输入一个斜杠<code>/</code>，代表搜索的意思，再摁<code>Ctrl+r</code>，后接一个<strong>引号</strong><code>&quot;</code>，也就是<code>Shift + &#39;</code>。你会发现命令栏出现了你复制的东西。</li>
-</ul>
-</li>
-<li><p>快速注释某些行</p>
-<ul>
-<li>需要用到一种叫做<strong>块选择</strong>的东西，不想懂也行，记住操作</li>
-<li>首先找到你要注释的那些行，嗯<code>Ctrl+v</code>进入某个模式，向下选择你需要的行，这时候选择出来的像是一列小方块，这就是正确的。<ul>
-<li><img src="http://o8taitpxn.bkt.clouddn.com/快选择-1.png" alt=""></li>
-</ul>
-</li>
-<li>选择好一个，摁大写的<code>I</code>，在输入你的注释符号，例如<code>C++</code>是两个斜杠<code>//</code></li>
-<li>输完之后，连摁两下<code>Esc</code>，成啦！<ul>
-<li><img src="http://o8taitpxn.bkt.clouddn.com/快选择-2.png" alt=""></li>
-</ul>
-</li>
-<li>想要取消注释怎么办？</li>
-<li>自己想想，提示： 块选择之后，用<code>x</code><ul>
-<li><img src="http://o8taitpxn.bkt.clouddn.com/块选择-3.png" alt=""></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>撤销操作</p>
-<ol>
-<li>就是在上帝模式下摁小写的<code>u</code>就行了。</li>
-</ol>
-</li>
-<li><p>自动补全</p>
-<ol>
-<li>不必去依赖那些第三方库，是真的安装的很头疼</li>
-<li>自带一个<code>Ctrl+n</code>的补全功能，已经能够满足编程的需求了，别太依赖IDE啊。</li>
-</ol>
-</li>
-<li><p>剪切从当前光标到该行末尾</p>
-<ol>
-<li>这个也是使用的很频繁的一个操作</li>
-<li>操作很简单，就是大写的<code>D</code>，随后使用<code>p</code>进行粘贴。</li>
-</ol>
-</li>
-</ol>
-<h3 id="分屏">分屏</h3><ol>
-<li>实际上不太想记录，因为这个可以由<code>tmux</code>来做，但是还是说一下，有的时候挺方便</li>
-<li><code>split</code>和<code>vsplit</code>是分屏的命令，前者是上下分屏，后者是左右分屏</li>
-<li>使用方法是： <code>split filename</code></li>
-<li>使用<code>Ctrl + w</code> 在窗口间进行切换</li>
-</ol>
-<h3 id="结束语">结束语</h3><ul>
-<li>熟练了上述操作，基本上能很好的应对各种需求了，基本需求指的是编程写代码，修改配置文件等。</li>
-</ul>
-
+<p>先不要问这些命令的意义所在，轻松一点，书读百遍其意自现，工具也一样，一开始这些规矩根本没必要记住，用久了自然就懂了。<br>
+        
+          <p class="article-more-link">
+            <a href="/2016/08/15/使用Vim.html#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/08/15/使用Vim.html" data-id="cirvuog6u0019ysltggmvr4w3" class="article-share-link" data-share="baidu" data-title="使用Vim">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/08/15/使用Vim.html" data-id="cirvup9ic0019tgltcm8rn1k6" class="article-share-link" data-share="baidu" data-title="使用Vim">分享到</a>
       
 
       
@@ -411,7 +217,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/07/29/后台开发之架构.html" data-id="cirvuog6g000ryslt6krtzbmn" class="article-share-link" data-share="baidu" data-title="后台开发之架构">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/07/29/后台开发之架构.html" data-id="cirvup9hx000rtgltafjwgrlv" class="article-share-link" data-share="baidu" data-title="后台开发之架构">分享到</a>
       
 
       
@@ -492,7 +298,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/04/09/直接理解红黑树旋转.html" data-id="cirvuog5l0004ysltg6vz39nb" class="article-share-link" data-share="baidu" data-title="直接理解红黑树旋转">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/04/09/直接理解红黑树旋转.html" data-id="cirvup9h60004tgltfjgq9qkr" class="article-share-link" data-share="baidu" data-title="直接理解红黑树旋转">分享到</a>
       
 
       
@@ -564,7 +370,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/03/28/使用tmux.html" data-id="cirvuog6o0011yslt08f55798" class="article-share-link" data-share="baidu" data-title="使用tmux">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/03/28/使用tmux.html" data-id="cirvup9i70011tgltm5i314xa" class="article-share-link" data-share="baidu" data-title="使用tmux">分享到</a>
       
 
       
@@ -635,7 +441,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/03/26/一个HTTP服务器的C之路-下.html" data-id="cirvuog6w001eysltxiunnnra" class="article-share-link" data-share="baidu" data-title="一个HTTP服务器的C之路(下)">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/03/26/一个HTTP服务器的C之路-下.html" data-id="cirvup9ie001etgltks1hnz35" class="article-share-link" data-share="baidu" data-title="一个HTTP服务器的C之路(下)">分享到</a>
       
 
       
@@ -719,7 +525,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/03/23/一个HTTP服务器的C之路(上).html" data-id="cirvuog70001hyslt3qzz5har" class="article-share-link" data-share="baidu" data-title="一个HTTP服务器的C之路（上）">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/03/23/一个HTTP服务器的C之路(上).html" data-id="cirvup9ij001htgltvn3sgcdb" class="article-share-link" data-share="baidu" data-title="一个HTTP服务器的C之路（上）">分享到</a>
       
 
       
