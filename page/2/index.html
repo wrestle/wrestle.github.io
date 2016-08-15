@@ -97,6 +97,82 @@ var _hmt = _hmt || [];
     <div class="outer">
       <section id="main">
   
+    <article id="post-使用gdb" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/19/使用gdb.html" class="article-date">
+  <time datetime="2016-03-19T06:47:18.000Z" itemprop="datePublished">2016-03-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/19/使用gdb.html">使用gdb</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="开始">开始</h2><ul>
+<li>近来在写网络服务器程序，涉及到了多线程，且由于网络的环境复杂的原因，常有未知情况发生，导致在程序中自行添加调试语句显得有些吃力</li>
+<li>将 <code>gdb</code> 请出山来是一个最为正确的选择</li>
+</ul>
+<h2 id="使用">使用</h2><ul>
+<li><code>gdb</code>看起来是全命令行的东西，而且一启动就是一大片英文，实在让没用过的望而却步，其实真正常用的就只有那几个功能。</li>
+<li>接下来我可能不会对这些命令进行明确的定义功能，因为有时候某些功能放在不同的地方意义就不同了，所以我只用最简单的语言来记录它们。</li>
+</ul>
+<ol>
+<li><p>首先是安装，在(<strong>Debian</strong>)系的发行版 <strong>Linux</strong> 上，使用</p>
+<pre><code>apt-<span class="keyword">get</span> install gdb
+</code></pre><p> 回车等一会就行，可能有的发行版已经装好了，但有的却没有。</p>
+</li>
+<li><p>首先不要打开这个<code>gdb</code>，因为这里面的东西的确看起来挺复杂的</p>
+</li>
+<li>我们要先有一个程序的源文件，假设是 <strong>C语言</strong> 的 <code>main.c</code></li>
+<li><p>在里面写好正确的语句后，对它进行编译，链接，也就是调用 <code>GCC</code>，这里使用<code>GCC</code>的命令是</p>
+<pre><code>gcc -o <span class="keyword">main</span> -g <span class="keyword">main</span>.c
+</code></pre><p> 这个 <code>-g</code> 标志非常必要，意味着生成一些<strong>符号信息</strong>，用人话说就是 <code>gdb</code> 所需要的东西，没有这个东西是无法使用 <code>gdb</code>进行调试的。</p>
+</li>
+<li><p>紧接着，在当前目录下就有一个名为 <code>main</code> 的可执行文件，看好当前用户是否有权限执行它之后，使用如下命令开启调试旅程：
+        
+          <p class="article-more-link">
+            <a href="/2016/03/19/使用gdb.html#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://www.wushxin.top/2016/03/19/使用gdb.html" data-id="cirvuog6r0013ysltehm0guky" class="article-share-link" data-share="baidu" data-title="使用gdb">分享到</a>
+      
+
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GDB/">GDB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+            
+  
     <article id="post-Effective-Modern-Cpp-概述（二）" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/02/22/Effective-Modern-Cpp-概述（二）.html" class="article-date">
@@ -154,7 +230,7 @@ makeWidget().doWork(); <span class="comment">// 调用第二个版本</span>
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-概述（二）.html" data-id="cirebp5s30022y8lt3tsgvh4k" class="article-share-link" data-share="baidu" data-title="Effective Modern Cpp 概述（二）">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/02/22/Effective-Modern-Cpp-概述（二）.html" data-id="cirvuog7q002bysltutistufj" class="article-share-link" data-share="baidu" data-title="Effective Modern Cpp 概述（二）">分享到</a>
       
 
       
@@ -241,7 +317,7 @@ f(<span class="type">expr</span>); // <span class="type">expr</span> 可能是�
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html" data-id="cirebp5s60024y8lty41nkj4v" class="article-share-link" data-share="baidu" data-title="Effective Modern C++概述（一）">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/12/15/Effective-Modern-Cpp-概述.html" data-id="cirvuog7s002dysltjj4trlqs" class="article-share-link" data-share="baidu" data-title="Effective Modern C++概述（一）">分享到</a>
       
 
       
@@ -326,7 +402,7 @@ connect(udp_sock, (<span class="keyword">struct</span> sockaddr *)&amp;unconnect
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/12/04/现代TCP-IP网络编程-UDP.html" data-id="cirebp5qb000ey8ltg5ia16gp" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-UDP">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/12/04/现代TCP-IP网络编程-UDP.html" data-id="cirvuog5w000eysltmy1zxvki" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-UDP">分享到</a>
       
 
       
@@ -423,7 +499,7 @@ connect(udp_sock, (<span class="keyword">struct</span> sockaddr *)&amp;unconnect
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/10/30/现代TCP-IP网络编程-启航.html" data-id="cirebp5q80009y8ltfkf6nkvw" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-启航">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/10/30/现代TCP-IP网络编程-启航.html" data-id="cirvuog5t0009ysltdwuks9zn" class="article-share-link" data-share="baidu" data-title="现代TCP/IP网络编程-启航">分享到</a>
       
 
       
@@ -494,95 +570,13 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/09/20/Linux记录.html" data-id="cirebp5rw001uy8ltwvqx917t" class="article-share-link" data-share="baidu" data-title="Linux记录">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/09/20/Linux记录.html" data-id="cirvuog7m0024yslt7a9afmmb" class="article-share-link" data-share="baidu" data-title="Linux记录">分享到</a>
       
 
       
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-<script>
-(function(){
-    var bp = document.createElement('script');
-    bp.src = '//push.zhanzhang.baidu.com/push.js';
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-            
-  
-    <article id="post-《我为什么学C》" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/08/31/《我为什么学C》.html" class="article-date">
-  <time datetime="2015-08-31T13:56:34.000Z" itemprop="datePublished">2015-08-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/08/31/《我为什么学C》.html">《我为什么学C》</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="集结成电子书_《Real_C》">集结成电子书 《<a href="http://wrestle.gitbooks.io/whyilearnc/" target="_blank" rel="external">Real C</a>》</h4><h4 id="目录">目录</h4><ul>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/" target="_blank" rel="external">介绍</a></li>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-0/Seperate-0.html" target="_blank" rel="external">第一部分</a><ul>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-0/00.html" target="_blank" rel="external">前序</a></li>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-0/01.html" target="_blank" rel="external">序</a></li>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-0/02.html" target="_blank" rel="external">C代码风格</a></li>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-0/04.html" target="_blank" rel="external">C代码规范</a></li>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-0/03.html" target="_blank" rel="external">变量</a></li>
-</ul>
-</li>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-1/Seperate-1.html" target="_blank" rel="external">第二部分</a><ul>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-1/10.html" target="_blank" rel="external">指针(上)</a></li>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-1/11.html" target="_blank" rel="external">指针(下)</a></li>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-1/12.html" target="_blank" rel="external">预处理器</a></li>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-1/13.html" target="_blank" rel="external">效率至上(上)</a></li>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-1/14.html" target="_blank" rel="external">效率至上(下)</a></li>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-1/15.html" target="_blank" rel="external">未曾领略的风景</a></li>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-1/16.html" target="_blank" rel="external">C线程和Glib的视角</a></li>
-</ul>
-</li>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-2/Seperate-2.html" target="_blank" rel="external">第三部分</a><ul>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-2/20.html" target="_blank" rel="external">错误处理</a> </li>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-2/21.html" target="_blank" rel="external">开始行动</a></li>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-2/22.html" target="_blank" rel="external">单线程备份(上)</a></li>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-2/23.html" target="_blank" rel="external">单线程备份(下)</a></li>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-2/24.html" target="_blank" rel="external">多线程备份</a></li>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-2/25.html" target="_blank" rel="external">总结</a></li>
-</ul>
-</li>
-<li><a href="http://wrestle.gitbooks.io/whyilearnc/content/book/chapter-3/Seperate-3.html" target="_blank" rel="external">第四部分</a> </li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://www.wushxin.top/2015/08/31/《我为什么学C》.html" data-id="cirebp5rh001by8ltqi9irs5b" class="article-share-link" data-share="baidu" data-title="《我为什么学C》">分享到</a>
-      
-
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂货居/">杂货居</a></li></ul>
 
     </footer>
   </div>
@@ -615,7 +609,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GDB/">GDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络编程/">网络编程</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GDB/">GDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络编程/">网络编程</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -624,7 +618,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/C/" style="font-size: 18.33px;">C</a><a href="/tags/Cpp/" style="font-size: 16.67px;">Cpp</a><a href="/tags/GDB/" style="font-size: 10px;">GDB</a><a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 13.33px;">Python</a><a href="/tags/Qt/" style="font-size: 11.67px;">Qt</a><a href="/tags/分布式/" style="font-size: 10px;">分布式</a><a href="/tags/杂货居/" style="font-size: 20px;">杂货居</a><a href="/tags/架构/" style="font-size: 10px;">架构</a><a href="/tags/算法/" style="font-size: 10px;">算法</a><a href="/tags/网站/" style="font-size: 10px;">网站</a><a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a>
+      <a href="/tags/C/" style="font-size: 18.33px;">C</a><a href="/tags/Cpp/" style="font-size: 16.67px;">Cpp</a><a href="/tags/GDB/" style="font-size: 10px;">GDB</a><a href="/tags/Linux/" style="font-size: 15px;">Linux</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 13.33px;">Python</a><a href="/tags/Qt/" style="font-size: 11.67px;">Qt</a><a href="/tags/vim/" style="font-size: 10px;">vim</a><a href="/tags/分布式/" style="font-size: 10px;">分布式</a><a href="/tags/杂货居/" style="font-size: 20px;">杂货居</a><a href="/tags/架构/" style="font-size: 10px;">架构</a><a href="/tags/算法/" style="font-size: 10px;">算法</a><a href="/tags/网站/" style="font-size: 10px;">网站</a><a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a>
     </div>
   </div>
 
@@ -633,7 +627,7 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -643,6 +637,10 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
     <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/08/15/使用Vim.html">使用Vim</a>
+          </li>
         
           <li>
             <a href="/2016/07/29/后台开发之架构.html">后台开发之架构</a>
@@ -658,10 +656,6 @@ deb-src <span class="string">http:</span><span class="comment">//mirrors.163.com
         
           <li>
             <a href="/2016/03/26/一个HTTP服务器的C之路-下.html">一个HTTP服务器的C之路(下)</a>
-          </li>
-        
-          <li>
-            <a href="/2016/03/23/一个HTTP服务器的C之路(上).html">一个HTTP服务器的C之路（上）</a>
           </li>
         
       </ul>

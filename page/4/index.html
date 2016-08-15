@@ -97,6 +97,74 @@ var _hmt = _hmt || [];
     <div class="outer">
       <section id="main">
   
+    <article id="post-我为什么学C-5" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/29/我为什么学C-5.html" class="article-date">
+  <time datetime="2015-05-29T13:19:50.000Z" itemprop="datePublished">2015-05-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/29/我为什么学C-5.html">我为什么学C(5)---效率(下)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="更新于_2015/6/3_19:19:13">更新于 2015/6/3 19:19:13</h4><h4 id="0x08-C语言效率(下)">0x08-C语言效率(下)</h4><h4 id="注：存储器山就是对于不同步长不同大小文件的读取速率的三维坐标图，形似一座山，z轴为速率，x轴为步长，y轴为文件大小（字节），某些主流的测评软件便是这个原理(将存储器山的图像进行一下简单的变换，就能得到哪些软件呈现的效果图像)。">注：存储器山就是对于不同步长不同大小文件的读取速率的三维坐标图，形似一座山，<code>z</code>轴为速率，<code>x</code>轴为步长，<code>y</code>轴为文件大小（字节），某些主流的测评软件便是这个原理(将存储器山的图像进行一下简单的变换，就能得到哪些软件呈现的效果图像)。</h4><p>上文提到过，任何一点小改动，都有可能让程序的性能发生很大的变动，这是为什么？</p>
+<p>当时我们并未深究，由于我们惯性的认为计算机的运作方式和人类的运作方式一致，也在过往的经验中认为计算机一定是在任何方面超越人类的存在，但是实际上，计算机除了在重复计算方面比人类的速度要快速以外，其他方面远远落后于人类的大脑，即便是我们最稀疏平常的视觉识别(看东西识别物体)，在计算机看来都是一门极其高深的领域，所以我们现在的时代的计算机还处于起步状态，在这种时代里，程序员的作用是无可替代的，同样程序员的一举一动关乎计算机的<strong>命运</strong>。</p>
+<p>可能在很多的方面，都已经接触了一台计算机的主要组成构造，和程序员最息息相关的便是CPU，主存以及硬盘了，可能到现在为止很多程序员仍然认为编程序和这些存储器有什么关系？然而一个程序员，特别是编写C语言程序的程序员，最大的影响因素便来自于此，在计算机的存储器结构中，分为四种层次:<br><strong>CPU寄存器</strong> <strong>高速缓存器</strong> <strong>主存</strong> <strong>硬盘</strong></p>
+<p>但是有没有想过，为什么计算机存储器系统要分成这四层结构呢？我们知道，上述四种存储器的读写速度依次降低，我们为什么不选择一种速度中庸的，价格也中庸的材料，制造所有层次的存储器呢？</p>
+<ul>
+<li>有人给出的解释是，一个编写良好的程序总是倾向于访问层次更高的存储器，而对于现在的技术，价格高昂而无法大量制造的高速存储器来说，我们可以选择按层次分配构造，让我们以最低的成本的存储器达到使用最高的速度存储器的效果。</li>
+<li>就像是在自己的计算机上，当我们打开一个很笨重的应用程序后，会发现，下一次再打开的时候可能会更快，就像以前历史遗留的一个问题 <strong>Visual Studio 2008</strong> 在 <strong>Windows XP</strong> 上，第一次打开总是十分卡顿，但是当关闭程序之后第二次打开却是很流畅。在参考书中，提到过两个评价程序速度的关键点：<strong>时间局部性和空间局部性</strong> 。<ul>
+<li>时间局部性：在访问过某块存储器之后的不久的将来，很可能会再次访问它</li>
+<li>空间局部性：在访问过某块存储器之后的不就的将来，很可能访问其邻近的存储器位置。</li>
+<li>良好的局部性改进一般能很好的提升程序的性能。</li>
+</ul>
+</li>
+<li>所谓局部性就是当我们使用过某些资源后，这些资源总是以一种形式存储在更高级更方便的存储器当中，让最近一次的存取请求能够更加有效率的进行。
+        
+          <p class="article-more-link">
+            <a href="/2015/05/29/我为什么学C-5.html#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://www.wushxin.top/2015/05/29/我为什么学C-5.html" data-id="cirvuog5y000hysltck3aisff" class="article-share-link" data-share="baidu" data-title="我为什么学C(5)---效率(下)">分享到</a>
+      
+
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+            
+  
     <article id="post-我为什么学C(4)" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/05/20/我为什么学C(4).html" class="article-date">
@@ -139,7 +207,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/05/20/我为什么学C(4).html" data-id="cirebp5qg000jy8ltbb730fx2" class="article-share-link" data-share="baidu" data-title="我为什么学C(4)---效率(上)">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/05/20/我为什么学C(4).html" data-id="cirvuog61000jyslt3irzjopj" class="article-share-link" data-share="baidu" data-title="我为什么学C(4)---效率(上)">分享到</a>
       
 
       
@@ -212,7 +280,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/05/19/可视化Qt信号与槽.html" data-id="cirebp5qy000sy8ltsyb2rxlg" class="article-share-link" data-share="baidu" data-title="可视化Qt信号与槽">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/05/19/可视化Qt信号与槽.html" data-id="cirvuog6l000yysltmvlatbhz" class="article-share-link" data-share="baidu" data-title="可视化Qt信号与槽">分享到</a>
       
 
       
@@ -288,7 +356,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/05/13/我为什么学C(3).html" data-id="cirebp5qi000ly8ltw3rr1knk" class="article-share-link" data-share="baidu" data-title="我为什么学C(3)---预处理器">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/05/13/我为什么学C(3).html" data-id="cirvuog64000lysltskcgeeph" class="article-share-link" data-share="baidu" data-title="我为什么学C(3)---预处理器">分享到</a>
       
 
       
@@ -369,7 +437,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/05/13/我为什么学C(2).html" data-id="cirebp5qk000ny8ltmpz1v5m8" class="article-share-link" data-share="baidu" data-title="我为什么学C(2)---指针">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/05/13/我为什么学C(2).html" data-id="cirvuog66000nysltvgzc6uuc" class="article-share-link" data-share="baidu" data-title="我为什么学C(2)---指针">分享到</a>
       
 
       
@@ -483,85 +551,13 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/05/12/我为什么学C(1).html" data-id="cirebp5qo000py8ltwrnqda77" class="article-share-link" data-share="baidu" data-title="我为什么学C(1)---开篇">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/05/12/我为什么学C(1).html" data-id="cirvuog69000pysltvpqmwm4z" class="article-share-link" data-share="baidu" data-title="我为什么学C(1)---开篇">分享到</a>
       
 
       
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-<script>
-(function(){
-    var bp = document.createElement('script');
-    bp.src = '//push.zhanzhang.baidu.com/push.js';
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-            
-  
-    <article id="post-Python-lib安装" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/05/10/Python-lib安装.html" class="article-date">
-  <time datetime="2015-05-09T23:48:28.000Z" itemprop="datePublished">2015-05-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/10/Python-lib安装.html">Python-lib安装</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Python">Python</h1><h2 id="安装第三方库(Linux::Ubuntu_14-04_LTS)">安装第三方库(Linux::Ubuntu 14.04 LTS)</h2><p>   关于一个gui的库 SimpleGUICS2Pygame <br><br>   所有的命令均在 root 权限下执行 <br></p>
-<h3 id="安装前提:">安装前提:</h3><ol>
-<li>使用easy_install 工具 <code>apt-get install easy_install</code></li>
-<li>安装pip <code>easy_install pip</code></li>
-</ol>
-<h3 id="开始安装">开始安装</h3><ol>
-<li>在 <a href="https://pypi.python.org/pypi/SimpleGUICS2Pygame" target="_blank" rel="external">https://pypi.python.org/pypi/SimpleGUICS2Pygame</a> 下载.egg格式的安装包 <br></li>
-<li>使用命令 <code>easy_install name.egg #name.egg 为下载的第三方库的egg包名称</code></li>
-<li>我们这里可以使用 <code>easy_install *.egg #代表安装所有的egg包,方便快捷,不用输入完整的名字</code></li>
-<li>我们可以通过 <code>pip freeze</code> 查看所安装的包</li>
-</ol>
-<h3 id="使用错误">使用错误</h3><ul>
-<li><p>当我们 <code>import simplegui</code>时,却出现 <code>...importError: No module named simplegui</code> <br><br>此时,我们应该使用这个语句块替换: <br></p>
-<pre><code><span class="string">try:</span>
-    <span class="keyword">import</span> simplegui 
-<span class="string">except:</span>
-    <span class="keyword">import</span> SimpleGUICS2Pygame.simpleGUICS2Pygame <span class="keyword">as</span> simplegui
-</code></pre></li>
-</ul>
-<p>· 作者给出的解释是由于内部冲突所以会导致这种现象的产生</p>
-<p>转载注明: <a href="http://www.wushxin.top/2015/05/10/Python-lib%E5%AE%89%E8%A3%85.html" target="_blank" rel="external">http://www.wushxin.top/2015/05/10/Python-lib%E5%AE%89%E8%A3%85.html</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://www.wushxin.top/2015/05/10/Python-lib安装.html" data-id="cirebp5rp001ky8ltphdyv5f0" class="article-share-link" data-share="baidu" data-title="Python-lib安装">分享到</a>
-      
-
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
 
     </footer>
   </div>
@@ -594,7 +590,7 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GDB/">GDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">11</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络编程/">网络编程</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GDB/">GDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">12</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络编程/">网络编程</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -603,7 +599,7 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
   <div class="widget-wrap">
     <h3 class="widget-title">标签云</h3>
     <div class="widget tagcloud">
-      <a href="/tags/C/" style="font-size: 18.33px;">C</a><a href="/tags/Cpp/" style="font-size: 16.67px;">Cpp</a><a href="/tags/GDB/" style="font-size: 10px;">GDB</a><a href="/tags/Linux/" style="font-size: 13.33px;">Linux</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 13.33px;">Python</a><a href="/tags/Qt/" style="font-size: 11.67px;">Qt</a><a href="/tags/分布式/" style="font-size: 10px;">分布式</a><a href="/tags/杂货居/" style="font-size: 20px;">杂货居</a><a href="/tags/架构/" style="font-size: 10px;">架构</a><a href="/tags/算法/" style="font-size: 10px;">算法</a><a href="/tags/网站/" style="font-size: 10px;">网站</a><a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a>
+      <a href="/tags/C/" style="font-size: 18.33px;">C</a><a href="/tags/Cpp/" style="font-size: 16.67px;">Cpp</a><a href="/tags/GDB/" style="font-size: 10px;">GDB</a><a href="/tags/Linux/" style="font-size: 15px;">Linux</a><a href="/tags/Opencv/" style="font-size: 10px;">Opencv</a><a href="/tags/Python/" style="font-size: 13.33px;">Python</a><a href="/tags/Qt/" style="font-size: 11.67px;">Qt</a><a href="/tags/vim/" style="font-size: 10px;">vim</a><a href="/tags/分布式/" style="font-size: 10px;">分布式</a><a href="/tags/杂货居/" style="font-size: 20px;">杂货居</a><a href="/tags/架构/" style="font-size: 10px;">架构</a><a href="/tags/算法/" style="font-size: 10px;">算法</a><a href="/tags/网站/" style="font-size: 10px;">网站</a><a href="/tags/网络编程/" style="font-size: 15px;">网络编程</a>
     </div>
   </div>
 
@@ -612,7 +608,7 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -622,6 +618,10 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
     <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/08/15/使用Vim.html">使用Vim</a>
+          </li>
         
           <li>
             <a href="/2016/07/29/后台开发之架构.html">后台开发之架构</a>
@@ -637,10 +637,6 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
         
           <li>
             <a href="/2016/03/26/一个HTTP服务器的C之路-下.html">一个HTTP服务器的C之路(下)</a>
-          </li>
-        
-          <li>
-            <a href="/2016/03/23/一个HTTP服务器的C之路(上).html">一个HTTP服务器的C之路（上）</a>
           </li>
         
       </ul>
