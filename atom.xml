@@ -5,7 +5,7 @@
   <subtitle><![CDATA[狐狸永远是我的]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.wushxin.top//"/>
-  <updated>2016-08-16T01:47:49.227Z</updated>
+  <updated>2016-08-16T01:54:49.319Z</updated>
   <id>http://www.wushxin.top//</id>
   
   <author>
@@ -16,11 +16,78 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[从50s到250ms]]></title>
+    <link href="http://www.wushxin.top/2016/08/15/%E4%BB%8E50s%E5%88%B0250ms.html"/>
+    <id>http://www.wushxin.top/2016/08/15/从50s到250ms.html</id>
+    <published>2016-08-15T09:56:07.000Z</published>
+    <updated>2016-08-16T01:54:49.319Z</updated>
+    <content type="html"><![CDATA[<h3 id="开头语">开头语</h3><ol>
+<li>过了三年，终于我也从看别人写这种文章，到自己写下经验来分享，很有感触</li>
+<li>虽然负责的项目的模块的大小远远不及网络上的众位，但对我来说还是一个很宝贵的经验和历程。</li>
+<li>所以这篇的题目叫做 从<strong>50s到250ms</strong>，记录我的第一个<code>PHP</code>项目的优化过程，实际上很简单，一般人大概都会想到，但还是需要记录。</li>
+</ol>
+<a id="more"></a>
+<h3 id="项目">项目</h3><ol>
+<li>整个事情的开始，是一个数据报表类型的项目，前端需要一个下载接口</li>
+<li>这个接口需要能够将数据导出成<code>xlsx</code>格式，进行下载。</li>
+<li>看起来十分简单的事情，我也是这么觉得的，但是过程中着实遇到了一些坑，又因为自己是个新手，所以解决起来也是磕磕绊绊的。</li>
+<li>这个接口在进行联调的时候，发现响应实在是太慢了，并且对于某些数据量大的(8000)条左右，竟然直接超时 504 报错。</li>
+<li>这让我这个初次上手的人表示迷茫，<strong>超时？</strong>第一次，我首先怀疑是不是浏览器直接断开了连接，但是盘查了一下，发现并不是浏览器的问题，紧接着我抱着怀疑的态度，看了一下<code>php-fpm</code>日志，果然有一个超时的错误，竟然是<code>PHP</code>的超时！真是我写静态语言闻所未闻的现象。</li>
+<li>经过查阅，发现这是一个默认设定，默认<strong>30s超时</strong>，我就想总算找到问题所在了，网上提供的做法当然就是很直接暴力<code>set_time_limit</code>一个更高的限制就行了</li>
+<li>我在此处顿了一下，因为这个系统并非只有我一个人使用，如果直接修改这个限制，很可能会影响到别人！</li>
+<li>但是后来我想先把服务跑通再说，于是我加了一对操作: <code>set_time_limit(60), set_time_limit(30)</code>。</li>
+<li>行啦，这下可以了，再联调，又发现了一个新问题。接口跑着跑着，莫名其妙的就返回 <strong>500 Server Internal Error</strong>！</li>
+<li>不信邪的我又跑去<code>php-fpm</code>查了日志，发现这回的<code>fatal error</code>变成了 <strong>内存超出限制</strong>！</li>
+<li>当时我就不好了，这是什么鬼，还能超出限制啦？而且才<strong>126M</strong>左右。思考了一下代码，觉得问题应该是出在从数据库抽数据时候，是一次性把所有数据都抽出来，并且用<strong>PHPExcel</strong>全部写入的原因，但是由于找不到<strong>PHPExcel</strong>的部分写功能，放弃了将数据库改为部分读的逻辑模式。</li>
+<li>虽惊然卵，Bug还是要继续修的，一查，又是<code>PHP</code>这个家伙搞的鬼，有一个默认内存限制！不出所料，网上给出的又是很暴力的解决办法，<code>init_set</code>，当时我有过一丝犹豫，但还是照着做了</li>
+<li>终于，又和前端联调了一下，再经过<strong>50s</strong>的的漫长煎熬，终于这个文件姗姗地从服务器吐了出来。</li>
+<li>我稍微松了一口气，因为我知道事情没完，谁能受得了点击一个下载按钮，等了50s才开始下载啊！</li>
+</ol>
+<h3 id="办法">办法</h3><ol>
+<li>交代了始末，终于可以开始进入正题了：<ol>
+<li>下载接口需要50秒才能准备好数据(<strong>取数据，处理数据，写入xlsx</strong>)。</li>
+<li>数据都是历史数据的统计。</li>
+<li>当月消息是每天一更新。</li>
+</ol>
+</li>
+<li>以上的事实是没有办法改变了。那么我当时便想，是不是可以在用户来访一次，留下缓存，后面再次访问的时候，就不必重新做一次相同的动作了？</li>
+<li>于是我在每次进入数据源之前，加了一层处理，如果有缓存，就检查缓存的有效性，如果有效则直接吐数据给用户，这样大大节省了时间。</li>
+<li>这个功能，的确是很好写，实际上想到这里，我就差不多都写好了。</li>
+<li>因为这么一来，我的访问时间，除了每天第一次访问这个接口，当天其他任意访问都将直接取缓存，并且还有一个好处就是前面说的，强行修改限制的隐患被大大减小的发生的可能，甚至是不会发生。</li>
+<li>但是还有一个问题，最根本的问题，那就是，第一次访问这个接口的用户，<strong>还是要等50s</strong>。</li>
+<li>想着想着，突然想到，可以用<code>cronTab</code>跑定时任务，每天在数据源更新之后，进行<code>curl</code>模拟浏览器主动缓存，这样就好啦！</li>
+<li>终于看到了大功告成的希望，于是按照思路写了一个脚本，跑了起来！</li>
+</ol>
+<h3 id="解决">解决</h3><ul>
+<li>哈，隔天过来检查，运行的十分良好！下载接口保持在<code>250ms</code>地响应速度</li>
+<li>至此从最开始的<code>50s</code>降到现在的<code>250ms</code>这之间的差距有惊人的<strong>200</strong>倍提升，而且大大降低了服务器的资源消耗。</li>
+</ul>
+<h3 id="结束语">结束语</h3><ul>
+<li>麻雀虽小，五脏俱全</li>
+<li>全方面地考虑这个事情，将每个问题都详细的讲述出来，一定能够找到更好的方案。</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="开头语">开头语</h3><ol>
+<li>过了三年，终于我也从看别人写这种文章，到自己写下经验来分享，很有感触</li>
+<li>虽然负责的项目的模块的大小远远不及网络上的众位，但对我来说还是一个很宝贵的经验和历程。</li>
+<li>所以这篇的题目叫做 从<strong>50s到250ms</strong>，记录我的第一个<code>PHP</code>项目的优化过程，实际上很简单，一般人大概都会想到，但还是需要记录。</li>
+</ol>]]>
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://www.wushxin.top/tags/Linux/"/>
+    
+      <category term="php" scheme="http://www.wushxin.top/tags/php/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[使用Vim]]></title>
     <link href="http://www.wushxin.top/2016/08/15/%E4%BD%BF%E7%94%A8Vim.html"/>
     <id>http://www.wushxin.top/2016/08/15/使用Vim.html</id>
     <published>2016-08-15T06:35:40.000Z</published>
-    <updated>2016-08-16T01:47:49.227Z</updated>
+    <updated>2016-08-16T02:06:30.648Z</updated>
     <content type="html"><![CDATA[<h3 id="开始Vim">开始Vim</h3><ol>
 <li>使用编辑器，最主要的目的就是编辑，即使你不愿意使用Vim这类终端编辑器，也会在某时候不得不靠他勉强编辑一些东西，例如中国人Geek们最起码都干过的改<strong>Linux Source list</strong>。</li>
 <li>所以无论你是情愿还是不情愿，当你执行这行命令 <code>vim filename</code> 之后，就算是进入了一个有意思，但又不怎么听话的界面，所以书上学来终是浅，实践才是最重要的。</li>
@@ -46,6 +113,7 @@
 <span class="keyword">set</span> statusline=[%F]%y%r%<span class="keyword">m</span>%*%=[<span class="keyword">Line</span>:%<span class="keyword">l</span>/%<span class="keyword">L</span>,Column:%c][%p%%]
 <span class="keyword">set</span> listchars=<span class="keyword">tab</span>:&gt;-,trail:-
 </code></pre><p>有这些功能开启就够了，也不需要有其他的第三方插件，也不需要再多了，就这样足矣。所以请简单使用<code>Vim</code></p>
+<p>不想自己复制，手打的，可以去我的<a href="https://github.com/wrestle/configuration/tree/master/vim" target="_blank" rel="external"><strong>Github</strong></a>上下载</p>
 </li>
 </ol>
 <blockquote>
@@ -284,6 +352,7 @@
 <span class="keyword">set</span> statusline=[%F]%y%r%<span class="keyword">m</span>%*%=[<span class="keyword">Line</span>:%<span class="keyword">l</span>/%<span class="keyword">L</span>,Column:%c][%p%%]
 <span class="keyword">set</span> listchars=<span class="keyword">tab</span>:&gt;-,trail:-
 </code></pre><p>有这些功能开启就够了，也不需要有其他的第三方插件，也不需要再多了，就这样足矣。所以请简单使用<code>Vim</code></p>
+<p>不想自己复制，手打的，可以去我的<a href="https://github.com/wrestle/configuration/tree/master/vim"><strong>Github</strong></a>上下载</p>
 </li>
 </ol>
 <blockquote>
@@ -588,7 +657,7 @@ ip_hash;
     <link href="http://www.wushxin.top/2016/03/28/%E4%BD%BF%E7%94%A8tmux.html"/>
     <id>http://www.wushxin.top/2016/03/28/使用tmux.html</id>
     <published>2016-03-27T23:51:30.000Z</published>
-    <updated>2016-03-28T08:20:39.207Z</updated>
+    <updated>2016-08-16T02:08:00.377Z</updated>
     <content type="html"><![CDATA[<h2 id="神级命令行软件_Tmux">神级命令行软件 Tmux</h2><ul>
 <li>这是我在大学里认识到的<strong>最好用</strong>的神器，<strong>没有之一</strong>，提高效率那是没得说，主要至今未曾崩溃过，可见其可怕之处</li>
 <li>额外提一点就是，由于学校原因，没机会使用到 <code>tmux</code> 的远程连接黑魔法，所以本篇文章记录的是单机情况下的操作，远程连接没有用过，就不好置评</li>
@@ -694,6 +763,7 @@ ip_hash;
 </ul>
 <blockquote>
 <p>想让这个配置文件生效，必须要将所有的 <code>tmux</code> 窗口都<strong>退出</strong>才行。</p>
+<p>比较懒的，可以去直接拿我用，在<a href="https://github.com/wrestle/configuration/tree/master/tmux" target="_blank" rel="external"><strong>Github</strong></a>上</p>
 </blockquote>
 <h3 id="到目前为止的组合键">到目前为止的组合键</h3><ul>
 <li>创建且打开<code>tmux</code>的会话 : <code>$ tmux</code></li>
@@ -5744,248 +5814,6 @@ test_sig.Q_SendSignal(); <span class="comment">//发射信号</span>
 </ul>
 </li>
 <li>所谓局部性就是当我们使用过某些资源后，这些资源总是以一种形式存储在更高级更方便的存储器当中，让最近一次的存取请求能够更加有效率的进行。]]>
-    
-    </summary>
-    
-      <category term="C" scheme="http://www.wushxin.top/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[我为什么学C(4)---效率(上)]]></title>
-    <link href="http://www.wushxin.top/2015/05/20/%E6%88%91%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%A6C(4).html"/>
-    <id>http://www.wushxin.top/2015/05/20/我为什么学C(4).html</id>
-    <published>2015-05-20T03:06:38.000Z</published>
-    <updated>2015-06-03T11:50:43.786Z</updated>
-    <content type="html"><![CDATA[<h4 id="0x07-C语言效率(上)">0x07-C语言效率(上)</h4><h4 id="更新于_2015-05-23">更新于 2015-05-23</h4><p>大概所有学习C语言的初学者，都被前辈说过，C语言是世界上接近最速的编程语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 </p>
-<p>对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计(比如架构和处理指令的方式等)，虽然编译器是为程序员服务，并且在尽它最大的能力来优化程序员写出的代码，但是毕竟它还没有脱离<strong>电子</strong>的范畴，如果我们的代码不能让编译器理解，编译器无法帮我们优化代码，那么我们就无法写出一个高速的程序。</p>
-<p>对于此，我们可以暂且忽略CPU的设计，因为我们在层面上只能考虑如何迎合编译器的优化规则，而CPU则是语言以及编译器的事情了。</p>
-<p>提高程序的速度，就C语言而言可以有这几种方法:</p>
-<ul>
-<li>首先还是要设计合理的大纲，正所谓一个程序最大的性能提升就是它第一次运行的时候</li>
-<li>要避免连续的函数调用。</li>
-<li>消除不必要的<strong>存储器</strong>使用(并非推荐使用register)</li>
-<li>使用<strong>循环展开</strong>技巧，一般编译器的优化选项能自动帮你修改代码成循环展开</li>
-<li>对于一个操作的核心耗时部分，通过重新组合技术来提高速度</li>
-<li>多采用几种风格的写法，而不是直观的认为，因为计算机的想法和你是不一样的<a id="more"></a></li>
-<li><p>注：随着编译器的版本更新，即使不开启优化选项，自带的编译器优化依旧能够为我们编写的代码提供一部分优化，这便是不使用老版本编译器的原因，虽然作为一个程序员不应该太依赖于编译器，但是我认为，时代在进步，信息量正在无限的膨胀，但是人类的大脑以及精力在一个大时代内是有限的，换句话说对于普通人而言我们的记忆是有限的，我们不应该把精力放在前人已经做完的事情上，而是要站在巨人的肩膀上向更远处眺望，如此我们应该充分利用工具来帮助我们实现一些既有的功能，而程序员应该更 专注于发现新的思路，以及想法，在图灵测试尚未有人打破之前，程序员依赖编译器并不是一件错误的事情。</p>
-<p>  对于当下的编译器，以<code>GCC</code>(<strong>GCC不仅仅是一个编译器，但这里将它当成编译器的代名词</strong>)为例，<code>-O2</code>是一个为大众所接受的优化等级，对于其他编译器，一般程序员可以选择使用由Google和Apple联合开发的编译器<code>clang</code>也是一个很好的选择， 在<code>-O2</code>的优化等级下，<code>GCC</code>一般情况下能够自动执行<strong>循环展开</strong>优化，</p>
-</li>
-</ul>
-<h4 id="开始">开始</h4><ol>
-<li><p>.</p>
-<pre><code><span class="comment">/*struct.h*/</span>   
-<span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span>
-<span class="keyword">typedef</span> <span class="keyword">struct</span> me{
-        <span class="keyword">int</span>        value;
-        <span class="keyword">struct</span> me* next;
-}data_t;
-
-<span class="keyword">typedef</span> <span class="keyword">struct</span>{
-        <span class="keyword">int</span> index;
-        data_t* storage;
-}block;    
-</code></pre><p>为了测试方便我们首先定义了两个结构体，分别是:</p>
-<p> <code>block</code>代表一个块，每个块都有一个序号(<code>int</code>)，一个数据域<code>data_t</code><br><br> <code>data_t</code>代表一个数据域，原型是一个链表，每个<code>data_t</code>对象中包含一个数据和一个指针。</p>
-<pre><code>/*main.c*/
-<span class="comment">#include "struct.h"</span>
-<span class="comment">#define ARR_SIZE 10</span>
-<span class="keyword">static</span> inline <span class="type">int</span> get_len(<span class="keyword">const</span> data_t* data)
-{
-    <span class="type">int</span> len = <span class="number">0</span>;
-
-    <span class="keyword">if</span>(!data)
-        fprintf(<span class="literal">stderr</span>,<span class="string">"The data in %p is NULL\n"</span>,data);
-    <span class="keyword">else</span>
-        <span class="keyword">while</span>(!data-&gt;next)
-        {
-            ++len;
-            data = data-&gt;next;
-        }
-    <span class="keyword">return</span> len;
-}
-
-<span class="keyword">static</span> inline <span class="type">void</span> mix_cal(<span class="keyword">const</span> <span class="keyword">block</span>* process, <span class="type">int</span> <span class="literal">result</span>[])
-{
-    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; get_len(process-&gt;storage);++i)
-    {
-        *<span class="literal">result</span> += (process-&gt;storage)[i];
-    }
-}
-</code></pre><p>此时我们得到了两个测试函数，<code>get_len</code>和<code>mix_cal</code>分别用来得到<code>data_t</code>长度，以及计算数据域的总和。</p>
-<pre><code>/*main.c*/    
-<span class="type">int</span> main(<span class="type">void</span>)
-{
-    <span class="keyword">block</span>* block_in_all[<span class="type">ARR_SIZE</span>]  = { <span class="type">NULL</span> };
-    <span class="type">int</span>    result_in_all[<span class="type">ARR_SIZE</span>] = { <span class="number">0</span> };
-    /*
-    *假设生成了许多的`<span class="keyword">block</span>`类型对象
-    *将许多的`<span class="keyword">block</span>`放置在一个数组中，每个元素类型为`<span class="keyword">block</span>*`
-    *每个<span class="keyword">block</span>对象中都包含非空的data_t类型的数据域
-    */
-    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; <span class="type">ARR_SIZE</span>;++i)
-    {
-        mix_cal(block_in_all[i], result_in_all+i);
-    }
-    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i &lt; <span class="type">ARR_SIZE</span>;++i)
-    {
-        printf(<span class="string">"The %dth block have the total %d data\n"</span>,
-                    block_in_all[i]-&gt;index, result_in_all[i]);
-    }
-
-    <span class="keyword">return</span> <span class="number">0</span>;
-}
-</code></pre><p>耐心读完上述的代码，它是用来求和的，求一个域中的所有元素的和。仔细分析一下，很容易就能看见一些缺点，最大的莫过于在<code>mix_cal</code>函数中对于<code>get_len</code>函数的调用，在此处看来十分明显，但是我们在编写程序的时候是否能够注意到这个问题呢？<br><br>对于一些不必要的函数调用我们要做的便是将他们提取出来，使用临时变量是一个很好的办法，因为在编译器的帮助下<strong>临时变量</strong>在<strong>允许的情况下</strong>能够充分的利用CPU的寄存器。之所以是允许的情况下，是因为寄存器的数量并不多，而编译器在寄存器的使用上需要考虑许多的复杂因素，故并不是每次使用临时变量都能加入寄存器。但这并不妨碍我们提升程序的性能。</p>
-<p> 在此处，我们应该将<code>for</code>循环中的判断语句里的<code>get_len</code>函数提取出来，在外部使用一个临时变量接收结果，而不是在循环中一直调用该函数。</p>
-<pre><code><span class="typename">int</span> <span class="built_in">len</span> = get_len(process-&gt;storage);
-</code></pre></li>
-<li><p>.</p>
-<p> 依旧是上方的代码，我们来讲述一下，循环展开。</p>
-<p> 对于<code>mix_cal</code>函数，我们或者说编译器可以如何提升它的速度呢？我们说过一点的小改变都可能对一个程序的最终代码产生极大的影响，对此最常用的便是尝试，前人之路早已铺好，不需要重复造轮子了。</p>
-<p> 循环展开:</p>
-<pre><code><span class="type">int</span> reality = len - <span class="number">1</span>, i;
-<span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; reality;i+=<span class="number">2</span>)
-{
-    *<span class="literal">result</span> = *<span class="literal">result</span> + (process-&gt;storage)[i] 
-                      + (process-&gt;storage)[i+<span class="number">1</span>];
-}
-<span class="keyword">for</span>(;i &lt; len;++i)
-{
-    *<span class="literal">result</span> +=  (process-&gt;storage)[i];
-}
-</code></pre><p> 这就是循环展开中的<strong>2次循环展开</strong>，同样还有n次循环展开。</p>
-<p> 同样，在刚才提到过寄存器的使用以及减少不必要的开销，在此程序中对于<code>(process-&gt;storage)[i]</code>这样的存储器位置解引用太过浪费，我们总是将其优化成本低临时变量的使用</p>
-<pre><code><span class="typedef"><span class="keyword">data</span>* local_data = process-&gt;storage;</span>
-</code></pre><p> 这将为程序带来十分可观的节约，虽然这些工作在编译器的优化中都能包括，但是一旦我们的代码难以被编译器所理解(虽然编译器的升级最大的目的就是提升优化效果)，那么我们很可能得到一个性能不够可观的程序。所以当我们并不是特别紧凑的时候，可以将这些工作当成我们的本分来做，而不是交给编译器来做。</p>
-<p> 以及对于外部存储位置 <code>result</code> 我们在此处也是存在着浪费，同样我们应该使用一个临时变量来存储总和，而不是每次得到结果便对它进行解引用操作。</p>
-<pre><code><span class="type">int</span> local_result = <span class="number">0</span>;
-/*...*/
-local_result = local_result + local_data[i] + local_data[i+<span class="number">1</span>];
-/*...*/
-*<span class="literal">result</span> = local_result;
-</code></pre><p>在上方我们可以看见<strong>循环展开</strong>被称作<strong>2次循环展开</strong>，那么自然可以推断有<code>n</code>次循环展开，自然是有的，对于一个n次循环展开的式子我们有一个简便的上界确定公式即:</p>
-<pre><code><span class="attribute">reality </span>=<span class="string"> len - n + 1;</span>
-</code></pre><p>至于展开几次最好，依然是视环境而定。<br>故最终的版本应该为：</p>
-<pre><code><span class="keyword">static</span> inline <span class="type">void</span> mix_cal(<span class="keyword">const</span> <span class="keyword">block</span>* process, <span class="type">int</span> <span class="literal">result</span>[])
-{
-    <span class="type">int</span> local_result = <span class="number">0</span>;
-    <span class="type">int</span> len = get_len(process-&gt;storage);
-    <span class="type">int</span> reality = len - <span class="number">1</span>, i;
-    data* local_data = process-&gt;storage;
-
-    <span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; reality;i+=<span class="number">2</span>)
-        local_result += local_data[i] + local_data[i+<span class="number">1</span>];
-    <span class="keyword">for</span>(;i &lt; len;++i)
-        local_result += local_data[i];
-
-    *<span class="literal">result</span> = local_result;
-}
-</code></pre><p>解释：循环展开将元素相加分为两个部分，第一部分每次加两个元素，由于如此做会剩余元素没有加，故在第二部分将剩下的元素都加起来。</p>
-</li>
-<li><p>.<br>还有一种叫做<strong>重新组合</strong>的技巧，即为让一个表达式中的运算数自由组合，组合出最快速的一种，但是这种方法未曾试验过。故不提及。</p>
-</li>
-<li><p>.<br>对于条件分支预测错误造成的时间损耗，称之为<strong>惩罚</strong>，最通俗的说法，就是当你编写的代码中含有条件分支的时候，处理器会选择去<strong>预判</strong>某一个分支是此次正确的支路，这样可以避免修改任何实际的寄存器和存储器，一直到确定了实际结果，要是不对，那就惨了，这段时间做的事情都白费了。但是也不必过分的关心这种条件分支的预测，这也是我放在最后说的意义所在。</p>
-<p> 这里有两种较为客观的方法，一种被称为<strong>命令式</strong>，一种被称为<strong>功能式</strong></p>
-<p> 命令式：</p>
-<pre><code><span class="keyword">for</span>(int i = <span class="number">0</span>;i &lt; n;++i)
-<span class="comment">{
-    if(a[i] &gt; b[i]){
-        int temp = a[i];
-        a[i] = b[i];
-        b[i] = temp;
-    }</span>
-}
-</code></pre><p> 功能式：</p>
-<pre><code>int min, max;
-<span class="keyword">for</span>(int i = <span class="number">0</span>;i &lt; n;++i)
-<span class="comment">{    
-    min = a[i] &lt; b[i] ? a[i] : b[i];
-    max = a[i] &lt; b[i] ? b[i] : a[i];
-    a[i] = min;
-    b[i] = max;
-}</span>
-</code></pre><p>很清晰的一个例子，明显看出来，前者对于不同情况所作的程序步数明显不同，而后者无论什么情况都是相同的程序步。</p>
-<p> 两个形式的好处前者对于可预测数据来说，是一个很好的模型，后者则是中庸之道，什么是可预测不可预测，比如一个数是负数还是正数这就是不可预测的，用前面那个代码会有很大的<strong>惩罚</strong>。</p>
-</li>
-<li><p>.<br>多路并行的技巧也是一个很重要的思路，可能在很多人眼中看来，两条语句依次写出和合并的效果一定是一样。但是多路并行有一个缺点就是对寄存器的数量有所要求，当寄存器不够时(称为溢出)，性能不升反降。同样是对于循环展开，此次使用<strong>四次循环展开</strong>加<strong>二路并行</strong>：</p>
-<pre><code><span class="keyword">for</span>(i = <span class="number">0</span>;i &lt; reality;i+=<span class="number">4</span>){
-    <span class="built_in">local</span>_result_1 += <span class="built_in">local</span>_data[i] + <span class="built_in">local</span>_data[i+<span class="number">1</span>];
-    <span class="built_in">local</span>_result_2 += <span class="built_in">local</span>_data[i+<span class="number">2</span>] + <span class="built_in">local</span>_data[i+<span class="number">3</span>];
-}//也可以分成四路并行，每一路存一个。这种做法充分利用了CPU流水线的性能
-<span class="keyword">for</span>(;i &lt; len;++i)
-    <span class="built_in">local</span>_result_1 += <span class="built_in">local</span>_data[i];
-
-*result = <span class="built_in">local</span>_result_1 + <span class="built_in">local</span>_result_2;
-</code></pre></li>
-</ol>
-<h4 id="结束">结束</h4><h4 id="Tips:">Tips:</h4><p>上文中写到的函数大都带有<code>static inline</code>关键字，这是何意？首先我们要确定一件事情，对于非工程的单文件而言，<code>static</code>函数并没有什么意义(意义指的是对于可见性而言，并非说它一无是处)，许多人对于<code>static</code>函数感到茫然的原因在于:我明明将一个函数声明定义成<code>static</code>类型了，但是我还是可以在别的文件中访问到啊！</p>
-<p>其实这是因为你根本就没有理解<strong>C语言</strong>工程这个意思，大部分人是这么测试的:</p>
-<ol>
-<li><p>首先在一个文件夹里创建两个文件 <code>test_static.c</code>和<code>static.h</code>:</p>
-<pre><code><span class="comment">/*static.h*/</span>
-<span class="preprocessor">#ifndef STATIC_H</span>
-<span class="preprocessor">#<span class="keyword">define</span> STATIC_H</span>
-<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">void</span>)</span></span>;
-
-<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">void</span>)</span></span>;
-{
-    <span class="built_in">printf</span>(<span class="string">"Hello World!\n"</span>);
-}
-<span class="preprocessor">#<span class="keyword">endif</span></span>
-</code></pre><p> …</p>
-<pre><code><span class="comment">/*test_static.c*/</span>
-<span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span>
-<span class="preprocessor">#<span class="keyword">include</span> "static.h"</span>
-
-<span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">void</span>)</span></span>;
-<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span>
-</span>{
-    test();         <span class="comment">//编译通过，可以运行。</span>
-    <span class="keyword">return</span> <span class="number">0</span>;
-}
-</code></pre></li>
-<li><p>然后编译运行，发现可以通过啊！！标准怎么说在其他文件中不可见？而把<code>static.h</code>去掉<code>#include</code>之后发现报错<code>test undefined</code>，瞬间初学者就凌乱了。</p>
-</li>
-<li><p>好吧，实际上是前辈们以及教材的错，因为从始至终，所有外界现象都告诉我们<strong>C程序</strong>是独立的一个一个文件组成的，但是并没有告诉我们要先将他们弄成一个工程！此处如果是使用<strong>Visual Studio</strong>学习C语言的可能会对工程这个概念理解的稍微好一些，虽然极度反对排斥使用 VS 学习C语言这种行为。</p>
-</li>
-<li><p>你想要实现<code>static</code>函数仅在本文件可见的效果，请你先补习一下<strong>工程</strong>这个概念，对于任何可见或者不可见的概念而言都是建立在一个工程内而言，而不是像上方的代码，使用<code>#include</code>来表示，你都<code>#include</code>了，那还有什么可见不可见的当然都可见了。所以一个<code>static</code>函数可见于不可见是基于一个个工程里的所有C语言源文件而言的。所以你将常看见前辈们这么回答你的提问:</p>
-<pre><code><span class="comment">/*static.h*/</span>
-<span class="preprocessor">#ifndef STATIC_H</span>
-<span class="preprocessor">#<span class="keyword">define</span> STATIC_H</span>
-<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">void</span>)</span></span>;
-
-<span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">void</span>)</span></span>;
-{
-    <span class="built_in">printf</span>(<span class="string">"Hello World!\n"</span>);
-}
-<span class="preprocessor">#<span class="keyword">endif</span></span>
-</code></pre><p> …</p>
-<pre><code><span class="comment">/*test_static.c*/</span>
-<span class="preprocessor">#<span class="keyword">include</span> &lt;stdio.h&gt;</span>
-
-<span class="function"><span class="keyword">void</span> <span class="title">test</span><span class="params">(<span class="keyword">void</span>)</span></span>;
-<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span>
-</span>{
-    test();         <span class="comment">//报错，因为test是static函数。</span>
-    <span class="keyword">return</span> <span class="number">0</span>;
-}
-</code></pre><p>发现了吗？在上方代码中，少了一行<code>#include &quot;static.h&quot;</code>但是这个代码依旧可行，因为这两个文件是建立在同一个工程里的，而不是在一个文件夹中随意新建两个源文件这么简单，你可以使用各个<strong>IDE</strong>的工程功能来进行测试。</p>
-</li>
-</ol>
-<p>回到正题，在这里稍微提一下<strong>static</strong>对函数的某些作用，它可以让函数放在一个静态的空间中，而不是栈里，这是的它的调用更加快速，经常与<strong>inline</strong>关键字一起使用，为的就是让函数更加快。但是有利有弊，可以自己权衡一下。</p>
-<h4 id="参考:深入理解计算机系统—Randal_E-Bryant_/_David_O’Hallaro">参考:<a href="http://book.douban.com/subject/5333562/" target="_blank" rel="external">深入理解计算机系统—Randal E.Bryant / David O’Hallaro</a></h4>]]></content>
-    <summary type="html">
-    <![CDATA[<h4 id="0x07-C语言效率(上)">0x07-C语言效率(上)</h4><h4 id="更新于_2015-05-23">更新于 2015-05-23</h4><p>大概所有学习C语言的初学者，都被前辈说过，C语言是世界上接近最速的编程语言，当然这并不是吹牛，也并不是贬低其他语言，诚然非C语言能写出高速度的代码，但是C语言更容易写出高速的程序(高速不代表高效)，然而再好的工具，在外行人手中也只能是黯淡没落。 </p>
-<p>对于现代编译器，现代CPU而言，我们要尽量迎合CPU的设计(比如架构和处理指令的方式等)，虽然编译器是为程序员服务，并且在尽它最大的能力来优化程序员写出的代码，但是毕竟它还没有脱离<strong>电子</strong>的范畴，如果我们的代码不能让编译器理解，编译器无法帮我们优化代码，那么我们就无法写出一个高速的程序。</p>
-<p>对于此，我们可以暂且忽略CPU的设计，因为我们在层面上只能考虑如何迎合编译器的优化规则，而CPU则是语言以及编译器的事情了。</p>
-<p>提高程序的速度，就C语言而言可以有这几种方法:</p>
-<ul>
-<li>首先还是要设计合理的大纲，正所谓一个程序最大的性能提升就是它第一次运行的时候</li>
-<li>要避免连续的函数调用。</li>
-<li>消除不必要的<strong>存储器</strong>使用(并非推荐使用register)</li>
-<li>使用<strong>循环展开</strong>技巧，一般编译器的优化选项能自动帮你修改代码成循环展开</li>
-<li>对于一个操作的核心耗时部分，通过重新组合技术来提高速度</li>
-<li>多采用几种风格的写法，而不是直观的认为，因为计算机的想法和你是不一样的]]>
     
     </summary>
     
