@@ -125,14 +125,24 @@ var _hmt = _hmt || [];
 <li>首先在家目录 <code>cd ~</code> 下创建或打开 <code>.vimrc</code> 这个文件，直接执行 <code>vim .vimrc</code>这个命令即可，无论有这个文件还是，没有这个文件都能够正确达到目的。</li>
 <li><p>进入<code>.vimrc</code>文件之后，在其中追加以下内容(追加就是摁键盘上的<code>i</code>，光标移动暂时用<strong>方向键</strong>):</p>
 <pre><code><span class="keyword">syntax</span> <span class="keyword">on</span>
-<span class="keyword">set</span> <span class="keyword">number</span>
-<span class="keyword">set</span> <span class="built_in">cindent</span>
-<span class="keyword">set</span> backspace=<span class="built_in">indent</span>,eol,start
-<span class="keyword">set</span> tabstop=<span class="number">4</span>
-<span class="keyword">set</span> <span class="built_in">shiftwidth</span>=<span class="number">4</span>
-<span class="keyword">let</span> &amp;termencoding=&amp;encoding
-<span class="keyword">set</span> fileencodings=utf-<span class="number">8</span>,gbk
+<span class="keyword">set</span> number
+<span class="keyword">set</span> cindent
+<span class="keyword">set</span> autoindent
+<span class="keyword">set</span> smartindent
+<span class="keyword">set</span> ruler
+<span class="keyword">set</span> backspace=indent,eol,start
+<span class="keyword">set</span> tabstop=4
+<span class="keyword">set</span> shiftwidth=4
+<span class="keyword">set</span> encoding=utf-8
+<span class="keyword">set</span> termencoding=utf-8
+<span class="keyword">set</span> fileencodings=utf-8,gbk
 <span class="keyword">set</span> hls
+<span class="keyword">set</span> laststatus=2
+<span class="keyword">set</span> <span class="keyword">list</span>
+<span class="keyword">set</span> incsearch
+<span class="keyword">set</span> showmatch
+<span class="keyword">set</span> statusline=[%F]%y%r%<span class="keyword">m</span>%*%=[<span class="keyword">Line</span>:%<span class="keyword">l</span>/%<span class="keyword">L</span>,Column:%c][%p%%]
+<span class="keyword">set</span> listchars=<span class="keyword">tab</span>:&gt;-,trail:-
 </code></pre><p>有这些功能开启就够了，也不需要有其他的第三方插件，也不需要再多了，就这样足矣。所以请简单使用<code>Vim</code></p>
 </li>
 </ol>
@@ -147,7 +157,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/08/15/使用Vim.html" data-id="cirvup9ic0019tgltcm8rn1k6" class="article-share-link" data-share="baidu" data-title="使用Vim">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/08/15/使用Vim.html" data-id="cirwt8sjt0019molt9o6fw2cy" class="article-share-link" data-share="baidu" data-title="使用Vim">分享到</a>
       
 
       
@@ -217,7 +227,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/07/29/后台开发之架构.html" data-id="cirvup9hx000rtgltafjwgrlv" class="article-share-link" data-share="baidu" data-title="后台开发之架构">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/07/29/后台开发之架构.html" data-id="cirwt8sjf000rmoltci1ivc3s" class="article-share-link" data-share="baidu" data-title="后台开发之架构">分享到</a>
       
 
       
@@ -298,7 +308,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/04/09/直接理解红黑树旋转.html" data-id="cirvup9h60004tgltfjgq9qkr" class="article-share-link" data-share="baidu" data-title="直接理解红黑树旋转">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/04/09/直接理解红黑树旋转.html" data-id="cirwt8sio0004moltcv96q64f" class="article-share-link" data-share="baidu" data-title="直接理解红黑树旋转">分享到</a>
       
 
       
@@ -370,7 +380,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/03/28/使用tmux.html" data-id="cirvup9i70011tgltm5i314xa" class="article-share-link" data-share="baidu" data-title="使用tmux">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/03/28/使用tmux.html" data-id="cirwt8sjn0011moltp1rxbler" class="article-share-link" data-share="baidu" data-title="使用tmux">分享到</a>
       
 
       
@@ -441,7 +451,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/03/26/一个HTTP服务器的C之路-下.html" data-id="cirvup9ie001etgltks1hnz35" class="article-share-link" data-share="baidu" data-title="一个HTTP服务器的C之路(下)">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/03/26/一个HTTP服务器的C之路-下.html" data-id="cirwt8sjv001emolt6i2wbrq6" class="article-share-link" data-share="baidu" data-title="一个HTTP服务器的C之路(下)">分享到</a>
       
 
       
@@ -525,7 +535,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/03/23/一个HTTP服务器的C之路(上).html" data-id="cirvup9ij001htgltvn3sgcdb" class="article-share-link" data-share="baidu" data-title="一个HTTP服务器的C之路（上）">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/03/23/一个HTTP服务器的C之路(上).html" data-id="cirwt8sk2001hmoltk9v3ykx6" class="article-share-link" data-share="baidu" data-title="一个HTTP服务器的C之路（上）">分享到</a>
       
 
       

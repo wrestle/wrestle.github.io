@@ -5,7 +5,7 @@
   <subtitle><![CDATA[狐狸永远是我的]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.wushxin.top//"/>
-  <updated>2016-08-15T09:52:26.463Z</updated>
+  <updated>2016-08-16T01:47:49.227Z</updated>
   <id>http://www.wushxin.top//</id>
   
   <author>
@@ -20,21 +20,31 @@
     <link href="http://www.wushxin.top/2016/08/15/%E4%BD%BF%E7%94%A8Vim.html"/>
     <id>http://www.wushxin.top/2016/08/15/使用Vim.html</id>
     <published>2016-08-15T06:35:40.000Z</published>
-    <updated>2016-08-15T09:52:26.463Z</updated>
+    <updated>2016-08-16T01:47:49.227Z</updated>
     <content type="html"><![CDATA[<h3 id="开始Vim">开始Vim</h3><ol>
 <li>使用编辑器，最主要的目的就是编辑，即使你不愿意使用Vim这类终端编辑器，也会在某时候不得不靠他勉强编辑一些东西，例如中国人Geek们最起码都干过的改<strong>Linux Source list</strong>。</li>
 <li>所以无论你是情愿还是不情愿，当你执行这行命令 <code>vim filename</code> 之后，就算是进入了一个有意思，但又不怎么听话的界面，所以书上学来终是浅，实践才是最重要的。</li>
 <li>首先在家目录 <code>cd ~</code> 下创建或打开 <code>.vimrc</code> 这个文件，直接执行 <code>vim .vimrc</code>这个命令即可，无论有这个文件还是，没有这个文件都能够正确达到目的。</li>
 <li><p>进入<code>.vimrc</code>文件之后，在其中追加以下内容(追加就是摁键盘上的<code>i</code>，光标移动暂时用<strong>方向键</strong>):</p>
 <pre><code><span class="keyword">syntax</span> <span class="keyword">on</span>
-<span class="keyword">set</span> <span class="keyword">number</span>
-<span class="keyword">set</span> <span class="built_in">cindent</span>
-<span class="keyword">set</span> backspace=<span class="built_in">indent</span>,eol,start
-<span class="keyword">set</span> tabstop=<span class="number">4</span>
-<span class="keyword">set</span> <span class="built_in">shiftwidth</span>=<span class="number">4</span>
-<span class="keyword">let</span> &amp;termencoding=&amp;encoding
-<span class="keyword">set</span> fileencodings=utf-<span class="number">8</span>,gbk
+<span class="keyword">set</span> number
+<span class="keyword">set</span> cindent
+<span class="keyword">set</span> autoindent
+<span class="keyword">set</span> smartindent
+<span class="keyword">set</span> ruler
+<span class="keyword">set</span> backspace=indent,eol,start
+<span class="keyword">set</span> tabstop=4
+<span class="keyword">set</span> shiftwidth=4
+<span class="keyword">set</span> encoding=utf-8
+<span class="keyword">set</span> termencoding=utf-8
+<span class="keyword">set</span> fileencodings=utf-8,gbk
 <span class="keyword">set</span> hls
+<span class="keyword">set</span> laststatus=2
+<span class="keyword">set</span> <span class="keyword">list</span>
+<span class="keyword">set</span> incsearch
+<span class="keyword">set</span> showmatch
+<span class="keyword">set</span> statusline=[%F]%y%r%<span class="keyword">m</span>%*%=[<span class="keyword">Line</span>:%<span class="keyword">l</span>/%<span class="keyword">L</span>,Column:%c][%p%%]
+<span class="keyword">set</span> listchars=<span class="keyword">tab</span>:&gt;-,trail:-
 </code></pre><p>有这些功能开启就够了，也不需要有其他的第三方插件，也不需要再多了，就这样足矣。所以请简单使用<code>Vim</code></p>
 </li>
 </ol>
@@ -45,12 +55,14 @@
 <li>追加完以后，接下来执行一个连贯的操作:<ol>
 <li><code>Shift + ;</code> 也就是冒号<code>:</code></li>
 <li>输入<code>wq</code></li>
-<li>回车<ul>
-<li><img src="http://o8taitpxn.bkt.clouddn.com/wq.png" alt=""></li>
-</ul>
-</li>
+<li>回车</li>
 </ol>
 </li>
+</ol>
+<ul>
+<li><img src="http://o8taitpxn.bkt.clouddn.com/wq.png" alt=""></li>
+</ul>
+<ol>
 <li>成了！接下来就能开心的进入<code>Vim</code>状态了。</li>
 </ol>
 <h4 id="直接进阶">直接进阶</h4><ol>
@@ -253,14 +265,24 @@
 <li>首先在家目录 <code>cd ~</code> 下创建或打开 <code>.vimrc</code> 这个文件，直接执行 <code>vim .vimrc</code>这个命令即可，无论有这个文件还是，没有这个文件都能够正确达到目的。</li>
 <li><p>进入<code>.vimrc</code>文件之后，在其中追加以下内容(追加就是摁键盘上的<code>i</code>，光标移动暂时用<strong>方向键</strong>):</p>
 <pre><code><span class="keyword">syntax</span> <span class="keyword">on</span>
-<span class="keyword">set</span> <span class="keyword">number</span>
-<span class="keyword">set</span> <span class="built_in">cindent</span>
-<span class="keyword">set</span> backspace=<span class="built_in">indent</span>,eol,start
-<span class="keyword">set</span> tabstop=<span class="number">4</span>
-<span class="keyword">set</span> <span class="built_in">shiftwidth</span>=<span class="number">4</span>
-<span class="keyword">let</span> &amp;termencoding=&amp;encoding
-<span class="keyword">set</span> fileencodings=utf-<span class="number">8</span>,gbk
+<span class="keyword">set</span> number
+<span class="keyword">set</span> cindent
+<span class="keyword">set</span> autoindent
+<span class="keyword">set</span> smartindent
+<span class="keyword">set</span> ruler
+<span class="keyword">set</span> backspace=indent,eol,start
+<span class="keyword">set</span> tabstop=4
+<span class="keyword">set</span> shiftwidth=4
+<span class="keyword">set</span> encoding=utf-8
+<span class="keyword">set</span> termencoding=utf-8
+<span class="keyword">set</span> fileencodings=utf-8,gbk
 <span class="keyword">set</span> hls
+<span class="keyword">set</span> laststatus=2
+<span class="keyword">set</span> <span class="keyword">list</span>
+<span class="keyword">set</span> incsearch
+<span class="keyword">set</span> showmatch
+<span class="keyword">set</span> statusline=[%F]%y%r%<span class="keyword">m</span>%*%=[<span class="keyword">Line</span>:%<span class="keyword">l</span>/%<span class="keyword">L</span>,Column:%c][%p%%]
+<span class="keyword">set</span> listchars=<span class="keyword">tab</span>:&gt;-,trail:-
 </code></pre><p>有这些功能开启就够了，也不需要有其他的第三方插件，也不需要再多了，就这样足矣。所以请简单使用<code>Vim</code></p>
 </li>
 </ol>
