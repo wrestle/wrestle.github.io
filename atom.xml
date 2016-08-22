@@ -5,7 +5,7 @@
   <subtitle><![CDATA[狐狸永远是我的]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.wushxin.top//"/>
-  <updated>2016-08-16T01:54:49.319Z</updated>
+  <updated>2016-08-22T08:43:41.929Z</updated>
   <id>http://www.wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.wushxin.top/2016/08/15/%E4%BB%8E50s%E5%88%B0250ms.html"/>
     <id>http://www.wushxin.top/2016/08/15/从50s到250ms.html</id>
     <published>2016-08-15T09:56:07.000Z</published>
-    <updated>2016-08-16T01:54:49.319Z</updated>
+    <updated>2016-08-22T08:43:41.929Z</updated>
     <content type="html"><![CDATA[<h3 id="开头语">开头语</h3><ol>
 <li>过了三年，终于我也从看别人写这种文章，到自己写下经验来分享，很有感触</li>
 <li>虽然负责的项目的模块的大小远远不及网络上的众位，但对我来说还是一个很宝贵的经验和历程。</li>
@@ -30,10 +30,10 @@
 <h3 id="项目">项目</h3><ol>
 <li>整个事情的开始，是一个数据报表类型的项目，前端需要一个下载接口</li>
 <li>这个接口需要能够将数据导出成<code>xlsx</code>格式，进行下载。</li>
-<li>看起来十分简单的事情，我也是这么觉得的，但是过程中着实遇到了一些坑，又因为自己是个新手，所以解决起来也是磕磕绊绊的。</li>
+<li>看起来十分简单的事情，我也是这么觉得的，但是过程中着实遇到了一些坑，又因为自己刚接触框架，所以解决起来也是磕磕绊绊的。</li>
 <li>这个接口在进行联调的时候，发现响应实在是太慢了，并且对于某些数据量大的(8000)条左右，竟然直接超时 504 报错。</li>
 <li>这让我这个初次上手的人表示迷茫，<strong>超时？</strong>第一次，我首先怀疑是不是浏览器直接断开了连接，但是盘查了一下，发现并不是浏览器的问题，紧接着我抱着怀疑的态度，看了一下<code>php-fpm</code>日志，果然有一个超时的错误，竟然是<code>PHP</code>的超时！真是我写静态语言闻所未闻的现象。</li>
-<li>经过查阅，发现这是一个默认设定，默认<strong>30s超时</strong>，我就想总算找到问题所在了，网上提供的做法当然就是很直接暴力<code>set_time_limit</code>一个更高的限制就行了</li>
+<li>经过检索<code>php-fpm</code>错误日志，发现这是一个默认设定，默认<strong>30s超时</strong>，我就想总算找到问题所在了，网上提供的做法当然就是很直接暴力<code>set_time_limit</code>一个更高的限制就行了</li>
 <li>我在此处顿了一下，因为这个系统并非只有我一个人使用，如果直接修改这个限制，很可能会影响到别人！</li>
 <li>但是后来我想先把服务跑通再说，于是我加了一对操作: <code>set_time_limit(60), set_time_limit(30)</code>。</li>
 <li>行啦，这下可以了，再联调，又发现了一个新问题。接口跑着跑着，莫名其妙的就返回 <strong>500 Server Internal Error</strong>！</li>
@@ -58,6 +58,14 @@
 <li>想着想着，突然想到，可以用<code>cronTab</code>跑定时任务，每天在数据源更新之后，进行<code>curl</code>模拟浏览器主动缓存，这样就好啦！</li>
 <li>终于看到了大功告成的希望，于是按照思路写了一个脚本，跑了起来！</li>
 </ol>
+<h3 id="题外话">题外话</h3><ul>
+<li>这几天，在PHP开发上和同事一起遇见了一个很神奇的坑：<ul>
+<li>全局变量<code>$_REQUEST</code>对于传过来的参数是有预处理顺序的。其实这个在<code>PHP Mannual</code>里就开篇提到，但是很少有人直接以这个作为入门教程，我这种刚上手的更不用说</li>
+<li>所以，这就导致了，如果<code>cookie</code>中有一个参数恰巧和你<code>GET</code>或者<code>POST</code>上传的参数里某个参数重名，就会<strong>覆盖它</strong>！</li>
+<li>当然可以修改预处理数据，但是默认的却的确如此。</li>
+</ul>
+</li>
+</ul>
 <h3 id="解决">解决</h3><ul>
 <li>哈，隔天过来检查，运行的十分良好！下载接口保持在<code>250ms</code>地响应速度</li>
 <li>至此从最开始的<code>50s</code>降到现在的<code>250ms</code>这之间的差距有惊人的<strong>200</strong>倍提升，而且大大降低了服务器的资源消耗。</li>
