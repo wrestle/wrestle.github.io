@@ -5,7 +5,7 @@
   <subtitle><![CDATA[狐狸永远是我的]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.wushxin.top//"/>
-  <updated>2016-11-03T01:57:57.920Z</updated>
+  <updated>2016-11-03T02:04:50.057Z</updated>
   <id>http://www.wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.wushxin.top/2016/11/03/Windows10%E4%BB%A5%E5%90%8E.html"/>
     <id>http://www.wushxin.top/2016/11/03/Windows10以后.html</id>
     <published>2016-11-03T00:48:18.000Z</published>
-    <updated>2016-11-03T01:57:57.920Z</updated>
+    <updated>2016-11-03T02:04:50.057Z</updated>
     <content type="html"><![CDATA[<h3 id="Windows_10">Windows 10</h3><ul>
 <li>这是一个很符合当下审美的版本，当然蓝屏问题真是药丸吃太多。</li>
 <li>抛开蓝屏不说，其他各方面都让我感觉直追MacBook，特别是在最新版 MacBook 出来以后，更加认可我这个观点，日后还要不要入手Mac，有待考虑，那个<code>Touch Bar</code>纯粹是个没用的东西，竟然把我的<code>Esc</code>键给搞掉了！</li>
@@ -36,10 +36,11 @@
 <h3 id="开启_Bash_On_Windows">开启 Bash On Windows</h3><ol>
 <li>首先确保你的系统版本是大于<code>14393.0</code>， 那么在系统设置里面(<code>Win + I</code>)-&gt;<code>更新和安全</code>-&gt;<code>针对开发人人员</code>-&gt;<code>开发人员模式</code></li>
 <li>摁下<code>Win</code>键，打开开始菜单栏，直接输入 <code>启用或关闭 Windows 功能</code>，打开后，翻到最下面，勾选<code>适用于 Linux 的 Windows子系统(Beta)</code>，就能开启这个东西。</li>
-<li>重启后，打开<code>cmd</code> 或者 <code>PowerShell</code> 输入 <code>bash</code> 回车，就能看见这个子系统开始下载了，等下载完成可能需要重启，再重来一遍操作，就行了！</li>
-</ol>
-<h3 id="缺点">缺点</h3><ol>
-<li><code>PowerShell ISE</code> 无法进入这个子系统</li>
+<li><p>重启后，打开<code>cmd</code> 或者 <code>PowerShell</code> 输入 <code>bash</code> 回车，就能看见这个子系统开始下载了，等下载完成可能需要重启，再重来一遍操作，就行了！</p>
+<a id="more"></a>
+<h3 id="缺点">缺点</h3></li>
+<li><p><code>PowerShell ISE</code> 无法进入这个子系统</p>
+</li>
 <li>由于不能用<code>ISE</code>，所以字体很难看，背景也不好调整，故相当于废了一半。</li>
 <li>功能不完善，或者说被阉割了。</li>
 </ol>
@@ -217,7 +218,21 @@ save=<span class="variable">${dir:="$solid/$dirpossible/LocalState/Assets"}</spa
     <summary type="html">
     <![CDATA[<h3 id="Windows_10">Windows 10</h3><ul>
 <li>这是一个很符合当下审美的版本，当然蓝屏问题真是药丸吃太多。</li>
-<li>抛开蓝屏不说，其他各方面都让我感觉直追MacBook，特别是在最新版 MacBook 出来以后，更加认可我这个观点]]>
+<li>抛开蓝屏不说，其他各方面都让我感觉直追MacBook，特别是在最新版 MacBook 出来以后，更加认可我这个观点，日后还要不要入手Mac，有待考虑，那个<code>Touch Bar</code>纯粹是个没用的东西，竟然把我的<code>Esc</code>键给搞掉了！</li>
+<li>现在的我，对自己的机器还是挺满意的，完美的 <code>ThinkPad</code>，小机械加触控板，在使用的时候，已经三年没有碰鼠标了，当然玩游戏的时候用了三四回。</li>
+<li><p>换了内存，加了固态感觉自己飞起来了，但是和Mac的<code>PCIe</code>接口的固态比起来，还是差了几个档次，这是最大的痛点之一</p>
+<ul>
+<li><code>Bash On Windows</code> 是微软统治全宇宙里一个插曲，但是对于我们来说意义很明显</li>
+</ul>
+</li>
+<li><p>但是，事实真是如此吗？</p>
+</li>
+</ul>
+<h3 id="开启_Bash_On_Windows">开启 Bash On Windows</h3><ol>
+<li>首先确保你的系统版本是大于<code>14393.0</code>， 那么在系统设置里面(<code>Win + I</code>)-&gt;<code>更新和安全</code>-&gt;<code>针对开发人人员</code>-&gt;<code>开发人员模式</code></li>
+<li>摁下<code>Win</code>键，打开开始菜单栏，直接输入 <code>启用或关闭 Windows 功能</code>，打开后，翻到最下面，勾选<code>适用于 Linux 的 Windows子系统(Beta)</code>，就能开启这个东西。</li>
+<li><p>重启后，打开<code>cmd</code> 或者 <code>PowerShell</code> 输入 <code>bash</code> 回车，就能看见这个子系统开始下载了，等下载完成可能需要重启，再重来一遍操作，就行了！</p>]]>
+    
     </summary>
     
       <category term="杂货居" scheme="http://www.wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>

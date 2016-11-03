@@ -134,189 +134,17 @@ var _hmt = _hmt || [];
 <h3 id="开启_Bash_On_Windows">开启 Bash On Windows</h3><ol>
 <li>首先确保你的系统版本是大于<code>14393.0</code>， 那么在系统设置里面(<code>Win + I</code>)-&gt;<code>更新和安全</code>-&gt;<code>针对开发人人员</code>-&gt;<code>开发人员模式</code></li>
 <li>摁下<code>Win</code>键，打开开始菜单栏，直接输入 <code>启用或关闭 Windows 功能</code>，打开后，翻到最下面，勾选<code>适用于 Linux 的 Windows子系统(Beta)</code>，就能开启这个东西。</li>
-<li>重启后，打开<code>cmd</code> 或者 <code>PowerShell</code> 输入 <code>bash</code> 回车，就能看见这个子系统开始下载了，等下载完成可能需要重启，再重来一遍操作，就行了！</li>
-</ol>
-<h3 id="缺点">缺点</h3><ol>
-<li><code>PowerShell ISE</code> 无法进入这个子系统</li>
-<li>由于不能用<code>ISE</code>，所以字体很难看，背景也不好调整，故相当于废了一半。</li>
-<li>功能不完善，或者说被阉割了。</li>
-</ol>
-<h3 id="举个栗子">举个栗子</h3><ul>
-<li><code>Windows 10</code>出了一个新功能，叫做 <strong>聚焦(<code>Windows spotlight</code>)</strong>，几乎收到了一致好评，那么如何将这些在聚焦里的照片搞出来呢？</li>
-<li>经过查阅会发现，这个聚焦是将图片文件存放在目录<code>C:\Users\你的帐户名\AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_随机生成\LocalState\Assets</code>下。</li>
-<li>进入这个路径一看，咦！竟然没有格式，强行用图片软件打开，果然微软这个小心机doge，把类型名搞掉，加上默认隐藏文件扩展名，成功阻止一大批小白把图片扣走</li>
-<li>然鹅，这并挡不住咱们倔强的程序员，紧接着又发现一个特性，有时候前一刻去看还有图片，后一刻看就是空文件夹了！由此推测，聚焦在下一批文件来临时会清空这个文件夹，那么我们就需要弄一个东西，把这些图片搞出来。</li>
-<li>联想到这个<code>Bash</code> 我就想，虽然界面有点坑，但是可以在其他地方写好脚本，丢到环境里运行不就行了！</li>
-</ul>
-<blockquote>
-<p>怀着这个美好的梦想，踏上了脚本之路，为了兼容两个系统的不同路径表达，着实费了一番功夫。</p>
-</blockquote>
-<ul>
-<li>由于我系统中装了<code>git</code>，所以<code>git Bash</code> 自然成了我的首选开发环境。</li>
-<li>我所要的功能是什么呢:<ul>
-<li>将聚焦文件夹里的所有文件，转换成图片，再移动到自己的文件夹里面去保存，每天定时做几次就行。</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>上代码</p>
-</blockquote>
-<pre><code><span class="shebang">#!/bin/bash</span>
-<span class="comment"># Created By WuShengXin @ 2016</span>
-<span class="comment"># 这个脚本依赖 *nix 的 shell 执行环境，可以安装 git 或者 cygwin 来获取环境</span>
-<span class="comment"># 当然也可以使用 Linux in Windows的功能解决，这个会是最好的解决办法。</span>
-<span class="comment">#</span>
-<span class="comment"># 修改这里，用来设定保存路径！修改引号内的内容即可，替换成你先要的存储路径</span>
-<span class="comment"># 反斜杠记得要写两个</span>
-destination=<span class="string">"E:\\User-wu\\Media\\Picture\\"</span>
-<span class="comment">#</span>
-<span class="comment"># 注: 可以通过传入参数的方式设置聚焦的文件夹路径，但是并不推荐这种做法。</span>
-<span class="comment"># 除非你想用这个脚本做另外的事情。</span>
-<span class="comment"># 当前由于 Bash On Windows 尚不完善，故这个脚本无法在其中使用，可以用上面提到的前两种环境运行。</span>
-<span class="built_in">echo</span> <span class="string">"Created By WuShengXin @ 2016, Use it CAREFULLY! Read The Reference above it"</span>
-<span class="built_in">echo</span> <span class="string">"You Can send a real Path to that Script by FIRST PARAMTER, But Not Recommend exclude the other using."</span>
-<span class="comment"># 检测</span>
-<span class="built_in">cd</span> <span class="variable">$destination</span> <span class="number">2</span>&gt;&amp;<span class="number">1</span> /dev/null
-<span class="keyword">if</span> [ $? <span class="operator">-ne</span> <span class="number">0</span> ];
-<span class="keyword">then</span>
-    <span class="comment"># 这个存储路径是错误，尝试一下*nix格式的路径</span>
-    tmp=`<span class="built_in">echo</span> <span class="variable">${destination/:/}</span> | sed <span class="string">'s/\b[A-Z]/\L&amp;/'</span>`
-    tmpcpy=<span class="string">"/mnt/<span class="variable">${tmp//\\/\/}</span>"</span>
-    <span class="comment">#echo "Final dest: $tmpcpy"</span>
-    <span class="keyword">if</span> [ <span class="operator">-d</span> <span class="string">"<span class="variable">$tmpcpy</span>"</span> ];
-    <span class="keyword">then</span>
-        <span class="comment">#echo "$tmpcpy Exist"</span>
-        destination=<span class="variable">$tmpcpy</span>
-    <span class="keyword">else</span>
-    <span class="built_in">echo</span> <span class="string">"Bad Destination-Path, Check For Real"</span>
-    <span class="keyword">fi</span>
-<span class="keyword">fi</span>    
-<span class="keyword">if</span> [[ <span class="variable">$1</span> == <span class="string">""</span> ]];
-<span class="keyword">then</span>
-    <span class="built_in">echo</span> <span class="string">""</span>
-<span class="keyword">else</span>
-    <span class="built_in">echo</span> <span class="string">"Your Enter is : <span class="variable">$1</span>"</span>
-<span class="keyword">fi</span>
-<span class="comment"># 源路径，即聚焦路径</span>
-dir=<span class="variable">$1</span>
-solid=<span class="string">""</span>
-<span class="comment"># 固有属性</span>
-presolidwin=<span class="string">"C:/Users"</span>
-presolidnix=<span class="string">"/mnt/c/Users"</span>
-suffsolid=<span class="string">"AppData/Local/Packages"</span>
-
-<span class="comment"># 查看系统运行的环境</span>
-<span class="comment"># 如果是在 Win环境下</span>
-<span class="keyword">if</span> [ <span class="operator">-d</span> <span class="string">"<span class="variable">$presolidwin</span>"</span> ];
-<span class="keyword">then</span>
-    solid=<span class="string">"<span class="variable">$presolidwin</span>/`whoami`/<span class="variable">$suffsolid</span>"</span>
-<span class="comment"># 如果是在 bash 中</span>
-<span class="keyword">elif</span> [ <span class="operator">-d</span> <span class="string">"<span class="variable">$presolidnix</span>"</span> ];
-<span class="keyword">then</span>
-    <span class="keyword">for</span> username <span class="keyword">in</span> `ls <span class="variable">$presolidnix</span>`
-    <span class="keyword">do</span>
-        solid=<span class="string">"<span class="variable">$presolidnix</span>/<span class="variable">$username</span>/<span class="variable">$suffsolid</span>"</span>
-        <span class="comment">#echo "FOR LOOP: $solid"</span>
-        <span class="keyword">if</span> [ <span class="operator">-d</span> <span class="string">"<span class="variable">$solid</span>"</span> ];
-        <span class="keyword">then</span>
-            <span class="comment">#echo "&gt;&gt;&gt;$solid exist&lt;&lt;&lt;"</span>
-            <span class="built_in">break</span>
-        <span class="keyword">fi</span>
-    <span class="keyword">done</span>
-<span class="comment"># 位置系统环境，退出</span>
-<span class="keyword">else</span>
-    <span class="built_in">echo</span> <span class="string">"Your System Seem to be Nothing with Windows spotlight Function!1"</span>
-    <span class="built_in">exit</span> <span class="number">1</span>
-<span class="keyword">fi</span>
-<span class="comment"># 检测，如果是在 bash 中，那么是否有聚焦功能</span>
-<span class="keyword">if</span> [ ! <span class="operator">-d</span> <span class="string">"<span class="variable">$solid</span>"</span> ];
-<span class="keyword">then</span>
-    <span class="built_in">echo</span> <span class="string">"Your System Seem to be Nothing with Windows spotlight Function!2"</span>
-    <span class="built_in">exit</span> <span class="number">2</span> 
-<span class="keyword">fi</span>
-dirpossible=`ls <span class="variable">$solid</span> | grep <span class="operator">-e</span> <span class="string">"^Microsoft.Windows.ContentDeliveryManager_"</span>`
-<span class="comment"># 是否有聚焦这个功能</span>
-<span class="keyword">if</span> [[ <span class="variable">$dirpossible</span> == <span class="string">""</span> ]];
-<span class="keyword">then</span>
-    <span class="built_in">echo</span> <span class="string">"Your Windows Version Does Not Support That Function!"</span>
-    <span class="built_in">exit</span> <span class="number">1</span>
-<span class="keyword">fi</span>
-
-<span class="comment"># 得到完整的聚焦图片存放路径</span>
-save=<span class="variable">${dir:="$solid/$dirpossible/LocalState/Assets"}</span>
-<span class="comment"># 进入聚焦文件夹</span>
-<span class="built_in">cd</span> <span class="variable">$dir</span>
-<span class="comment"># 进入聚焦文件夹失败，退出脚本</span>
-<span class="keyword">if</span> [ $? <span class="operator">-ne</span> <span class="number">0</span> ];
-<span class="keyword">then</span> 
-    <span class="built_in">echo</span> <span class="string">"Bad Dir Path, Check For Real"</span>
-    <span class="built_in">exit</span> <span class="number">1</span>
-<span class="keyword">fi</span>
-<span class="comment"># 遍历图片文件</span>
-<span class="built_in">echo</span> <span class="string">""</span>
-<span class="built_in">echo</span> <span class="string">"&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;"</span>
-<span class="built_in">echo</span> <span class="string">"Tring To rename the file which is Picture Before, Please Wait..."</span>
-<span class="built_in">echo</span> <span class="string">"         Your Source Dir : <span class="variable">$dir</span>"</span>
-<span class="built_in">echo</span> <span class="string">"         Destination Dir : <span class="variable">$destination</span> "</span>
-<span class="built_in">echo</span> <span class="string">"&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;"</span>
-<span class="keyword">for</span> file <span class="keyword">in</span> `ls`
-<span class="keyword">do</span>
-    <span class="comment"># 测试是否有非标准聚焦存储格式的文件存在</span>
-    <span class="keyword">if</span> [[ <span class="variable">$file</span> =~ <span class="string">"."</span> ]];
-    <span class="keyword">then</span>
-        <span class="built_in">echo</span> <span class="string">"Something Unknown has Been Detected: <span class="variable">$file</span>"</span>
-    <span class="keyword">else</span>
-        cp <span class="variable">$file</span> <span class="variable">$file</span>.jpg
-        <span class="comment"># 只要 1920 * 1080 的图片，其他分辨率的被本行过滤。</span>
-        <span class="comment"># 注 由于 bash 子系统现在对命令的支持尚不完善，故现在无法在 bash 中使用，此处bash</span>
-        <span class="comment"># 指的是 WSL(Windows Subsystem Linux/Bash on Windows)</span>
-        <span class="built_in">return</span>=`file <span class="variable">$file</span>.jpg | awk <span class="string">'{print $(NF-2)}'</span> | grep <span class="operator">-e</span> <span class="string">"^1920"</span>`
-        <span class="keyword">if</span> [[ <span class="string">"<span class="variable">$return</span>"</span> == <span class="string">""</span> ]];
-        <span class="keyword">then</span>
-            rm <span class="variable">$file</span>.jpg
-            <span class="built_in">continue</span>
-        <span class="keyword">fi</span>
-        mv <span class="variable">$file</span>.jpg <span class="variable">$destination</span>
-        <span class="built_in">echo</span> <span class="string">"Success : <span class="variable">$file</span>.jpg"</span>
-    <span class="keyword">fi</span>
-<span class="keyword">done</span>
-<span class="built_in">echo</span> <span class="string">"End The Task!"</span>
-</code></pre><ul>
-<li>代码可以去<a href="https://github.com/wrestle/windows-spotlight-getter" target="_blank" rel="external">这里</a>下载，复制也行</li>
-<li><p>上面这段代码实现了看起来挺简单的功能，之所以如此，是因为需要兼通两种不同的路径，举个栗子</p>
-<ul>
-<li><code>Windows</code> 下的路径<code>E:\your-path\</code></li>
-<li><code>Bash</code>下则是<code>/mnt/e/your-path/</code></li>
-</ul>
-</li>
-<li><p>可以看到，这里涉及了环境判断和路径转换的操作，尤其是在聚焦文件夹这里有许多坑</p>
-<ul>
-<li><code>WSL</code>系统，是一个完整的子系统，这意味着它有自己的用户名，即考虑通用性，无法使用<code>whoami</code>来获取用户名，以此构造路径。否则</li>
-<li><code>WSL</code>里跑的脚本和在<code>git Bash</code>里跑的就不一样了，导致<code>WSL</code>里的脚本所获取的路径不正确</li>
-<li><p>使用最原始的方法来解决这个问题： </p>
-<pre><code><span class="keyword">for</span> username <span class="keyword">in</span> <span class="string">`ls <span class="variable">$presolidnix</span>`</span>
-</code></pre></li>
-<li>遍历所有用户的名称，找到第一个拥有这个文件夹的就行了。这么久解决了不同系统，不同用户名的问题。</li>
-</ul>
-</li>
-<li><p>以上是坑点之一，另一个最致命的坑点在于命令的<strong>阉割</strong></p>
-<ul>
-<li>在最后一步操作中，我们需要过滤文件的分辨率，即只要<code>1920*1080</code>而不要其他分辨率的，按道理来说使用一个<code>file</code>命令配合<code>awk</code>抽取和<code>grep</code>匹配，可以轻松完全这个任务，但是</li>
-<li>万万没想到<code>WSL</code>中<code>file</code>竟然无法显示分辨率！</li>
-<li>要么去掉过滤这一步，把所有图片都拷贝过来，但是我没法容忍，所以就这样放弃<code>Bash On Windows</code>了，就当踩个坑</li>
-<li>这个脚本很完美的运行在<code>Git Bash</code>中，如果不介意分辨率的话，可以将那六行注释掉，也能很好的跑在<code>WSL</code>下。</li>
-</ul>
-</li>
-</ul>
-<h3 id="最后">最后</h3><ul>
-<li>还是不得不说，本次体验不太好，还是继续用虚拟机吧。</li>
-</ul>
-
+<li><p>重启后，打开<code>cmd</code> 或者 <code>PowerShell</code> 输入 <code>bash</code> 回车，就能看见这个子系统开始下载了，等下载完成可能需要重启，再重来一遍操作，就行了！</p>
+        
+          <p class="article-more-link">
+            <a href="/2016/11/03/Windows10以后.html#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/11/03/Windows10以后.html" data-id="civ1pi97z001tigltz20pc56o" class="article-share-link" data-share="baidu" data-title="Windows10以后">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/11/03/Windows10以后.html" data-id="civ1pmain001t6slt109lf2i3" class="article-share-link" data-share="baidu" data-title="Windows10以后">分享到</a>
       
 
       
@@ -376,7 +204,7 @@ save=<span class="variable">${dir:="$solid/$dirpossible/LocalState/Assets"}</spa
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/08/15/从50s到250ms.html" data-id="civ1pi97f001eigltezf9h243" class="article-share-link" data-share="baidu" data-title="从50s到250ms">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/08/15/从50s到250ms.html" data-id="civ1pmai7001e6sltygn7x02a" class="article-share-link" data-share="baidu" data-title="从50s到250ms">分享到</a>
       
 
       
@@ -461,7 +289,7 @@ save=<span class="variable">${dir:="$solid/$dirpossible/LocalState/Assets"}</spa
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/08/15/使用Vim.html" data-id="civ1pi97f0019igltfsjck7nx" class="article-share-link" data-share="baidu" data-title="使用Vim">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/08/15/使用Vim.html" data-id="civ1pmai700196sltc2v90nrr" class="article-share-link" data-share="baidu" data-title="使用Vim">分享到</a>
       
 
       
@@ -531,7 +359,7 @@ save=<span class="variable">${dir:="$solid/$dirpossible/LocalState/Assets"}</spa
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/07/29/后台开发之架构.html" data-id="civ1pi96k000riglt927tiw5e" class="article-share-link" data-share="baidu" data-title="后台开发之架构">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/07/29/后台开发之架构.html" data-id="civ1pmahs000r6sltf59lou54" class="article-share-link" data-share="baidu" data-title="后台开发之架构">分享到</a>
       
 
       
@@ -612,7 +440,7 @@ save=<span class="variable">${dir:="$solid/$dirpossible/LocalState/Assets"}</spa
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/04/09/直接理解红黑树旋转.html" data-id="civ1pi95p0004igltg6uzz6tp" class="article-share-link" data-share="baidu" data-title="直接理解红黑树旋转">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/04/09/直接理解红黑树旋转.html" data-id="civ1pmah500046sltromc1o02" class="article-share-link" data-share="baidu" data-title="直接理解红黑树旋转">分享到</a>
       
 
       
@@ -684,7 +512,7 @@ save=<span class="variable">${dir:="$solid/$dirpossible/LocalState/Assets"}</spa
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2016/03/28/使用tmux.html" data-id="civ1pi9700011igltkffgb1rw" class="article-share-link" data-share="baidu" data-title="使用tmux">分享到</a>
+        <a data-url="http://www.wushxin.top/2016/03/28/使用tmux.html" data-id="civ1pmai700116slt550s42cs" class="article-share-link" data-share="baidu" data-title="使用tmux">分享到</a>
       
 
       
