@@ -5,7 +5,7 @@
   <subtitle><![CDATA[狐狸永远是我的]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.wushxin.top//"/>
-  <updated>2016-11-03T02:04:50.057Z</updated>
+  <updated>2016-12-27T11:04:12.400Z</updated>
   <id>http://www.wushxin.top//</id>
   
   <author>
@@ -14,6 +14,246 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[2016总结]]></title>
+    <link href="http://www.wushxin.top/2016/12/27/2016%E6%80%BB%E7%BB%93.html"/>
+    <id>http://www.wushxin.top/2016/12/27/2016总结.html</id>
+    <published>2016-12-27T09:42:00.000Z</published>
+    <updated>2016-12-27T11:04:12.400Z</updated>
+    <content type="html"><![CDATA[<h3 id="2016-12-27">2016-12-27</h3><ul>
+<li>写下这份总结，也意味着我的大学历程进入了最后一个阶段了，心中不知什么滋味。</li>
+</ul>
+<blockquote>
+<p>自我沉默 <strong>…</strong></p>
+</blockquote>
+<ul>
+<li>回想本年的年初，我还在工作的边缘徘徊。虽然过程艰难，但对于自己的追求还是有了一定的回报，大学里我努力所获得的最大回报莫过于这份坚持，十年，二十年后，几十年后，无论何时的自己，在回头看看当年的往事，一定会无比感谢这份坚持。</li>
+<li>怎么说，这一年大概是几年大学历程中最忙于奔波的时候，无论是应聘，还是写程序，看演讲，参加月考。</li>
+<li>记得开春的时刻，我在踏上返校的途中，甚至手里还攥着一本 <strong>剑指offer</strong>，在细细钻研。现在想想还有些忍不住发笑。</li>
+<li>无论如何，在三月初飞机降落在哈尔滨的那一刻，我还是有些紧张的，毕竟这是两年以来第一次实践，也就是正式的应聘吧。这其中有一些趣事，知道十天前，我才恍然大悟，原来机会总是在某些时候不知觉的来到你的身边，只是你未曾察觉让其错过了而已。但是就算没有这些机会也不会妨碍你接近自己的梦想，这些机会不过是锦上添花罢了。</li>
+<li>整个三月，都在仔细的筛选各个公司的实习招聘中度过，不知道是因为投的比较谨慎，亦或者学校211名头还有些用处，竟然都没有被刷去简历，这也算是稍微松了一口气，但是与去年不同的是，今年大部分互联网公司，无论内推与否，均需要笔试这一个环节，令我十分疑惑，个人觉得这一环节是我最讨厌的部分，也是最没有用的部分，原因大家都心知肚明。</li>
+<li>时间转瞬来到了四月份，由于女友的邀约，伴着招聘带来的些许压力，我还是直接踏上了秦皇岛的旅途，我觉得在这里也许能找到一些不一样的新鲜事物。</li>
+</ul>
+<blockquote>
+<p>说的好像一个艺术家。</p>
+</blockquote>
+<ul>
+<li>无独有偶，我未来的东家实习生的招聘正好在这时候进行笔试，幸而带上了吃饭的家伙，否则现在就是另一番景象了，但是哪有那么多如果。我倒是觉得一切的偶然，都和之前所做的某些事情有着必然的联系。</li>
+<li><p>实际上，我之所以讨厌笔试的原因中，有一点占了挺大比重，就是我的笔试通过率低到发指，不知道是不是耿直还是什么，虽然周围室友都有些小手段，我还是依然坚持自己的做法，而实际上我在算法这方面的确有所欠缺，我还是比较喜欢在实际项目中应用<strong>算法与数据结构</strong>，而不是生硬的编写它们，因为我在挺早的大一下阅读算法导论之时就发现，即使我将书中的数据结构或者算法用具体语言实现之后，我在实际中我也需要对其进行极大的修正才能应用起来，这就极大的浪费了我的时间和精力去实现它们。</p>
+<ul>
+<li>与之相反，我在后半期的阅读中，并没有可以的实现某个算法和数据结构，而是理解它们的思想，尝试着自己去证明课后的习题。这样节省了一大把的时间，也能让我更快的投入到新的学习中去。</li>
+<li>并且从中学到了如何真正的把书读薄，那就是按部就班的顺序阅读并不是一个好的阅读习惯，在目录中节选自己希望的章节才是真正的阅读方式，因为目录是作者对这本书的初次总结，没有什么概论能比得上书的目录了。</li>
+</ul>
+</li>
+<li><p>在秦皇岛这段欢快惬意的日子里，我成功的度过了东家的笔试，也不知道为何，我竟然忘记了它，反而对其他的实习笔试耿耿于怀，但是这都并不妨碍之后事情的发展，相信自己做过的一切事情，这是大学中屡试不爽的心理暗示。</p>
+</li>
+<li><p>日子渐渐的过去，我在四月初的某一天返回了学校，继续我的项目。</p>
+<ul>
+<li>说起这个项目，其实还算是一个比较曲折的经历吧。</li>
+<li>记得在15年的学期末，我鼓起勇气投递了某金服的内推，实际上是找了一个员工帮我内推自己的简历，记得当时年少无知的我做的简历，现在翻出来看看，真是谢谢那个前辈没有当场退回。</li>
+<li>结果自然可想而知，连简历都没有过。如果当时不了了之的话，也就没有后来的我了，所以我说，这个世界上没有什么如果。</li>
+<li>在得知简历没有过的情况下，我还是厚着脸皮请教了不足，被告知了最重要的，也是最终决定我成功的一点，便是<strong>项目</strong></li>
+<li>在仔细询问了项目的类型之后，我终于知道了下一阶段的路线。</li>
+</ul>
+</li>
+<li><p>实际上这个项目在本月的月初，也就是去秦皇岛之前就接近尾声，剩下的就是完善项目细节了，毕竟这是一个网络项目，各种奇怪的问题层出不穷，这期间学到的各种调试技巧令我获益匪浅。</p>
+</li>
+<li>时间到了四月的中旬，那时候的我还是处于松懈等待的状态，几乎是去图书馆看书，吃饭，和上一届聊天，这种状态中徘徊。</li>
+<li>记得十分清楚，那是一个晚上，正和一个学长聊着要去什么公司的时候，东家的笔试通过短信就来了，那是夜晚十点半，也就是学校熄灯之后，通知隔几天去面试。</li>
+<li><p>从未有这么激动过，不知道是因为从未曾有过这种一线互联网公司实习的经历，还是其他因素，总之我还是在激动过后，冷静地准备起了面试的东西，记得那几天互联网的面试技巧被我犯了一个底朝天。</p>
+</li>
+<li><p>实际上真正的到了那一刻，也没有想象中的那么紧张，几乎第一面的时候，毫无压力的通过了，直到走出酒店以后，我甚至能感觉到自己已经通过了，一面还是注重基础，很遗憾我现在也没能找到当时一面的面试官。</p>
+</li>
+<li>终面的时候，是我印象最深刻的面试，记得当时走进酒店房间，就感觉一股厚重的技术大手气势迎面扑来，我当时第一个动作就是笑了一下，缓解了自己的压力，在自我介绍之后，我还是有意的撇开了自己比较薄弱的手写算法环节，而导向了自己精心准备的项目环节。不出意外，对于我这种本科生而言，这个面试官二话不说，直接 <code>git clone</code> 开始现场 <code>debug</code> 我的代码，这与我的设想有些出入，当时刚刚放松的心情，顿时开始忐忑起来，趁着面试官在扫我的代码的间隙，我拿出手机也快速的过了一遍自己的代码。</li>
+<li>饶是如此，我还是在这过程中因为紧张而忘记了某些细节，例如<code>EPIPE</code>的意义是什么？这个问题，在后来出门以后，我都有点怀疑自己为何迟迟答不上来，是不是穿越了。</li>
+<li>在紧张的半小时项目问答环节之后，还是在意料之中，开始了<code>Linux</code>系统内核的某些问题。我在此处犯了一个最傻的错误，“epoll 和 poll区别，在能不能这方面有什么区别”。</li>
+</ul>
+<blockquote>
+<p>总之还是很安全的度过了终面，这里的趣闻还是和这个终面面试官有关。知道前几天我才知道，我大二年无意中在微博上关注的某大手，竟然就是我终面的面试官。</p>
+</blockquote>
+<ul>
+<li>这次紧张的实习面试在五月份终于落下了帷幕，而我也成功的收到了东家实习生的通知，在七月初那个湿热的夏天，欣然前往。</li>
+<li>在学校进行了一些无聊的请假手续之后，在七月初的我，踏上了实习的旅途，那时候我还远远不知道即将到来的是一个翻天覆地的新认识。</li>
+<li>在这短短的两个月实习中，我经历了第一次<strong>必修挂科</strong>，第一次周围自己的学校是最差的，第一次和小组合作一个完整的<strong>前后终端</strong>项目，以及实习考核，加试，到最后的九月份拿到<code>offer</code>，事实上也就是这短短三个月的时间而已。</li>
+</ul>
+<blockquote>
+<p>事后回想起这段经历，依旧有些不敢置信。实际上，对于这段经历的总结还是要沉着，遇事不能急躁，做事可以果断，相信没有最差的结果，只有更好的事态发展。</p>
+</blockquote>
+<ul>
+<li>知道收取 <code>offer</code> 的那一刻，我才开始准备接下来的事宜，由于一直在安全领域有所涉猎，所以我这几年一直没有放弃这方面的追求，在些许 <code>offer</code> 中我还是有特地投递一个安全公司的，而这也为我下半年的经历有了一个举足轻重的填补。</li>
+</ul>
+<h3 id="下半年总结">下半年总结</h3><blockquote>
+<p>这大概是大学生涯中，最后一段实习了吧。互联网的经历已经不能满足我，在互联网的浪边看了许久，在鹅场里也翻滚了几个月，是时候该沉淀一下</p>
+</blockquote>
+<ul>
+<li>无所畏惧大概是我学到的第一个意识。万事开头难啊</li>
+<li>效率至上也是互联网的另一个标准，回想起八年前我所看到的IT行业，又是一种天翻地覆的变化，所以是时候该沉淀沉淀自己被行业所浮躁的心。</li>
+<li>这的确是一家文化很稳重的企业，步步为营，不加班，谦逊是每个同事的自带属性，即便是总技术经理，亦是待人客气。</li>
+</ul>
+<h4 id="新的挑战">新的挑战</h4><ul>
+<li>前期在学校的我，接触的无非就是系统调用，研究最多的还是网络程序的编写。依赖于伯克利套接字(Berkely Socket)的实现，我从未想过脱离内核实现的<code>TCP/IP</code>协议栈来实现一些东西</li>
+</ul>
+<blockquote>
+<p>或者换句话说，从未有跳出过这个思路实现功能的想法，这一回的经验给了我许多想法，现在的程序员都活在上一代程序员打造的象牙塔里，屏蔽了许多原本该头疼的事情，即使提高了所谓的<strong>开发效率</strong>，然而却也限制了开发思路。</p>
+</blockquote>
+<h4 id="Linux">Linux</h4><ul>
+<li>之前对于 <code>Linux</code> 内核的完全兼容性有一种盲目的自信，然而这一段实习却让我有了更好的认识，<strong>不要盲目相信</strong> 。这种细节的确需要时间的给予。</li>
+<li><p>在高性能网络开发中，最不可避免的还是网络开销，但是对于网络处理延迟却是被大家忽略了，或者换句话说，对比开发效率而被忽略了</p>
+<ul>
+<li>具体来说就是在一个网络包的生命周期里，我们关注的延迟往往是在网线/空气中的<strong>传输时间</strong>，但有多少人意识到，实际上从网卡收到包开始，到这个包真正送到你的应用层程序手里，者之间可是经历重重磨难。</li>
+<li>这对于高性能网络程序而言，可不是能够忽略的，诚然内核的<code>TCP/IP</code>协议栈为我们做了许多，但是<code>Linux</code>内核的<code>TCP/IP</code>协议栈为了顾虑许多不同的特定场景，必定不会为某方面做极致的优化，所谓中庸之道如是者也。</li>
+<li>那我们能做的就是在某些特定场景下，使用极致手段来替代，例如<code>Intel</code>的开源解决方案<code>DPDK</code>就是一个神奇的事物。</li>
+</ul>
+</li>
+<li><p>当一个<code>Linux</code>不再像之前的那样方便了呢？</p>
+<ul>
+<li>实际上，前三年的<code>Linux</code>学习是在是太过风顺了，一切都由包管理或者预装包来解决，导致一些细节没有学习到。</li>
+<li>例如网络配置，软件包安装，卸载，内核更换等。</li>
+</ul>
+</li>
+<li><p>实际上还是读书太少，眼界太窄，太多东西想学，但是又不知从何开始的感觉。</p>
+</li>
+</ul>
+<h4 id="其他">其他</h4><ul>
+<li>这个公司思维前卫，或者说敢于尝试新坑，与大公司相比，这种没有代码包袱的公司更易于尝试各种业界新框架，即便没有太过成熟的完整解决方案，但是可以靠技术人员的专研不断完善，这对新手而言是在是个不小的挑战，但也是一个很好的历练</li>
+<li>近来一直在研究高性能网络的软件架设，从最开始的<code>Socket</code>到后来的网卡直接读取<code>DPDK</code>，一直到心啊在研究<code>IA</code>架构下的软件代码优化问题</li>
+<li><p>一度让我以为很难有这种机会接触底层，现在却摆在我面前，不得不说这趟实习真的很值得。</p>
+</li>
+<li><p>事实上，对于<code>DPDK</code>这个产品只能是之前的我对这个网络世界没有太多的认知，陷入的一个后花园，一个由操作系统提供的后花园，所以，在遇到新的问题不容易跳出思维圈</p>
+</li>
+<li><p>近年来，很多产品敢于用新的高性能框架来实现，而这就是大公司所不能的地方，一方面是浪费人力物力时间，另一方面也是因为线上产品已经成型，贸然行动容易带来损失，加上老板如果不是技术出身，就更会否决这种想法，最多画地为牢，送你一纸集群实验罢了。</p>
+</li>
+<li><p>如今来兴起的 由KVM作者共同编写的数据库核武器<code>ScyllaDB</code>号称是<code>Cassandra</code>性能的十倍，靠得就是<code>DPDK</code>带来的网络包零拷贝，其组件中的<code>Seastar</code> 网络库使用<code>DPDK</code>构建了一个用户态的TCP/IP协议栈，这个让我心动不已，正愁没有什么方向写一个自己的协议栈。</p>
+</li>
+<li><p>在鹅场的时候，做的工作相对而言比较繁杂，或者说是自己的能力还不够突出，在这里我反而能够倾尽全力来释放一下自己，毕竟这是自己最擅长的领域，Linux底层C网络软件开发。很令人着迷，捡起了许多渐渐被淡忘的知识</p>
+</li>
+</ul>
+<blockquote>
+<p>GCC</p>
+</blockquote>
+<ul>
+<li><p>首先是 <code>gcc</code> 这个著名的编译套件，其中编译链接选项是一个普通学校的玩具程序中无法体会到的，虽然有意识到这一点，但毕竟是纸上谈兵，这回在使用<code>DPDK</code>开发编译的时候，渐渐意识到这个问题，实际上没有什么好记录的，就是一段官方介绍，比什么都好用:</p>
+<blockquote>
+<p>-llibrary</p>
+<p>-l library</p>
+<blockquote>
+<p> Search the library named library when linking. (The <strong><em>second</em></strong> alternative with the library as a separate argument is only for POSIX compliance and <strong>is not recommended.</strong>)</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<pre><code>&gt;&gt;  It makes a difference <span class="keyword">where</span> <span class="keyword">in</span> <span class="keyword">the</span> command you <span class="command">write</span> this option; <span class="keyword">the</span> linker searches <span class="keyword">and</span> processes libraries <span class="keyword">and</span> object files **<span class="keyword">in</span> <span class="keyword">the</span> order** they are **specified**. Thus, ‘foo.o -lz bar.o’ searches library ‘z’ <span class="keyword">after</span> <span class="type">file</span> foo.o <span class="keyword">but</span> <span class="keyword">before</span> bar.o. **If bar.o refers <span class="keyword">to</span> functions <span class="keyword">in</span> ‘z’, those functions may <span class="keyword">not</span> be loaded**.
+
+&gt;&gt;  The linker searches a standard <span class="type">list</span> <span class="keyword">of</span> directories <span class="keyword">for</span> <span class="keyword">the</span> library, which <span class="keyword">is</span> actually a <span class="type">file</span> named liblibrary.a. The linker <span class="keyword">then</span> uses this <span class="type">file</span> <span class="keyword">as</span> <span class="keyword">if</span> <span class="keyword">it</span> had been specified precisely <span class="keyword">by</span> <span class="property">name</span>.
+
+&gt;&gt;  The directories searched include several standard system directories plus any <span class="keyword">that</span> you specify <span class="keyword">with</span> -L.
+
+&gt;&gt;  Normally <span class="keyword">the</span> files found this way are library files—archive files <span class="keyword">whose</span> members are object files. The linker handles an archive <span class="type">file</span> <span class="keyword">by</span> scanning <span class="keyword">through</span> <span class="keyword">it</span> <span class="keyword">for</span> members which define symbols <span class="keyword">that</span> have so far been referenced <span class="keyword">but</span> <span class="keyword">not</span> defined. But <span class="keyword">if</span> <span class="keyword">the</span> <span class="type">file</span> <span class="keyword">that</span> <span class="keyword">is</span> found <span class="keyword">is</span> an ordinary object <span class="type">file</span>, <span class="keyword">it</span> <span class="keyword">is</span> linked <span class="keyword">in</span> <span class="keyword">the</span> usual fashion. The only difference <span class="keyword">between</span> using an -l option <span class="keyword">and</span> specifying a <span class="type">file</span> <span class="property">name</span> <span class="keyword">is</span> <span class="keyword">that</span> -l surrounds library <span class="keyword">with</span> ‘lib’ <span class="keyword">and</span> ‘.a’ <span class="keyword">and</span> searches several directories. 
+</code></pre><ul>
+<li>上述这段话的只能观点就在黑体字附近，<code>-l</code>的顺序是能够影响编译的正确结果的！</li>
+</ul>
+<blockquote>
+<p>内联汇编</p>
+</blockquote>
+<ul>
+<li>这是一个C/C++程序员的<strong>灰色地段</strong>，这几年一直找不到时间好好学习，但是却很有必要</li>
+<li>借此机会也好好实战了一番，总结了一点经验，记录一下</li>
+</ul>
+<ol>
+<li><p>一般使用的是 <strong>AT&amp;T</strong>格式</p>
+<ul>
+<li>格式为<code>command src dst</code></li>
+<li><p>寄存器以<code>%%</code>开头，常量以<code>$</code>开头，基址寻址使用括号<code>()</code>而不是中括号<code>[]</code></p>
+<pre><code>__asm__(<span class="string">"一系列标准的AT&amp;A汇编指令"</span>
+    : “输出操作数<span class="number">1</span>, 输出操作数<span class="number">2</span>， <span class="attribute">...</span>”
+    : <span class="string">"输入操作数, 输入操作数2, ..."</span>
+    : <span class="string">"寄存器1修饰, 寄存器2修饰, ..."</span>
+);
+</code></pre><p>  这是最标准的扩展内联汇编代码，一般看到的形式都是如此。<code>__asm__</code>是因为 ANSI C如此规定的。</p>
+<p>  每个冒号前后是一个不同的分组，分组的意义已经写出来了，每个分组里可以有许多并列的个体，用冒号隔开，即便某个分组没有，<strong>也不能把冒号省略</strong>。</p>
+<p>  寄存器修饰的意思就是，告诉<code>GCC</code>我修改了这些寄存器的值，所以你别再用这个寄存器去存你要存的值了。</p>
+<p>  输入/输出操作数略微有些复杂，情况比较多，其中之一就是我要把这个变量放到某个指定寄存器里，或者我这个变量不可以缓存进寄存器，只能直接在使用源地址上的值。</p>
+</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>之所以叫内联汇编，就是因为它是介于汇编和C/C++之间的桥梁，也意味着可以同时操作两边的变量。</p>
+<pre><code><span class="keyword">int</span> a = <span class="number">0</span>, b;
+__asm_<span class="number">_</span>(<span class="string">"movl <span class="variable">%1</span> <span class="variable">%%</span>eax\n\t"</span>
+        <span class="string">"movl <span class="variable">%%</span>eax <span class="variable">%0</span>\n\t"</span>
+        : <span class="string">"=r"</span> (b)
+        : <span class="string">"r"</span> (a)
+        : <span class="string">"<span class="variable">%eax</span>"</span>
+);·
+</code></pre><p>  C/C++任意连续的字符串都会被拼接成一个，而<code>\n\t</code>是为了生成的汇编代码更好看，可以去掉。</p>
+<p>  <code>=r</code>是代表输出，<code>r</code>代表的是输入，其中<code>r</code>的意思是选择任意一个可用的寄存器，可以将其记作<code>register</code>的缩写。</p>
+<p>  类似<code>%0</code>这种的就是，从第一个冒号开始，往后的操作数的代号，按顺序递增。这个代号代指实际某个寄存器，而此时<code>a</code>, <code>b</code>使用的是不同的随机分配的寄存器</p>
+</li>
+<li><p>如果想指定寄存器</p>
+<pre><code>: <span class="string">"=a"</span> <span class="comment">(b)</span>
+: <span class="string">"b"</span> <span class="comment">(a)</span>
+</code></pre><p>  这样就将变量<code>b</code> 指定存放在寄存器<code>eax</code>， 变量<code>a</code>制定存放在<code>ebx</code></p>
+<pre><code>: <span class="string">"=c"</span> <span class="comment">(b)</span>
+: <span class="string">"0"</span> <span class="comment">(a)</span>
+</code></pre><p>  这样的意思是，<code>a</code> 和<code>b</code> 同时使用一个寄存器<code>ecx</code>, 同理</p>
+<pre><code>: <span class="string">"=r"</span> <span class="comment">(b)</span>
+: <span class="string">"0"</span> <span class="comment">(a)</span>
+</code></pre><p>  这个的意思就很明显了，两个变量使用相同的一个寄存器，但具体是哪个寄存器就不懂了。</p>
+<p>  上述代码，不需要在<strong>寄存器修饰</strong>列表中添加任何寄存器，原因是这些指定的寄存器<code>GCC</code>知道它被用作它途！只有在汇编指令中显式使用了，才会需要加入这个列表。</p>
+</li>
+<li><p>但是，一定要注意，不要想当然的去写内联汇编，现代的GCC编译器，能做的远比你想象的多！换句话说，你写的汇编不一定能比你写的C快！如果你对计算机程序的优化并没有很深刻的了解学习的话，请不要擅自使用内联汇编，贻笑大方。</p>
+</li>
+</ul>
+<blockquote>
+<p>Makefile</p>
+</blockquote>
+<ul>
+<li><p>网上十分多的经典教程，记录一点就是，<code>Makefile</code>实际上挺简单，只要记住一点就行，想要什么就生成什么，没有什么就生成什么，步步为营<code>.out&lt;-.o&lt;-.c</code></p>
+</li>
+<li><p>我还是倾向使用<code>CMake</code>这种现代化的东西。</p>
+</li>
+</ul>
+<blockquote>
+<p>内核</p>
+</blockquote>
+<ul>
+<li>记住一点，内核作者也是一个程序员，只要是程序员就会犯错。</li>
+<li>未来的自己总会为之前犯过的错买单的。遇到内核接口变动，不要慌，换一个内核吧。</li>
+<li>编译内核是一个讨厌的工作，尽量找合适的有预编译的内核版本吧。</li>
+</ul>
+<blockquote>
+<p>Shell</p>
+</blockquote>
+<ul>
+<li><a href="http://www.wushxin.top/2016/11/03/Windows10%E4%BB%A5%E5%90%8E.html" target="_blank" rel="external">Shell相关</a></li>
+</ul>
+<blockquote>
+<p>Docker</p>
+</blockquote>
+<ul>
+<li><code>Docker</code>的意义就是隔离环境，在<code>Windows</code>下搭配<code>Vagrant</code>效果更佳，但是如果在<code>Linux</code>下的话，大可不必如此，虽然说网上到处是关于<code>Docker</code>的坑，但是在某些时候还是挺好用的</li>
+<li>例如测试，当一个项目依赖越多时，就越不容易测试，首当其冲的就是环境搭建！而<code>Docker</code>只需要搭建一次就好，远比虚拟机轻量，方便。镜像可以存储在云端，也可以存储在本地，各处去<code>run</code>。</li>
+<li><p>另一个就是，在开发时会遇到，文件拷贝同步的问题，这时候可以使用<code>Docker</code>的<code>volumn</code>功能，来实现目录的同步，很方便。</p>
+<pre><code>docker run -v `pwd`<span class="regexp">/host/</span><span class="string">path:</span><span class="regexp">/container/</span>path container-name
+</code></pre><p>  连接一个<code>Docker</code>的时候，尽量使用<code>exec</code></p>
+<pre><code>docker exec -<span class="keyword">it</span> container-<span class="property">name</span> /bin/bash
+</code></pre></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="2016-12-27">2016-12-27</h3><ul>
+<li>写下这份总结，也意味着我的大学历程进入了最后一个阶段了，心中不知什么滋味。</li>
+</ul>
+<blockquote>
+<p>自我沉默 <strong>…</strong></p>
+</b]]>
+    </summary>
+    
+      <category term="杂货居" scheme="http://www.wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Windows10以后]]></title>
@@ -5611,245 +5851,6 @@ test_sig.Q_SendSignal(); <span class="comment">//发射信号</span>
       <category term="Qt" scheme="http://www.wushxin.top/tags/Qt/"/>
     
       <category term="杂货居" scheme="http://www.wushxin.top/tags/%E6%9D%82%E8%B4%A7%E5%B1%85/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Opencv3.0.0配置]]></title>
-    <link href="http://www.wushxin.top/2015/06/08/Opencv3%E9%85%8D%E7%BD%AE.html"/>
-    <id>http://www.wushxin.top/2015/06/08/Opencv3配置.html</id>
-    <published>2015-06-08T08:26:15.000Z</published>
-    <updated>2016-03-24T23:59:58.858Z</updated>
-    <content type="html"><![CDATA[<h4 id="配置Opencv3-0-0">配置Opencv3.0.0</h4><p>前天，Opencv3.0.0的正式版本发布，不再有奇怪的缺少文件之类的错误，正好最近需要使用它来完成一些神经网络上的辅助，也就尝试了配置，下面记录配置的过程。</p>
-<h4 id="准备">准备</h4><ol>
-<li><a href="https://www.visualstudio.com/" target="_blank" rel="external">Visual Studio 2013</a></li>
-<li><a href="http://www.codeblocks.org/downloads/26" target="_blank" rel="external">Code::Blocks 13.12</a></li>
-<li><a href="http://opencv.org/downloads.html" target="_blank" rel="external">Opencv-3.0.0</a></li>
-<li><a href="http://www.cmake.org/download/" target="_blank" rel="external">CMake3.3.0-rc1-win32-x86</a></li>
-</ol>
-<h4 id="声明">声明</h4><ul>
-<li><p>按照自己的喜好来选择第一部分或者第二部分</p>
-</li>
-<li><p>第一部分 ： Visual Studio 2013 配置 Opencv3.0.0</p>
-</li>
-</ul>
-<ol>
-<li>Windows8.1 + 64位</li>
-<li>Opencv-3.0.0 的放置路径为 <strong>C:\opencv</strong></li>
-<li>Visual Studio 工程存放位置为 <strong>C:\VSProject</strong> 目录下<ul>
-<li>在此处建议，无论什么路径，都是用英文，并且不要使用空格，如果是操作系统自带的文件路径请看准是否有空格，否则配置这opencv会让你疯狂。</li>
-</ul>
-</li>
-<li>对于 <strong>Visual Studio 2013</strong> 来说，我们使用的官方编译好的文件夹所在位置是 <strong>vc12</strong>，我也不懂为什么，总之就是这样。</li>
-</ol>
-<ul>
-<li>第二部分 ： Code::Blocks 13.12 配置 Opencv3.0.0</li>
-</ul>
-<ol>
-<li>Windows8.1 + 64位</li>
-<li>Opencv-3.0.0待编译的源代码路径为 <strong>C:\opencv3</strong>（由Github上下载）</li>
-<li>Opencv编译完成的所有文件放于 <strong>C:\opencv\mybuild</strong>，即待会使用CMake输出的文件夹。</li>
-<li><strong>include</strong> 和第一部分相同，不同的只是 <strong>lib</strong> 和 <strong>bin</strong> 目录，我选择把<strong>bin</strong>目录全部拷贝到Debug文件夹里。</li>
-</ol>
-<h4 id="1_配置_Visual_Studio_2013">1 配置 Visual Studio 2013</h4><a id="more"></a>
-<p>有了上述两个工具之后，我们就可以着手配置自己的开发环境了，但是先要声明的是，每一个不同的工程项目就需要重新配置一次。</p>
-<ol>
-<li><p>工程项目是什么？就是 <strong>文件 -&gt; 新建 -&gt; 项目</strong>，在这里我们点击了项目之后出现一个窗口：<br><img src="http://ww3.sinaimg.cn/mw690/81b736ebjw1eswqwljr6jj211y0lc418.jpg" alt=""></p>
-<p> 图片可能不太清晰，但是大概是这么一个回事，修改一下名称，以及存储位置(为了方便)之后，点击 <strong>确定</strong> 之后 Visual Studio 自动帮你生成一个工程项目，这时候先停下，回到桌面。</p>
-<ul>
-<li>打开目录： <strong>C:\opencv\build\x64\vc12\bin</strong>，查看里面是否有文件，并将目录添加到系统环境变量(<strong>PATH</strong>)当中，如何添加？<ul>
-<li><img src="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwivdbyj20mz0cbdgq.jpg" alt=""> </li>
-<li><img src="http://ww1.sinaimg.cn/mw690/81b736ebjw1eswqwh92pcj20dp0gtq3c.jpg" alt=""></li>
-<li><img src="http://ww2.sinaimg.cn/mw690/81b736ebjw1eswqwgi9m8j20cp0fkdg7.jpg" alt=""></li>
-<li><img src="http://ww2.sinaimg.cn/mw690/81b736ebjw1eswqwkxxz0j20bh05adfs.jpg" alt=""></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>添加完环境变量以后，我们可以开始下一步的配置，根据第一步所创建的项目，我们打开它的属性管理器，当然很可能的就是你创建完成以后，自动就在这个界面，初始情况下，我们创建的是Win32(x86)的工程，这个时候我们需要做的就是，因地制宜。先前说了我是X86_64，也就是64位操作系统，那么我们就应该让整个环境适配他，<strong>(至于32位网上的教程很多)</strong></p>
-<ul>
-<li><p><img src="http://ww2.sinaimg.cn/mw690/81b736ebjw1eswqwkirl7j20880hh749.jpg" alt=""></p>
-<p>接下来，右键你的工程，选择 <strong>属性</strong>，可以很清楚的看见，右上角显示的是<strong>Win32</strong>，我们的目的是将其改为适配64位的开发环境：</p>
-</li>
-<li><img src="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwjcj8kj20lc0ea3zk.jpg" alt=""></li>
-<li>如图所示，点击配置管理器，选择X64，并在外面将目标计算机改成x64<ul>
-<li><img src="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwehzjxj20jw0e0aa7.jpg" alt=""></li>
-<li><img src="http://ww1.sinaimg.cn/mw690/81b736ebjw1eswqwf0k50j20jw0e0jrp.jpg" alt=""></li>
-<li><img src="http://ww3.sinaimg.cn/mw690/81b736ebjw1eswqwfiqf9j20lc0fc3zn.jpg" alt=""> </li>
-</ul>
-</li>
-<li>架构问题解决。接下去才是真正的配置步骤。</li>
-<li>在属性管理器中，打开你的工程看见四个包含文件夹，删除Win32的两个，留下x64，右键 <strong>Debug|x64</strong> 文件夹，选择 <strong>添加新项目属性表(P)…</strong>，保存为 <strong>opencv_debug</strong> 以后，会发现多了一个属性表文件，如法炮制<strong>Release|x64</strong>文件夹，接下来的操作直到第五步，其它的两个属性表都一样</li>
-<li><strong>(opencv_release)</strong></li>
-</ul>
-</li>
-<li><p>首先是打开任意一个属性表文件(双击它= =)，在 <strong>配置属性 -&gt; VC++目录 -&gt; 包含目录 -&gt; &lt;编辑…&gt;</strong>之中添加 <strong>include 目录</strong>，按照我的路径格式，需要添加三个路径分别是：</p>
-<blockquote>
-<p>C:\opencv\build\include</p>
-<p>C:\opencv\build\include\opencv</p>
-<p>C:\opencv\build\include\opencv2</p>
-</blockquote>
-<ul>
-<li><img src="http://ww3.sinaimg.cn/mw690/81b736ebjw1eswqwg1wm4j20lc0f4ab0.jpg" alt=""></li>
-</ul>
-</li>
-<li><p>其次是，在 <strong>配置属性 -&gt; VC++目录 -&gt; 库目录 -&gt; &lt;编辑…&gt;</strong>之中添加 <strong>lib</strong> 目录，按照我的路径格式，需要添加路径是：</p>
-<blockquote>
-<p>C:opencv\build\x64\vc12\lib</p>
-</blockquote>
-<ul>
-<li><img src="http://ww2.sinaimg.cn/mw690/81b736ebjw1eswqwhuj95j20lc0gaab2.jpg" alt=""><br>这个便是存放依赖文件的地方，后续会用到。</li>
-</ul>
-</li>
-<li><p>最后是，在 <strong>配置属性 -&gt; 链接器 -&gt; 输入 -&gt; 附加依赖项 -&gt; &lt;编辑…&gt;</strong> 之中添加依赖，对于 <strong>Opencv-3.0.0</strong> 来说，我们只需要添加两个依赖就足够了，此处分为两部分：</p>
-<ul>
-<li><p>对于<strong>Debug|x64</strong>，也就是当下我们正在配置的这个属性表，添加两个文件:</p>
-<blockquote>
-<p>opencv_ts300d.lib</p>
-<p>opencv_world300d.lib</p>
-</blockquote>
-<ul>
-<li><img src="http://ww1.sinaimg.cn/mw690/81b736ebjw1eswqwib94kj20sb0e1dh5.jpg" alt=""></li>
-</ul>
-</li>
-<li><p>对于 <strong>Release|x64</strong>的属性表来说，需要添加剩下的两个文件：</p>
-<blockquote>
-<p>opencv_ts300.lib</p>
-<p>opencv_world300.lib  </p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li>Ps: 对于其他版本的Opencv的依赖库添加，可以自行打开 <strong>lib</strong> 文件夹进行查看，不一定需要网上的教程。</li>
-<li>如果不想每次创建工程的时候都这么麻烦，那么我们只需要把两个属性表拷贝出来就行了，下次直接导入即可。 </li>
-<li>当两个属性表都配置完成之后，我们就大功告成啦，接下来进入最后一步，测试</li>
-</ol>
-<h4 id="测试">测试</h4><p>在 <strong>属性管理器</strong> 的旁边有一个 <strong>解决方案资源管理器</strong> ，点击之后，会发现这才是以后工作的场景</p>
-<ol>
-<li>在 <strong>源文件</strong> 文件夹中，添加C++源文件，在其中输入测试代码：<ul>
-<li><img src="http://ww2.sinaimg.cn/mw690/81b736ebjw1eswqwgxfdfj20j009o74r.jpg" alt=""></li>
-</ul>
-</li>
-</ol>
-<pre><code><span class="preprocessor">#<span class="keyword">include</span> &lt;iostream&gt; </span>
-<span class="preprocessor">#<span class="keyword">include</span> &lt;opencv2\core\core.hpp&gt;</span>
-<span class="preprocessor">#<span class="keyword">include</span> &lt;opencv2\highgui\highgui.hpp&gt;  </span>
-
-<span class="keyword">using</span> <span class="keyword">namespace</span> cv;
-<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;
-<span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span>
-</span>{
-    Mat img = imread(<span class="string">"temp.jpg"</span>);    
-
-    <span class="keyword">if</span> (img.empty())
-    {
-        <span class="built_in">cout</span> &lt;&lt; <span class="string">"error"</span>;
-        <span class="keyword">return</span> -<span class="number">1</span>;
-    }
-
-    imshow(<span class="string">"mypic"</span>, img);
-    waitKey();
-
-    <span class="keyword">return</span> <span class="number">0</span>;
-}
-</code></pre><p>保存。</p>
-<ol>
-<li>在 <strong>资源文件</strong> 文件夹中，添加图片<strong>temp.jpg</strong>，随便找一张格式是jpg的图，放进去就行，放进去的方式是 <strong>右键资源文件 -&gt; 添加 -&gt; 现有项(G)…</strong>，找到你的图片，双击，添加完成。</li>
-</ol>
-<ul>
-<li><img src="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwnccirj20iy076wer.jpg" alt=""></li>
-</ul>
-<ol>
-<li><p>点击 <strong>生成 -&gt; 生成解决方案</strong> ，之后点击 <strong>启动调试</strong> 也就是运行的意思。</p>
-</li>
-<li><p>很大的几率发现并不能正常的运行，错误提示无法打开PDB文件，查了一下，似乎尿性很高，于是乎有一个解决办法，不是无法打开吗？那就从微软的服务器在线下载过来，这个方法对每个工程都需要进行一次，但是第一次过后就不需要第二次了。请在联网情况下，完成下列操作，具体方法： </p>
-<ul>
-<li>依次点击 <strong>调试 -&gt; 选项与设置(G)…</strong> <ul>
-<li><img src="http://ww1.sinaimg.cn/mw690/81b736ebjw1eswqwd6uz9j20ag0e9jry.jpg" alt=""></li>
-</ul>
-</li>
-<li>之后选择 <strong>调试 -&gt; 常规</strong> ，勾选 <strong>启动源服务器支持</strong><ul>
-<li><img src="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwdmf0nj20l20dqjsk.jpg" alt=""></li>
-</ul>
-</li>
-<li>之后选择 <strong>调试 -&gt; 符号</strong> ，勾选 <strong>Microsoft服务器支持</strong><ul>
-<li><img src="http://ww4.sinaimg.cn/mw690/81b736ebjw1eswqwe3srkj20l20dqt9j.jpg" alt=""> </li>
-</ul>
-</li>
-<li>中间如果有警告，一律选择是。</li>
-</ul>
-</li>
-</ol>
-<h4 id="2_配置_Code::Blocks_13-12">2 配置 Code::Blocks 13.12</h4><ul>
-<li><p>首先打开安装好的 <strong>CMake-gui</strong>，在<strong>source code</strong>一栏加入源文件的路径，也就是下载的<strong>opencv</strong>里的<strong>source</strong>，在<strong>build binaries</strong>一栏加入输出的路径。</p>
-<ul>
-<li><img src="http://ww2.sinaimg.cn/mw690/81b736ebjw1esxo9ay0n5j20n20jdq30.jpg" alt=""></li>
-</ul>
-</li>
-<li><p>点击<strong>Tools -&gt; Configure</strong>，如图配置：</p>
-<ul>
-<li><img src="http://ww2.sinaimg.cn/mw690/81b736ebjw1esxo9bdr6hj20n20jdglz.jpg" alt=""></li>
-</ul>
-</li>
-<li>随后等待进度条，完成之后出现红色的选项，将<strong>WITH_IPP</strong>选项去掉，之后点击<strong>Options -&gt; Sipress dev Warnings</strong>，后点击<strong>Generate</strong>生成makefile文件：<ul>
-<li><img src="http://ww4.sinaimg.cn/mw690/81b736ebjw1esxo9bvra5j20n20jd0td.jpg" alt=""></li>
-</ul>
-</li>
-<li>随后等待进度条，完成之后，打开目录<strong>C:\opencv\mybuild</strong>，双击打开工程文件<strong>OpenCV.cbp</strong>开始编译，并附上编译后的文件夹图：<ul>
-<li><img src="http://ww1.sinaimg.cn/mw690/81b736ebjw1esxo9cnz6sj20h70eq0u6.jpg" alt=""></li>
-</ul>
-</li>
-<li>编译结束后，如果一切正常，将上图中的<strong>bin</strong>加入路径</li>
-<li>打开<strong>Code::Blocks</strong>，新建一个Console Application工程，右键工程名字，选择<strong>Build Option</strong>出现一个新窗口，在其中我们要开始配置<strong>Opencv</strong>：<ul>
-<li><img src="http://ww4.sinaimg.cn/mw690/81b736ebjw1esxo99ko98j20kw0fmq3c.jpg" alt=""></li>
-<li><img src="http://ww2.sinaimg.cn/mw690/81b736ebjw1esxo99xg7wj20kw0fmjrp.jpg" alt=""></li>
-<li><img src="http://ww4.sinaimg.cn/mw690/81b736ebjw1esxo9ajo5qj20rw0gataz.jpg" alt=""></li>
-</ul>
-</li>
-<li>添加测试文件（和VS的一样）。</li>
-</ul>
-<h4 id="结束">结束</h4><p>就是这样如果还有什么错误的话，不妨去Google看看，比如dll不存在的问题，那一定是你没有把要使用的bin目录加入到系统环境当中</p>
-<p>转载注明: www.wushxin.top/2015/06/08/Opencv3配置.html</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h4 id="配置Opencv3-0-0">配置Opencv3.0.0</h4><p>前天，Opencv3.0.0的正式版本发布，不再有奇怪的缺少文件之类的错误，正好最近需要使用它来完成一些神经网络上的辅助，也就尝试了配置，下面记录配置的过程。</p>
-<h4 id="准备">准备</h4><ol>
-<li><a href="https://www.visualstudio.com/">Visual Studio 2013</a></li>
-<li><a href="http://www.codeblocks.org/downloads/26">Code::Blocks 13.12</a></li>
-<li><a href="http://opencv.org/downloads.html">Opencv-3.0.0</a></li>
-<li><a href="http://www.cmake.org/download/">CMake3.3.0-rc1-win32-x86</a></li>
-</ol>
-<h4 id="声明">声明</h4><ul>
-<li><p>按照自己的喜好来选择第一部分或者第二部分</p>
-</li>
-<li><p>第一部分 ： Visual Studio 2013 配置 Opencv3.0.0</p>
-</li>
-</ul>
-<ol>
-<li>Windows8.1 + 64位</li>
-<li>Opencv-3.0.0 的放置路径为 <strong>C:\opencv</strong></li>
-<li>Visual Studio 工程存放位置为 <strong>C:\VSProject</strong> 目录下<ul>
-<li>在此处建议，无论什么路径，都是用英文，并且不要使用空格，如果是操作系统自带的文件路径请看准是否有空格，否则配置这opencv会让你疯狂。</li>
-</ul>
-</li>
-<li>对于 <strong>Visual Studio 2013</strong> 来说，我们使用的官方编译好的文件夹所在位置是 <strong>vc12</strong>，我也不懂为什么，总之就是这样。</li>
-</ol>
-<ul>
-<li>第二部分 ： Code::Blocks 13.12 配置 Opencv3.0.0</li>
-</ul>
-<ol>
-<li>Windows8.1 + 64位</li>
-<li>Opencv-3.0.0待编译的源代码路径为 <strong>C:\opencv3</strong>（由Github上下载）</li>
-<li>Opencv编译完成的所有文件放于 <strong>C:\opencv\mybuild</strong>，即待会使用CMake输出的文件夹。</li>
-<li><strong>include</strong> 和第一部分相同，不同的只是 <strong>lib</strong> 和 <strong>bin</strong> 目录，我选择把<strong>bin</strong>目录全部拷贝到Debug文件夹里。</li>
-</ol>
-<h4 id="1_配置_Visual_Studio_2013">1 配置 Visual Studio 2013</h4>]]>
-    
-    </summary>
-    
-      <category term="Cpp" scheme="http://www.wushxin.top/tags/Cpp/"/>
-    
-      <category term="Opencv" scheme="http://www.wushxin.top/tags/Opencv/"/>
     
   </entry>
   

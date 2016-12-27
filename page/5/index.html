@@ -97,6 +97,82 @@ var _hmt = _hmt || [];
     <div class="outer">
       <section id="main">
   
+    <article id="post-我为什么学C(3)" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/13/我为什么学C(3).html" class="article-date">
+  <time datetime="2015-05-13T09:17:49.000Z" itemprop="datePublished">2015-05-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/13/我为什么学C(3).html">我为什么学C(3)---预处理器</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="本章更新于_2015-05-16">本章更新于 2015-05-16</h2><h4 id="0x06-C语言预处理器">0x06-C语言预处理器</h4><p><strong>预处理最大的标志便是大写，虽然这不是标准，但请你在使用的时候大写，为了自己，也为了后人。</strong></p>
+<p>预处理器在一般看来，用得最多的还是宏，这里总结一下预处理器的用法。</p>
+<pre><code><span class="id">#include</span> &lt;stdio.h&gt;
+<span class="hexcolor">#def</span>ine MACRO_OF_MINE
+<span class="id">#ifdef</span> MACRO_OF_MINE
+<span class="id">#else</span>
+#endif
+</code></pre><p>上述五个预处理是最常看见的，第一个代表着包含一个头文件，可以理解为没有它很多功能都无法使用，例如C语言并没有把输入输入纳入标准当中，而是使用库函数来提供，所以只有包含了<code>stdio.h</code>这个头文件，我们才能使用那些输入输出函数。<br><code>#define</code>则是使用频率第二高的预处理机制，广泛用在常量的定义，只不过它和<code>const</code>声明的常量有所所区别:</p>
+<pre><code><span class="preprocessor">#<span class="keyword">define</span> MAR_VA 100</span>
+<span class="keyword">const</span> <span class="keyword">int</span> Con_va = <span class="number">100</span>;
+...
+<span class="comment">/*定义两个数组*/</span>
+...
+<span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">10</span>;++i)
+{
+    mar_arr[i] = MAR_VA;
+    con_arr[i] = Con_va;
+}
+</code></pre><ul>
+<li>区别1,定义上<code>MAR_VA</code>可以用于数组维数，而<code>Con_va</code>则不行</li>
+<li>区别2,在使用时，MAR_VA的原理是在文中找到所有使用本身的地方，用值替代，也就是说<code>Con_va</code>将只有一分真迹，而<code>MAR_VA</code>则会有<code>n</code>份真迹(n为使用的次数)<br>剩下三个则是在保护头文件中使用颇多。
+        
+          <p class="article-more-link">
+            <a href="/2015/05/13/我为什么学C(3).html#more">Read More</a>
+          </p>
+        
+      
+    </div>
+    <footer class="article-footer">
+      
+        <a data-url="http://www.wushxin.top/2015/05/13/我为什么学C(3).html" data-id="cix7ep36g000ldcltpymhom0z" class="article-share-link" data-share="baidu" data-title="我为什么学C(3)---预处理器">分享到</a>
+      
+
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/">C</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+            
+  
     <article id="post-我为什么学C(2)" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/05/13/我为什么学C(2).html" class="article-date">
@@ -154,7 +230,7 @@ var _hmt = _hmt || [];
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/05/13/我为什么学C(2).html" data-id="civ1pmahs000n6sltcb94i7fe" class="article-share-link" data-share="baidu" data-title="我为什么学C(2)---指针">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/05/13/我为什么学C(2).html" data-id="cix7ep36k000ndcltzyb5d63q" class="article-share-link" data-share="baidu" data-title="我为什么学C(2)---指针">分享到</a>
       
 
       
@@ -268,7 +344,7 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/05/12/我为什么学C(1).html" data-id="civ1pmahs000p6sltgrr1drrp" class="article-share-link" data-share="baidu" data-title="我为什么学C(1)---开篇">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/05/12/我为什么学C(1).html" data-id="cix7ep36n000pdclty4kpw16y" class="article-share-link" data-share="baidu" data-title="我为什么学C(1)---开篇">分享到</a>
       
 
       
@@ -340,7 +416,7 @@ for<span class="comment">(int i = 0;i &lt; 10;++i)</span>
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/05/10/Python-lib安装.html" data-id="civ1pmaj200206slt9dy8nnrz" class="article-share-link" data-share="baidu" data-title="Python-lib安装">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/05/10/Python-lib安装.html" data-id="cix7ep37v0020dcltxg5k4lio" class="article-share-link" data-share="baidu" data-title="Python-lib安装">分享到</a>
       
 
       
@@ -406,7 +482,7 @@ elif statemen<span class="variable">t:</span>
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/05/10/Python学习笔记.html" data-id="civ1pmaj2001y6sltnnab0cqq" class="article-share-link" data-share="baidu" data-title="Python学习笔记">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/05/10/Python学习笔记.html" data-id="cix7ep37u001ydclt6th47l3j" class="article-share-link" data-share="baidu" data-title="Python学习笔记">分享到</a>
       
 
       
@@ -479,80 +555,7 @@ fout.open();
     </div>
     <footer class="article-footer">
       
-        <a data-url="http://www.wushxin.top/2015/05/10/C-流操作-续.html" data-id="civ1pmajy002t6sltkbnjqo9f" class="article-share-link" data-share="baidu" data-title="C++流操作(续)">分享到</a>
-      
-
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cpp/">Cpp</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-<script>
-(function(){
-    var bp = document.createElement('script');
-    bp.src = '//push.zhanzhang.baidu.com/push.js';
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(bp, s);
-})();
-</script>
-            
-  
-    <article id="post-C-流操作" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/05/10/C-流操作.html" class="article-date">
-  <time datetime="2015-05-09T23:47:37.000Z" itemprop="datePublished">2015-05-10</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/10/C-流操作.html">C++流操作</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C++流的使用">C++流的使用</h1><h2 id="每次使用完流,记得要关闭,虽然有时候并不是必须的-">每次使用完流,记得要关闭,虽然有时候并不是必须的.</h2><p><code>streamname.close();</code></p>
-<h2 id="重定向">重定向</h2><p>   在Linux终端或者Windows命令提示符模式下,使用重定向可以改变输入源和输出源</p>
-<p>   <code>~$ program &lt;input.filetype&gt;output.filetype</code> </p>
-<p>   在Linux和Unix下, <code>&gt;</code> <code>&lt;</code> 默认是标准输出和标准输入, <code>2&gt;</code> 则是标准错误(即<code>std::cerr</code>)</p>
-<h2 id="输出流">输出流</h2><ol>
-<li><p><code>ostream</code> 类提供了 <code>put()</code> 和 <code>write()</code> 方法用来输出 </p>
-<pre><code><span class="built_in">cout</span>.put(<span class="string">'W'</span>); <span class="comment">//输出字符Ｗ,可以拼接使用就像重载之后的 '&lt;&lt;'</span>
-<span class="built_in">cout</span>.write(<span class="string">"Candy Bob"</span>,<span class="number">5</span>); <span class="comment">//输出第一个参数的第二个参数个长度</span>
-</code></pre></li>
-<li><p>刷新输出缓冲区可以有两种方法,原理都是重载 <code>&lt;&lt;</code> </p>
-<ul>
-<li><p>前者与后者的差别就在与后者刷新缓冲区后多了一个换行操作</p>
-<pre><code><span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; flush; <span class="comment">//相当于flush(cout);</span>
-<span class="built_in">cout</span> &lt;&lt; <span class="string">"Show Now!"</span> &lt;&lt; endl;  
-</code></pre></li>
-</ul>
-</li>
-<li><p>可以通过流操作修改现实的进制, 默认十进制,十六进制,八进制 </br></p>
-        
-          <p class="article-more-link">
-            <a href="/2015/05/10/C-流操作.html#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      
-        <a data-url="http://www.wushxin.top/2015/05/10/C-流操作.html" data-id="civ1pmaji002r6sltevu5lelm" class="article-share-link" data-share="baidu" data-title="C++流操作">分享到</a>
+        <a data-url="http://www.wushxin.top/2015/05/10/C-流操作-续.html" data-id="cix7ep38k002tdclt359tns34" class="article-share-link" data-share="baidu" data-title="C++流操作(续)">分享到</a>
       
 
       
@@ -591,7 +594,7 @@ fout.open();
   <div class="widget-wrap">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GDB/">GDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">13</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络编程/">网络编程</a><span class="tag-list-count">4</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/">C</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/">Cpp</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GDB/">GDB</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/">Linux</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Opencv/">Opencv</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/">Qt</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/php/">php</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vim/">vim</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/分布式/">分布式</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂货居/">杂货居</a><span class="tag-list-count">14</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/架构/">架构</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/算法/">算法</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网站/">网站</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/网络编程/">网络编程</a><span class="tag-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -609,7 +612,7 @@ fout.open();
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">十二月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">十月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">九月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">八月 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">七月 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">六月 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">五月 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -619,6 +622,10 @@ fout.open();
     <h3 class="widget-title">近期文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/12/27/2016总结.html">2016总结</a>
+          </li>
         
           <li>
             <a href="/2016/11/03/Windows10以后.html">Windows10以后</a>
@@ -634,10 +641,6 @@ fout.open();
         
           <li>
             <a href="/2016/07/29/后台开发之架构.html">后台开发之架构</a>
-          </li>
-        
-          <li>
-            <a href="/2016/04/09/直接理解红黑树旋转.html">直接理解红黑树旋转</a>
           </li>
         
       </ul>
