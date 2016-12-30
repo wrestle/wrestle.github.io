@@ -5,7 +5,7 @@
   <subtitle><![CDATA[狐狸永远是我的]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.wushxin.top//"/>
-  <updated>2016-12-30T08:36:12.208Z</updated>
+  <updated>2016-12-30T08:51:29.445Z</updated>
   <id>http://www.wushxin.top//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.wushxin.top/2016/12/27/2016%E6%80%BB%E7%BB%93.html"/>
     <id>http://www.wushxin.top/2016/12/27/2016总结.html</id>
     <published>2016-12-27T09:42:00.000Z</published>
-    <updated>2016-12-30T08:36:12.208Z</updated>
+    <updated>2016-12-30T08:51:29.445Z</updated>
     <content type="html"><![CDATA[<h3 id="2016-12-27">2016-12-27</h3><ul>
 <li>写下这份总结，也意味着我的大学历程进入了最后一个阶段了，心中不知什么滋味。</li>
 </ul>
@@ -142,10 +142,7 @@
 <p>-l library</p>
 <blockquote>
 <p> Search the library named library when linking. (The <strong><em>second</em></strong> alternative with the library as a separate argument is only for POSIX compliance and <strong>is not recommended.</strong>)</p>
-<p> It makes a difference where in the command you write this option; the linker searches and processes libraries and object files **in the </p>
-</blockquote>
-<p>order<strong> they are </strong>specified<strong>. Thus, ‘foo.o -lz bar.o’ searches library ‘z’ after file foo.o but before bar.o. </strong>If bar.o refers to functions in ‘z’, those functions may not be loaded**.</p>
-<blockquote>
+<p> It makes a difference where in the command you write this option; the linker searches and processes libraries and object files <strong>in the order</strong> they are <strong>specified</strong>. Thus, ‘foo.o -lz bar.o’ searches library ‘z’ after file foo.o but before bar.o. <strong>If bar.o refers to functions in ‘z’, those functions may not be loaded</strong>.</p>
 <p> The linker searches a standard list of directories for the library, which is actually a file named liblibrary.a. The linker then uses this file as if it had been specified precisely by name.</p>
 <p> The directories searched include several standard system directories plus any that you specify with -L.</p>
 <p> Normally the files found this way are library files—archive files whose members are object files. The linker handles an archive file by scanning through it for members which define symbols that have so far been referenced but not defined. But if the file that is found is an ordinary object file, it is linked in the usual fashion. The only difference between using an -l option and specifying a file name is that -l surrounds library with ‘lib’ and ‘.a’ and searches several directories. </p>
